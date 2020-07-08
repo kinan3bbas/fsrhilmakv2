@@ -107,6 +107,7 @@ namespace fsrhilmakv2.Models
         public System.Data.Entity.DbSet<UserWork> UserWorks { get; set; }
 
         public System.Data.Entity.DbSet<UserWorkBinding> UserWorkBindings { get; set; }
+        public System.Data.Entity.DbSet<SystemParameter> SystemParameters { get; set; }
     }
 
 }
