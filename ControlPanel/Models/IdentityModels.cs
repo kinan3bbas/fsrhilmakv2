@@ -61,7 +61,8 @@ namespace ControlPanel.Models
 
         public string SocialState { get; set; }
 
-        public ICollection<UserWork> userWork { get; set; }
+        //public ICollection<UserWork> userWork { get; set; }
+        public ICollection<UserWorkBinding> userWorkBinding { get; set; }
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
@@ -82,5 +83,19 @@ namespace ControlPanel.Models
         {
             return new ApplicationDbContext();
         }
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            // configures one-to-many relationship
+            modelBuilder.Entity<UserWorkBinding>()
+                .HasRequired<ApplicationUser>(s => s.User)
+                .WithMany(g => g.userWorkBinding)
+                .HasForeignKey<string>(s => s.UserId);
+
+            base.OnModelCreating(modelBuilder);
+        }
+
+        public System.Data.Entity.DbSet<ControlPanel.Models.UserWork> UserWorks { get; set; }
+
+        //public System.Data.Entity.DbSet<ControlPanel.Models.ApplicationUser> ApplicationUsers { get; set; }
     }
 }

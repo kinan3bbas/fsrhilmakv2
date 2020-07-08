@@ -192,6 +192,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\UserWorksController.cs" />
     <Compile Include="Extras\BasicModel.cs" />
     <Compile Include="Extras\BasicRepository.cs" />
     <Compile Include="Global.asax.cs">
@@ -201,6 +202,7 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\UserWork.cs" />
+    <Compile Include="Models\UserWorkBinding.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -261,9 +263,65 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Shared\_PLayout.cshtml" />
+    <Content Include="Views\UserWorks\Create.cshtml" />
+    <Content Include="Views\UserWorks\Delete.cshtml" />
+    <Content Include="Views\UserWorks\Details.cshtml" />
+    <Content Include="Views\UserWorks\Edit.cshtml" />
+    <Content Include="Views\UserWorks\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="assets\app\js\" />
+    <Folder Include="assets\app\media\img\bg\" />
+    <Folder Include="assets\app\media\img\blog\" />
+    <Folder Include="assets\app\media\img\client-logos\" />
+    <Folder Include="assets\app\media\img\envato\" />
+    <Folder Include="assets\app\media\img\error\" />
+    <Folder Include="assets\app\media\img\files\" />
+    <Folder Include="assets\app\media\img\flags\" />
+    <Folder Include="assets\app\media\img\icons\" />
+    <Folder Include="assets\app\media\img\logos\" />
+    <Folder Include="assets\app\media\img\misc\" />
+    <Folder Include="assets\app\media\img\products\" />
+    <Folder Include="assets\app\media\img\users\" />
+    <Folder Include="assets\demo\demo11\base\" />
+    <Folder Include="assets\demo\demo11\custom\components\base\" />
+    <Folder Include="assets\demo\demo11\custom\components\calendar\" />
+    <Folder Include="assets\demo\demo11\custom\components\charts\amcharts\" />
+    <Folder Include="assets\demo\demo11\custom\components\maps\" />
+    <Folder Include="assets\demo\demo11\custom\components\portlets\" />
+    <Folder Include="assets\demo\demo11\custom\components\utils\" />
+    <Folder Include="assets\demo\demo11\custom\crud\datatables\basic\" />
+    <Folder Include="assets\demo\demo11\custom\crud\forms\validation\" />
+    <Folder Include="assets\demo\demo11\custom\crud\forms\widgets\" />
+    <Folder Include="assets\demo\demo11\custom\crud\metronic-datatable\api\" />
+    <Folder Include="assets\demo\demo11\custom\crud\metronic-datatable\base\" />
+    <Folder Include="assets\demo\demo11\custom\crud\metronic-datatable\child\" />
+    <Folder Include="assets\demo\demo11\custom\crud\metronic-datatable\locked\" />
+    <Folder Include="assets\demo\demo11\custom\crud\metronic-datatable\scrolling\" />
+    <Folder Include="assets\demo\demo11\custom\crud\wizard\" />
+    <Folder Include="assets\demo\demo11\custom\header\" />
+    <Folder Include="assets\demo\demo11\media\img\logo\" />
+    <Folder Include="assets\snippets\apps\mail\" />
+    <Folder Include="assets\snippets\custom\apps\mail\" />
+    <Folder Include="assets\snippets\custom\pages\user\" />
+    <Folder Include="assets\vendors\base\fonts\flaticon\" />
+    <Folder Include="assets\vendors\base\fonts\fontawesome5\" />
+    <Folder Include="assets\vendors\base\fonts\line-awesome\" />
+    <Folder Include="assets\vendors\base\fonts\metronic\" />
+    <Folder Include="assets\vendors\base\fonts\socicon\" />
+    <Folder Include="assets\vendors\base\fonts\summernote\" />
+    <Folder Include="assets\vendors\base\images\ion-rangeslider\" />
+    <Folder Include="assets\vendors\base\images\jstree\" />
+    <Folder Include="assets\vendors\base\images\owl.carousel\" />
+    <Folder Include="assets\vendors\custom\datatables\" />
+    <Folder Include="assets\vendors\custom\flot\" />
+    <Folder Include="assets\vendors\custom\fullcalendar\" />
+    <Folder Include="assets\vendors\custom\gmaps\" />
+    <Folder Include="assets\vendors\custom\jquery-ui\images\" />
+    <Folder Include="assets\vendors\custom\jqvmap\" />
+    <Folder Include="Images\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
