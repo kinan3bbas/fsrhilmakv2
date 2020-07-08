@@ -7,13 +7,13 @@ namespace fsrhilmakv2.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class users1 : IMigrationMetadata
+    public sealed partial class updatebinding : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(users1));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(updatebinding));
         
         string IMigrationMetadata.Id
         {
-            get { return "202006191741434_users1"; }
+            get { return "202007072025569_updatebinding"; }
         }
         
         string IMigrationMetadata.Source

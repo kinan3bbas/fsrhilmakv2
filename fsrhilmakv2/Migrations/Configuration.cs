@@ -20,7 +20,7 @@ namespace fsrhilmakv2.Migrations
             //context.Roles.AddOrUpdate(
             //    new IdentityRole { Name = "Admin" },
             //    new IdentityRole { Name = "Client" },
-            //    new IdentityRole { Name = "Interpreter" }
+            //    new IdentityRole { Name = "Service_Provider" }
             //    );
             //  This method will be called after migrating to the latest version.
 

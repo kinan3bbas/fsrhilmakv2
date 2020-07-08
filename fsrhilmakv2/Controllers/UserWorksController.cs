@@ -25,6 +25,8 @@ namespace fsrhilmakv2.Controllers
     builder.EntitySet<ApplicationUser>("ApplicationUsers"); 
     config.Routes.MapODataServiceRoute("odata", "odata", builder.GetEdmModel());
     */
+
+        [AllowAnonymous]
     public class UserWorksController : ODataController
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -91,8 +93,8 @@ namespace fsrhilmakv2.Controllers
 
             userWork.CreationDate = DateTime.Now;
             userWork.LastModificationDate = DateTime.Now;
-            userWork.Creator = core.getCurrentUser();
-            userWork.Modifier = core.getCurrentUser();
+            //userWork.Creator = core.getCurrentUser();
+            //userWork.Modifier = core.getCurrentUser();
             db.UserWorks.Add(userWork);
             db.SaveChanges();
 
@@ -152,19 +154,19 @@ namespace fsrhilmakv2.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // GET: odata/UserWorks(5)/Creator
-        [EnableQuery]
-        public SingleResult<ApplicationUser> GetCreator([FromODataUri] int key)
-        {
-            return SingleResult.Create(db.UserWorks.Where(m => m.id == key).Select(m => m.Creator));
-        }
+        //// GET: odata/UserWorks(5)/Creator
+        //[EnableQuery]
+        //public SingleResult<ApplicationUser> GetCreator([FromODataUri] int key)
+        //{
+        //    return SingleResult.Create(db.UserWorks.Where(m => m.id == key).Select(m => m.Creator));
+        //}
 
-        // GET: odata/UserWorks(5)/Modifier
-        [EnableQuery]
-        public SingleResult<ApplicationUser> GetModifier([FromODataUri] int key)
-        {
-            return SingleResult.Create(db.UserWorks.Where(m => m.id == key).Select(m => m.Modifier));
-        }
+        //// GET: odata/UserWorks(5)/Modifier
+        //[EnableQuery]
+        //public SingleResult<ApplicationUser> GetModifier([FromODataUri] int key)
+        //{
+        //    return SingleResult.Create(db.UserWorks.Where(m => m.id == key).Select(m => m.Modifier));
+        //}
 
         protected override void Dispose(bool disposing)
         {

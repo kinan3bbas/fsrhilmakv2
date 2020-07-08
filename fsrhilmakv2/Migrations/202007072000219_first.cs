@@ -3,7 +3,7 @@ namespace fsrhilmakv2.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class users1 : DbMigration
+    public partial class first : DbMigration
     {
         public override void Up()
         {
@@ -67,6 +67,7 @@ namespace fsrhilmakv2.Migrations
                         FireBaseId = c.String(),
                         PersonalDescription = c.String(),
                         verifiedInterpreter = c.Boolean(nullable: false),
+                        SocialState = c.String(),
                         Email = c.String(maxLength: 256),
                         EmailConfirmed = c.Boolean(nullable: false),
                         PasswordHash = c.String(),
@@ -107,20 +108,71 @@ namespace fsrhilmakv2.Migrations
                 .ForeignKey("dbo.AspNetUsers", t => t.UserId, cascadeDelete: true)
                 .Index(t => t.UserId);
             
+            CreateTable(
+                "dbo.UserWorkBindings",
+                c => new
+                    {
+                        id = c.Int(nullable: false, identity: true),
+                        UserWorkId = c.Int(nullable: false),
+                        UserId = c.String(maxLength: 128),
+                        CreationDate = c.DateTime(nullable: false),
+                        LastModificationDate = c.DateTime(nullable: false),
+                        CreatorId = c.String(maxLength: 128),
+                        ModifierId = c.String(maxLength: 128),
+                        AttachmentId = c.Long(nullable: false),
+                        ApplicationUser_Id = c.String(maxLength: 128),
+                    })
+                .PrimaryKey(t => t.id)
+                .ForeignKey("dbo.AspNetUsers", t => t.CreatorId)
+                .ForeignKey("dbo.AspNetUsers", t => t.ModifierId)
+                .ForeignKey("dbo.AspNetUsers", t => t.UserId)
+                .ForeignKey("dbo.UserWorks", t => t.UserWorkId, cascadeDelete: true)
+                .ForeignKey("dbo.AspNetUsers", t => t.ApplicationUser_Id)
+                .Index(t => t.UserWorkId)
+                .Index(t => t.UserId)
+                .Index(t => t.CreatorId)
+                .Index(t => t.ModifierId)
+                .Index(t => t.ApplicationUser_Id);
+            
+            CreateTable(
+                "dbo.UserWorks",
+                c => new
+                    {
+                        id = c.Int(nullable: false, identity: true),
+                        CreationDate = c.DateTime(nullable: false),
+                        LastModificationDate = c.DateTime(nullable: false),
+                        Name = c.String(),
+                        AdjectiveName = c.String(),
+                        Enabled = c.Boolean(nullable: false),
+                    })
+                .PrimaryKey(t => t.id);
+            
         }
         
         public override void Down()
         {
+            DropForeignKey("dbo.UserWorkBindings", "ApplicationUser_Id", "dbo.AspNetUsers");
+            DropForeignKey("dbo.UserWorkBindings", "UserWorkId", "dbo.UserWorks");
+            DropForeignKey("dbo.UserWorkBindings", "UserId", "dbo.AspNetUsers");
+            DropForeignKey("dbo.UserWorkBindings", "ModifierId", "dbo.AspNetUsers");
+            DropForeignKey("dbo.UserWorkBindings", "CreatorId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserRoles", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserLogins", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
+            DropIndex("dbo.UserWorkBindings", new[] { "ApplicationUser_Id" });
+            DropIndex("dbo.UserWorkBindings", new[] { "ModifierId" });
+            DropIndex("dbo.UserWorkBindings", new[] { "CreatorId" });
+            DropIndex("dbo.UserWorkBindings", new[] { "UserId" });
+            DropIndex("dbo.UserWorkBindings", new[] { "UserWorkId" });
             DropIndex("dbo.AspNetUserLogins", new[] { "UserId" });
             DropIndex("dbo.AspNetUserClaims", new[] { "UserId" });
             DropIndex("dbo.AspNetUsers", "UserNameIndex");
             DropIndex("dbo.AspNetUserRoles", new[] { "RoleId" });
             DropIndex("dbo.AspNetUserRoles", new[] { "UserId" });
             DropIndex("dbo.AspNetRoles", "RoleNameIndex");
+            DropTable("dbo.UserWorks");
+            DropTable("dbo.UserWorkBindings");
             DropTable("dbo.AspNetUserLogins");
             DropTable("dbo.AspNetUserClaims");
             DropTable("dbo.AspNetUsers");
