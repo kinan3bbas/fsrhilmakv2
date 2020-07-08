@@ -71,6 +71,9 @@ namespace fsrhilmakv2.Models
         public string UserName { get; set; }
 
         public Boolean VerifiedInterpreter { get; set; }
+
+        public List<UserWorkBinding> UserWorks { get; set; }
+        public List<string> UserRoles { get; set; }
     }
 
     public class UserLoginInfoViewModel

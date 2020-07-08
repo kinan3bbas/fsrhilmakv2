@@ -6,6 +6,7 @@ using Microsoft.AspNet.Identity.Owin;
 using System.ComponentModel.DataAnnotations;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 
 namespace fsrhilmakv2.Models
 {
@@ -66,7 +67,7 @@ namespace fsrhilmakv2.Models
 
         public string SocialState { get; set; }
 
-        public ICollection<UserWork> userWork { get; set; }
+        public ICollection<UserWorkBinding> userWorkBinding { get; set; }
 
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager, string authenticationType)
@@ -90,7 +91,22 @@ namespace fsrhilmakv2.Models
             return new ApplicationDbContext();
         }
 
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            // configures one-to-many relationship
+            modelBuilder.Entity<UserWorkBinding>()
+                .HasRequired<ApplicationUser>(s => s.User)
+                .WithMany(g => g.userWorkBinding)
+                .HasForeignKey<string>(s => s.UserId);
+
+            base.OnModelCreating(modelBuilder);
+        }
+
+
         public System.Data.Entity.DbSet<Attachment> Attachments { get; set; }
         public System.Data.Entity.DbSet<UserWork> UserWorks { get; set; }
+
+        public System.Data.Entity.DbSet<UserWorkBinding> UserWorkBindings { get; set; }
     }
+
 }

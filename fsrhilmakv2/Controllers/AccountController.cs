@@ -17,6 +17,7 @@ using fsrhilmakv2.Models;
 using fsrhilmakv2.Providers;
 using fsrhilmakv2.Results;
 using System.Linq;
+using System.Data.Entity;
 
 namespace fsrhilmakv2.Controllers
 {
@@ -62,6 +63,7 @@ namespace fsrhilmakv2.Controllers
             ExternalLoginData externalLogin = ExternalLoginData.FromIdentity(User.Identity as ClaimsIdentity);
 
             ApplicationUser user = core.getCurrentUser();
+            var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
             //UsersDeviceTokens token = db.UsersDeviceTokens.Where(a => a.UserId.Equals(user.Id)).FirstOrDefault();
             if (user.Type.Equals(CoreController.UserType.Client.ToString()))
             {
@@ -74,9 +76,12 @@ namespace fsrhilmakv2.Controllers
                     phoneNumber = user.PhoneNumber,
                     Id = user.Id,
                     UserName = user.UserName,
-                    SocialStatus=user.SocialState
+                    SocialStatus = user.SocialState,
+                    UserRoles = userManager.GetRoles(user.Id).ToList()
                 };
             }
+
+            List<UserWorkBinding> userWork = db.UserWorkBindings.Where(a => a.UserId.Equals(user.Id)).Include("UserWork").ToList();
             return new UserInfoViewModel
             {
                 Email = User.Identity.GetUserName(),
@@ -93,7 +98,12 @@ namespace fsrhilmakv2.Controllers
                 phoneNumber = user.PhoneNumber,
                 PersonalDescription = user.PersonalDescription,
                 Id = user.Id,
-                VerifiedInterpreter = user.verifiedInterpreter
+                VerifiedInterpreter = user.verifiedInterpreter,
+                UserWorks= userWork,
+                UserName=user.UserName,
+                UserRoles = userManager.GetRoles(user.Id).ToList(),
+                SocialStatus=user.SocialState
+
 
             };
         }
@@ -405,7 +415,7 @@ namespace fsrhilmakv2.Controllers
 
 
             // Interpreter
-            if (model.Type.Equals(CoreController.UserType.Interpreter.ToString()))
+            if (model.Type.Equals(CoreController.UserType.Service_Provider.ToString()))
             {
                 var user = new ApplicationUser()
                 {
@@ -421,14 +431,42 @@ namespace fsrhilmakv2.Controllers
                     Country = model.Country,
                     JoiningDate = DateTime.Now,
                     PictureId = model.PictureId,
-                    Status = CoreController.UserStatus.Not_Active.ToString(),
+                    Status = CoreController.UserStatus.Active.ToString(),
                     Type = model.Type,
                     CreationDate = DateTime.Now,
                     LastModificationDate = DateTime.Now,
                     verifiedInterpreter = false
                 };
+                
+                
+                
+                List<UserWork> userworks = db.UserWorks.ToList();
+                ICollection<UserWorkBinding> userWorksToBind = new List<UserWorkBinding>();
+                if (model.UserWork != null && model.UserWork.Count > 0)
+                {
+
+                    foreach (var item in model.UserWork)
+                    {
+                        UserWorkBinding temp=new UserWorkBinding
+                        {
+                            CreationDate = DateTime.Now,
+                            LastModificationDate=DateTime.Now,
+                            UserId = user.Id,
+                            User = user,
+                            UserWork = userworks.Where(a => a.id.Equals(item.id)).ToList()[0],
+                            UserWorkId = item.id
+
+                        };
+                        db.UserWorkBindings.Add(temp);
+                        userWorksToBind.Add(temp);
+                    }
+                    
+                    user.userWorkBinding = userWorksToBind;
+                    //db.Entry(user).State = EntityState.Modified;
+                    //db.SaveChanges();
+                }
                 result = await UserManager.CreateAsync(user, model.Password);
-                await UserManager.AddToRoleAsync(user.Id, "Interpreter");
+                await UserManager.AddToRoleAsync(user.Id, "Service_Provider");
             }
             //IdentityResult result = await UserManager.CreateAsync(user, model.Password);
 

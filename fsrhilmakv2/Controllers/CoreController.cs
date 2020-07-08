@@ -23,7 +23,7 @@ namespace fsrhilmakv2.Controllers
 
         public  enum UserStatus { Active, Not_Active, Deleted };
 
-        public  enum UserType { Interpreter, Client, Admin };
+        public  enum UserType { Service_Provider, Client, Admin };
 
         public CoreController() { }
 
