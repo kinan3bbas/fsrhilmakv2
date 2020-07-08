@@ -271,6 +271,7 @@
     <Compile Include="Models\Attachment.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\SystemParameter.cs" />
+    <Compile Include="Models\ServicePath.cs" />
     <Compile Include="Models\UserWorkBinding.cs" />
     <Compile Include="Models\UserWork.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
