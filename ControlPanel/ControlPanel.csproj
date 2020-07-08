@@ -204,15 +204,27 @@
     <Compile Include="Models\UserWork.cs" />
     <Compile Include="Models\UserWorkBinding.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resources\Home.ar.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Home.ar.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\Home.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Home.resx</DependentUpon>
+    </Compile>
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="assets\demo\demo11\base\style.bundle.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\Logo.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
@@ -285,7 +297,6 @@
     <Folder Include="assets\app\media\img\misc\" />
     <Folder Include="assets\app\media\img\products\" />
     <Folder Include="assets\app\media\img\users\" />
-    <Folder Include="assets\demo\demo11\base\" />
     <Folder Include="assets\demo\demo11\custom\components\base\" />
     <Folder Include="assets\demo\demo11\custom\components\calendar\" />
     <Folder Include="assets\demo\demo11\custom\components\charts\amcharts\" />
@@ -321,7 +332,6 @@
     <Folder Include="assets\vendors\custom\gmaps\" />
     <Folder Include="assets\vendors\custom\jquery-ui\images\" />
     <Folder Include="assets\vendors\custom\jqvmap\" />
-    <Folder Include="Images\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -335,6 +345,16 @@
   <ItemGroup>
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Home.ar.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Home.ar.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Home.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Home.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
