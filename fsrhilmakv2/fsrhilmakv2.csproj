@@ -265,12 +265,25 @@
     <Compile Include="Migrations\202007081226302_systemparameters.Designer.cs">
       <DependentUpon>202007081226302_systemparameters.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202007091440178_serviceProvider.cs" />
+    <Compile Include="Migrations\202007091440178_serviceProvider.Designer.cs">
+      <DependentUpon>202007091440178_serviceProvider.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202007091441475_serviceProvider1.cs" />
+    <Compile Include="Migrations\202007091441475_serviceProvider1.Designer.cs">
+      <DependentUpon>202007091441475_serviceProvider1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202007091442395_serviceProvider2.cs" />
+    <Compile Include="Migrations\202007091442395_serviceProvider2.Designer.cs">
+      <DependentUpon>202007091442395_serviceProvider2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Attachment.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\SystemParameter.cs" />
+    <Compile Include="Models\ServicePath.cs" />
     <Compile Include="Models\UserWorkBinding.cs" />
     <Compile Include="Models\UserWork.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -367,6 +380,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202007081226302_systemparameters.resx">
       <DependentUpon>202007081226302_systemparameters.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202007091440178_serviceProvider.resx">
+      <DependentUpon>202007091440178_serviceProvider.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202007091441475_serviceProvider1.resx">
+      <DependentUpon>202007091441475_serviceProvider1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202007091442395_serviceProvider2.resx">
+      <DependentUpon>202007091442395_serviceProvider2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
