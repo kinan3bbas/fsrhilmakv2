@@ -52,7 +52,7 @@ namespace fsrhilmakv2.Models
 
         public string PictureId { get; set; }
 
-        public int numbOfDreamsInOneDay { get; set; }
+        public int AvgServicesInOneDay { get; set; }
 
         public int Age { get; set; }
 
@@ -62,18 +62,20 @@ namespace fsrhilmakv2.Models
 
         public string Id { get; set; }
 
-        public int NumberOfActiveDreams { get; set; }
+        public int NumberOfActiveServices { get; set; }
 
-        public int NumberOfDoneDreams { get; set; }
+        public int NumberOfDoneServices { get; set; }
 
         public string SocialStatus { get; set; }
 
         public string UserName { get; set; }
 
-        public Boolean VerifiedInterpreter { get; set; }
+        public Boolean VerifiedUser { get; set; }
 
         public List<UserWorkBinding> UserWorks { get; set; }
         public List<string> UserRoles { get; set; }
+
+        public double Speed { get; set; }
     }
 
     public class UserLoginInfoViewModel

@@ -98,7 +98,7 @@ namespace fsrhilmakv2.Controllers
                 phoneNumber = user.PhoneNumber,
                 PersonalDescription = user.PersonalDescription,
                 Id = user.Id,
-                VerifiedInterpreter = user.verifiedInterpreter,
+                VerifiedUser = user.verifiedInterpreter,
                 UserWorks= userWork,
                 UserName=user.UserName,
                 UserRoles = userManager.GetRoles(user.Id).ToList(),
@@ -625,6 +625,43 @@ namespace fsrhilmakv2.Controllers
                 _random.GetBytes(data);
                 return HttpServerUtility.UrlTokenEncode(data);
             }
+        }
+
+        [AllowAnonymous]
+        [Route("GetSingleUserInfo")]
+        public UserInfoViewModel GetSingleUserInfo([FromUri]string id)
+        {
+
+            ApplicationUser user = db.Users.Find(id);
+            var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
+            List<UserWorkBinding> userWork = db.UserWorkBindings.Where(a => a.UserId.Equals(user.Id)).Include("UserWork").ToList();
+            //UsersDeviceTokens token = db.UsersDeviceTokens.Where(a => a.UserId.Equals(user.Id)).FirstOrDefault();
+            return new UserInfoViewModel
+            {
+                Email = User.Identity.GetUserName(),
+                Age = user.Age,
+                Country = user.Country,
+                JobDescription = user.JobDescription,
+                JoiningDate = user.JoiningDate,
+                Name = user.Name,
+                MartialStatus = user.MartialStatus,
+                PictureId = user.PictureId,
+                Sex = user.Sex,
+                Status = user.Status,
+                Type = user.Type,
+                phoneNumber = user.PhoneNumber,
+                PersonalDescription = user.PersonalDescription,
+                FireBaseId = user.FireBaseId,
+                Id = user.Id,
+                HasRegistered = user.verifiedInterpreter,
+                UserWorks = userWork,
+                NumberOfActiveServices = 10,
+                NumberOfDoneServices = 10,
+                Speed = 10,
+                AvgServicesInOneDay = 10,
+                UserRoles = userManager.GetRoles(user.Id).ToList()
+                
+            };
         }
 
         #endregion
