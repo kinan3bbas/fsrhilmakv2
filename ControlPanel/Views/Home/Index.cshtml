@@ -1,31 +1,89 @@
 ﻿@{
     ViewBag.Title = "Home Page";
+    Layout = "~/Views/Shared/_PLayout.cshtml";
 }
-
 <div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+    <h1>@Resources.Global.Statistics</h1>
+    <p class="lead">
+        <div class="row" style="font-size:large">
+            <div class="col-md-6 col-sm-6 "><span> @Resources.Global.All_Users: </span> <span id="AllUsers"> value</span></div>
+            <div class="col-md-6 col-sm-6"><span> @Resources.Global.Admins: </span> <span id="Admins"> value</span></div>
+        </div>
+        <div class="row " style="font-size:large">
+            <div class="col-md-6 col-sm-6 "><span> @Resources.Global.Clients: </span> <span id="Clients"> value</span></div>
+            <div class="col-md-6 col-sm-6"><span> @Resources.Global.serviceprovider: </span> <span id="Service Provider"> value</span></div>
+        </div>
+        <div class="row" style="font-size:large">
+            <div class="col-md-6 col-sm-6 "><span> @Resources.Global.All_services: </span> <span id="AllServices"> value</span></div>
+            <div class="col-md-6 col-sm-6"><span> @Resources.Global.Active_services: </span> <span id="ActiveServices"> value</span></div>
+        </div>
+        <div class="row" style="font-size:large">
+            <div class="col-md-6 col-sm-6 "><span> @Resources.Global.Done_services: </span> <span id="DoneServices"> value</span></div>
+            <div class="col-md-6 col-sm-6 "><span> @Resources.Global.OnlineUsers: </span> <span id="onlineUsers"> value</span></div>
+        </div>
+    </p>
+    <p></p>
 </div>
-
 <div class="row">
     <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+        <h2>Services List</h2>
+        <p><a class="btn btn-default" href="@Url.Action("Index","Services")">@Resources.Global.services &raquo;</a></p>
+        <p><a class="btn btn-default" href="@Url.Action("Create","Services")">@Resources.Global.Add_service &raquo;</a></p>
     </div>
     <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
+        <h2>Service  Paths</h2>
+        <p><a class="btn btn-default" href="@Url.Action("Index","InterprationPaths")">@Resources.Global.service_Paths &raquo;</a></p>
+        <p><a class="btn btn-default" href="@Url.Action("Create","InterprationPaths")">@Resources.Global.Add_path &raquo;</a></p>
     </div>
     <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+        <h2>Service Provider</h2>
+        <p><a class="btn btn-default" href="@Url.Action("Service Provider","Account")">@Resources.Global.serviceprovider &raquo;</a></p>
     </div>
 </div>
+@section Scripts
+{
+    <script type="text/javascript">
+    $(document).ready(function () {
+        WorkExperienceLoadData();
+
+    });
+    function WorkExperienceLoadData() {
+        $.ajax({
+            type: 'GET',
+            url: '@Url.Action("getAllStatistics", "Account")',
+            dataType: 'json',
+            data: {},
+            success: function (data) {
+            var items = '';
+            $('#AllServices').text(data.AllServices);
+            $('#ActiveServices').text(data.allActiveServices);
+            $('#DoneServices').text(data.allDoneServices);
+            $('#Service Provider').text(data.allService Provider);
+            $('#Clients').text(data.allClients);
+            $('#Admins').text(data.allAdmins);
+            $('#AllUsers').text(data.allUsers);
+            $('#onlineUsers').text(data.onlineUsers);
+
+
+
+            //$.each(data, function (i, item) {
+            //var from_date = item.From;
+            //var to_date = item.To;
+            //var from =  new Date(parseInt(from_date.substr(6)));
+            //var to = new Date(parseInt(to_date.substr(6)))
+
+            //$('#AllServices').
+
+            //});
+            },
+            error: function (ex) {
+            var r = jQuery.parseJSON(response.responseText);
+            alert("Message: " + r.Message);
+            alert("StackTrace: " + r.StackTrace);
+            alert("ExceptionType: " + r.ExceptionType);
+            }
+            });
+            return false;
+       }
+    </script>
+}

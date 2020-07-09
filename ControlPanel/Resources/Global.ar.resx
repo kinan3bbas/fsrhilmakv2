@@ -117,13 +117,58 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Add" xml:space="preserve">
-    <value>Add</value>
+  <data name="Active_services" xml:space="preserve">
+    <value>الخدمات النشطة</value>
   </data>
-  <data name="Create" xml:space="preserve">
-    <value>Create</value>
+  <data name="AddNewMessage" xml:space="preserve">
+    <value>اضف رسالة جديدة</value>
   </data>
-  <data name="Edit" xml:space="preserve">
-    <value>Edit</value>
+  <data name="AddNewRatio" xml:space="preserve">
+    <value>اضف تقييم جديد</value>
+  </data>
+  <data name="Add_path" xml:space="preserve">
+    <value>أضف مسار</value>
+  </data>
+  <data name="Add_service" xml:space="preserve">
+    <value>اضف خدمة</value>
+  </data>
+  <data name="Admins" xml:space="preserve">
+    <value>المدراء</value>
+  </data>
+  <data name="All_services" xml:space="preserve">
+    <value>كل الخدمات</value>
+  </data>
+  <data name="All_Users" xml:space="preserve">
+    <value>جميع المستخدمين</value>
+  </data>
+  <data name="BalanceRatio" xml:space="preserve">
+    <value>معدل التقييم</value>
+  </data>
+  <data name="BASIC_FUNCTIONS" xml:space="preserve">
+    <value>الوظائف الرئيسية</value>
+  </data>
+  <data name="Clients" xml:space="preserve">
+    <value>المستخدمون</value>
+  </data>
+  <data name="Contact_us" xml:space="preserve">
+    <value>اتصل بنا</value>
+  </data>
+  <data name="Cost" xml:space="preserve">
+    <value>الكلفة</value>
+  </data>
+  <data name="Done_services" xml:space="preserve">
+    <value>الخدمات المنجزة</value>
+  </data>
+  <data name="Service" xml:space="preserve">
+    <value>الخدمة</value>
+  </data>
+  <data name="Servicepath" xml:space="preserve">
+    <value>مسار الخدمة</value>
+  </data>
+  <data name="Serviceprovider" xml:space="preserve">
+    <value>مزود الخدمة</value>
+  </data>
+  <data name="Services" xml:space="preserve">
+    <value>الخدمات</value>
   </data>
 </root>

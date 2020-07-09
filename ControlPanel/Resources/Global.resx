@@ -117,13 +117,106 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Add" xml:space="preserve">
-    <value>اضافة</value>
+  <data name="Active_services" xml:space="preserve">
+    <value>Active services</value>
   </data>
-  <data name="Create" xml:space="preserve">
-    <value>انشاء</value>
+  <data name="Add_service" xml:space="preserve">
+    <value>Add service</value>
   </data>
-  <data name="Edit" xml:space="preserve">
-    <value>تعديل</value>
+  <data name="Add_path" xml:space="preserve">
+    <value>Add Path</value>
+  </data>
+  <data name="Admins" xml:space="preserve">
+    <value>Admins</value>
+  </data>
+  <data name="All_services" xml:space="preserve">
+    <value>All services</value>
+  </data>
+  <data name="All_Users" xml:space="preserve">
+    <value>All Users</value>
+  </data>
+  <data name="BalanceRatio" xml:space="preserve">
+    <value>Balance Ratio</value>
+  </data>
+  <data name="BASIC_FUNCTIONS" xml:space="preserve">
+    <value>BASIC FUNCTIONS</value>
+  </data>
+  <data name="Clients" xml:space="preserve">
+    <value>Clients</value>
+  </data>
+  <data name="Contact_us" xml:space="preserve">
+    <value>Contact us Messages</value>
+  </data>
+  <data name="Done_services" xml:space="preserve">
+    <value>Done services</value>
+  </data>
+  <data name="services" xml:space="preserve">
+    <value>services</value>
+  </data>
+  <data name="Home" xml:space="preserve">
+    <value>Home</value>
+  </data>
+  <data name="service_Paths" xml:space="preserve">
+    <value>service Paths</value>
+  </data>
+  <data name="serviceprovider" xml:space="preserve">
+    <value>service provider</value>
+  </data>
+  <data name="service provider_List" xml:space="preserve">
+    <value>service providerList</value>
+  </data>
+  <data name="Messages" xml:space="preserve">
+    <value>Messages</value>
+  </data>
+  <data name="Payments" xml:space="preserve">
+    <value>Payments</value>
+  </data>
+  <data name="PersonalInformation" xml:space="preserve">
+    <value>Presonal Information</value>
+  </data>
+  <data name="Ratings" xml:space="preserve">
+    <value>Ratings</value>
+  </data>
+  <data name="Register" xml:space="preserve">
+    <value>Register</value>
+  </data>
+  <data name="Reports" xml:space="preserve">
+    <value>Reports</value>
+  </data>
+  <data name="Statistics" xml:space="preserve">
+    <value>Statistics</value>
+  </data>
+  <data name="System" xml:space="preserve">
+    <value>System</value>
+  </data>
+  <data name="User_List" xml:space="preserve">
+    <value>User List</value>
+  </data>
+  <data name="User_List_All" xml:space="preserve">
+    <value>User List</value>
+  </data>
+  <data name="AddNewRatio" xml:space="preserve">
+    <value>Add New Ratio</value>
+  </data>
+  <data name="Cost" xml:space="preserve">
+    <value>Cost</value>
+  </data>
+  <data name="Ratio" xml:space="preserve">
+    <value>Ratio</value>
+  </data>
+  <data name="RatioForEachPath" xml:space="preserve">
+    <value>Ratio For Each Path</value>
+  </data>
+  <data name="AddNewMessage" xml:space="preserve">
+    <value>Add New Message</value>
+  </data>
+  <data name="Message" xml:space="preserve">
+    <value>Message</value>
+  </data>
+  <data name="DeletedUsers" xml:space="preserve">
+    <value>Deleted Users</value>
+  </data>
+  <data name="OnlineUsers" xml:space="preserve">
+    <value>Online Users</value>
   </data>
 </root>

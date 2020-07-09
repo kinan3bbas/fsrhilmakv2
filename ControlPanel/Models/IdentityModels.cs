@@ -96,6 +96,9 @@ namespace ControlPanel.Models
 
         public System.Data.Entity.DbSet<ControlPanel.Models.UserWork> UserWorks { get; set; }
 
+        public System.Data.Entity.DbSet<ControlPanel.Models.SystemParameter> SystemParameters { get; set; }
+
+
         //public System.Data.Entity.DbSet<ControlPanel.Models.ApplicationUser> ApplicationUsers { get; set; }
     }
 }

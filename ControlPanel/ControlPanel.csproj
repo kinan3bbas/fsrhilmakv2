@@ -192,6 +192,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\SystemParametersController.cs" />
     <Compile Include="Controllers\UserWorksController.cs" />
     <Compile Include="Extras\BasicModel.cs" />
     <Compile Include="Extras\BasicRepository.cs" />
@@ -201,18 +202,29 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\SystemParameter.cs" />
     <Compile Include="Models\UserWork.cs" />
     <Compile Include="Models\UserWorkBinding.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Resources\Home.ar.Designer.cs">
+    <Compile Include="Resources\Global.ar.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Home.ar.resx</DependentUpon>
+      <DependentUpon>Global.ar.resx</DependentUpon>
     </Compile>
-    <Compile Include="Resources\Home.Designer.cs">
+    <Compile Include="Resources\Global.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Home.resx</DependentUpon>
+      <DependentUpon>Global.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\UserWork.ar.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>UserWork.ar.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\UserWork.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>UserWork.resx</DependentUpon>
     </Compile>
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -281,6 +293,11 @@
     <Content Include="Views\UserWorks\Details.cshtml" />
     <Content Include="Views\UserWorks\Edit.cshtml" />
     <Content Include="Views\UserWorks\Index.cshtml" />
+    <Content Include="Views\SystemParameters\Create.cshtml" />
+    <Content Include="Views\SystemParameters\Delete.cshtml" />
+    <Content Include="Views\SystemParameters\Details.cshtml" />
+    <Content Include="Views\SystemParameters\Edit.cshtml" />
+    <Content Include="Views\SystemParameters\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -347,14 +364,24 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Resources\Home.ar.resx">
+    <EmbeddedResource Include="Resources\Global.ar.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>Home.ar.Designer.cs</LastGenOutput>
+      <LastGenOutput>Global.ar.Designer.cs</LastGenOutput>
       <CustomToolNamespace>Resources</CustomToolNamespace>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\Home.resx">
+    <EmbeddedResource Include="Resources\Global.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>Home.Designer.cs</LastGenOutput>
+      <LastGenOutput>Global.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>Resources</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\UserWork.ar.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>UserWork.ar.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>Resources</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\UserWork.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>UserWork.Designer.cs</LastGenOutput>
       <CustomToolNamespace>Resources</CustomToolNamespace>
     </EmbeddedResource>
   </ItemGroup>

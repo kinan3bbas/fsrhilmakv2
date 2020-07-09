@@ -7,7 +7,7 @@
 
 
 
-<h1>user Works</h1>
+<h1>@Resources.UserWork.userworks</h1>
 <br />
 <link href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css" />
 <link href="https://cdn.datatables.net/buttons/1.6.1/css/buttons.dataTables.min.css" rel="stylesheet" type="text/css" />
@@ -23,15 +23,15 @@
     <tr>
 
         <th>
-            @Html.DisplayNameFor(model => model.Name)
+           @Resources.UserWork.Name
         </th>
 
         <th>
-           Adjective Name
+           @Resources.UserWork.AdjectiveName
         </th>
 
         <th>
-            @Html.DisplayNameFor(model => model.CreationDate)
+         @Resources.UserWork.CreationDate
         </th>
         @*<th>
                 @Html.DisplayNameFor(model => model.LastModificationDate)
@@ -39,7 +39,7 @@
 
 
         <th>
-            @Html.DisplayNameFor(model => model.Enabled)
+            @Resources.UserWork.Enabled
         </th>
         <th></th>
     </tr>
@@ -69,9 +69,9 @@
                         @Html.DisplayFor(modelItem => item.Enabled)
                     </td>
                     <td>
-                        @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
-                        @Html.ActionLink("Details", "Details", new { id = item.id }) |
-                        @Html.ActionLink("Delete", "Delete", new { id = item.id })
+                        @Html.ActionLink(@Resources.UserWork.Edit, "Edit", new { id = item.id }) |
+                        @Html.ActionLink(@Resources.UserWork.Details, "Details", new { id = item.id }) |
+                        @Html.ActionLink(@Resources.UserWork.Delete, "Delete", new { id = item.id })
                     </td>
                 </tr>
             }
