@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ControlPanel.Resources {
+namespace Resources {
     using System;
     
     
