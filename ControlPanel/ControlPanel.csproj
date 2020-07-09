@@ -192,6 +192,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\ServicePathsController.cs" />
     <Compile Include="Controllers\SystemParametersController.cs" />
     <Compile Include="Controllers\UserWorksController.cs" />
     <Compile Include="Extras\BasicModel.cs" />
@@ -202,6 +203,7 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\ServicePath.cs" />
     <Compile Include="Models\SystemParameter.cs" />
     <Compile Include="Models\UserWork.cs" />
     <Compile Include="Models\UserWorkBinding.cs" />
@@ -298,6 +300,11 @@
     <Content Include="Views\SystemParameters\Details.cshtml" />
     <Content Include="Views\SystemParameters\Edit.cshtml" />
     <Content Include="Views\SystemParameters\Index.cshtml" />
+    <Content Include="Views\ServicePaths\Create.cshtml" />
+    <Content Include="Views\ServicePaths\Delete.cshtml" />
+    <Content Include="Views\ServicePaths\Details.cshtml" />
+    <Content Include="Views\ServicePaths\Edit.cshtml" />
+    <Content Include="Views\ServicePaths\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
