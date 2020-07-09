@@ -246,6 +246,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CoreController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ServicesController.cs" />
     <Compile Include="Controllers\UserWorksController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Extra\BasicModel.cs" />
@@ -277,11 +278,20 @@
     <Compile Include="Migrations\202007091442395_serviceProvider2.Designer.cs">
       <DependentUpon>202007091442395_serviceProvider2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202007091512016_service.cs" />
+    <Compile Include="Migrations\202007091512016_service.Designer.cs">
+      <DependentUpon>202007091512016_service.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202007091600035_ServiceWithUserWork.cs" />
+    <Compile Include="Migrations\202007091600035_ServiceWithUserWork.Designer.cs">
+      <DependentUpon>202007091600035_ServiceWithUserWork.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Attachment.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\Service.cs" />
     <Compile Include="Models\SystemParameter.cs" />
     <Compile Include="Models\ServicePath.cs" />
     <Compile Include="Models\UserWorkBinding.cs" />
@@ -389,6 +399,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202007091442395_serviceProvider2.resx">
       <DependentUpon>202007091442395_serviceProvider2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202007091512016_service.resx">
+      <DependentUpon>202007091512016_service.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202007091600035_ServiceWithUserWork.resx">
+      <DependentUpon>202007091600035_ServiceWithUserWork.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -32,6 +32,7 @@ namespace fsrhilmakv2
             ODataConventionModelBuilder builder = new ODataConventionModelBuilder();
             builder.EntitySet<UserWork>("UserWorks");
             builder.EntitySet<ApplicationUser>("Users");
+            builder.EntitySet<Service>("Services");
             config.Routes.MapODataServiceRoute("odata", "odata", builder.GetEdmModel());
             config.Formatters.JsonFormatter.SerializerSettings.ReferenceLoopHandling= Newtonsoft.Json.ReferenceLoopHandling.Ignore;
         }

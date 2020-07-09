@@ -25,6 +25,8 @@ namespace fsrhilmakv2.Controllers
 
         public  enum UserType { Service_Provider, Client, Admin };
 
+        public enum ServiceStatus { Active,Done, Deleted };
+
         public CoreController() { }
 
         [AllowAnonymous]

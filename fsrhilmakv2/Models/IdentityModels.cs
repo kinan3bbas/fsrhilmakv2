@@ -110,6 +110,8 @@ namespace fsrhilmakv2.Models
         public System.Data.Entity.DbSet<SystemParameter> SystemParameters { get; set; }
 
         public System.Data.Entity.DbSet<ServicePath> ServicePath { get; set; }
+
+        public System.Data.Entity.DbSet<Service> Services { get; set; }
     }
 
 }
