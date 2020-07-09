@@ -192,6 +192,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\SystemParametersController.cs" />
     <Compile Include="Controllers\UserWorksController.cs" />
     <Compile Include="Extras\BasicModel.cs" />
     <Compile Include="Extras\BasicRepository.cs" />
@@ -201,18 +202,41 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\SystemParameter.cs" />
     <Compile Include="Models\UserWork.cs" />
     <Compile Include="Models\UserWorkBinding.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resources\Global.ar.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Global.ar.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\Global.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Global.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\UserWork.ar.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>UserWork.ar.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\UserWork.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>UserWork.resx</DependentUpon>
+    </Compile>
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="assets\demo\demo11\base\style.bundle.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\Logo.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
@@ -269,6 +293,11 @@
     <Content Include="Views\UserWorks\Details.cshtml" />
     <Content Include="Views\UserWorks\Edit.cshtml" />
     <Content Include="Views\UserWorks\Index.cshtml" />
+    <Content Include="Views\SystemParameters\Create.cshtml" />
+    <Content Include="Views\SystemParameters\Delete.cshtml" />
+    <Content Include="Views\SystemParameters\Details.cshtml" />
+    <Content Include="Views\SystemParameters\Edit.cshtml" />
+    <Content Include="Views\SystemParameters\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -285,7 +314,6 @@
     <Folder Include="assets\app\media\img\misc\" />
     <Folder Include="assets\app\media\img\products\" />
     <Folder Include="assets\app\media\img\users\" />
-    <Folder Include="assets\demo\demo11\base\" />
     <Folder Include="assets\demo\demo11\custom\components\base\" />
     <Folder Include="assets\demo\demo11\custom\components\calendar\" />
     <Folder Include="assets\demo\demo11\custom\components\charts\amcharts\" />
@@ -321,7 +349,6 @@
     <Folder Include="assets\vendors\custom\gmaps\" />
     <Folder Include="assets\vendors\custom\jquery-ui\images\" />
     <Folder Include="assets\vendors\custom\jqvmap\" />
-    <Folder Include="Images\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -335,6 +362,28 @@
   <ItemGroup>
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Global.ar.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Global.ar.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>Resources</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Global.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Global.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>Resources</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\UserWork.ar.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>UserWork.ar.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>Resources</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\UserWork.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>UserWork.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>Resources</CustomToolNamespace>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
