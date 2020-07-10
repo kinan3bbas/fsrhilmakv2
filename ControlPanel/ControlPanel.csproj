@@ -311,6 +311,9 @@
     <Content Include="Views\ServicePaths\Details.cshtml" />
     <Content Include="Views\ServicePaths\Edit.cshtml" />
     <Content Include="Views\ServicePaths\Index.cshtml" />
+    <Content Include="Views\Account\ServiceProvider.cshtml" />
+    <Content Include="Views\Account\Clients.cshtml" />
+    <Content Include="Views\Account\DeletedUsers.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
