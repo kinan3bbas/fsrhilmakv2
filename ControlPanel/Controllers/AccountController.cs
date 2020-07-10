@@ -9,6 +9,10 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using ControlPanel.Models;
+using ControlPanel.ViewModels;
+using Microsoft.AspNet.Identity.EntityFramework;
+using System.Collections.Generic;
+using System.Data.Entity;
 
 namespace ControlPanel.Controllers
 {
@@ -17,7 +21,7 @@ namespace ControlPanel.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
-
+        private ApplicationDbContext db = new ApplicationDbContext();
         public AccountController()
         {
         }
@@ -422,9 +426,41 @@ namespace ControlPanel.Controllers
         [HttpGet]
         public ActionResult DeletedUsers()
         {
-            var users = db.Users.Where(a => a.Status.Equals("Deleted")).ToList();
+            var users = db.Users.Where(a => a.Status.Equals(CoreController.UserStatus.Deleted.ToString())).ToList();
 
             return View();
+        }
+
+        public UserInfoViewModel getInfoMapping(ApplicationUser user)
+        {
+            var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
+            List<UserWorkBinding> userWork = db.UserWorkBindings.Where(a => a.UserId.Equals(user.Id)).Include("UserWork").ToList();
+            return new UserInfoViewModel
+            {
+                Email = User.Identity.GetUserName(),
+                Age = user.Age,
+                Country = user.Country,
+                JobDescription = user.JobDescription,
+                JoiningDate = user.JoiningDate,
+                Name = user.Name,
+                MartialStatus = user.MartialStatus,
+                PictureId = user.PictureId,
+                Sex = user.Sex,
+                Status = user.Status,
+                Type = user.Type,
+                phoneNumber = user.PhoneNumber,
+                PersonalDescription = user.PersonalDescription,
+                FireBaseId = user.FireBaseId,
+                Id = user.Id,
+                HasRegistered = user.verifiedInterpreter,
+                UserWorks = userWork,
+                NumberOfActiveServices = 10,
+                NumberOfDoneServices = 10,
+                Speed = 10,
+                AvgServicesInOneDay = 10,
+                UserRoles = userManager.GetRoles(user.Id).ToList()
+
+            };
         }
         protected override void Dispose(bool disposing)
         {

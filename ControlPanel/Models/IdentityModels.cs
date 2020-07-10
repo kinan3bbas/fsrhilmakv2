@@ -100,6 +100,8 @@ namespace ControlPanel.Models
 
         public System.Data.Entity.DbSet<ControlPanel.Models.ServicePath> ServicePaths { get; set; }
 
+        public System.Data.Entity.DbSet<ControlPanel.Models.UserWorkBinding> UserWorkBindings { get; set; }
+
         //public System.Data.Entity.DbSet<ControlPanel.Models.ApplicationUser> ApplicationUsers { get; set; }
 
 
