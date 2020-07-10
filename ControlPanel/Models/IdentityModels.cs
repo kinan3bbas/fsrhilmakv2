@@ -96,7 +96,7 @@ namespace ControlPanel.Models
 
         public System.Data.Entity.DbSet<ControlPanel.Models.UserWork> UserWorks { get; set; }
 
-        public System.Data.Entity.DbSet<ControlPanel.Models.S> SystemParameters { get; set; }
+        public System.Data.Entity.DbSet<ControlPanel.Models.SystemParameter> SystemParameters { get; set; }
 
         public System.Data.Entity.DbSet<ControlPanel.Models.ServicePath> ServicePaths { get; set; }
 

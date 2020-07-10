@@ -63,6 +63,8 @@ namespace fsrhilmakv2.Models
 
         public bool PrivateService { get; set; }
 
+        public double PrivateServicePrice { get; set; }
+
         public int UserWorkId { get; set; }
         public UserWork UserWork { get; set; }
 

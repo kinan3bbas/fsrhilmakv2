@@ -163,5 +163,16 @@ namespace fsrhilmakv2.Controllers
             };
             throw new HttpResponseException(resp);
         }
+
+        [AllowAnonymous]
+        //GET /api/Core/GetParameter?id=4
+        [Route("GetParameter")]
+        public async Task<IHttpActionResult> GetParameter(String code)
+        {
+            SystemParameter parm = db.SystemParameters.Where(a => a.Code.Equals(code)).FirstOrDefault();
+            if (parm == null)
+                throwExcetpion("No matching Parameter!");
+            return Ok(parm);
+        }
     }
 }

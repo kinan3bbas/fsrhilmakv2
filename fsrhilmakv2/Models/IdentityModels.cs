@@ -20,11 +20,11 @@ namespace fsrhilmakv2.Models
         
         [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}")]
         [Display(Name = "Creation Date")]
-        public DateTime? CreationDate { get; set; }
+        public DateTime CreationDate { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}")]
         [Display(Name = "Last Modification Date")]
-        public DateTime? LastModificationDate { get; set; }
+        public DateTime LastModificationDate { get; set; }
         [Display(Name = "Sex")]
         public string Sex { get; set; }
 
@@ -109,7 +109,7 @@ namespace fsrhilmakv2.Models
         public System.Data.Entity.DbSet<UserWorkBinding> UserWorkBindings { get; set; }
         public System.Data.Entity.DbSet<SystemParameter> SystemParameters { get; set; }
 
-        public System.Data.Entity.DbSet<ServicePath> ServicePath { get; set; }
+        public System.Data.Entity.DbSet<ServicePath> ServicePaths { get; set; }
 
         public System.Data.Entity.DbSet<Service> Services { get; set; }
     }

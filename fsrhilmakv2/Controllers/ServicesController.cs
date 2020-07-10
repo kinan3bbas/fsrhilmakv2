@@ -24,9 +24,11 @@ namespace fsrhilmakv2.Controllers
     builder.EntitySet<SystemParameter>("SystemParameters");
     config.Routes.MapODataServiceRoute("odata", "odata", builder.GetEdmModel());
     */
+    [Authorize]
     public class ServicesController : ODataController
     {
         private ApplicationDbContext db = new ApplicationDbContext();
+        CoreController core = new CoreController();
 
         // GET: odata/Services
         [EnableQuery]
@@ -86,9 +88,49 @@ namespace fsrhilmakv2.Controllers
             {
                 return BadRequest(ModelState);
             }
+            //Get Service Path
+            if (!Service.ServicePathId.Equals(null))
+            {
+                ServicePath path = db.ServicePaths.Find(Service.ServicePathId);
+                if (path == null)
+                    core.throwExcetpion("No Matching Service Path");
+                Service.ServicePath = path;
+            }
 
+            //Get Service user work
+            if (!Service.UserWorkId.Equals(null))
+            {
+                UserWork work = db.UserWorks.Find(Service.UserWorkId);
+                if (work == null)
+                    core.throwExcetpion("No Matching UserWork!");
+                Service.UserWork = work;
+
+            }
+
+            //Get Service Provider
+            if (!Service.ServiceProviderId.Equals(null))
+            {
+                ApplicationUser serviceProvider = db.Users.Find(Service.ServiceProviderId);
+                if (serviceProvider == null)
+                    core.throwExcetpion("No Matching Service Provider");
+                Service.ServiceProvider = serviceProvider;
+            }
+
+            //Check Private Service Price
+            if (Service.PrivateService)
+            {
+                if (Service.PrivateServicePrice.Equals(null))
+                    core.throwExcetpion("Private service price can't be null!");
+            }
+            ApplicationUser currentUser = core.getCurrentUser();
+            Service.Status = CoreController.ServiceStatus.Active.ToString();
             Service.CreationDate = DateTime.Now;
             Service.LastModificationDate = DateTime.Now;
+            Service.CreatorId = core.getCurrentUser().Id;
+            Service.ModifierId = core.getCurrentUser().Id;
+            //Service.Creator = core.getCurrentUser();
+            //Service.Modifier = core.getCurrentUser();
+            
             db.Services.Add(Service);
             db.SaveChanges();
 

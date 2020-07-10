@@ -29,10 +29,14 @@ namespace fsrhilmakv2
                 defaults: new { id = RouteParameter.Optional }
             );
 
-            ODataConventionModelBuilder builder = new ODataConventionModelBuilder();
-            builder.EntitySet<UserWork>("UserWorks");
-            builder.EntitySet<ApplicationUser>("Users");
-            builder.EntitySet<Service>("Services");
+                ODataConventionModelBuilder builder = new ODataConventionModelBuilder();
+                builder.EntitySet<UserWork>("UserWorks");
+                builder.EntitySet<ApplicationUser>("Users");
+                builder.EntitySet<Service>("Services");
+                builder.EntitySet<ServicePath>("ServicePaths");
+                builder.EntitySet<UserWorkBinding>("UserWorkBindings");
+                builder.EntitySet<ApplicationUser>("Users");
+                builder.EntitySet<Attachment>("Attachments");
             config.Routes.MapODataServiceRoute("odata", "odata", builder.GetEdmModel());
             config.Formatters.JsonFormatter.SerializerSettings.ReferenceLoopHandling= Newtonsoft.Json.ReferenceLoopHandling.Ignore;
         }
