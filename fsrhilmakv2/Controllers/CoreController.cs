@@ -25,6 +25,8 @@ namespace fsrhilmakv2.Controllers
 
         public  enum UserType { Service_Provider, Client, Admin };
 
+        public enum ServiceStatus { Active,Done, Deleted };
+
         public CoreController() { }
 
         [AllowAnonymous]
@@ -160,6 +162,17 @@ namespace fsrhilmakv2.Controllers
                 ReasonPhrase = message
             };
             throw new HttpResponseException(resp);
+        }
+
+        [AllowAnonymous]
+        //GET /api/Core/GetParameter?id=4
+        [Route("GetParameter")]
+        public async Task<IHttpActionResult> GetParameter(String code)
+        {
+            SystemParameter parm = db.SystemParameters.Where(a => a.Code.Equals(code)).FirstOrDefault();
+            if (parm == null)
+                throwExcetpion("No matching Parameter!");
+            return Ok(parm);
         }
     }
 }

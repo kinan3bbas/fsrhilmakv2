@@ -18,6 +18,8 @@ using fsrhilmakv2.Providers;
 using fsrhilmakv2.Results;
 using System.Linq;
 using System.Data.Entity;
+using fsrhilmakv2.ViewModels;
+using fsrhilmakv2.Extra;
 
 namespace fsrhilmakv2.Controllers
 {
@@ -29,6 +31,7 @@ namespace fsrhilmakv2.Controllers
         private ApplicationUserManager _userManager;
         private ApplicationDbContext db = new ApplicationDbContext();
         private CoreController core = new CoreController();
+        private UserHelperLibrary helper = new UserHelperLibrary();
 
         public AccountController()
         {
@@ -82,30 +85,7 @@ namespace fsrhilmakv2.Controllers
             }
 
             List<UserWorkBinding> userWork = db.UserWorkBindings.Where(a => a.UserId.Equals(user.Id)).Include("UserWork").ToList();
-            return new UserInfoViewModel
-            {
-                Email = User.Identity.GetUserName(),
-                Age = user.Age,
-                Country = user.Country,
-                JobDescription = user.JobDescription,
-                JoiningDate = user.JoiningDate,
-                Name = user.Name,
-                MartialStatus = user.MartialStatus,
-                PictureId = user.PictureId,
-                Sex = user.Sex,
-                Status = user.Status,
-                Type = user.Type,
-                phoneNumber = user.PhoneNumber,
-                PersonalDescription = user.PersonalDescription,
-                Id = user.Id,
-                VerifiedUser = user.verifiedInterpreter,
-                UserWorks= userWork,
-                UserName=user.UserName,
-                UserRoles = userManager.GetRoles(user.Id).ToList(),
-                SocialStatus=user.SocialState
-
-
-            };
+            return getInfoMapping(user);
         }
 
         // POST api/Account/Logout
@@ -633,9 +613,13 @@ namespace fsrhilmakv2.Controllers
         {
 
             ApplicationUser user = db.Users.Find(id);
+            return getInfoMapping(user);
+        }
+
+        public UserInfoViewModel getInfoMapping(ApplicationUser user)
+        {
             var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
             List<UserWorkBinding> userWork = db.UserWorkBindings.Where(a => a.UserId.Equals(user.Id)).Include("UserWork").ToList();
-            //UsersDeviceTokens token = db.UsersDeviceTokens.Where(a => a.UserId.Equals(user.Id)).FirstOrDefault();
             return new UserInfoViewModel
             {
                 Email = User.Identity.GetUserName(),
@@ -660,10 +644,52 @@ namespace fsrhilmakv2.Controllers
                 Speed = 10,
                 AvgServicesInOneDay = 10,
                 UserRoles = userManager.GetRoles(user.Id).ToList()
-                
+
             };
         }
 
+
+        [AllowAnonymous]
+        [Route("GetServiceProviders")]
+        public List<UserInfoViewModel> GetServiceProviders([FromUri]int id)
+        {
+            List<UserWorkBinding> bindings = db.UserWorkBindings.Where(a => a.UserWorkId.Equals(id)
+            ).Include("User").ToList();
+            List<UserInfoViewModel> users = new List<UserInfoViewModel>();
+            foreach (var item in bindings)
+            {
+                users.Add(getInfoMapping(item.User));
+            }
+            return users;
+        }
+
+        [Route("GetServicePathsForProvider")]
+        public List<ServicePathViewModel> GetServicePathsForProvider([FromUri]String id)
+        {
+            List<Service> services = helper.getUserServices(id);
+            List<Service> activeSerives = helper.getServicesFiltered(services, CoreController.ServiceStatus.Active.ToString());
+            List<Service> doneServices = helper.getServicesFiltered(services, CoreController.ServiceStatus.Done.ToString());
+            double speed = UserHelperLibrary.ServiceProviderSpeed(helper.findUser(id),doneServices.Count);
+            List<ServicePath> paths = db.ServicePaths.Where(a => a.ServiceProviderId.Equals(id)).ToList();
+            if (paths.Count == 0)
+            {
+                paths= db.ServicePaths.Where(a => a.ServiceProviderId.Equals(null) && a.Enabled).ToList();
+            }
+
+            List<ServicePathViewModel> result = new List<ServicePathViewModel>();
+            foreach (var item in paths)
+            {
+                int numOfOpenDreams= activeSerives.Where(a => a.ServicePathId.Equals(item.id)).Count();
+                ServicePathViewModel temp = new ServicePathViewModel();
+                temp.Cost = item.Cost;
+                temp.Name = item.Name;
+                temp.NumberOfPeopleWaiting = numOfOpenDreams;
+                temp.AvgWaitingTime= UserHelperLibrary.getWaitingTimeMessage(Double.Parse(speed.ToString()),
+                Double.Parse(numOfOpenDreams.ToString())).Replace("Your average waiting time is ", "");
+                result.Add(temp);
+            }
+            return result;
+        }
         #endregion
     }
 }
