@@ -403,6 +403,29 @@ namespace ControlPanel.Controllers
             return View();
         }
 
+
+        // GET: /Account/ServiceProvider
+        [HttpGet]
+        public ActionResult ServiceProvider()
+        {
+            return View();
+        }
+
+        // GET: /Account/Clients
+        [HttpGet]
+        public ActionResult Clients()
+        {
+            return View();
+        }
+
+        // GET: /Account/DeletdUsers
+        [HttpGet]
+        public ActionResult DeletedUsers()
+        {
+            var users = db.Users.Where(a => a.Status.Equals("Deleted")).ToList();
+
+            return View();
+        }
         protected override void Dispose(bool disposing)
         {
             if (disposing)
