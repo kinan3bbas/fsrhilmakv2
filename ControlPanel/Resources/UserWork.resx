@@ -144,6 +144,9 @@
   <data name="Enabled" xml:space="preserve">
     <value>Enabled</value>
   </data>
+  <data name="EnterUserWorkInformation" xml:space="preserve">
+    <value>Enter User Work Information</value>
+  </data>
   <data name="Index" xml:space="preserve">
     <value>Index</value>
   </data>

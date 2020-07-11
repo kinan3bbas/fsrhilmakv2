@@ -1,8 +1,107 @@
-﻿
+﻿@model List<ControlPanel.ViewModels.UserInfoViewModel>
+
 @{
     ViewBag.Title = "ServiceProvider";
     Layout = "~/Views/Shared/_PLayout.cshtml";
 }
 
-<h2>ServiceProvider</h2>
 
+<h1>@Resources.Global.ServiceProviders</h1>
+<br />
+<link href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css" />
+<link href="https://cdn.datatables.net/buttons/1.6.1/css/buttons.dataTables.min.css" rel="stylesheet" type="text/css" />
+@*<p style="float:right;text-decoration-color:white;">
+
+    <button class="btn btn-primary btn-default" onclick="location.href='@Url.Action("Create", "UserWorks")'">
+        <i class="fa  pull-right" style="font-size:large"></i> Create New userWork
+    </button>
+
+</p>*@
+<table id="myTable" class="cell-border hover stripe" style="width:100%">
+    <thead>
+        <tr>
+            <th>
+                @Resources.Global.Name
+            </th>
+            <th>
+                @Resources.Global.PhoneNumber
+            </th>
+            <th>
+                @Resources.Global.Email
+            </th>
+            <th>
+                @Resources.Global.Country
+            </th>
+            <th>
+                @Resources.Global.NumberOfActiveServices
+            </th>
+            <th>
+                @Resources.Global.NumberOfDoneServices
+            </th>
+            <th>
+                @Resources.Global.Speed
+            </th>
+            <th>
+                @Resources.Global.AvgServicesInOneDay
+            </th>
+
+
+
+
+
+            @*<th></th>*@
+        </tr>
+    <tbody>
+        @foreach (var user in Model)
+            {
+            <tr>
+                <td>
+                    @Html.ActionLink(@user.UserName, "PersonalPage", new { id = @user.Id }, null)
+                </td>
+                <td>@user.phoneNumber</td>
+                <th>@user.Email</th>
+                <th>@user.Country</th>
+                <th>@user.NumberOfActiveServices</th>
+                <th>@user.NumberOfDoneServices</th>
+                <th>@user.Speed</th>
+                <th>@user.AvgServicesInOneDay</th>
+
+            </tr>
+        }
+    </tbody>
+</table>
+@section scripts{
+    <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.6.1/js/dataTables.buttons.min.js"></script>
+    <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.colVis.min.js"></script>
+    <script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.html5.min.js"></script>
+    <script type="text/javascript">
+
+        $('#myTable').DataTable(
+            {
+                dom: 'Bfrtip',
+                columnDefs: [
+                    {
+                        targets: 1,
+                        className: 'noVis'
+                    }
+                ],
+                buttons: [
+                    {
+                        extend: 'colvis',
+                        columns: ':not(.noVis)'
+                    },
+                    'copyHtml5',
+                    'excelHtml5',
+                    'pdfHtml5'
+                ]
+
+            }
+
+
+        );
+    </script>
+}

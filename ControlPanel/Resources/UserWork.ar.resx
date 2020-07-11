@@ -141,6 +141,9 @@
   <data name="Enabled" xml:space="preserve">
     <value>متاح</value>
   </data>
+  <data name="EnterUserWorkInformation" xml:space="preserve">
+    <value>ادخل معلومات المستخدم</value>
+  </data>
   <data name="Index" xml:space="preserve">
     <value>الترتيب</value>
   </data>

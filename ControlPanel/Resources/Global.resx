@@ -159,10 +159,10 @@
   <data name="service_Paths" xml:space="preserve">
     <value>service Paths</value>
   </data>
-  <data name="serviceprovider" xml:space="preserve">
+  <data name="ServiceProvider" xml:space="preserve">
     <value>service provider</value>
   </data>
-  <data name="service provider_List" xml:space="preserve">
+  <data name="service_provider_List" xml:space="preserve">
     <value>service providerList</value>
   </data>
   <data name="Messages" xml:space="preserve">
@@ -218,5 +218,59 @@
   </data>
   <data name="OnlineUsers" xml:space="preserve">
     <value>Online Users</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="Index" xml:space="preserve">
+    <value>Index</value>
+  </data>
+  <data name="SystemParameters" xml:space="preserve">
+    <value>System Parameters</value>
+  </data>
+  <data name="Users" xml:space="preserve">
+    <value>Users</value>
+  </data>
+  <data name="UserWorks" xml:space="preserve">
+    <value>User Works</value>
+  </data>
+  <data name="AvgServicesInOneDay" xml:space="preserve">
+    <value>Avg Services In One Day</value>
+  </data>
+  <data name="Code" xml:space="preserve">
+    <value>code</value>
+  </data>
+  <data name="Country" xml:space="preserve">
+    <value>Country</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>name</value>
+  </data>
+  <data name="NumberOfActiveServices" xml:space="preserve">
+    <value>Number Of Active Services</value>
+  </data>
+  <data name="NumberOfDoneServices" xml:space="preserve">
+    <value>Number Of Done Services</value>
+  </data>
+  <data name="PhoneNumber" xml:space="preserve">
+    <value>PhoneNumber</value>
+  </data>
+  <data name="ServiceProviders" xml:space="preserve">
+    <value>Service Providers</value>
+  </data>
+  <data name="service_PathsInformation" xml:space="preserve">
+    <value>service_PathsInformation</value>
+  </data>
+  <data name="Speed" xml:space="preserve">
+    <value>Speed</value>
+  </data>
+  <data name="SystemParametersInformation" xml:space="preserve">
+    <value>System Parameters Information</value>
+  </data>
+  <data name="Value" xml:space="preserve">
+    <value>value</value>
   </data>
 </root>

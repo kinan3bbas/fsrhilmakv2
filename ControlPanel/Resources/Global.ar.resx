@@ -162,13 +162,70 @@
   <data name="Service" xml:space="preserve">
     <value>الخدمة</value>
   </data>
-  <data name="Servicepath" xml:space="preserve">
+  <data name="service_Paths" xml:space="preserve">
     <value>مسار الخدمة</value>
   </data>
-  <data name="Serviceprovider" xml:space="preserve">
+  <data name="ServiceProvider" xml:space="preserve">
     <value>مزود الخدمة</value>
   </data>
   <data name="Services" xml:space="preserve">
     <value>الخدمات</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>اضف</value>
+  </data>
+  <data name="DeletedUsers" xml:space="preserve">
+    <value>المستخدمون المحذوفون</value>
+  </data>
+  <data name="Index" xml:space="preserve">
+    <value>الفهرس</value>
+  </data>
+  <data name="SystemParameters" xml:space="preserve">
+    <value>بارمترات النظام</value>
+  </data>
+  <data name="Users" xml:space="preserve">
+    <value>المستخدمون</value>
+  </data>
+  <data name="UserWorks" xml:space="preserve">
+    <value>تخصص مقدم الخدمة</value>
+  </data>
+  <data name="AvgServicesInOneDay" xml:space="preserve">
+    <value>معدل الخدمة في يوم واحد</value>
+  </data>
+  <data name="Code" xml:space="preserve">
+    <value>الكود</value>
+  </data>
+  <data name="Country" xml:space="preserve">
+    <value>البلد</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>البريد الالكتروني</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>الاسم</value>
+  </data>
+  <data name="NumberOfActiveServices" xml:space="preserve">
+    <value>عدد الخدمات الفعالة</value>
+  </data>
+  <data name="NumberOfDoneServices" xml:space="preserve">
+    <value>عدد الخدمات المنجزة</value>
+  </data>
+  <data name="PhoneNumber" xml:space="preserve">
+    <value>رقم الهاتف</value>
+  </data>
+  <data name="service_PathsInformation" xml:space="preserve">
+    <value>معلومات مسار الخدمة</value>
+  </data>
+  <data name="Speed" xml:space="preserve">
+    <value>السرعة</value>
+  </data>
+  <data name="SystemParametersInformation" xml:space="preserve">
+    <value>معلومات بارمترات النظام</value>
+  </data>
+  <data name="Value" xml:space="preserve">
+    <value>القيمة</value>
+  </data>
+  <data name="ServiceProviders" xml:space="preserve">
+    <value>مزودو الخدمة</value>
   </data>
 </root>
