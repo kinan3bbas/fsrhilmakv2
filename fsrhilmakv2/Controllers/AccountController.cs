@@ -681,6 +681,7 @@ namespace fsrhilmakv2.Controllers
             {
                 int numOfOpenDreams= activeSerives.Where(a => a.ServicePathId.Equals(item.id)).Count();
                 ServicePathViewModel temp = new ServicePathViewModel();
+                temp.id = item.id;
                 temp.Cost = item.Cost;
                 temp.Name = item.Name;
                 temp.NumberOfPeopleWaiting = numOfOpenDreams;

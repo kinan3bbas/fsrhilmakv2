@@ -14,5 +14,7 @@ namespace fsrhilmakv2.ViewModels
         public long NumberOfPeopleWaiting { get; set; }
 
         public String AvgWaitingTime { get; set; }
+
+        public int id { get; set; }
     }
 }

@@ -427,8 +427,12 @@ namespace ControlPanel.Controllers
         public ActionResult DeletedUsers()
         {
             var users = db.Users.Where(a => a.Status.Equals(CoreController.UserStatus.Deleted.ToString())).ToList();
-
-            return View();
+            List<UserInfoViewModel> result = new List<UserInfoViewModel>();
+            foreach (var item in users)
+            {
+                result.Add(getInfoMapping(item));
+            }
+            return View(result);
         }
 
         public UserInfoViewModel getInfoMapping(ApplicationUser user)
