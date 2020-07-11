@@ -16,7 +16,7 @@ using System.Data.Entity;
 
 namespace ControlPanel.Controllers
 {
-    [Authorize]
+    [AllowAnonymous]
     public class AccountController : Controller
     {
         private ApplicationSignInManager _signInManager;
@@ -412,18 +412,31 @@ namespace ControlPanel.Controllers
         [HttpGet]
         public ActionResult ServiceProvider()
         {
-            return View();
+            var users = db.Users.Where(a => a.Status.Equals(CoreController.UserType.Service_Provider.ToString())).ToList();
+            List<UserInfoViewModel> result = new List<UserInfoViewModel>();
+            foreach (var item in users)
+            {
+                result.Add(getInfoMapping(item));
+            }
+            return View(result);
         }
 
-        // GET: /Account/Clients
+        //// GET: /Account/Clients
         [HttpGet]
         public ActionResult Clients()
         {
-            return View();
+            var users = db.Users.Where(a => a.Status.Equals(CoreController.UserType.Client.ToString())).ToList();
+            List<UserInfoViewModel> result = new List<UserInfoViewModel>();
+            foreach (var item in users)
+            {
+                result.Add(getInfoMapping(item));
+            }
+            return View(result);
         }
 
         // GET: /Account/DeletdUsers
         [HttpGet]
+
         public ActionResult DeletedUsers()
         {
             var users = db.Users.Where(a => a.Status.Equals(CoreController.UserStatus.Deleted.ToString())).ToList();

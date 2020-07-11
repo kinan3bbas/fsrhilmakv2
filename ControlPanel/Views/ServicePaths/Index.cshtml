@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_PLayout.cshtml";
 }
 
-<h2>Index</h2>
+<h2>@Resources.Global.service_PathsInformation</h2>
 
 <br />
 <link href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css" />
@@ -13,7 +13,7 @@
 <p style="float:right;text-decoration-color:white;">
 
     <button class="btn btn-primary btn-default" onclick="location.href='@Url.Action("Create", "ServicePaths")'">
-        <i class="fa  pull-right" style="font-size:large"></i> Create New userWork
+        <i class="fa  pull-right" style="font-size:large"></i> @Resources.Global.CreateNewServicePath
     </button>
 
 </p>
@@ -22,19 +22,18 @@
         <tr>
 
             <th>
-                @Html.DisplayNameFor(model => model.Name)
+                @Resources.UserWork.Name
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Cost)
+                @Resources.Global.Cost
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Enabled)
+                @Resources.UserWork.Enabled
             </th>
 
             <th>
-                @Html.DisplayNameFor(model => model.CreationDate)
+                @Resources.UserWork.CreationDate
             </th>
-
             <th></th>
         </tr>
     <tbody>
@@ -58,9 +57,9 @@
 
 
                 <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.id }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.id })
+                    @Html.ActionLink(@Resources.UserWork.Edit, "Edit", new { id = item.id }) |
+                    @Html.ActionLink(@Resources.UserWork.Details, "Details", new { id = item.id }) |
+                    @Html.ActionLink(@Resources.UserWork.Delete, "Delete", new { id = item.id })
                 </td>
             </tr>
         }

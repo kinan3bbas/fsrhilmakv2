@@ -142,6 +142,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Enter User Work Information.
+        /// </summary>
+        public static string EnterUserWorkInformation {
+            get {
+                return ResourceManager.GetString("EnterUserWorkInformation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Index.
         /// </summary>
         public static string Index {
