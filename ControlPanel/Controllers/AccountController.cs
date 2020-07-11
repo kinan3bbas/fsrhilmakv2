@@ -16,7 +16,7 @@ using System.Data.Entity;
 
 namespace ControlPanel.Controllers
 {
-    [Authorize]
+    [AllowAnonymous]
     public class AccountController : Controller
     {
         private ApplicationSignInManager _signInManager;

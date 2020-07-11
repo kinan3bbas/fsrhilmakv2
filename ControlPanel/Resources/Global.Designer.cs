@@ -232,6 +232,33 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Create New Service Path.
+        /// </summary>
+        public static string CreateNewServicePath {
+            get {
+                return ResourceManager.GetString("CreateNewServicePath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create New System Parameter.
+        /// </summary>
+        public static string CreateNewSystemParameter {
+            get {
+                return ResourceManager.GetString("CreateNewSystemParameter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create New user Work.
+        /// </summary>
+        public static string CreateNewuserWork {
+            get {
+                return ResourceManager.GetString("CreateNewuserWork", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Delete.
         /// </summary>
         public static string Delete {

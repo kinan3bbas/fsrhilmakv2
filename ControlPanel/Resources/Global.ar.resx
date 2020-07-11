@@ -273,4 +273,13 @@
   <data name="Save" xml:space="preserve">
     <value>حفظ</value>
   </data>
+  <data name="CreateNewServicePath" xml:space="preserve">
+    <value>اضافة مسار خدمة  جديد</value>
+  </data>
+  <data name="CreateNewSystemParameter" xml:space="preserve">
+    <value>اضافة بارمتر نظام جديد</value>
+  </data>
+  <data name="CreateNewuserWork" xml:space="preserve">
+    <value>اضافة تخصص مقدم الخدمة</value>
+  </data>
 </root>
