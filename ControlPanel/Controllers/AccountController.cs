@@ -412,7 +412,8 @@ namespace ControlPanel.Controllers
         [HttpGet]
         public ActionResult ServiceProvider()
         {
-            var users = db.Users.Where(a => a.Status.Equals(CoreController.UserType.Service_Provider.ToString())).ToList();
+            var users = db.Users.Where(a => a.Type.Equals(CoreController.UserType.Service_Provider.ToString())
+                    &&!a.Status.Equals(CoreController.UserStatus.Deleted.ToString())).ToList();
             List<UserInfoViewModel> result = new List<UserInfoViewModel>();
             foreach (var item in users)
             {
@@ -425,7 +426,8 @@ namespace ControlPanel.Controllers
         [HttpGet]
         public ActionResult Clients()
         {
-            var users = db.Users.Where(a => a.Status.Equals(CoreController.UserType.Client.ToString())).ToList();
+            var users = db.Users.Where(a => a.Type.Equals(CoreController.UserType.Client.ToString())
+            && !a.Status.Equals(CoreController.UserStatus.Deleted.ToString())).ToList();
             List<UserInfoViewModel> result = new List<UserInfoViewModel>();
             foreach (var item in users)
             {

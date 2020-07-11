@@ -68,6 +68,8 @@ namespace fsrhilmakv2.Models
         public int UserWorkId { get; set; }
         public UserWork UserWork { get; set; }
 
+        public String JobStatus { get; set; }
+
 
     }
 }
