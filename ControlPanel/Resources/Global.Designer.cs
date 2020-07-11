@@ -142,11 +142,29 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to delete this?.
+        /// </summary>
+        public static string Areyousureyouwanttodeletethis {
+            get {
+                return ResourceManager.GetString("Areyousureyouwanttodeletethis", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Avg Services In One Day.
         /// </summary>
         public static string AvgServicesInOneDay {
             get {
                 return ResourceManager.GetString("AvgServicesInOneDay", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Back To List.
+        /// </summary>
+        public static string BackToList {
+            get {
+                return ResourceManager.GetString("BackToList", resourceCulture);
             }
         }
         
@@ -214,11 +232,74 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Delete.
+        /// </summary>
+        public static string Delete {
+            get {
+                return ResourceManager.GetString("Delete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Deleted Users.
         /// </summary>
         public static string DeletedUsers {
             get {
                 return ResourceManager.GetString("DeletedUsers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete Service Path Information.
+        /// </summary>
+        public static string DeleteServicePathInformation {
+            get {
+                return ResourceManager.GetString("DeleteServicePathInformation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete System Parameter Information.
+        /// </summary>
+        public static string DeleteSystemParameterInformation {
+            get {
+                return ResourceManager.GetString("DeleteSystemParameterInformation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete User Work Information.
+        /// </summary>
+        public static string DeleteUserWorkInformation {
+            get {
+                return ResourceManager.GetString("DeleteUserWorkInformation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Details Service Path Information.
+        /// </summary>
+        public static string DetailsServicePathInformation {
+            get {
+                return ResourceManager.GetString("DetailsServicePathInformation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Details System Parameter Information.
+        /// </summary>
+        public static string DetailsSystemParameterInformation {
+            get {
+                return ResourceManager.GetString("DetailsSystemParameterInformation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Details User Work Information.
+        /// </summary>
+        public static string DetailsUserWorkInformation {
+            get {
+                return ResourceManager.GetString("DetailsUserWorkInformation", resourceCulture);
             }
         }
         
@@ -232,11 +313,56 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Edit Service Path Information.
+        /// </summary>
+        public static string EditServicePathInformation {
+            get {
+                return ResourceManager.GetString("EditServicePathInformation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit System Parameter Information.
+        /// </summary>
+        public static string EditSystemParameterInformation {
+            get {
+                return ResourceManager.GetString("EditSystemParameterInformation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit User Work Information.
+        /// </summary>
+        public static string EditUserWorkInformation {
+            get {
+                return ResourceManager.GetString("EditUserWorkInformation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Email.
         /// </summary>
         public static string Email {
             get {
                 return ResourceManager.GetString("Email", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter Service Path Information.
+        /// </summary>
+        public static string EnterServicePathInformation {
+            get {
+                return ResourceManager.GetString("EnterServicePathInformation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter System Parameter Information.
+        /// </summary>
+        public static string EnterSystemParameterInformation {
+            get {
+                return ResourceManager.GetString("EnterSystemParameterInformation", resourceCulture);
             }
         }
         
@@ -381,6 +507,15 @@ namespace Resources {
         public static string Reports {
             get {
                 return ResourceManager.GetString("Reports", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save.
+        /// </summary>
+        public static string Save {
+            get {
+                return ResourceManager.GetString("Save", resourceCulture);
             }
         }
         

@@ -5,16 +5,16 @@
     Layout = "~/Views/Shared/_PLayout.cshtml";
 }
 
-<h2>Details</h2>
+<h2>@Resources.Global.DetailsUserWorkInformation</h2>
+
 
 <div>
-    <h4>ServicePath</h4>
     <hr />
     <dl class="dl-horizontal">
         
 
         <dt>
-            @Html.DisplayNameFor(model => model.Name)
+          @Resources.UserWork.Name 
         </dt>
 
         <dd>
@@ -22,7 +22,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Cost)
+            @Resources.Global.Cost
         </dt>
 
         <dd>
@@ -30,7 +30,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Enabled)
+            @Resources.UserWork.Enabled
         </dt>
 
         <dd>
@@ -46,6 +46,6 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink(@Resources.UserWork.Edit, "Edit", new { id = Model.id }) |
+    @Html.ActionLink(@Resources.Global.BackToList, "Index")
 </p>

@@ -5,39 +5,17 @@
     Layout = "~/Views/Shared/_PLayout.cshtml";
 }
 
-<h2>Delete</h2>
+<h2>@Resources.Global.DeleteUserWorkInformation</h2>
 
-<h3>Are you sure you want to delete this?</h3>
+<h3>@Resources.Global.Areyousureyouwanttodeletethis</h3>
 <div>
-    <h4>ServicePath</h4>
+    
     <hr />
     <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Creator.Sex)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Creator.Sex)
-        </dd>
+       
 
         <dt>
-            @Html.DisplayNameFor(model => model.Modifier.Sex)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Modifier.Sex)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ServiceProvider.Sex)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ServiceProvider.Sex)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
+            @Resources.UserWork.Name
         </dt>
 
         <dd>
@@ -45,7 +23,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Cost)
+            @Resources.Global.Cost
         </dt>
 
         <dd>
@@ -53,44 +31,23 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Enabled)
+            @Resources.UserWork.Enabled
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.Enabled)
         </dd>
 
+        
         <dt>
-            @Html.DisplayNameFor(model => model.IsPrivate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.IsPrivate)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.CreationDate)
+            @Resources.UserWork.CreationDate
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.CreationDate)
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.LastModificationDate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.LastModificationDate)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.AttachmentId)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.AttachmentId)
-        </dd>
+    
 
     </dl>
 
@@ -98,8 +55,8 @@
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
+            <input type="submit" value="@Resources.Global.Delete " class="btn btn-default" />|
+            @Html.ActionLink(@Resources.Global.BackToList, "Index")
         </div>
     }
 </div>

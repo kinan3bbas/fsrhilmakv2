@@ -228,4 +228,49 @@
   <data name="ServiceProviders" xml:space="preserve">
     <value>مزودو الخدمة</value>
   </data>
+  <data name="Areyousureyouwanttodeletethis" xml:space="preserve">
+    <value>هل انت متاكد من حذف هذا؟</value>
+  </data>
+  <data name="BackToList" xml:space="preserve">
+    <value>العودة الى القائمة</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>حذف</value>
+  </data>
+  <data name="DeleteServicePathInformation" xml:space="preserve">
+    <value>حذف معلومات مسار الخدمة</value>
+  </data>
+  <data name="DeleteSystemParameterInformation" xml:space="preserve">
+    <value>حذف معلومات  بارمتر النظام</value>
+  </data>
+  <data name="DeleteUserWorkInformation" xml:space="preserve">
+    <value>حذف معلومات  تخصص مقدم الخدمة</value>
+  </data>
+  <data name="DetailsServicePathInformation" xml:space="preserve">
+    <value>تفاصيل معلومات مسار الخدمة</value>
+  </data>
+  <data name="DetailsSystemParameterInformation" xml:space="preserve">
+    <value>تفاصيل معلومات بارامتر النظام</value>
+  </data>
+  <data name="DetailsUserWorkInformation" xml:space="preserve">
+    <value>تفاصيل معلومات تخصص مقدم الخدمة</value>
+  </data>
+  <data name="EditServicePathInformation" xml:space="preserve">
+    <value>عدل معلومات مسار الخدمة</value>
+  </data>
+  <data name="EditSystemParameterInformation" xml:space="preserve">
+    <value>عدل معلومات بارامتر النظام</value>
+  </data>
+  <data name="EditUserWorkInformation" xml:space="preserve">
+    <value>عدل معلومات تخصص مقدم الخدمة</value>
+  </data>
+  <data name="EnterServicePathInformation" xml:space="preserve">
+    <value>أدخل معلومات مسار الخدمة</value>
+  </data>
+  <data name="EnterSystemParameterInformation" xml:space="preserve">
+    <value>أدخل معلومات بارمترات النظام</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>حفظ</value>
+  </data>
 </root>

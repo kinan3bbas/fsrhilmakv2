@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_PLayout.cshtml";
 }
 
-<h2>Edit</h2>
+<h2>@Resources.Global.EditUserWorkInformation</h2>
 
 
 @using (Html.BeginForm())
@@ -13,7 +13,6 @@
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>UserWork</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.id)
@@ -23,7 +22,7 @@
       
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Resources.UserWork.Name
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
@@ -31,7 +30,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.AdjectiveName, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Resources.UserWork.AdjectiveName
             <div class="col-md-10">
                 @Html.EditorFor(model => model.AdjectiveName, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.AdjectiveName, "", new { @class = "text-danger" })
@@ -39,7 +38,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Enabled, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Resources.UserWork.Enabled
             <div class="col-md-10">
                 <div class="checkbox">
                     @Html.EditorFor(model => model.Enabled)
@@ -50,14 +49,14 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input type="submit" value="@Resources.Global.Save " class="btn btn-default" />
             </div>
         </div>
     </div>
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink(@Resources.Global.BackToList, "Index")
 </div>
 
 @section Scripts {

@@ -273,4 +273,49 @@
   <data name="Value" xml:space="preserve">
     <value>value</value>
   </data>
+  <data name="Areyousureyouwanttodeletethis" xml:space="preserve">
+    <value>Are you sure you want to delete this?</value>
+  </data>
+  <data name="BackToList" xml:space="preserve">
+    <value>Back To List</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="DeleteServicePathInformation" xml:space="preserve">
+    <value>Delete Service Path Information</value>
+  </data>
+  <data name="DeleteSystemParameterInformation" xml:space="preserve">
+    <value>Delete System Parameter Information</value>
+  </data>
+  <data name="DeleteUserWorkInformation" xml:space="preserve">
+    <value>Delete User Work Information</value>
+  </data>
+  <data name="DetailsServicePathInformation" xml:space="preserve">
+    <value>Details Service Path Information</value>
+  </data>
+  <data name="DetailsSystemParameterInformation" xml:space="preserve">
+    <value>Details System Parameter Information</value>
+  </data>
+  <data name="DetailsUserWorkInformation" xml:space="preserve">
+    <value>Details User Work Information</value>
+  </data>
+  <data name="EditServicePathInformation" xml:space="preserve">
+    <value>Edit Service Path Information</value>
+  </data>
+  <data name="EditSystemParameterInformation" xml:space="preserve">
+    <value>Edit System Parameter Information</value>
+  </data>
+  <data name="EditUserWorkInformation" xml:space="preserve">
+    <value>Edit User Work Information</value>
+  </data>
+  <data name="EnterServicePathInformation" xml:space="preserve">
+    <value>Enter Service Path Information</value>
+  </data>
+  <data name="EnterSystemParameterInformation" xml:space="preserve">
+    <value>Enter System Parameter Information</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
 </root>
