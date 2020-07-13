@@ -16,7 +16,7 @@ using System.Data.Entity;
 
 namespace ControlPanel.Controllers
 {
-    [AllowAnonymous]
+    [Authorize]
     public class AccountController : Controller
     {
         private ApplicationSignInManager _signInManager;
@@ -481,6 +481,28 @@ namespace ControlPanel.Controllers
 
             };
         }
+
+        public ActionResult PersonalPage(String id)
+        {
+            ApplicationUser temp = db
+                .Users
+                .Where(e => e.Id.Equals(id))
+                .FirstOrDefault();
+            if (temp == null)
+            {
+                return HttpNotFound();
+            }
+            //var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
+            //var user = userManager.FindById(User.Identity.GetUserId());
+            //ViewBag.CurrentUser = user;
+
+            ViewBag.userId = id;
+            return View(temp);
+        }
+
+
+
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
