@@ -16,7 +16,7 @@ using System.Data.Entity;
 
 namespace ControlPanel.Controllers
 {
-    [Authorize]
+    [AllowAnonymous]
     public class AccountController : Controller
     {
         private ApplicationSignInManager _signInManager;
@@ -501,6 +501,54 @@ namespace ControlPanel.Controllers
         }
 
 
+        public ActionResult EditPersonalPage(String id)
+        {
+            ApplicationUser temp = db
+                .Users
+                .Where(e => e.Id.Equals(id))
+                .FirstOrDefault();
+            if (temp == null)
+            {
+                return HttpNotFound();
+            }
+            //var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
+            //var user = userManager.FindById(User.Identity.GetUserId());
+            //ViewBag.CurrentUser = user;
+
+            ViewBag.userId = id;
+            return View(temp);
+        }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditPersonalPage(ApplicationUser user)
+        {
+            if (user == null)
+            {
+                return HttpNotFound();
+            }
+            if (ModelState.IsValid)
+            {
+                ApplicationUser temp = db.Users.Where(a => a.Id.Equals(user.Id)).FirstOrDefault();
+                temp.Id = user.Id;
+                temp.Name = user.Name;
+                temp.UserName = user.UserName;
+                temp.Age = user.Age;
+                temp.PhoneNumber = user.PhoneNumber;
+                temp.Status = user.Status;
+                temp.Sex = user.Sex;
+                temp.Country = user.Country;
+                temp.MartialStatus = user.MartialStatus;
+                temp.Type = user.Type;
+                db.Entry(temp).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("PersonalPage", new { id = user.Id });
+
+            }
+            return View(user)
+;
+        }
 
 
         protected override void Dispose(bool disposing)
