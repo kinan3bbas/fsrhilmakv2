@@ -252,6 +252,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CoreController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ServiceCommentsController.cs" />
     <Compile Include="Controllers\ServicesController.cs" />
     <Compile Include="Controllers\UserWorksController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
@@ -309,12 +310,17 @@
     <Compile Include="Migrations\202007111319014_jobstatus.Designer.cs">
       <DependentUpon>202007111319014_jobstatus.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202007121430176_ServiceComment.cs" />
+    <Compile Include="Migrations\202007121430176_ServiceComment.Designer.cs">
+      <DependentUpon>202007121430176_ServiceComment.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Attachment.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Service.cs" />
+    <Compile Include="Models\ServiceComment.cs" />
     <Compile Include="Models\SystemParameter.cs" />
     <Compile Include="Models\ServicePath.cs" />
     <Compile Include="Models\UserWorkBinding.cs" />
@@ -323,6 +329,7 @@
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />
     <Compile Include="Results\ChallengeResult.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\ServiceViewModel.cs" />
     <Compile Include="ViewModels\ServicePathViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -441,6 +448,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202007111319014_jobstatus.resx">
       <DependentUpon>202007111319014_jobstatus.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202007121430176_ServiceComment.resx">
+      <DependentUpon>202007121430176_ServiceComment.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

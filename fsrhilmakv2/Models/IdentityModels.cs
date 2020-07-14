@@ -99,6 +99,11 @@ namespace fsrhilmakv2.Models
                 .WithMany(g => g.userWorkBinding)
                 .HasForeignKey<string>(s => s.UserId);
 
+            modelBuilder.Entity<ServiceComment>()
+                .HasRequired<Service>(s => s.Service)
+                .WithMany(g => g.Comments)
+                .HasForeignKey<int>(s => s.ServiceId);
+
             base.OnModelCreating(modelBuilder);
         }
 
@@ -112,6 +117,7 @@ namespace fsrhilmakv2.Models
         public System.Data.Entity.DbSet<ServicePath> ServicePaths { get; set; }
 
         public System.Data.Entity.DbSet<Service> Services { get; set; }
+        public System.Data.Entity.DbSet<ServiceComment> ServiceComments { get; set; }
     }
 
 }

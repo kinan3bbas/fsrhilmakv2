@@ -30,6 +30,7 @@ namespace fsrhilmakv2.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
         CoreController core = new CoreController();
 
+        [AllowAnonymous]
         // GET: odata/Services
         [EnableQuery]
         public IQueryable<Service> GetServices()
@@ -37,6 +38,7 @@ namespace fsrhilmakv2.Controllers
             return db.Services;
         }
 
+        [AllowAnonymous]
         // GET: odata/Services(5)
         [EnableQuery]
         public SingleResult<Service> GetService([FromODataUri] int key)

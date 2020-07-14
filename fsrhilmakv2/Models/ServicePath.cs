@@ -9,6 +9,8 @@ namespace fsrhilmakv2.Models
 {
     public class ServicePath:BasicModel
     {
+        private ApplicationDbContext db = new ApplicationDbContext();
+
         [Required]
         [Display(Name = "Name")]
         public String Name { get; set; }
@@ -28,9 +30,6 @@ namespace fsrhilmakv2.Models
         public String ServiceProviderId { get; set; }
 
         public ApplicationUser ServiceProvider { get; set; }
-
-
-
 
 
     }

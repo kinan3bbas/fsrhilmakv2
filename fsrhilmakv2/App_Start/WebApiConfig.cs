@@ -37,6 +37,8 @@ namespace fsrhilmakv2
                 builder.EntitySet<UserWorkBinding>("UserWorkBindings");
                 builder.EntitySet<ApplicationUser>("Users");
                 builder.EntitySet<Attachment>("Attachments");
+                builder.EntitySet<ServiceComment>("ServiceComments");
+
             config.Routes.MapODataServiceRoute("odata", "odata", builder.GetEdmModel());
             config.Formatters.JsonFormatter.SerializerSettings.ReferenceLoopHandling= Newtonsoft.Json.ReferenceLoopHandling.Ignore;
         }
