@@ -1,0 +1,109 @@
+﻿@model ControlPanel.Models.ApplicationUser
+@{
+    ViewBag.Title = "Edit Personal Info Page";
+    Layout = "~/Views/Shared/_PLayout.cshtml";
+    var Id = Request.QueryString["userId"];
+}
+</style>
+@*<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js"
+            integrity="sha384-NaWTHo/8YCBYJ59830LTz/P4aQZK1sS0SneOgAvhsIl3zBu8r9RevNg5lHCHAuQ/"
+            crossorigin="anonymous"></script>*@
+
+<h2>@Resources.UserWork.Edit</h2>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Id)
+      
+
+            <div class="form-group">
+                @Resources.Register.Name
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+        <div class="form-group">
+            @Resources.Register.UserName
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+            <div class="form-group">
+                @Resources.Register.Age
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Age, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Age, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+        <div class="form-group">
+            @Resources.Register.PhoneNumber
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
+            </div>
+        </div>
+            <div class="form-group">
+                @Resources.Register.Status
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Status, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Resources.Register.Sex
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Sex, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Sex, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Resources.Register.Country
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Country, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Country, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+        <div class="form-group">
+            @Resources.Register.MartialStatus
+            <div class="col-md-10">
+                @Html.DropDownList("MartialStatus", new List<SelectListItem>
+                                      { new SelectListItem { Text="Married", Value="Married"},
+                                         new SelectListItem{Text="Single", Value="Single"},
+                                         new SelectListItem{Text="Other", Value="Other"}
+                                        }, "Select Status")
+                @Html.ValidationMessageFor(model => model.MartialStatus, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Resources.Register.Type
+            <div class="col-md-10">
+                @Html.DropDownList("Type", new List<SelectListItem>
+                                      { new SelectListItem { Text="Client", Value="Client"},
+                                         new SelectListItem{Text="Interpreter", Value="Interpreter"},
+                                         new SelectListItem{Text="Admin", Value="Admin"}
+                                        }, "Select Type")
+                @Html.ValidationMessageFor(model => model.MartialStatus, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+                        <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="@Resources.UserWork.Edit" class="btn btn-default" />
+                        @*@Html.ActionLink("Edit", "PersonalPage", new { id = Model.Id }, new { @class = "btn btn-default" })*@
+                    </div>
+                </div>
+            </div>
+            }
+
+            <@*div>
+                @Html.ActionLink(@Resources.Global.BackToList, "")
+            </div*@>

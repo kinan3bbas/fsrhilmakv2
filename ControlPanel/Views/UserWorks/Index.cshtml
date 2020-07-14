@@ -11,6 +11,49 @@
 <br />
 <link href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css" />
 <link href="https://cdn.datatables.net/buttons/1.6.1/css/buttons.dataTables.min.css" rel="stylesheet" type="text/css" />
+
+<div class="container">
+    @using (Html.BeginForm())
+    {
+        <p>
+            <table align="center">
+                <tr>
+                    @*<td style="padding-right:20px;padding-bottom:20px;">
+                                                <b>Status</b>
+                                            </td>
+                                            <td style="padding-right:20px;padding-bottom:20px;">
+                        =                        <div class="m-input-icon m-input-icon--left">
+                                                    <input name="SearchString" type="text" class="form-control m-input m-input--air" placeholder="Description .. " id="generalSearch">
+                                                </div>
+                                            </td>*@
+                    <td style="padding-left:50px;padding-right:20px;padding-bottom:20px;">
+                        <b>Company</b>
+                    </td>
+                    <td style="padding-right:20px;padding-bottom:20px;">
+                        @*@Html.DropDownList("Status", new List<SelectListItem>
+                                 { new SelectListItem { Text="Active", Value="Active"},
+                                  new SelectListItem{Text="Done", Value="Done"}
+                            }, new { @class = "form-control m-input m-input--air" })*@
+                        @*@Html.DropDownList("UserworkId", null, htmlAttributes: new { @class = "form-control m-input m-input--air" })*@
+                    </td>
+                    <td style="padding-bottom:20px">
+                        <button type="submit" class="SearchBtn btn btn-outline-brand m-btn m-btn--icon btn-sm m-btn--icon-only m-btn--custom m-btn--outline-1x m-btn--pill m-btn--air">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </td>
+                </tr>
+            </table>
+            <br />
+            @*<input id="Search" class="btn btn-primary btn-default"  type="submit" value="Search" style="float: right; position: relative; left: -50%; /* or right 50% */ text-align: left; background-color:#6610f2;color:white" />
+                <button type="submit" style="float:right;" class="SearchBtn btn btn-outline-brand m-btn m-btn--icon btn-sm m-btn--icon-only m-btn--custom m-btn--outline-1x m-btn--pill m-btn--air">
+                    <i class="fa fa-search"></i>
+                </button>*@
+        </p>
+    }
+</div>
+<br />
+<br />
+
 <p style="float:right;text-decoration-color:white;">
 
     <button class="btn btn-primary btn-default" onclick="location.href='@Url.Action("Create", "UserWorks")'">
