@@ -74,5 +74,19 @@ namespace fsrhilmakv2.Models
 
         public ICollection<ServiceComment> Comments { get; set; }
 
+
+        [Display(Name = "User's Rating")]
+        public int UserRating { get; set; }
+
+
+        [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}")]
+        [Display(Name = "Rating Date")]
+        public DateTime? RatingDate { get; set; }
+
+        [Display(Name ="Rating Message")]
+        public String RatingMessage { get; set; }
+
+        
+
     }
 }

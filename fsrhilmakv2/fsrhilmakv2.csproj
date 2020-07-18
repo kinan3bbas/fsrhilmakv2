@@ -250,6 +250,7 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ActionsController.cs" />
     <Compile Include="Controllers\CoreController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ServiceCommentsController.cs" />
@@ -258,7 +259,13 @@
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Extra\BasicModel.cs" />
     <Compile Include="Extra\BasicRepository.cs" />
+    <Compile Include="Extra\EmailHelper.cs" />
+    <Compile Include="Extra\Message.cs" />
+    <Compile Include="Extra\Notification.cs" />
+    <Compile Include="Extra\ParameterRepository.cs" />
+    <Compile Include="Extra\ResponseEntity.cs" />
     <Compile Include="Extra\UserHelperLibrary.cs" />
+    <Compile Include="Extra\UserVerificationHelper.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -314,15 +321,33 @@
     <Compile Include="Migrations\202007121430176_ServiceComment.Designer.cs">
       <DependentUpon>202007121430176_ServiceComment.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202007171715169_rating.cs" />
+    <Compile Include="Migrations\202007171715169_rating.Designer.cs">
+      <DependentUpon>202007171715169_rating.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202007171854377_ratingMessage.cs" />
+    <Compile Include="Migrations\202007171854377_ratingMessage.Designer.cs">
+      <DependentUpon>202007171854377_ratingMessage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202007171943485_userCode.cs" />
+    <Compile Include="Migrations\202007171943485_userCode.Designer.cs">
+      <DependentUpon>202007171943485_userCode.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202007172004469_systemUtil.cs" />
+    <Compile Include="Migrations\202007172004469_systemUtil.Designer.cs">
+      <DependentUpon>202007172004469_systemUtil.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Attachment.cs" />
+    <Compile Include="Models\EmailLog.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Service.cs" />
     <Compile Include="Models\ServiceComment.cs" />
     <Compile Include="Models\SystemParameter.cs" />
     <Compile Include="Models\ServicePath.cs" />
+    <Compile Include="Models\UserVerificationLog.cs" />
     <Compile Include="Models\UserWorkBinding.cs" />
     <Compile Include="Models\UserWork.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -398,6 +423,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Repositories\" />
+    <Folder Include="Views\Actions\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -451,6 +477,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202007121430176_ServiceComment.resx">
       <DependentUpon>202007121430176_ServiceComment.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202007171715169_rating.resx">
+      <DependentUpon>202007171715169_rating.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202007171854377_ratingMessage.resx">
+      <DependentUpon>202007171854377_ratingMessage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202007171943485_userCode.resx">
+      <DependentUpon>202007171943485_userCode.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202007172004469_systemUtil.resx">
+      <DependentUpon>202007172004469_systemUtil.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

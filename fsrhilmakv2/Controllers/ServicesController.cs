@@ -11,6 +11,7 @@ using System.Web.Http.ModelBinding;
 using System.Web.Http.OData;
 using System.Web.Http.OData.Routing;
 using fsrhilmakv2.Models;
+using fsrhilmakv2.ViewModels;
 
 namespace fsrhilmakv2.Controllers
 {
@@ -150,16 +151,57 @@ namespace fsrhilmakv2.Controllers
                 return BadRequest(ModelState);
             }
 
-            Service Service = db.Services.Find(key);
+            Service Service = db.Services.Where(a=>a.id.Equals(key))
+                .Include("ServiceProvider")
+                .Include("ServicePath")
+                .Include("Comments")
+                .Include("Creator")
+                .Include("Modifier")
+                .Include("UserWork")
+                .FirstOrDefault();
             if (Service == null)
             {
                 return NotFound();
+            }
+            bool ServiceExplained = false;
+            bool Rating = false;
+            foreach (var fieldname in patch.GetChangedPropertyNames())
+            {
+                if (fieldname.Equals("Explanation"))
+                {
+                    ServiceExplained = true;
+
+                }
+                if (fieldname.Equals("RatingDate"))
+                {
+                     Rating= true;
+
+                }
             }
 
             patch.Patch(Service);
 
             try
             {
+                if (ServiceExplained)
+                {
+                    Service.ExplanationDate = DateTime.Now;
+                    Service.Status = CoreController.ServiceStatus.Done.ToString();
+                }
+                if (Rating)
+                {
+                    if (!Service.Status.Equals("Done"))
+                        core.throwExcetpion("User can't rate interpreter until he explain the dream!");
+                    if (Service.UserRating < 0 || Service.UserRating > 5)
+                    {
+                        core.throwExcetpion("Rating can only be between 0 and 5");
+                    }
+                    Service.UserRating = Service.UserRating;
+                    Service.RatingDate = DateTime.Now;
+                }
+               
+                Service.LastModificationDate = DateTime.Now;
+                //Service.Modifier = core.getCurrentUser();
                 db.SaveChanges();
             }
             catch (DbUpdateConcurrencyException)
@@ -174,7 +216,7 @@ namespace fsrhilmakv2.Controllers
                 }
             }
 
-            return Updated(Service);
+            return Ok(Service);
         }
 
         // DELETE: odata/Services(5)
@@ -205,5 +247,48 @@ namespace fsrhilmakv2.Controllers
         {
             return db.Services.Count(e => e.id == key) > 0;
         }
+
+
+        //public ServiceViewModel getMapping(Service service)
+        //{
+        //    AccountController accountCont = new AccountController();
+        //    ServiceViewModel result = new ServiceViewModel();
+        //    result.Comments = service.Comments;
+        //    result.Country = service.Country;
+        //    result.CreationDate = service.CreationDate;
+        //    result.Creator = service.Creator;
+        //    result.Description = service.Description;
+        //    result.CreatorId = service.CreatorId;
+        //    result.DidYouExorcism = service.DidYouExorcism;
+        //    result.DreamDate = service.DreamDate;
+        //    result.Explanation = service.Explanation;
+        //    result.ExplanationDate = service.ExplanationDate;
+        //    result.HaveYouPrayedBeforeTheDream = service.HaveYouPrayedBeforeTheDream;
+        //    result.Id = service.id;
+        //    result.IsThereWakefulness = service.IsThereWakefulness;
+        //    result.JobStatus = service.JobStatus;
+        //    result.KidsStatus = service.KidsStatus;
+        //    result.LastModificationDate = service.LastModificationDate;
+        //    result.Modifier = service.Modifier;
+        //    result.ModifierId = service.ModifierId;
+        //    result.Name = service.Name;
+        //    result.numberOfLikes = service.numberOfLikes;
+        //    result.numberOfViews = service.numberOfViews;
+        //    result.PrivateService = service.PrivateService;
+        //    result.PrivateServicePrice = service.PrivateServicePrice;
+        //    result.PublicServiceAction = service.PublicServiceAction;
+        //    result.RegligionStatus = service.RegligionStatus;
+        //    result.ServicePathId = service.ServicePathId;
+        //    result.ServiceProvider = service.ServiceProvider;
+        //    result.ServiceProviderId = service.ServiceProviderId;
+        //    result.Sex = service.Sex;
+        //    result.SocialStatus = service.SocialStatus;
+        //    result.Status = service.Status;
+        //    result.UserWork = service.UserWork;
+        //    result.UserWorkId = service.UserWorkId;
+        //    result.ServicePath = accountCont.GetServicePathForProvider(service.ServiceProviderId, service.ServicePathId);
+
+        //    return result;
+        //}
     }
 }

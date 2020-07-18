@@ -1,6 +1,7 @@
 ﻿using fsrhilmakv2.Models;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -23,7 +24,6 @@ namespace fsrhilmakv2.ViewModels
         public int ServicePathId { get; set; }
 
 
-        public ServicePath ServicePath { get; set; }
 
         public string Explanation { get; set; }
 
@@ -70,5 +70,34 @@ namespace fsrhilmakv2.ViewModels
 
 
         public int id { get; set; }
+
+
+        public ServicePath ServicePath { get; set; }
+
+        public long NumberOfRemainingPeople { get; set; }
+
+        public long NumberOfAllPeopleWaiting { get; set; }
+
+        public String AvgWaitingTime { get; set; }
+
+
+        public int Id { get; set; }
+
+        [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}")]
+        [Display(Name = "Creation Date")]
+        public DateTime CreationDate { get; set; }
+
+        [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}")]
+        [Display(Name = "Last Modification Date")]
+        public DateTime LastModificationDate { get; set; }
+
+        public ApplicationUser Creator { get; set; }
+
+        public String CreatorId { get; set; }
+
+        public ApplicationUser Modifier { get; set; }
+        public String ModifierId { get; set; }
+
+        public long AttachmentId { get; set; }
     }
 }
