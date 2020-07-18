@@ -95,7 +95,9 @@ namespace fsrhilmakv2.Models
         public string SocialState { get; set; }
 
         public List<UserWork> UserWork{get; set;}
- 
+
+        public String UserRegistrationCode { get; set; }
+
     }
 
     public class RegisterExternalBindingModel

@@ -156,6 +156,8 @@ namespace ControlPanel.Controllers
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                user.CreationDate = DateTime.Now;
+                user.LastModificationDate = DateTime.Now;
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
@@ -409,16 +411,22 @@ namespace ControlPanel.Controllers
 
 
         // GET: /Account/ServiceProvider
-        [HttpGet]
-        public ActionResult ServiceProvider()
+        public ActionResult ServiceProvider(int? UserWorkId)
         {
-            var users = db.Users.Where(a => a.Type.Equals(CoreController.UserType.Service_Provider.ToString())
+            List<ApplicationUser> users = db.Users.Where(a => a.Type.Equals(CoreController.UserType.Service_Provider.ToString())
                     &&!a.Status.Equals(CoreController.UserStatus.Deleted.ToString())).ToList();
+            if (UserWorkId != null)
+            {
+                List<UserWorkBinding> bindings = db.UserWorkBindings.Where(a => a.UserWorkId.Equals(UserWorkId)
+                        ).Include("User").ToList();
+                users = bindings.Select(a => a.User).ToList();
+            }
             List<UserInfoViewModel> result = new List<UserInfoViewModel>();
             foreach (var item in users)
             {
                 result.Add(getInfoMapping(item));
             }
+            ViewBag.UserWorkId = new SelectList(db.UserWorks.Where(a=>a.Enabled), "Id", "Name");
             return View(result);
         }
 

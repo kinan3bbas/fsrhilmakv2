@@ -80,7 +80,10 @@ namespace fsrhilmakv2.Controllers
                     Id = user.Id,
                     UserName = user.UserName,
                     SocialStatus = user.SocialState,
-                    UserRoles = userManager.GetRoles(user.Id).ToList()
+                    UserRoles = userManager.GetRoles(user.Id).ToList(),
+                    UserSpecialCode = user.UserSpecialCode,
+                    PointsBalance = user.PointsBalance,
+                    UserRegistrationCode = user.UserRegistrationCode
                 };
             }
 
@@ -383,17 +386,24 @@ namespace fsrhilmakv2.Controllers
                     Email = model.Email,
                     Name = model.Name,
                     PhoneNumber = model.PhoneNumber,
-                    Status = CoreController.UserStatus.Not_Active.ToString(),
+                    Status = CoreController.UserStatus.Active.ToString(),
                     Type = model.Type,
                     CreationDate = DateTime.Now,
                     LastModificationDate = DateTime.Now,
                     SocialState = model.SocialState
                 };
+
+                if (model.UserRegistrationCode != null&&!model.UserRegistrationCode.Equals(""))
+                {
+                    user.UserRegistrationCode = model.UserRegistrationCode;
+                    addPoints(model);  
+                }
+                GenerateUserSpecialCode(user);
                 result = await UserManager.CreateAsync(user, model.Password);
                 await UserManager.AddToRoleAsync(user.Id, "Client");
             }
 
-
+            
             // Interpreter
             if (model.Type.Equals(CoreController.UserType.Service_Provider.ToString()))
             {
@@ -458,6 +468,25 @@ namespace fsrhilmakv2.Controllers
             return Ok(result);
         }
 
+
+        public void addPoints(RegisterBindingModel model)
+        {
+            ApplicationUser winner = db.Users.Where(a => a.UserSpecialCode.Equals(model.UserRegistrationCode)).FirstOrDefault();
+            if (winner != null)
+            {
+                SystemParameter parm = db.SystemParameters.Where(a => a.Code.Equals("PointPrice")).FirstOrDefault();
+                
+                winner.PointsBalance = winner.PointsBalance + (parm!=null?long.Parse(parm.Value.ToString()):5);
+                winner.LastModificationDate = DateTime.Now;
+                db.Entry(winner).State = EntityState.Modified;
+                db.SaveChanges();
+            }
+        }
+
+        public void GenerateUserSpecialCode(ApplicationUser user)
+        {
+            user.UserSpecialCode = UserVerificationHelper.GenerateCode();
+        }
         // POST api/Account/RegisterExternal
         [OverrideAuthentication]
         [HostAuthentication(DefaultAuthenticationTypes.ExternalBearer)]
@@ -643,7 +672,9 @@ namespace fsrhilmakv2.Controllers
                 NumberOfDoneServices = 10,
                 Speed = 10,
                 AvgServicesInOneDay = 10,
-                UserRoles = userManager.GetRoles(user.Id).ToList()
+                UserRoles = userManager.GetRoles(user.Id).ToList(),
+                
+                
 
             };
         }
@@ -690,6 +721,34 @@ namespace fsrhilmakv2.Controllers
                 result.Add(temp);
             }
             return result;
+        }
+
+        public ServicePathViewModel GetServicePathForProvider(String id,int pathId)
+        {
+            List<Service> services = helper.getUserServices(id);
+            List<Service> activeSerives = helper.getServicesFiltered(services, CoreController.ServiceStatus.Active.ToString());
+            List<Service> doneServices = helper.getServicesFiltered(services, CoreController.ServiceStatus.Done.ToString());
+            double speed = UserHelperLibrary.ServiceProviderSpeed(helper.findUser(id), doneServices.Count);
+            List<ServicePath> paths = db.ServicePaths.Where(a => a.id.Equals(pathId)).ToList();
+            if (paths.Count == 0)
+            {
+                paths = db.ServicePaths.Where(a => a.ServiceProviderId.Equals(null) && a.Enabled).ToList();
+            }
+
+            List<ServicePathViewModel> result = new List<ServicePathViewModel>();
+            foreach (var item in paths)
+            {
+                int numOfOpenDreams = activeSerives.Where(a => a.ServicePathId.Equals(item.id)).Count();
+                ServicePathViewModel temp = new ServicePathViewModel();
+                temp.id = item.id;
+                temp.Cost = item.Cost;
+                temp.Name = item.Name;
+                temp.NumberOfPeopleWaiting = numOfOpenDreams;
+                temp.AvgWaitingTime = UserHelperLibrary.getWaitingTimeMessage(Double.Parse(speed.ToString()),
+                Double.Parse(numOfOpenDreams.ToString())).Replace("Your average waiting time is ", "");
+                result.Add(temp);
+            }
+            return result[0];
         }
         #endregion
     }

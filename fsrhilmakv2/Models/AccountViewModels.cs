@@ -76,6 +76,12 @@ namespace fsrhilmakv2.Models
         public List<string> UserRoles { get; set; }
 
         public double Speed { get; set; }
+
+        public String UserSpecialCode { get; set; }
+
+        public String UserRegistrationCode { get; set; }
+
+        public long PointsBalance { get; set; }
     }
 
     public class UserLoginInfoViewModel
