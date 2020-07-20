@@ -327,4 +327,13 @@
   <data name="CreateNewuserWork" xml:space="preserve">
     <value>Create New user Work</value>
   </data>
+  <data name="InterpretedServices" xml:space="preserve">
+    <value>Interpreted Services</value>
+  </data>
+  <data name="ServicesUnderInterpretation" xml:space="preserve">
+    <value>Services under interpretation</value>
+  </data>
+  <data name="TransferOperations" xml:space="preserve">
+    <value>Transfer Operations</value>
+  </data>
 </root>

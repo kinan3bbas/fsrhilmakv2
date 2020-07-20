@@ -412,6 +412,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Interpreted Services.
+        /// </summary>
+        public static string InterpretedServices {
+            get {
+                return ResourceManager.GetString("InterpretedServices", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Message.
         /// </summary>
         public static string Message {
@@ -601,6 +610,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Services under interpretation.
+        /// </summary>
+        public static string ServicesUnderInterpretation {
+            get {
+                return ResourceManager.GetString("ServicesUnderInterpretation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Speed.
         /// </summary>
         public static string Speed {
@@ -642,6 +660,15 @@ namespace Resources {
         public static string SystemParametersInformation {
             get {
                 return ResourceManager.GetString("SystemParametersInformation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Transfer Operations.
+        /// </summary>
+        public static string TransferOperations {
+            get {
+                return ResourceManager.GetString("TransferOperations", resourceCulture);
             }
         }
         

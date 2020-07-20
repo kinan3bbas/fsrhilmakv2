@@ -15,121 +15,246 @@
 <div class="container">
     <div class="row">
         <div class="col-md-3">
-            <ul class="nav flex-column nav-fill">
-                <li id="PersonalInfo" class="nav-item nav-link active " style="border:solid;border-color:#071689;font-weight:600; font-size: larger">
-                    @Html.ActionLink(Resources.Register.PersonalInformation, "PersonalPage", new { Employeeid = Id })
-                </li>
-             @*<li id="SalaryInfo" class="nav-item nav-link active" style="border:solid;border-color:#071689;font-size: larger;color:black !important;font-weight:600;">
-                    @Html.ActionLink(Resources.Global.Dreams, "InterpreterDreams", new { id = Model.Id })
-                </li>*@   
-                @*<li id="EmployeeDocs" class="nav-item nav-link active" style="border:solid;border-color:#071689; font-size: larger;font-weight:600;">
-                        @Html.ActionLink(Resources.Global.Payments, "EmployeeDocs", "Support", new { Employeeid = Id }, null)
-                    </li>*@
-               
-               
-            </ul>
-        </div>
 
-        <div class="col-md-9" id="PersonalInfoDV">
-           
-            <table class="table table-responsive" style="margin-top:3%">
-                <tr>
-                    <th>
-                        @Resources.Register.Name :
-                    </th>
-                    <td>
-                        @Html.DisplayFor(model => model.Name)
-                    </td>
-                </tr>
-                <tr>
-                    <th>
-                        @Resources.Register.Age :
-                    </th>
-                    <td>
-                        @Html.DisplayFor(model => model.Age)
-                    </td>
-                </tr>
-                <tr>
 
-                    <th>
-                        @Resources.Register.Country :
-                    </th>
-                    <td>
-                        @Html.DisplayFor(model => model.Country)
-                    </td>
-                </tr>
-                <tr>
-                    <th>
-                        @Resources.Register.UserName:
-                    </th>
-                    <td>
-                        @Html.DisplayFor(model => model.UserName)
-                    </td>
-                </tr>
-                <tr>
-                    <th>
-                        @Resources.Register.Status :
-                    </th>
-                    <td>
-                        @Html.DisplayFor(model => model.Status)
-                    </td>
-                </tr>
-                <tr>
-                    <th>
-                        @Resources.Register.Sex :
-                    </th>
-                    <td>
-                        @Html.DisplayFor(model => model.Sex)
-                    </td>
-                </tr>
-                <tr>
-                    <th>
-                        @Resources.Register.PhoneNumber:
-                    </th>
-                    <td>
-                        @Html.DisplayFor(model => model.PhoneNumber)
-                    </td>
-                </tr>
-                <tr>
-                    <th>
-                        @Resources.Register.MartialStatus:
-                    </th>
-                    <td>
-                        @Html.DisplayFor(model => model.MartialStatus)
-                    </td>
-                </tr>
-                <tr>
-                    <th>
-                        @Resources.Register.Type:
-                    </th>
-                    <td>
-                        @Html.DisplayFor(model => model.Type)
-                    </td>
-                </tr>
-              
-            </table>
-           
-        </div>
-    </div>
-    <div class="row ">
-        <div class="col-md-3"></div>
-        <div class="col-md-9">
-            <hr />
-           
-                <div class="row">
-                    <div class="col-md-5">
-                        <input type="button"
-                               class="btn btn-primary" value="@Resources.UserWork.Edit"
-                               onclick="location.href='@Url.Action("EditPersonalPage", "Account", new { id = Model.Id })'" />
+            <div class="accordion" id="accordionExample">
+                <div class="card">
+                    <div class="card-header" id="headingOne">
+                        <h2 class="mb-0">
+                            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                @Html.ActionLink(Resources.Register.PersonalInformation, "PersonalPage", new { Employeeid = Id })
+                            </button>
+                        </h2>
                     </div>
                 </div>
-           
+            </div>
+
+
+            <div class="accordion" id="accordionExample">
+                <div class="card">
+                    <div class="card-header" id="headingOne">
+                        <h2 class="mb-0">
+                            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                @Html.ActionLink(Resources.Global.service_Paths, "PersonalPage", new { Employeeid = Id })
+                            </button>
+                        </h2>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion" id="accordionExample">
+                <div class="card">
+                    <div class="card-header" id="headingOne">
+                        <h2 class="mb-0">
+                            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                @Html.ActionLink(Resources.Global.Payments, "PersonalPage", new { Employeeid = Id })
+                            </button>
+                        </h2>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion" id="accordionExample">
+                <div class="card">
+                    <div class="card-header" id="headingOne">
+                        <h2 class="mb-0">
+                            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                @Html.ActionLink(Resources.Global.InterpretedServices, "PersonalPage", new { Employeeid = Id })
+                            </button>
+                        </h2>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion" id="accordionExample">
+                <div class="card">
+                    <div class="card-header" id="headingOne">
+                        <h2 class="mb-0">
+                            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                @Html.ActionLink(Resources.Global.ServicesUnderInterpretation, "PersonalPage", new { Employeeid = Id })
+                            </button>
+                        </h2>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion" id="accordionExample">
+                <div class="card">
+                    <div class="card-header" id="headingOne">
+                        <h2 class="mb-0">
+                            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                @Html.ActionLink(Resources.Global.Ratings, "PersonalPage", new { Employeeid = Id })
+                            </button>
+                        </h2>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion" id="accordionExample">
+                <div class="card">
+                    <div class="card-header" id="headingOne">
+                        <h2 class="mb-0">
+                            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                @Html.ActionLink(Resources.Global.TransferOperations, "PersonalPage", new { Employeeid = Id })
+                            </button>
+                        </h2>
+                    </div>
+                </div>
+            </div>
+
+
+                    @*<ul class="nav flex-column nav-fill">
+        <li id="PersonalInfo" class="nav-item nav-link active " style="border:solid;border-color:#071689;font-weight:600; font-size: larger">
+            @Html.ActionLink(Resources.Register.PersonalInformation, "PersonalPage", new { Employeeid = Id })
+        </li>
+        <li id="PersonalInfo" class="nav-item nav-link active " style="border:solid;border-color:#071689;font-weight:600; font-size: larger">
+            @Html.ActionLink(Resources.Global.service_Paths, "PersonalPage", new { Employeeid = Id })
+        </li>
+        <li id="PersonalInfo" class="nav-item nav-link active " style="border:solid;border-color:#071689;font-weight:600; font-size: larger">
+            @Html.ActionLink(Resources.Global.Payments, "PersonalPage", new { Employeeid = Id })
+        </li>
+        <li id="PersonalInfo" class="nav-item nav-link active " style="border:solid;border-color:#071689;font-weight:600; font-size: larger">
+            @Html.ActionLink(Resources.Global.InterpretedServices, "PersonalPage", new { Employeeid = Id })
+        </li>
+        <li id="PersonalInfo" class="nav-item nav-link active " style="border:solid;border-color:#071689;font-weight:600; font-size: larger">
+            @Html.ActionLink(Resources.Global.ServicesUderInterpretation, "PersonalPage", new { Employeeid = Id })
+        </li>
+        <li id="PersonalInfo" class="nav-item nav-link active " style="border:solid;border-color:#071689;font-weight:600; font-size: larger">
+            @Html.ActionLink(Resources.Global.Ratings, "PersonalPage", new { Employeeid = Id })
+        </li>
+        <li id="PersonalInfo" class="nav-item nav-link active " style="border:solid;border-color:#071689;font-weight:600; font-size: larger">
+            @Html.ActionLink(Resources.Global.TransferOperations, "PersonalPage", new { Employeeid = Id })
+        </li>
+    </ul>*@
+                </div>
+
+                <div class="col-md-9" id="PersonalInfoDV">
+
+                    <table class="table table-responsive" style="margin-top:3%">
+                        <tr>
+                            <th>
+                                @Resources.Register.Name :
+                            </th>
+                            <td>
+                                @Html.DisplayFor(model => model.Name)
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <th>
+                                @Resources.Register.UserName:
+                            </th>
+                            <td>
+                                @Html.DisplayFor(model => model.UserName)
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <th>
+                                @Resources.Register.Age :
+                            </th>
+                            <td>
+                                @Html.DisplayFor(model => model.Age)
+                            </td>
+                        </tr>
+                        <tr>
+
+                            <th>
+                                @Resources.Register.Country :
+                            </th>
+                            <td>
+                                @Html.DisplayFor(model => model.Country)
+                            </td>
+                        </tr>
+                       
+                        <tr>
+                            <th>
+                                @Resources.Register.Status :
+                            </th>
+                            <td>
+                                @Html.DisplayFor(model => model.Status)
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <th>
+                                @Resources.Register.PhoneNumber:
+                            </th>
+                            <td>
+                                @Html.DisplayFor(model => model.PhoneNumber)
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <th>
+                                @Resources.Register.Type:
+                            </th>
+                            <td>
+                                @Html.DisplayFor(model => model.Type)
+                            </td>
+                        </tr>
+
+                   @if (Model.Type == "ServiceProvider")
+                   {
+                    <tr>
+                        <th>
+                            @Resources.Register.Sex :
+                        </th>
+                        <td>
+                            @Html.DisplayFor(model => model.Sex)
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            @Resources.Global.Email :
+                        </th>
+                        <td>
+                            @Html.DisplayFor(model => model.Email)
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            @Resources.Global.Email :
+                        </th>
+                        <td>
+                            @Html.DisplayFor(model => model.Email)
+                        </td>
+                    </tr>
+                        <tr>
+                            <th>
+                                @Resources.Register.MartialStatus:
+                            </th>
+                            <td>
+                                @Html.DisplayFor(model => model.MartialStatus)
+                            </td>
+                        </tr>
+                        
+
+
+                   }
+                    </table>
+
+                </div>
+            </div>
+            <div class="row ">
+                <div class="col-md-3"></div>
+                <div class="col-md-9">
+                    <hr />
+
+                    <div class="row">
+                        <div class="col-md-5">
+                            <input type="button"
+                                   class="btn btn-primary" value="@Resources.UserWork.Edit"
+                                   onclick="location.href='@Url.Action("EditPersonalPage", "Account", new { id = Model.Id })'" />
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+
 
         </div>
-    </div>
-
-
-</div>
 @section Scripts
 {
     <script type="text/javascript">

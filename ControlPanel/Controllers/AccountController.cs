@@ -16,7 +16,7 @@ using System.Data.Entity;
 
 namespace ControlPanel.Controllers
 {
-    [Authorize]
+    [AllowAnonymous]
     public class AccountController : Controller
     {
         private ApplicationSignInManager _signInManager;
@@ -500,10 +500,6 @@ namespace ControlPanel.Controllers
             {
                 return HttpNotFound();
             }
-            //var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
-            //var user = userManager.FindById(User.Identity.GetUserId());
-            //ViewBag.CurrentUser = user;
-
             ViewBag.userId = id;
             return View(temp);
         }
