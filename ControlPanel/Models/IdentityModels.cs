@@ -14,7 +14,7 @@ namespace ControlPanel.Models
     {
         [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}")]
         [Display(Name = "Creation Date")]
-        public DateTime? CreationDate { get; set; }
+        public DateTime CreationDate { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}")]
         [Display(Name = "Last Modification Date")]
@@ -95,6 +95,12 @@ namespace ControlPanel.Models
                 .HasRequired<ApplicationUser>(s => s.User)
                 .WithMany(g => g.userWorkBinding)
                 .HasForeignKey<string>(s => s.UserId);
+
+
+            modelBuilder.Entity<ServiceComment>()
+                .HasRequired<Service>(s => s.Service)
+                .WithMany(g => g.Comments)
+                .HasForeignKey<int>(s => s.ServiceId);
 
             base.OnModelCreating(modelBuilder);
         }

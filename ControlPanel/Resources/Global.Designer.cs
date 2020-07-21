@@ -610,6 +610,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Services Information.
+        /// </summary>
+        public static string ServicesInformation {
+            get {
+                return ResourceManager.GetString("ServicesInformation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Services under interpretation.
         /// </summary>
         public static string ServicesUnderInterpretation {

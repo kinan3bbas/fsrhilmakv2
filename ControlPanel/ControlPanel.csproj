@@ -201,9 +201,17 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ServicePathsController.cs" />
     <Compile Include="Controllers\SystemParametersController.cs" />
+    <Compile Include="Controllers\ServicesController.cs" />
     <Compile Include="Controllers\UserWorksController.cs" />
     <Compile Include="Extras\BasicModel.cs" />
     <Compile Include="Extras\BasicRepository.cs" />
+    <Compile Include="Extra\EmailHelper.cs" />
+    <Compile Include="Extra\Message.cs" />
+    <Compile Include="Extra\Notification.cs" />
+    <Compile Include="Extra\ParameterRepository.cs" />
+    <Compile Include="Extra\ResponseEntity.cs" />
+    <Compile Include="Extra\UserHelperLibrary.cs" />
+    <Compile Include="Extra\UserVerificationHelper.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -250,6 +258,7 @@
       <DependentUpon>UserWork.resx</DependentUpon>
     </Compile>
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\ServiceViewModel.cs" />
     <Compile Include="ViewModels\Test.cs" />
     <Compile Include="ViewModels\UserInfoViewModel.cs" />
   </ItemGroup>
@@ -337,6 +346,8 @@
     <Content Include="Views\Account\PersonalPage.cshtml" />
     <Content Include="Views\Account\EditPersonalPage.cshtml" />
     <Content Include="Views\Shared\_PLayout_Personal.cshtml" />
+    <Content Include="Views\Services\Edit.cshtml" />
+    <Content Include="Views\Services\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
