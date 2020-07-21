@@ -1,4 +1,4 @@
-﻿@model ControlPanel.Models.ApplicationUser
+﻿@Model ControlPanel.ViewModels.UserInfoViewModel;
 @{
     ViewBag.Title = "Personal Info Page";
     Layout = "~/Views/Shared/_PLayout.cshtml";
@@ -194,7 +194,7 @@
                             </td>
                         </tr>
 
-                   @if (Model.Type == "ServiceProvider")
+                   @if (Model.Type.ToString() == "Service_Provider")
                    {
                     <tr>
                         <th>
@@ -212,14 +212,7 @@
                             @Html.DisplayFor(model => model.Email)
                         </td>
                     </tr>
-                    <tr>
-                        <th>
-                            @Resources.Global.Email :
-                        </th>
-                        <td>
-                            @Html.DisplayFor(model => model.Email)
-                        </td>
-                    </tr>
+                    
                         <tr>
                             <th>
                                 @Resources.Register.MartialStatus:
@@ -228,7 +221,70 @@
                                 @Html.DisplayFor(model => model.MartialStatus)
                             </td>
                         </tr>
-                        
+                        <tr>
+                            <th>
+                                @Resources.Global.UserWorks:
+                            </th>
+                            <td>
+                                @Html.DisplayFor(model => model.userWorkBinding)
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                JobDescription:
+                            </th>
+                            <td>
+                                @Html.DisplayFor(model => model.JobDescription)
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <th>
+                                JoiningDate:
+                            </th>
+                            <td>
+                                @Html.DisplayFor(model => model.JoiningDate)
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <th>
+                                PictureId:
+                            </th>
+                            <td>
+                                @Html.DisplayFor(model => model.PictureId)
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <th>
+                                PersonalDescription:
+                            </th>
+                            <td>
+                                @Html.DisplayFor(model => model.PersonalDescription)
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <th>
+                                FireBaseId:
+                            </th>
+                            <td>
+                                @Html.DisplayFor(model => model.FireBaseId)
+                            </td>
+                        </tr>
+
+                        @*<tr>
+                            <th>
+                                NumberOfActiveServices:
+                            </th>
+                            <td>
+                                @Html.DisplayFor(model => model.n)
+                            </td>
+                        </tr>*@
+
+
+
 
 
                    }

@@ -208,10 +208,14 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\EmailLog.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Service.cs" />
+    <Compile Include="Models\ServiceComment.cs" />
     <Compile Include="Models\ServicePath.cs" />
     <Compile Include="Models\SystemParameter.cs" />
+    <Compile Include="Models\UserVerificationLog.cs" />
     <Compile Include="Models\UserWork.cs" />
     <Compile Include="Models\UserWorkBinding.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -246,6 +250,7 @@
       <DependentUpon>UserWork.resx</DependentUpon>
     </Compile>
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\Test.cs" />
     <Compile Include="ViewModels\UserInfoViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
