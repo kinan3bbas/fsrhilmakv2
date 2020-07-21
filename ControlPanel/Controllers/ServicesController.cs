@@ -24,7 +24,7 @@ namespace ControlPanel.Controllers
         // GET: services
         public ActionResult Index()
         {
-            var services = db.Services.Include("Comments")
+            List<Service> services = db.Services.Include("Comments")
                 .Include("ServicePath")
                 .Include("UserWork")
                 .Include("ServiceProvider")
