@@ -53,7 +53,7 @@ namespace ControlPanel.ViewModels
 
         public Boolean VerifiedUser { get; set; }
 
-        public List<UserWorkBinding> UserWorks { get; set; }
+        public List<UserWork> UserWorks { get; set; }
         public List<string> UserRoles { get; set; }
 
         public double Speed { get; set; }
@@ -64,5 +64,7 @@ namespace ControlPanel.ViewModels
         public String UserRegistrationCode { get; set; }
 
         public long PointsBalance { get; set; }
+
+        public string PhoneNumber { get; set; }
     }
 }
