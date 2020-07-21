@@ -413,11 +413,11 @@ namespace ControlPanel.Controllers
         // GET: /Account/ServiceProvider
         public ActionResult ServiceProvider(int? UserWorkId)
         {
-            List<ApplicationUser> users = db.Users.Where(a => a.Type.Equals(CoreController.UserType.Service_Provider.ToString())
-                    &&!a.Status.Equals(CoreController.UserStatus.Deleted.ToString())).ToList();
+            List<ApplicationUser> users = db.Users.Where(a => a.Type== "Service_Provider"
+                    && a.Status!="Deleted").ToList();
             if (UserWorkId != null)
             {
-                List<UserWorkBinding> bindings = db.UserWorkBindings.Where(a => a.UserWorkId.Equals(UserWorkId)
+                List<UserWorkBinding> bindings = db.UserWorkBindings.Where(a => a.UserWorkId==UserWorkId
                         ).Include("User").ToList();
                 users = bindings.Select(a => a.User).ToList();
             }
@@ -426,7 +426,7 @@ namespace ControlPanel.Controllers
             {
                 result.Add(getInfoMapping(item));
             }
-            ViewBag.UserWorkId = new SelectList(db.UserWorks.Where(a=>a.Enabled), "Id", "Name");
+            ViewBag.UserWorkId = new SelectList(db.UserWorks.Where(a=>a.Enabled), "id", "Name");
             return View(result);
         }
 
@@ -480,7 +480,7 @@ namespace ControlPanel.Controllers
                 FireBaseId = user.FireBaseId,
                 Id = user.Id,
                 HasRegistered = user.verifiedInterpreter,
-                UserWorks = userWork,
+                UserWorks = userWork.Select(a=>a.UserWork).ToList(),
                 NumberOfActiveServices = 10,
                 NumberOfDoneServices = 10,
                 Speed = 10,
@@ -497,13 +497,14 @@ namespace ControlPanel.Controllers
             ApplicationUser temp = db
                 .Users
                 .Where(e => e.Id.Equals(id))
+                .Include("userWorkBinding")
                 .FirstOrDefault();
             if (temp == null)
             {
                 return HttpNotFound();
             }
             ViewBag.userId = id;
-            return View(temp);
+            return View(getInfoMapping(temp));
         }
 
 

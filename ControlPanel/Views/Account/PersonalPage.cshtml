@@ -1,4 +1,4 @@
-﻿@Model ControlPanel.ViewModels.UserInfoViewModel;
+﻿@model  ControlPanel.ViewModels.UserInfoViewModel 
 @{
     ViewBag.Title = "Personal Info Page";
     Layout = "~/Views/Shared/_PLayout.cshtml";
@@ -226,7 +226,10 @@
                                 @Resources.Global.UserWorks:
                             </th>
                             <td>
-                                @Html.DisplayFor(model => model.userWorkBinding)
+                                @foreach (var item in Model.UserWorks)
+                                {
+                                    <span>@item.Name</span><br />
+                                }
                             </td>
                         </tr>
                         <tr>

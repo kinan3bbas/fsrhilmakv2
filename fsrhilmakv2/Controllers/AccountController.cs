@@ -451,7 +451,7 @@ namespace fsrhilmakv2.Controllers
                         db.UserWorkBindings.Add(temp);
                         userWorksToBind.Add(temp);
                     }
-                    
+                    model.UserWork = null;
                     user.userWorkBinding = userWorksToBind;
                     //db.Entry(user).State = EntityState.Modified;
                     //db.SaveChanges();
