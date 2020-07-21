@@ -336,6 +336,7 @@
     <Content Include="Views\Account\DeletedUsers.cshtml" />
     <Content Include="Views\Account\PersonalPage.cshtml" />
     <Content Include="Views\Account\EditPersonalPage.cshtml" />
+    <Content Include="Views\Shared\_PLayout_Personal.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

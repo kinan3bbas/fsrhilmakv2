@@ -337,6 +337,10 @@
     <Compile Include="Migrations\202007172004469_systemUtil.Designer.cs">
       <DependentUpon>202007172004469_systemUtil.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202007200945362_onlineuser.cs" />
+    <Compile Include="Migrations\202007200945362_onlineuser.Designer.cs">
+      <DependentUpon>202007200945362_onlineuser.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -356,6 +360,7 @@
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\ServiceViewModel.cs" />
     <Compile Include="ViewModels\ServicePathViewModel.cs" />
+    <Compile Include="ViewModels\StatisticsViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\aspnet-fsrhilmakv2-20200618100158.mdf" />
@@ -489,6 +494,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202007172004469_systemUtil.resx">
       <DependentUpon>202007172004469_systemUtil.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202007200945362_onlineuser.resx">
+      <DependentUpon>202007200945362_onlineuser.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

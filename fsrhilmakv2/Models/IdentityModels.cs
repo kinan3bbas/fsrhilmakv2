@@ -75,6 +75,8 @@ namespace fsrhilmakv2.Models
 
         public long PointsBalance { get; set; }
 
+        public bool Online { get; set; }
+
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager, string authenticationType)
         {
