@@ -500,10 +500,6 @@ namespace ControlPanel.Controllers
             {
                 return HttpNotFound();
             }
-            //var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
-            //var user = userManager.FindById(User.Identity.GetUserId());
-            //ViewBag.CurrentUser = user;
-
             ViewBag.userId = id;
             return View(temp);
         }

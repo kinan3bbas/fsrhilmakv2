@@ -163,7 +163,7 @@
     <value>الخدمة</value>
   </data>
   <data name="service_Paths" xml:space="preserve">
-    <value>مسار الخدمة</value>
+    <value>مسارات الخدمة</value>
   </data>
   <data name="ServiceProvider" xml:space="preserve">
     <value>مزود الخدمة</value>
@@ -281,5 +281,20 @@
   </data>
   <data name="CreateNewuserWork" xml:space="preserve">
     <value>اضافة تخصص مقدم الخدمة</value>
+  </data>
+  <data name="Payments" xml:space="preserve">
+    <value>المدفوعات</value>
+  </data>
+  <data name="Ratings" xml:space="preserve">
+    <value>التقييمات</value>
+  </data>
+  <data name="ServicesUnderInterpretation" xml:space="preserve">
+    <value>الخدمات قيد التفسير</value>
+  </data>
+  <data name="TransferOperations" xml:space="preserve">
+    <value>عمليات التحويل</value>
+  </data>
+  <data name="InterpretedServices" xml:space="preserve">
+    <value>الخدمات المفسرة</value>
   </data>
 </root>

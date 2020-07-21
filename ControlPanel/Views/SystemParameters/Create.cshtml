@@ -11,14 +11,14 @@
 @using (Html.BeginForm()) 
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
-       
+
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-       
 
-      
+
+
 
         <div class="form-group">
             @Resources.UserWork.Name
@@ -36,20 +36,22 @@
             </div>
         </div>
 
-        <div class="form-group">
-            @Resources.Global.Value
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Value, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Value, "", new { @class = "text-danger" })
-            </div>
-        </div>
 
         <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="@Resources.UserWork.Create " class="btn btn-default" />
+            @Resources.Global.Value
+
+            <div class="col-md-10">
+                    @Html.TextAreaFor(model => model.Value, new { @style = "width: 925px;height:150px" })
+                    @Html.ValidationMessageFor(model => model.Value)
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="@Resources.UserWork.Create " class="btn btn-default" />
+                </div>
             </div>
         </div>
     </div>
+
 }
 
 <div>
