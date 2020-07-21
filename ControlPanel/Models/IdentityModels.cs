@@ -63,6 +63,11 @@ namespace ControlPanel.Models
 
         //public ICollection<UserWork> userWork { get; set; }
         public ICollection<UserWorkBinding> userWorkBinding { get; set; }
+
+
+        public String UserRegistrationCode { get; set; }
+
+        public long PointsBalance { get; set; }
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
@@ -101,6 +106,11 @@ namespace ControlPanel.Models
         public System.Data.Entity.DbSet<ControlPanel.Models.ServicePath> ServicePaths { get; set; }
 
         public System.Data.Entity.DbSet<ControlPanel.Models.UserWorkBinding> UserWorkBindings { get; set; }
+
+        public System.Data.Entity.DbSet<Service> Services { get; set; }
+        public System.Data.Entity.DbSet<ServiceComment> ServiceComments { get; set; }
+        public System.Data.Entity.DbSet<UserVerificationLog> UserVerificationLogs { get; set; }
+        public System.Data.Entity.DbSet<EmailLog> EmailLogs { get; set; }
 
         //public System.Data.Entity.DbSet<ControlPanel.Models.ApplicationUser> ApplicationUsers { get; set; }
 

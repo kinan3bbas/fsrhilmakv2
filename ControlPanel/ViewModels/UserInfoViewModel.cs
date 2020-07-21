@@ -44,7 +44,7 @@ namespace ControlPanel.ViewModels
         public string Id { get; set; }
 
         public int NumberOfActiveServices { get; set; }
-
+    
         public int NumberOfDoneServices { get; set; }
 
         public string SocialStatus { get; set; }
@@ -57,5 +57,12 @@ namespace ControlPanel.ViewModels
         public List<string> UserRoles { get; set; }
 
         public double Speed { get; set; }
+
+
+        public String UserSpecialCode { get; set; }
+
+        public String UserRegistrationCode { get; set; }
+
+        public long PointsBalance { get; set; }
     }
 }

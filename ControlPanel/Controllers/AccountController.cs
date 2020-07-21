@@ -485,10 +485,12 @@ namespace ControlPanel.Controllers
                 NumberOfDoneServices = 10,
                 Speed = 10,
                 AvgServicesInOneDay = 10,
-                UserRoles = userManager.GetRoles(user.Id).ToList()
+                UserRoles = userManager.GetRoles(user.Id).ToList(),
+
 
             };
         }
+
 
         public ActionResult PersonalPage(String id)
         {
