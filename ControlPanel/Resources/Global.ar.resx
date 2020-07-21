@@ -297,4 +297,7 @@
   <data name="InterpretedServices" xml:space="preserve">
     <value>الخدمات المفسرة</value>
   </data>
+  <data name="ServicesInformation" xml:space="preserve">
+    <value>معلومات الخدمات</value>
+  </data>
 </root>

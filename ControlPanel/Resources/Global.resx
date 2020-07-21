@@ -336,4 +336,7 @@
   <data name="TransferOperations" xml:space="preserve">
     <value>Transfer Operations</value>
   </data>
+  <data name="ServicesInformation" xml:space="preserve">
+    <value>Services Information</value>
+  </data>
 </root>
