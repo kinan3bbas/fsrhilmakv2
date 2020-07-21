@@ -12,6 +12,7 @@ using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
+using System.Data.Entity;
 
 namespace fsrhilmakv2.Controllers
 {
@@ -173,6 +174,13 @@ namespace fsrhilmakv2.Controllers
             if (parm == null)
                 throwExcetpion("No matching Parameter!");
             return Ok(parm);
+        }
+
+        public void ChangeOnlineStatus(ApplicationUser user, bool online)
+        {
+            user.Online = online;
+            db.Entry(user).State = EntityState.Modified;
+            db.SaveChanges();
         }
     }
 }

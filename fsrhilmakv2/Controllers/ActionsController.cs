@@ -21,6 +21,8 @@ namespace fsrhilmakv2.Controllers
         private UserHelperLibrary helper = new UserHelperLibrary();
 
 
+
+        //****************************** Service Explanation*************************************
         // POST api/ActionsController/AddExplanation
         [Route("AddExplanation")]
         [HttpPost]
@@ -44,6 +46,7 @@ namespace fsrhilmakv2.Controllers
             SaveService(service);
             return service;
         }
+        //****************************** User Rating*************************************
 
         // POST api/ActionsController/AddRating
         [Route("AddRating")]
@@ -70,6 +73,7 @@ namespace fsrhilmakv2.Controllers
             return service;
         }
 
+        //****************************** Single Service Info*************************************
 
         [Route("GetSingleServiceInfo")]
         [HttpGet]
@@ -90,6 +94,60 @@ namespace fsrhilmakv2.Controllers
             return getMapping(service);
             
         }
+
+        //****************************** Statistics*************************************
+
+        [Route("getUsersStatistics")]
+        [HttpGet]
+        [AllowAnonymous]
+        public StatisticsViewModel getUsersStatistics()
+        {
+            List<ApplicationUser> users = db.Users.Where(a=>!a.Status.Equals(CoreController.UserStatus.Deleted.ToString())).ToList();
+            List<ApplicationUser> Clients = db.Users.Where(a => a.Type.Equals(CoreController.UserType.Client.ToString())).ToList();
+            List<ApplicationUser> ServiceProviders = db.Users.Where(a => a.Type.Equals(CoreController.UserType.Service_Provider.ToString())).ToList();
+            List<Service> AllServices = db.Services.ToList();
+            
+
+            StatisticsViewModel result = new StatisticsViewModel();
+            result.AllClients = Clients.Count();
+            result.AllActiveClients = Clients.Where(a=>a.Online).Count();
+            result.AllUsers = users.Count();
+            result.AllServiceProviders = ServiceProviders.Count();
+            result.AllActiveServices = AllServices.Where(a=>a.Status.Equals(CoreController.ServiceStatus.Active)).Count();
+            result.AllDoneServices= AllServices.Where(a => a.Status.Equals(CoreController.ServiceStatus.Done)).Count();
+            result.AllServices = AllServices.Count();
+
+            return result;
+
+        }
+
+        //****************************** Change Plan *************************************
+        // POST api/ActionsController/ChangePlan
+        [Route("ChangePlan")]
+        [HttpPost]
+        public Service ChangePlan([FromBody] Service temp)
+        {
+            if (temp.id.Equals(null))
+            {
+                core.throwExcetpion("Id is null");
+            }
+            Service service = db.Services.Where(a => a.id.Equals(temp.id))
+                .FirstOrDefault();
+            if (temp.Explanation.Equals("") || temp.Explanation == null)
+            {
+                core.throwExcetpion("Explanation can't be null");
+            }
+
+            service.Explanation = temp.Explanation;
+            service.ExplanationDate = DateTime.Now;
+            service.Status = CoreController.ServiceStatus.Done.ToString();
+
+            SaveService(service);
+            return service;
+        }
+
+        //****************************** Functions*************************************
+
         public void SaveService(Service Service)
         {
             Service.LastModificationDate = DateTime.Now;
@@ -97,6 +155,8 @@ namespace fsrhilmakv2.Controllers
             db.Entry(Service).State = System.Data.Entity.EntityState.Modified;
             db.SaveChanges();
         }
+
+
 
         public ServiceViewModel getMapping(Service service)
         {

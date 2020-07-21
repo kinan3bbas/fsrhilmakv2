@@ -95,6 +95,7 @@ namespace fsrhilmakv2.Controllers
         [Route("Logout")]
         public IHttpActionResult Logout()
         {
+            core.ChangeOnlineStatus(core.getCurrentUser(), false);
             Authentication.SignOut(CookieAuthenticationDefaults.AuthenticationType);
             return Ok();
         }
