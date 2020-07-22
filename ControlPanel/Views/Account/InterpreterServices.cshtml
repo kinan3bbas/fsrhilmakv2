@@ -1,0 +1,186 @@
+﻿
+@model IEnumerable<ControlPanel.ViewModels.ServiceViewModel>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_PLayout.cshtml";
+    var Id = ViewBag.userId;
+    var userType = ViewBag.Type;
+}
+
+<h2>Service List</h2>
+<br />
+<div class="container">
+<div class="row">
+    <div class="col-md-3">
+        <div class="accordion" id="accordionExample">
+            <div class="card">
+                <div class="card-header" id="headingOne">
+                    <h2 class="mb-0">
+                        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            @Html.ActionLink(Resources.Register.PersonalInformation, "PersonalPage", new { Employeeid = Id })
+                        </button>
+                    </h2>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="accordion" id="accordionExample">
+            <div class="card">
+                <div class="card-header" id="headingOne">
+                    <h2 class="mb-0">
+                        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            @Html.ActionLink(Resources.Global.service_Paths, "PersonalPage", new { Employeeid = Id })
+                        </button>
+                    </h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion" id="accordionExample">
+            <div class="card">
+                <div class="card-header" id="headingOne">
+                    <h2 class="mb-0">
+                        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            @Html.ActionLink(Resources.Global.Payments, "PersonalPage", new { Employeeid = Id })
+                        </button>
+                    </h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion" id="accordionExample">
+            <div class="card">
+                <div class="card-header" id="headingOne">
+                    <h2 class="mb-0">
+                        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            @Html.ActionLink(Resources.Global.InterpretedServices, "InterpreterServices", new { Employeeid = Id })
+                        </button>
+                    </h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion" id="accordionExample">
+            <div class="card">
+                <div class="card-header" id="headingOne">
+                    <h2 class="mb-0">
+                        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            @Html.ActionLink(Resources.Global.ServicesUnderInterpretation, "ServicesUnderInterpretation", new { Employeeid = Id })
+                        </button>
+                    </h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion" id="accordionExample">
+            <div class="card">
+                <div class="card-header" id="headingOne">
+                    <h2 class="mb-0">
+                        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            @Html.ActionLink(Resources.Global.Ratings, "PersonalPage", new { Employeeid = Id })
+                        </button>
+                    </h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion" id="accordionExample">
+            <div class="card">
+                <div class="card-header" id="headingOne">
+                    <h2 class="mb-0">
+                        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            @Html.ActionLink(Resources.Global.TransferOperations, "PersonalPage", new { Employeeid = Id })
+                        </button>
+                    </h2>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-9">
+    <div class="table-responsive ">
+        <table class="table table-striped table-bordered table-hover " id="myTable">
+            <thead style="background-color:#6610f2;color:white;font-weight:bold;align-content:center">
+                <tr>
+                    <th>
+                        @Resources.Dream.path
+                    </th>
+                    <th>
+                        @Resources.Dream.Status
+                    </th>
+                    <th>
+                        @Resources.Dream.Description
+                    </th>
+                    <th>
+                        @Resources.Dream.Explanation
+                    </th>
+                    <th>
+                        @Resources.Dream.ExplanationDate
+                    </th>
+                    <th>
+                        @Resources.Dream.UserRating
+                    </th>
+                    <th>
+                        @Resources.Dream.RatingDate
+                    </th>
+                    <th>
+                        @Resources.Dream.CreationDate
+                    </th>
+
+                    <th>
+                        @Resources.Dream.Creator
+                    </th>
+
+
+                    @*<th></th>*@
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (var item in Model)
+            {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.path.Cost)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Status)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Description)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Explanation)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ExplanationDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.UserRating)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.RatingDate)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CreationDate)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Creator)
+                        </td>
+
+                        @*<td>
+                                @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
+                                @Html.ActionLink("Details", "Details", new { id = item.id }) |
+                                @Html.ActionLink("Delete", "Delete", new { id = item.id })
+                            </td>*@
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+        </div>
+    </div>
+    </div>
