@@ -123,29 +123,36 @@ namespace ControlPanel.Controllers
 ;
         }
 
-        public  <ActionResult> InterpreterServices(string id)
-        {
-            ApplicationUser user = db.Users.Find(id);
-            List<ServiceViewModel> services = new List<ServiceViewModel>;
-            if (user.Status.Equals("Done"))
-                services = db.Services.Where(a => a.ServiceProviderId.Equals(id)).OrderByDescending(a => a.CreationDate).ToList();
-                        ViewBag.userId = id;
-            ViewBag.Type = services.;
-            return View(services.ToList());
-        }
-
-
-
-        public async Task<ActionResult> ServicesUnderInterpretation(string id)
+        public  ActionResult InterpreterServices(string id)
         {
             ApplicationUser user = db.Users.Find(id);
             List<Service> services = new List<Service>();
-            if (user.Status.Equals("active"))
-                services = db.Services.Where(a => a.ServiceProviderId.Equals(id)).OrderByDescending(a => a.CreationDate).ToList();
+            if (user.Type.Equals("Service_Provider"))
+                services = db.Services.Where(a => a.ServiceProviderId.Equals(id) && a.Status == "Done").OrderByDescending(a => a.CreationDate).ToList();
+            if (user.Type.Equals("Client"))
+                services = db.Services.Where(a => a.CreatorId.Equals(id) && a.Status == "Active").OrderByDescending(a => a.CreationDate).ToList();
+            List<ServiceViewModel> result = new List<ServiceViewModel>();
+            foreach (var item in services)
+            {
+                result.Add(getMapping(item));
+            }
             ViewBag.userId = id;
             ViewBag.Type = user.Type;
-            return View(services.ToList());
+            return View(result);
         }
+
+
+
+        //public async ActionResult ServicesUnderInterpretation(string id)
+        //{
+        //    ApplicationUser user = db.Users.Find(id);
+        //    List<Service> services = new List<Service>();
+        //    if (user.Status.Equals("active"))
+        //        services = db.Services.Where(a => a.ServiceProviderId.Equals(id)).OrderByDescending(a => a.CreationDate).ToList();
+        //    ViewBag.userId = id;
+        //    ViewBag.Type = user.Type;
+        //    return View(services.ToList());
+        //}
 
         public ServiceViewModel getMapping(Service service)
         {
