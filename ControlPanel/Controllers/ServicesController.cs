@@ -11,6 +11,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 
+
 namespace ControlPanel.Controllers
 {
     public class ServicesController : Controller
@@ -22,7 +23,7 @@ namespace ControlPanel.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: services
-        public ActionResult Index()
+        public ActionResult Index(int? UserWorkId, string status)
         {
             List<Service> services = db.Services.Include("Comments")
                 .Include("ServicePath")
@@ -30,54 +31,98 @@ namespace ControlPanel.Controllers
                 .Include("ServiceProvider")
                 .Include("Creator")
                 .ToList();
+            if (status != null && !status.Equals(""))
+                services = services.Where(a => a.Status.Equals(status)).OrderByDescending(r => r.CreationDate).ToList();
+
+            if (UserWorkId != null)
+            {
+
+                services = services.Where(a => a.UserWorkId .Equals( UserWorkId)).OrderByDescending(r => r.CreationDate).ToList();
+                //services = bindings.Select(a => a.U).ToList();
+            }
+
             List<ServiceViewModel> result = new List<ServiceViewModel>();
             foreach (var item in services)
             {
                 result.Add(getMapping(item));
             }
+            ViewBag.UserWorkId = new SelectList(db.UserWorks.Where(a => a.Enabled), "id", "AdjectiveName");
             return View(result);
         }
 
-      
 
-        // GET: UserWorks/Edit/5
-        public ActionResult Edit(int? id)
+
+        // GET: serviceINFO
+        public ActionResult ServiceInfo(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            UserWork userWork = db.UserWorks.Find(id);
-            if (userWork == null)
+           var services = db.Services.Where(a => a.id.Equals(id))
+                .Include("Comments")
+                .Include("ServicePath")
+                .Include("UserWork")
+                .Include("ServiceProvider")
+                .Include("Creator").FirstOrDefault(); ;
+
+           
+           
+            ViewBag.userId = id;
+            return View(getMapping(services));
+
+        }
+
+        public ActionResult Edit(int id)
+        {
+            var services = db.Services.Where(a => a.id.Equals(id))
+                 .Include("Comments")
+                 .Include("ServicePath")
+                 .Include("UserWork")
+                 .Include("ServiceProvider")
+                 .Include("Creator").FirstOrDefault(); ;
+
+
+
+            ViewBag.userId = id;
+            return View(getMapping(services));
+
+        }
+
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(ServiceViewModel service)
+        {
+            if (service == null)
             {
                 return HttpNotFound();
             }
-            return View(userWork);
-        }
-
-        // POST: UserWorks/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id,Name,AdjectiveName,Enabled")] UserWork userWork)
-        {
             if (ModelState.IsValid)
             {
-                UserWork origin = db.UserWorks.Where(y => y.id == userWork.id).First();
-                origin.Name = userWork.Name;
-                origin.AdjectiveName = userWork.AdjectiveName;
-                origin.Enabled = userWork.Enabled;
-                origin.LastModificationDate = DateTime.Now;
-                db.Entry(origin).State = EntityState.Modified;
+                Service temp = db.Services.Where(a => a.id.Equals(service.id)).FirstOrDefault();
+                temp.id = service.id;
+                temp.Name = service.Name;
+                temp.Status = service.Status;
+                temp.Sex = service.Sex;
+                temp.UserWork.Name = service.UserWork.Name;
+                temp.ServicePath = service.ServicePath;
+                temp.Creator.Name = service.Creator.Name;
+                temp.KidsStatus = service.KidsStatus;
+                temp.IsThereWakefulness = service.IsThereWakefulness;
+                temp.Country = service.Country;
+                temp.HaveYouPrayedBeforeTheDream = service.HaveYouPrayedBeforeTheDream;
+                temp.DidYouExorcism = service.DidYouExorcism;
+                temp.RegligionStatus = service.RegligionStatus;
+                temp.SocialStatus = service.SocialStatus;
+                temp.JobStatus = service.JobStatus;
+                temp.Country = service.Country;
+                db.Entry(temp).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", new { id = service.id });
+
             }
-            return View(userWork);
+            return View(service)
+;
         }
 
-        // GET: UserWorks/Delete/5
-     
 
 
 

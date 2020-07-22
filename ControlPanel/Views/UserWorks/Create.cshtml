@@ -36,6 +36,14 @@
         </div>
 
         <div class="form-group">
+            @Resources.Global.Code
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
             @Resources.UserWork.Enabled
             <div class="col-md-10">
                 <div class="checkbox">
