@@ -22,7 +22,7 @@
                     <div class="card-header" id="headingOne">
                         <h2 class="mb-0">
                             <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                @Html.ActionLink(Resources.Register.PersonalInformation, "PersonalPage", new { Employeeid = Id })
+                                @Html.ActionLink(Resources.Register.PersonalInformation, "PersonalPage", new { userId = Id })
                             </button>
                         </h2>
                     </div>
@@ -35,7 +35,7 @@
                     <div class="card-header" id="headingOne">
                         <h2 class="mb-0">
                             <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                @Html.ActionLink(Resources.Global.service_Paths, "PersonalPage", new { Employeeid = Id })
+                                @Html.ActionLink(Resources.Global.service_Paths, "PersonalPage", new { userId = Id })
                             </button>
                         </h2>
                     </div>
@@ -47,7 +47,7 @@
                     <div class="card-header" id="headingOne">
                         <h2 class="mb-0">
                             <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                @Html.ActionLink(Resources.Global.Payments, "PersonalPage", new { Employeeid = Id })
+                                @Html.ActionLink(Resources.Global.Payments, "PersonalPage", new { userId = Id })
                             </button>
                         </h2>
                     </div>
@@ -59,7 +59,9 @@
                     <div class="card-header" id="headingOne">
                         <h2 class="mb-0">
                             <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                @Html.ActionLink(Resources.Global.InterpretedServices, "InterpreterServices", new { Employeeid = Id })
+                                @Html.ActionLink("Interprete dServices","InterpreterServices", "Services",  new { userId = Model.Id }, null)
+
+
                             </button>
                         </h2>
                     </div>
@@ -71,7 +73,7 @@
                     <div class="card-header" id="headingOne">
                         <h2 class="mb-0">
                             <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                @Html.ActionLink(Resources.Global.ServicesUnderInterpretation, "ServicesUnderInterpretation", new { Employeeid = Id })
+                                @Html.ActionLink("ServicesUnder Interpretation", "ServicesUnderInterpretation", "Services", new { userId = Model.Id },null)
                             </button>
                         </h2>
                     </div>

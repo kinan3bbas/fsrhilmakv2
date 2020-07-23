@@ -1,0 +1,213 @@
+﻿
+@model List<ControlPanel.ViewModels.ServiceViewModel>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_PLayout.cshtml";
+    var Id = ViewBag.userId;
+    //var userType = ViewBag.Type;
+}
+
+<h2>Dreams List</h2>
+<br />
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+            <div class="accordion" id="accordionExample">
+                <div class="card">
+                    <div class="card-header" id="headingOne">
+                        <h2 class="mb-0">
+                            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                @Html.ActionLink(Resources.Register.PersonalInformation, "PersonalPage", new { Employeeid = Id })
+                            </button>
+                        </h2>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="accordion" id="accordionExample">
+                <div class="card">
+                    <div class="card-header" id="headingOne">
+                        <h2 class="mb-0">
+                            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                @Html.ActionLink(Resources.Global.service_Paths, "PersonalPage", new { Employeeid = Id })
+                            </button>
+                        </h2>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion" id="accordionExample">
+                <div class="card">
+                    <div class="card-header" id="headingOne">
+                        <h2 class="mb-0">
+                            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                @Html.ActionLink(Resources.Global.Payments, "PersonalPage", new { Employeeid = Id })
+                            </button>
+                        </h2>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion" id="accordionExample">
+                <div class="card">
+                    <div class="card-header" id="headingOne">
+                        <h2 class="mb-0">
+                            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                @Html.ActionLink(Resources.Global.InterpretedServices, "InterpreterServices", new { Employeeid = Id })
+                            </button>
+                        </h2>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion" id="accordionExample">
+                <div class="card">
+                    <div class="card-header" id="headingOne">
+                        <h2 class="mb-0">
+                            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                @Html.ActionLink(Resources.Global.ServicesUnderInterpretation, "ServicesUnderInterpretation", new { Employeeid = Id })
+                            </button>
+                        </h2>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion" id="accordionExample">
+                <div class="card">
+                    <div class="card-header" id="headingOne">
+                        <h2 class="mb-0">
+                            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                @Html.ActionLink(Resources.Global.Ratings, "PersonalPage", new { Employeeid = Id })
+                            </button>
+                        </h2>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion" id="accordionExample">
+                <div class="card">
+                    <div class="card-header" id="headingOne">
+                        <h2 class="mb-0">
+                            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                @Html.ActionLink(Resources.Global.TransferOperations, "PersonalPage", new { Employeeid = Id })
+                            </button>
+                        </h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-9">
+            <div class="table-responsive ">
+                <table id="myTable" class="cell-border hover stripe" style="width:100%">
+                    <thead>
+                        <tr>
+
+                            <th>
+                                Name
+                            </th>
+
+                            <th>
+                                userwork
+                            </th>
+
+                            <th>
+                                CreationDate
+                            </th>
+                            <th>
+                                creator
+                            </th>
+                            <th>
+                                service path
+                            </th>
+                            <th>
+                                description
+                            </th>
+                            <th>
+                                status
+                            </th>
+
+                            <th></th>
+                        </tr>
+                    <tbody>
+                        @foreach (var item in Model)
+            {
+
+                            <tr>
+
+                                <td>
+                                    @Html.ActionLink(item.Name, "ServiceInfo", new { id = @item.Id }, null)
+                                </td>
+
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.UserWork.Name)
+                                </td>
+
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.CreationDate)
+                                </td>
+
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Creator.Name)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ServicePath.Cost)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Description)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Status)
+                                </td>
+
+
+                                <td>
+                                    @Html.ActionLink(@Resources.UserWork.Edit, "Edit", new { id = @item.id }) |
+                                    @Html.ActionLink(@Resources.UserWork.Details, "Details", new { id = item.id }) |
+                                    @Html.ActionLink(@Resources.UserWork.Delete, "Delete", new { id = item.id })
+                                </td>
+                            </tr>
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+
+        @section scripts{
+            <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+            <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.6.1/js/dataTables.buttons.min.js"></script>
+            <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.colVis.min.js"></script>
+            <script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+            <script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+            <script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+            <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.html5.min.js"></script>
+            <script type="text/javascript">
+
+                $('#myTable').DataTable(
+                    {
+                        dom: 'Bfrtip',
+                        columnDefs: [
+                            {
+                                targets: 1,
+                                className: 'noVis'
+                            }
+                        ],
+                        buttons: [
+                            {
+                                extend: 'colvis',
+                                columns: ':not(.noVis)'
+                            },
+                            'copyHtml5',
+                            'excelHtml5',
+                            'pdfHtml5'
+                        ]
+
+                    }
+
+
+                );
+            </script>
+        }

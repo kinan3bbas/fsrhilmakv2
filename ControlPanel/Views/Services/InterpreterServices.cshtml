@@ -1,5 +1,5 @@
 ﻿
-@model IEnumerable<ControlPanel.ViewModels.ServiceViewModel>
+@model List<ControlPanel.ViewModels.ServiceViewModel>
 
 @{
     ViewBag.Title = "Index";
@@ -99,88 +99,115 @@
         </div>
     </div>
     <div class="col-md-9">
-    <div class="table-responsive ">
-        <table class="table table-striped table-bordered table-hover " id="myTable">
-            <thead style="background-color:#6610f2;color:white;font-weight:bold;align-content:center">
-                <tr>
-                    <th>
-                        @Resources.Dream.path
-                    </th>
-                    <th>
-                        @Resources.Dream.Status
-                    </th>
-                    <th>
-                        @Resources.Dream.Description
-                    </th>
-                    <th>
-                        @Resources.Dream.Explanation
-                    </th>
-                    <th>
-                        @Resources.Dream.ExplanationDate
-                    </th>
-                    <th>
-                        @Resources.Dream.UserRating
-                    </th>
-                    <th>
-                        @Resources.Dream.RatingDate
-                    </th>
-                    <th>
-                        @Resources.Dream.CreationDate
-                    </th>
-
-                    <th>
-                        @Resources.Dream.Creator
-                    </th>
-
-
-                    @*<th></th>*@
-                </tr>
-            </thead>
-
-            <tbody>
-                @foreach (var item in Model)
-            {
+        <div class="table-responsive ">
+            <table id="myTable" class="cell-border hover stripe" style="width:100%">
+                <thead>
                     <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.path.Cost)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Status)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Description)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Explanation)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.ExplanationDate)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.UserRating)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.RatingDate)
-                        </td>
 
-                        <td>
-                            @Html.DisplayFor(modelItem => item.CreationDate)
-                        </td>
+                        <th>
+                            Name
+                        </th>
 
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Creator)
-                        </td>
+                        <th>
+                            userwork
+                        </th>
 
-                        @*<td>
-                                @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
-                                @Html.ActionLink("Details", "Details", new { id = item.id }) |
-                                @Html.ActionLink("Delete", "Delete", new { id = item.id })
-                            </td>*@
+                        <th>
+                            CreationDate
+                        </th>
+                        <th>
+                            creator
+                        </th>
+                        <th>
+                            service path
+                        </th>
+                        <th>
+                            description
+                        </th>
+                        <th>
+                            status
+                        </th>
+
+                        <th></th>
                     </tr>
-                }
-            </tbody>
-        </table>
-    </div>
+                <tbody>
+                    @foreach (var item in Model)
+            {
+
+                        <tr>
+
+                            <td>
+                                @Html.ActionLink(item.Name, "ServiceInfo", new { id = @item.Id }, null)
+                            </td>
+
+                            <td>
+                                @Html.DisplayFor(modelItem => item.UserWork.Name)
+                            </td>
+
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CreationDate)
+                            </td>
+
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Creator.Name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ServicePath.Cost)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Description)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Status)
+                            </td>
+
+
+                            <td>
+                                @Html.ActionLink(@Resources.UserWork.Edit, "Edit", new { id = @item.id }) |
+                                @Html.ActionLink(@Resources.UserWork.Details, "Details", new { id = item.id }) |
+                                @Html.ActionLink(@Resources.UserWork.Delete, "Delete", new { id = item.id })
+                            </td>
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
         </div>
     </div>
-    </div>
+
+
+        @section scripts{
+            <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+            <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.6.1/js/dataTables.buttons.min.js"></script>
+            <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.colVis.min.js"></script>
+            <script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+            <script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+            <script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+            <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.html5.min.js"></script>
+            <script type="text/javascript">
+
+                $('#myTable').DataTable(
+                    {
+                        dom: 'Bfrtip',
+                        columnDefs: [
+                            {
+                                targets: 1,
+                                className: 'noVis'
+                            }
+                        ],
+                        buttons: [
+                            {
+                                extend: 'colvis',
+                                columns: ':not(.noVis)'
+                            },
+                            'copyHtml5',
+                            'excelHtml5',
+                            'pdfHtml5'
+                        ]
+
+                    }
+
+
+                );
+            </script>
+        }

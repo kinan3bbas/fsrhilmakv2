@@ -411,8 +411,19 @@ namespace ControlPanel.Controllers
 
 
         // GET: /Account/ServiceProvider
-        public ActionResult ServiceProvider(int? UserWorkId)
+        public ActionResult ServiceProvider(int? UserWorkId, String fromDate = "", String toDate = "")
         {
+
+            DateTime from = new DateTime(2000, 1, 1);
+            DateTime to = new DateTime(3000, 1, 1);
+            if (!fromDate.Equals("") && fromDate != null)
+            {
+                DateTime.TryParse(fromDate, out from);
+            }
+            if (!toDate.Equals("") && toDate != null)
+            {
+                DateTime.TryParse(toDate, out to);
+            }
             List<ApplicationUser> users = db.Users.Where(a => a.Type== "Service_Provider"
                     && a.Status!="Deleted").ToList();
             if (UserWorkId != null)
@@ -420,6 +431,8 @@ namespace ControlPanel.Controllers
                 List<UserWorkBinding> bindings = db.UserWorkBindings.Where(a => a.UserWorkId==UserWorkId
                         ).Include("User").ToList();
                 users = bindings.Select(a => a.User).ToList();
+                users = users.Where(a => a.CreationDate.CompareTo(from) >= 0 && a.CreationDate.CompareTo(to) <= 0).ToList();
+
             }
             List<UserInfoViewModel> result = new List<UserInfoViewModel>();
             foreach (var item in users)
@@ -432,15 +445,30 @@ namespace ControlPanel.Controllers
 
         //// GET: /Account/Clients
         [HttpGet]
-        public ActionResult Clients()
+        public ActionResult Clients(String fromDate = "", String toDate = "")
         {
+
+            DateTime from = new DateTime(2000, 1, 1);
+            DateTime to = new DateTime(3000, 1, 1);
+            if (!fromDate.Equals("") && fromDate != null)
+            {
+                DateTime.TryParse(fromDate, out from);
+            }
+            if (!toDate.Equals("") && toDate != null)
+            {
+                DateTime.TryParse(toDate, out to);
+            }
+
             var users = db.Users.Where(a => a.Type.Equals(CoreController.UserType.Client.ToString())
             && !a.Status.Equals(CoreController.UserStatus.Deleted.ToString())).ToList();
+            users = users.Where(a => a.CreationDate.CompareTo(from) >= 0&& a.CreationDate.CompareTo(to) <= 0).ToList();
             List<UserInfoViewModel> result = new List<UserInfoViewModel>();
             foreach (var item in users)
             {
                 result.Add(getInfoMapping(item));
             }
+            ViewBag.UserWorkId = new SelectList(db.UserWorks.Where(a => a.Enabled), "id", "Name");
+
             return View(result);
         }
 
