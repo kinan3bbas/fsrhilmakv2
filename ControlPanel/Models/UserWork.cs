@@ -24,5 +24,7 @@ namespace ControlPanel.Models
         public String AdjectiveName { get; set; }
 
         public bool Enabled { get; set; }
+
+        public String Code { get; set; }
     }
 }

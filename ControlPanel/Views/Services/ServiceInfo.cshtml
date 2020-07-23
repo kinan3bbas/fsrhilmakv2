@@ -1,0 +1,288 @@
+﻿@model ControlPanel.ViewModels.ServiceViewModel
+
+@{
+    ViewBag.Title = "ServiceInfo";
+    Layout = "~/Views/Shared/_PLayout.cshtml";
+    var Id = Request.QueryString["serviceId"];
+    }
+
+<h2>@*@Resources.Global.*@ServicesInformation</h2>
+
+<br />
+<link href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css" />
+<link href="https://cdn.datatables.net/buttons/1.6.1/css/buttons.dataTables.min.css" rel="stylesheet" type="text/css" />
+<p style="float:right;text-decoration-color:white;">
+
+    @*<button class="btn btn-primary btn-default" onclick="location.href='@Url.Action("Create", "ServicePaths")'">
+        <i class="fa  pull-right" style="font-size:large"></i> @Resources.Global.CreateNewServicePath
+    </button>*@
+
+</p>  </div>
+<div class="container">
+
+    <div class="col-md-9" id="PersonalInfoDV">
+
+        <table class="table table-responsive" style="margin-top:3%">
+            <tr>
+                <th>
+                    @Resources.Register.Name :
+                </th>
+                <td>
+                    @Html.DisplayFor(model => model.Name)
+                </td>
+            </tr>
+
+            <tr>
+                <th>
+                    userwork:
+                </th>
+                <td>
+                    @Html.DisplayFor(model => model.UserWork.Name)
+                </td>
+            </tr>
+
+            <tr>
+                <th>
+                    creation date:
+                </th>
+                <td>
+                    @Html.DisplayFor(model => model.CreationDate)
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    service path:
+                </th>
+                <td>
+                    @Html.DisplayFor(model => model.ServicePath)
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    status:
+                </th>
+                <td>
+                    @Html.DisplayFor(model => model.Status)
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    creator:
+                </th>
+                <td>
+                    @Html.DisplayFor(model => model.Creator.Name)
+                </td>
+            </tr>
+            @*@if (Model.UserWork.Code.ToString() == "Dreem")
+                {*@
+            <tr>
+                <th>
+                    Sex :
+                </th>
+                <td>
+                    @Html.DisplayFor(model => model.Sex)
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    KidsStatus :
+                </th>
+                <td>
+                    @Html.DisplayFor(model => model.KidsStatus)
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    IsThereWakefulness :
+                </th>
+                <td>
+                    @Html.DisplayFor(model => model.IsThereWakefulness)
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    Country :
+                </th>
+                <td>
+                    @Html.DisplayFor(model => model.Country)
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    HaveYouPrayedBeforeTheDream :
+                </th>
+                <td>
+                    @Html.DisplayFor(model => model.HaveYouPrayedBeforeTheDream)
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    DidYouExorcism :
+                </th>
+                <td>
+                    @Html.DisplayFor(model => model.DidYouExorcism)
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    RegligionStatus :
+                </th>
+                <td>
+                    @Html.DisplayFor(model => model.RegligionStatus)
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    SocialStatus :
+                </th>
+                <td>
+                    @Html.DisplayFor(model => model.SocialStatus)
+                </td>
+            </tr>
+           
+            <tr>
+                <th>
+                    JobStatus :
+                </th>
+                <td>
+                    @Html.DisplayFor(model => model.JobStatus)
+                </td>
+            </tr>
+
+
+
+
+
+
+
+            @*}*@
+        </table>
+
+    </div>
+</div>
+<div class="row ">
+   
+
+    <div class="row">
+        <div class="col-md-5">
+            <input type="button"
+                   class="btn btn-primary" value="@Resources.UserWork.Edit"
+                   onclick="location.href='@Url.Action("Edit",  new { id = Model.Id })'" />
+
+
+        </div>
+    </div>
+</div>
+
+
+        </div>
+@section Scripts
+{
+    <script type="text/javascript">
+    $(document).ready(function () {
+        WorkExperienceLoadData();
+
+    });
+        function WorkExperienceLoadData() {
+
+        $.ajax({
+            type: 'GET',
+            @*url: '@Url.Action("getInterpreterInfo", "Account")',*@
+            @*url: "/Account/getInterpreterInfo?phoneNumber="+String(@Model.PhoneNumber),*@
+            dataType: 'json',
+            data: { },
+            success: function (data) {
+            var items = '';
+            $('#AllDreams').text(data.numberOfAllDreams);
+            $('#Done').text(data.numberOfDoneDreams);
+            $('#Active').text(data.numberOfActiveDreams);
+            $('#Day').text(data.numberOfDreamsByDay);
+            $('#Speed').text(data.speed);
+            $('#Rating').text(data.Rating);
+            $('#Balance').text(data.balance);
+
+
+
+            },
+            error: function (ex) {
+            var r = jQuery.parseJSON(response.responseText);
+            alert("Message: " + r.Message);
+            alert("StackTrace: " + r.StackTrace);
+            alert("ExceptionType: " + r.ExceptionType);
+            }
+            });
+            return false;
+        }
+        //Verify interpreter
+        $(function () {
+        $("#Skill_btnSave").click(function () {
+            var urlString='@Url.Action("VerifyInterpreter", "Account", new {id=Model.Id })';
+                $.ajax({
+                    type: "GET",
+                    url: urlString,
+                    data: {},
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    success: function () {
+
+                        alert(1);
+                    },
+                    error: function () {
+                        alert("Error while inserting data");
+                    }
+                });
+                return false;
+            });
+        });
+
+        function resetbalance() {
+
+        $.ajax({
+            type: 'GET',
+            @*url: '@Url.Action("getInterpreterInfo", "Account")',*@
+            @*url: "/Account/resetBalance?phoneNumber="+String(@Model.PhoneNumber),*@
+            dataType: 'json',
+            data: { },
+            success: function (data) {
+
+                alert("balance was reseted");
+                WorkExperienceLoadData();
+
+
+            },
+            error: function (ex) {
+            var r = jQuery.parseJSON(response.responseText);
+            alert("Message: " + r.Message);
+            alert("StackTrace: " + r.StackTrace);
+            alert("ExceptionType: " + r.ExceptionType);
+            }
+            });
+            return false;
+        }
+
+        function deleteUser() {
+
+        $.ajax({
+            type: 'GET',
+            @*url: '@Url.Action("getInterpreterInfo", "Account")',*@
+            @*url: "/Account/deleteUser?phoneNumber="+String(@Model.PhoneNumber),*@
+            dataType: 'json',
+            data: { },
+            success: function (data) {
+
+                alert("User was deleted and won't appear anymore in userlist, close the current page");
+                location.reload();
+
+
+            },
+            error: function (ex) {
+            var r = jQuery.parseJSON(response.responseText);
+            alert("Message: " + r.Message);
+            alert("StackTrace: " + r.StackTrace);
+            alert("ExceptionType: " + r.ExceptionType);
+            }
+            });
+            return false;
+        }
+    </script>
+}
