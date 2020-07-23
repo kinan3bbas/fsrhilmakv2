@@ -25,12 +25,19 @@
         <div class="row">
             <div class="col-md-4">
             </div>
+           
+            <div class="col-md-4">
+                @Html.Label("From Date")
+                @Html.TextBox("fromDate", null, new { type = "date", @class = "form-control m-input m-input--air" })
+            </div>
+            <div class="col-md-4">
+                @Html.Label("To Date")
+                @Html.TextBox("toDate", null, new { type = "date", @class = "form-control m-input m-input--air" })
+
+            </div>
             <div class="col-md-4">
                 @Html.Label("مهنة المستخدم")
                 @Html.DropDownList("UserWorkId", null, htmlAttributes: new { @class = "form-control m-input m-input--air" })
-            </div>
-            <div class="col-md-4">
-               
             </div>
         </div>
         <br />
