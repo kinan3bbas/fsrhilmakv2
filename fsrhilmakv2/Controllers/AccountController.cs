@@ -438,24 +438,28 @@ namespace fsrhilmakv2.Controllers
 
                     foreach (var item in model.UserWork)
                     {
+                        //db.Entry(item).State = EntityState.Deleted;
                         UserWorkBinding temp=new UserWorkBinding
                         {
                             CreationDate = DateTime.Now,
                             LastModificationDate=DateTime.Now,
                             UserId = user.Id,
-                            User = user,
+                           // User = user,
                             UserWork = userworks.Where(a => a.id.Equals(item.id)).ToList()[0],
                             UserWorkId = item.id
+                            
 
                         };
+                        db.Entry(temp.UserWork).State = EntityState.Detached;
                         db.UserWorkBindings.Add(temp);
+
                         userWorksToBind.Add(temp);
                     }
-                    model.UserWork = null;
                     user.userWorkBinding = userWorksToBind;
                     //db.Entry(user).State = EntityState.Modified;
                     //db.SaveChanges();
                 }
+                
                 result = await UserManager.CreateAsync(user, model.Password);
                 await UserManager.AddToRoleAsync(user.Id, "Service_Provider");
             }
