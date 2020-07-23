@@ -43,6 +43,16 @@
                     <b>user work</b>
                 </td>
                 <td style="padding-right:20px;padding-bottom:20px;">
+
+                    <div class="col-md-4">
+                        @Html.Label("From Date")
+                        @Html.TextBox("fromDate", null, new { type = "date", @class = "form-control m-input m-input--air" })
+                    </div>
+                    <div class="col-md-4">
+                        @Html.Label("To Date")
+                        @Html.TextBox("toDate", null, new { type = "date", @class = "form-control m-input m-input--air" })
+
+                    </div>
                     <div class="col-md-4">
                         @Html.Label("نوع الخدمة")
                         @Html.DropDownList("UserWorkId", null, htmlAttributes: new { @class = "form-control m-input m-input--air" })

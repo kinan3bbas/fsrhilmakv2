@@ -23,8 +23,20 @@ namespace ControlPanel.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: services
-        public ActionResult Index(int? UserWorkId, string status)
+        public ActionResult Index(int? UserWorkId, string status, String fromDate = "", String toDate = "")
         {
+            DateTime from = new DateTime(2000, 1, 1);
+            DateTime to = new DateTime(3000, 1, 1);
+            if (!fromDate.Equals("") && fromDate != null)
+            {
+                DateTime.TryParse(fromDate, out from);
+            }
+            if (!toDate.Equals("") && toDate != null)
+            {
+                DateTime.TryParse(toDate, out to);
+            }
+
+
             List<Service> services = db.Services.Include("Comments")
                 .Include("ServicePath")
                 .Include("UserWork")
@@ -40,12 +52,14 @@ namespace ControlPanel.Controllers
                 services = services.Where(a => a.UserWorkId .Equals( UserWorkId)).OrderByDescending(r => r.CreationDate).ToList();
                 //services = bindings.Select(a => a.U).ToList();
             }
+            services = services.Where(a => a.CreationDate.CompareTo(from) >= 0 && a.CreationDate.CompareTo(to) <= 0).ToList();
 
             List<ServiceViewModel> result = new List<ServiceViewModel>();
             foreach (var item in services)
             {
                 result.Add(getMapping(item));
             }
+
             ViewBag.UserWorkId = new SelectList(db.UserWorks.Where(a => a.Enabled), "id", "AdjectiveName");
             return View(result);
         }
@@ -123,36 +137,62 @@ namespace ControlPanel.Controllers
 ;
         }
 
-        public  ActionResult InterpreterServices(String id)
+        public  ActionResult InterpreterServices(String id, String fromDate = "", String toDate = "")
         {
+
+            DateTime from = new DateTime(2000, 1, 1);
+            DateTime to = new DateTime(3000, 1, 1);
+            if (!fromDate.Equals("") && fromDate != null)
+            {
+                DateTime.TryParse(fromDate, out from);
+            }
+            if (!toDate.Equals("") && toDate != null)
+            {
+                DateTime.TryParse(toDate, out to);
+            }
             ApplicationUser user = db.Users.Find(id);
             List<Service> services = new List<Service>();
             if (user.Type.Equals("Service_Provider"))
                 services = db.Services.Where(a => a.ServiceProviderId.Equals(id) && a.Status == "Done").OrderByDescending(a => a.CreationDate).ToList();
+            services = services.Where(a => a.CreationDate.CompareTo(from) >= 0 && a.CreationDate.CompareTo(to) <= 0).ToList();
+
             List<ServiceViewModel> result = new List<ServiceViewModel>();
             foreach (var item in services)
             {
                 result.Add(getMapping(item));
             }
-            ViewBag.userId = id;
+            ViewBag.UserWorkId = new SelectList(db.UserWorks.Where(a => a.Enabled), "id", "AdjectiveName");
             ViewBag.Type = user.Type;
             return View(result);
         }
 
 
 
-        public  ActionResult ServicesUnderInterpretation(string id)
+        public  ActionResult ServicesUnderInterpretation(string id, String fromDate = "", String toDate = "")
         {
+
+            DateTime from = new DateTime(2000, 1, 1);
+            DateTime to = new DateTime(3000, 1, 1);
+            if (!fromDate.Equals("") && fromDate != null)
+            {
+                DateTime.TryParse(fromDate, out from);
+            }
+            if (!toDate.Equals("") && toDate != null)
+            {
+                DateTime.TryParse(toDate, out to);
+            }
             ApplicationUser user = db.Users.Find(id);
             List<Service> services = new List<Service>();
             if (user.Type.Equals("Client"))
                 services = db.Services.Where(a => a.CreatorId.Equals(id) && a.Status == "Active").OrderByDescending(a => a.CreationDate).ToList();
+            services = services.Where(a => a.CreationDate.CompareTo(from) >= 0 && a.CreationDate.CompareTo(to) <= 0).ToList();
+
             List<ServiceViewModel> result = new List<ServiceViewModel>();
             foreach (var item in services)
             {
                 result.Add(getMapping(item));
             }
-            ViewBag.userId = id;
+            ViewBag.UserWorkId = new SelectList(db.UserWorks.Where(a => a.Enabled), "id", "AdjectiveName");
             ViewBag.Type = user.Type;
             return View(result);
         }
