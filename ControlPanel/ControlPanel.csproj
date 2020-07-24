@@ -22,7 +22,7 @@
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
-    <IISExpressUseClassicPipelineMode />
+    <IISExpressUseClassicPipelineMode>true</IISExpressUseClassicPipelineMode>
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
@@ -345,7 +345,7 @@
     <Content Include="Views\Account\DeletedUsers.cshtml" />
     <Content Include="Views\Account\PersonalPage.cshtml" />
     <Content Include="Views\Account\EditPersonalPage.cshtml" />
-    <Content Include="Views\Shared\_PLayout_Personal.cshtml" />
+    <Content Include="Views\Shared\_PLayout_login.cshtml" />
     <Content Include="Views\Services\Edit.cshtml" />
     <Content Include="Views\Services\Index.cshtml" />
     <Content Include="Views\Services\ServiceInfo.cshtml" />

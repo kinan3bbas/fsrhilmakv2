@@ -34,6 +34,9 @@
             <th>
                 @Resources.UserWork.CreationDate
             </th>
+            <th>
+                الرسالة
+            </th>
             <th></th>
         </tr>
     <tbody>
@@ -54,7 +57,9 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.CreationDate)
                 </td>
-
+                <td>
+                    @Html.DisplayFor(modelItem => item.Message)
+                </td>
 
                 <td>
                     @Html.ActionLink(@Resources.UserWork.Edit, "Edit", new { id = item.id }) |
