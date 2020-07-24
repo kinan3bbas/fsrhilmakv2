@@ -111,6 +111,7 @@ namespace fsrhilmakv2.Models
                 .HasRequired<Service>(s => s.Service)
                 .WithMany(g => g.Comments)
                 .HasForeignKey<int>(s => s.ServiceId);
+            
 
             base.OnModelCreating(modelBuilder);
         }
@@ -128,6 +129,8 @@ namespace fsrhilmakv2.Models
         public System.Data.Entity.DbSet<ServiceComment> ServiceComments { get; set; }
         public System.Data.Entity.DbSet<UserVerificationLog> UserVerificationLogs { get; set; }
         public System.Data.Entity.DbSet<EmailLog> EmailLogs { get; set; }
+
+        public System.Data.Entity.DbSet<Payment> Payments { get; set; }
     }
 
 }

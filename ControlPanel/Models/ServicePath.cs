@@ -29,7 +29,7 @@ namespace ControlPanel.Models
 
         public ApplicationUser ServiceProvider { get; set; }
 
-
+        public String Message { get; set; }
 
 
 

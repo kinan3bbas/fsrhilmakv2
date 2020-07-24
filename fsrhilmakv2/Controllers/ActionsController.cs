@@ -1,4 +1,5 @@
-﻿using fsrhilmakv2.Extra;
+﻿using fsrhilmakv2.Bindings;
+using fsrhilmakv2.Extra;
 using fsrhilmakv2.Models;
 using fsrhilmakv2.ViewModels;
 using System;
@@ -125,25 +126,58 @@ namespace fsrhilmakv2.Controllers
         // POST api/ActionsController/ChangePlan
         [Route("ChangePlan")]
         [HttpPost]
-        public Service ChangePlan([FromBody] Service temp)
+        public Service ChangePlan([FromBody] PaymentBinding temp)
         {
-            if (temp.id.Equals(null))
-            {
-                core.throwExcetpion("Id is null");
-            }
-            Service service = db.Services.Where(a => a.id.Equals(temp.id))
+            
+            Service service = db.Services.Where(a => a.id.Equals(temp.ServiceId)).Include("Creator")
                 .FirstOrDefault();
-            if (temp.Explanation.Equals("") || temp.Explanation == null)
+            
+            if (temp.Amount.Equals("") || temp.Amount == null)
             {
-                core.throwExcetpion("Explanation can't be null");
+                core.throwExcetpion("Amount can't be null");
             }
 
-            service.Explanation = temp.Explanation;
-            service.ExplanationDate = DateTime.Now;
-            service.Status = CoreController.ServiceStatus.Done.ToString();
+            service.ServicePathId = temp.ServicePathId;
+            if (!temp.UseUserPoints)
+            {
+                AddPayment(temp);
+            }
+            else
+            {
 
+                SystemParameter param = db.SystemParameters.Where(x => x.Code.Equals("ServicePricePerPoints")).AsNoTracking().FirstOrDefault();
+                int ServicePricePerPoints = Int32.Parse(param.Value);
+               
+                if (service.Creator.PointsBalance - ServicePricePerPoints > 0)
+                {
+                    service.Creator.PointsBalance = service.Creator.PointsBalance - ServicePricePerPoints;
+                    //db.Entry(user).State = EntityState.Modified;
+                   // db.SaveChanges();
+                }
+                else
+                {
+                    core.throwExcetpion("No Remaining Points!");
+                }
+
+            }
+            
             SaveService(service);
             return service;
+        }
+
+        private void AddPayment(PaymentBinding temp)
+        {
+            Payment payment = new Payment();
+            payment.Method = temp.Method;
+            payment.ServiceId = temp.ServiceId;
+            payment.Status = "Done";
+            payment.Currency = temp.Currency;
+            payment.Amount = temp.Amount;
+            payment.CreatorId = core.getCurrentUser().Id;
+            payment.ModifierId = core.getCurrentUser().Id;
+            payment.CreationDate = DateTime.Now;
+            payment.LastModificationDate = DateTime.Now;
+            db.Payments.Add(payment);
         }
 
         //****************************** Functions*************************************
@@ -151,7 +185,7 @@ namespace fsrhilmakv2.Controllers
         public void SaveService(Service Service)
         {
             Service.LastModificationDate = DateTime.Now;
-            Service.ModifierId = core.getCurrentUser().Id;
+            //Service.ModifierId = core.getCurrentUser().Id;
             db.Entry(Service).State = System.Data.Entity.EntityState.Modified;
             db.SaveChanges();
         }

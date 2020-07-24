@@ -43,6 +43,17 @@
             </div>
         </div>
 
+        <div class="form-group">
+            الرسالة
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.TextAreaFor(model => model.Message)
+                    @Html.ValidationMessageFor(model => model.Message, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+
 
 
 

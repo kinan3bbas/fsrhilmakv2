@@ -249,6 +249,7 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
+    <Compile Include="Bindings\PaymentBinding.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ActionsController.cs" />
     <Compile Include="Controllers\CoreController.cs" />
@@ -341,6 +342,26 @@
     <Compile Include="Migrations\202007200945362_onlineuser.Designer.cs">
       <DependentUpon>202007200945362_onlineuser.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202007232044477_dreamDateText.cs" />
+    <Compile Include="Migrations\202007232044477_dreamDateText.Designer.cs">
+      <DependentUpon>202007232044477_dreamDateText.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202007232049102_ServicePathMessage.cs" />
+    <Compile Include="Migrations\202007232049102_ServicePathMessage.Designer.cs">
+      <DependentUpon>202007232049102_ServicePathMessage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202007232104369_Payment.cs" />
+    <Compile Include="Migrations\202007232104369_Payment.Designer.cs">
+      <DependentUpon>202007232104369_Payment.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202007232245047_removeUserWorkID.cs" />
+    <Compile Include="Migrations\202007232245047_removeUserWorkID.Designer.cs">
+      <DependentUpon>202007232245047_removeUserWorkID.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202007232250315_returnUserWorkID.cs" />
+    <Compile Include="Migrations\202007232250315_returnUserWorkID.Designer.cs">
+      <DependentUpon>202007232250315_returnUserWorkID.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -352,6 +373,7 @@
     <Compile Include="Models\SystemParameter.cs" />
     <Compile Include="Models\ServicePath.cs" />
     <Compile Include="Models\UserVerificationLog.cs" />
+    <Compile Include="Models\Payment.cs" />
     <Compile Include="Models\UserWorkBinding.cs" />
     <Compile Include="Models\UserWork.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -497,6 +519,21 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202007200945362_onlineuser.resx">
       <DependentUpon>202007200945362_onlineuser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202007232044477_dreamDateText.resx">
+      <DependentUpon>202007232044477_dreamDateText.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202007232049102_ServicePathMessage.resx">
+      <DependentUpon>202007232049102_ServicePathMessage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202007232104369_Payment.resx">
+      <DependentUpon>202007232104369_Payment.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202007232245047_removeUserWorkID.resx">
+      <DependentUpon>202007232245047_removeUserWorkID.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202007232250315_returnUserWorkID.resx">
+      <DependentUpon>202007232250315_returnUserWorkID.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

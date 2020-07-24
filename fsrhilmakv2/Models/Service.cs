@@ -86,7 +86,11 @@ namespace fsrhilmakv2.Models
         [Display(Name ="Rating Message")]
         public String RatingMessage { get; set; }
 
-        
+        [Display(Name = "DreamDateText")]
+        public String DreamDateText { get; set; }
+
+
+
 
     }
 }

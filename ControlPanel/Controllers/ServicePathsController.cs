@@ -50,7 +50,7 @@ namespace ControlPanel.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id,Name,Cost,Enabled")] ServicePath servicePath)
+        public ActionResult Create(ServicePath servicePath)
         {
             if (ModelState.IsValid)
             {
@@ -90,7 +90,7 @@ namespace ControlPanel.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id,Name,Cost,Enabled")] ServicePath servicePath)
+        public ActionResult Edit(ServicePath servicePath)
         {
             if (ModelState.IsValid)
             {
@@ -99,6 +99,7 @@ namespace ControlPanel.Controllers
                 origin.Cost = servicePath.Cost;
                 origin.Enabled = servicePath.Enabled;
                 origin.LastModificationDate = DateTime.Now;
+                origin.Message = servicePath.Message;
                 db.Entry(origin).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

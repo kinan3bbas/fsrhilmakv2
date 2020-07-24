@@ -47,10 +47,12 @@ namespace ControlPanel.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id,CreationDate,LastModificationDate,Name,Code,Value")] SystemParameter systemParameter)
+        public ActionResult Create([Bind(Include = "id,Name,Code,Value")] SystemParameter systemParameter)
         {
             if (ModelState.IsValid)
             {
+                systemParameter.CreationDate = DateTime.Now;
+                systemParameter.LastModificationDate = DateTime.Now;
                 db.SystemParameters.Add(systemParameter);
                 db.SaveChanges();
                 return RedirectToAction("Index");

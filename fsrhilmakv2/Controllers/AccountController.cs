@@ -450,7 +450,7 @@ namespace fsrhilmakv2.Controllers
                             
 
                         };
-                        db.Entry(temp.UserWork).State = EntityState.Detached;
+                        db.Entry(temp.UserWork).State = EntityState.Unchanged;
                         db.UserWorkBindings.Add(temp);
 
                         userWorksToBind.Add(temp);
