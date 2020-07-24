@@ -436,7 +436,7 @@ namespace ControlPanel.Controllers
 
         //// GET: /Account/Clients
         [HttpGet]
-        public ActionResult Clients(String fromDate = "", String toDate = "")
+        public ActionResult Clients(int? UserWorkId, String fromDate = "", String toDate = "")
         {
 
             DateTime from = new DateTime(2000, 1, 1);
@@ -450,7 +450,7 @@ namespace ControlPanel.Controllers
                 DateTime.TryParse(toDate, out to);
             }
 
-            var users = db.Users.Where(a => a.Type.Equals(CoreController.UserType.Client.ToString())
+            List<ApplicationUser> users = db.Users.Where(a => a.Type.Equals(CoreController.UserType.Client.ToString())
             && !a.Status.Equals(CoreController.UserStatus.Deleted.ToString())).ToList();
             users = users.Where(a => a.CreationDate.CompareTo(from) >= 0&& a.CreationDate.CompareTo(to) <= 0).ToList();
             List<UserInfoViewModel> result = new List<UserInfoViewModel>();

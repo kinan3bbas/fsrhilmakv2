@@ -12,72 +12,64 @@
 <link href="https://cdn.datatables.net/buttons/1.6.1/css/buttons.dataTables.min.css" rel="stylesheet" type="text/css" />
 <p style="float:right;text-decoration-color:white;">
 
-    @*<button class="btn btn-primary btn-default" onclick="location.href='@Url.Action("Create", "ServicePaths")'">
-            <i class="fa  pull-right" style="font-size:large"></i> @Resources.Global.CreateNewServicePath
-        </button>*@
-    <div class="container">
+  
         @using (Html.BeginForm())
         {
-        
-    <p>
-        <table align="center">
-            <tr>
-                <td style="padding-right:20px;padding-bottom:20px;">
+
+
+            <div class="row">
+
+                <div class="col-md-4">
                     <b>EnterWords</b>
-                </td>
-                <td style="padding-right:20px;padding-bottom:20px;">
+
                     <div class="m-input-icon m-input-icon--left">
                         <input name="SearchString" type="text" class="form-control m-input m-input--air" placeholder="Description .. " id="generalSearch">
                     </div>
-                </td>
-                <td style="padding-left:50px;padding-right:20px;padding-bottom:20px;">
+                </div>
+
+
+                <div class="col-md-4">
                     <b>Status</b>
-                </td>
-                <td style="padding-right:20px;padding-bottom:20px;">
+
                     @Html.DropDownList("Status", new List<SelectListItem>
                                { new SelectListItem { Text="Active", Value="Active"},
                                 new SelectListItem{Text="Done", Value="Done"}
                           }, new { @class = "form-control m-input m-input--air" })
-                </td>
-                <td style="padding-left:50px;padding-right:20px;padding-bottom:20px;">
-                    <b>user work</b>
-                </td>
-                <td style="padding-right:20px;padding-bottom:20px;">
-
-                    <div class="col-md-4">
-                        @Html.Label("From Date")
-                        @Html.TextBox("fromDate", null, new { type = "date", @class = "form-control m-input m-input--air" })
-                    </div>
-                    <div class="col-md-4">
-                        @Html.Label("To Date")
-                        @Html.TextBox("toDate", null, new { type = "date", @class = "form-control m-input m-input--air" })
-
-                    </div>
-                    <div class="col-md-4">
-                        @Html.Label("نوع الخدمة")
-                        @Html.DropDownList("UserWorkId", null, htmlAttributes: new { @class = "form-control m-input m-input--air" })
-                    </div>
+                </div>
+                <div class="col-md-4">
 
 
-                
-                </td>
-                <td style="padding-bottom:20px">
+
+
+                    @Html.Label("From Date")
+                    @Html.TextBox("fromDate", null, new { type = "date", @class = "form-control m-input m-input--air" })
+                </div>
+                        <div class="col-md-4">
+                            @Html.Label("To Date")
+                            @Html.TextBox("toDate", null, new { type = "date", @class = "form-control m-input m-input--air" })
+
+                        </div>
+                        <div class="col-md-4">
+                            @Html.Label("نوع الخدمة")
+                            @Html.DropDownList("UserWorkId", null, htmlAttributes: new { @class = "form-control m-input m-input--air" })
+                        </div>
+
+
+
+                </div>
+
+                <div class="text-center">
                     <button type="submit" class="SearchBtn btn btn-outline-brand m-btn m-btn--icon btn-sm m-btn--icon-only m-btn--custom m-btn--outline-1x m-btn--pill m-btn--air">
                         <i class="fa fa-search"></i>
                     </button>
-                </td>
-            </tr>
-        </table>
-        <br />
-        @*<input id="Search" class="btn btn-primary btn-default"  type="submit" value="Search" style="float: right; position: relative; left: -50%; /* or right 50% */ text-align: left; background-color:#6610f2;color:white" />
-            <button type="submit" style="float:right;" class="SearchBtn btn btn-outline-brand m-btn m-btn--icon btn-sm m-btn--icon-only m-btn--custom m-btn--outline-1x m-btn--pill m-btn--air">
-                <i class="fa fa-search"></i>
-            </button>*@
-    </p>
+                </div>
+
+                    <br />
+                                   
+
 
         }
-        </div>
-        </p>
+    
         <table id="myTable" class="cell-border hover stripe" style="width:100%">
             <thead>
                 <tr>
