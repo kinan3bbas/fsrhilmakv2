@@ -35,11 +35,9 @@ namespace fsrhilmakv2.Models
 
     public class RegisterBindingModel
     {
-        [Required]
         [Display(Name = "Email")]
         public string Email { get; set; }
 
-        [Required]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
@@ -97,6 +95,10 @@ namespace fsrhilmakv2.Models
         public List<UserWork> UserWork{get; set;}
 
         public String UserRegistrationCode { get; set; }
+
+        public String imageUrl { get; set; }
+
+        public String SocialToken { get; set; }
 
     }
 

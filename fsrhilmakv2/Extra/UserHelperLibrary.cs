@@ -3,6 +3,7 @@ using fsrhilmakv2.Models;
 using NodaTime;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 
@@ -77,6 +78,13 @@ namespace fsrhilmakv2.Extra
         public List<Service> getServicesFiltered(List<Service> services,string status) {
 
             return services.Where(a => a.Status.Equals(status)).ToList();
+        }
+
+        public List<ApplicationUser>  getServiceProviders(String code,string status)
+        {
+            List<UserWorkBinding> bindings = db.UserWorkBindings.Where(a => a.UserWork.Code.Equals(code)
+            ).Include("User").ToList();
+            return bindings.Select(a=>a.User).ToList();
         }
 
         public ApplicationUser findUser(string id)

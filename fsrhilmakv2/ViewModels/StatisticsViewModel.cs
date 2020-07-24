@@ -25,5 +25,14 @@ namespace fsrhilmakv2.ViewModels
         public int AllUsers { get; set; }
 
 
+        public int AllDreamUsers { get; set; }
+
+        public int AllRouqiaUsers { get; set; }
+        public int AllIstasharaUsers { get; set; }
+        public int AllMedicalUsers { get; set; }
+        public int AllIftaaUsers { get; set; }
+
+
+
     }
 }
