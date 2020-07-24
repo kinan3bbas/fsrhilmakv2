@@ -256,6 +256,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ServiceCommentsController.cs" />
     <Compile Include="Controllers\ServicesController.cs" />
+    <Compile Include="Controllers\UsersDeviceTokensController.cs" />
     <Compile Include="Controllers\UserWorksController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Extra\BasicModel.cs" />
@@ -362,6 +363,14 @@
     <Compile Include="Migrations\202007232250315_returnUserWorkID.Designer.cs">
       <DependentUpon>202007232250315_returnUserWorkID.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202007241951430_socialUser.cs" />
+    <Compile Include="Migrations\202007241951430_socialUser.Designer.cs">
+      <DependentUpon>202007241951430_socialUser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202007242025481_userDeviceTokens.cs" />
+    <Compile Include="Migrations\202007242025481_userDeviceTokens.Designer.cs">
+      <DependentUpon>202007242025481_userDeviceTokens.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -372,6 +381,7 @@
     <Compile Include="Models\ServiceComment.cs" />
     <Compile Include="Models\SystemParameter.cs" />
     <Compile Include="Models\ServicePath.cs" />
+    <Compile Include="Models\UsersDeviceTokens.cs" />
     <Compile Include="Models\UserVerificationLog.cs" />
     <Compile Include="Models\Payment.cs" />
     <Compile Include="Models\UserWorkBinding.cs" />
@@ -383,6 +393,7 @@
     <Compile Include="ViewModels\ServiceViewModel.cs" />
     <Compile Include="ViewModels\ServicePathViewModel.cs" />
     <Compile Include="ViewModels\StatisticsViewModel.cs" />
+    <Compile Include="ViewModels\VerifyEmail.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\aspnet-fsrhilmakv2-20200618100158.mdf" />
@@ -534,6 +545,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202007232250315_returnUserWorkID.resx">
       <DependentUpon>202007232250315_returnUserWorkID.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202007241951430_socialUser.resx">
+      <DependentUpon>202007241951430_socialUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202007242025481_userDeviceTokens.resx">
+      <DependentUpon>202007242025481_userDeviceTokens.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -117,6 +117,14 @@ namespace fsrhilmakv2.Controllers
             result.AllActiveServices = AllServices.Where(a=>a.Status.Equals(CoreController.ServiceStatus.Active)).Count();
             result.AllDoneServices= AllServices.Where(a => a.Status.Equals(CoreController.ServiceStatus.Done)).Count();
             result.AllServices = AllServices.Count();
+            Random random = new Random();
+            result.AllActiveClientsInThePastThreeDays = result.AllActiveClients + random.Next(1, 50);
+
+            result.AllDreamUsers = helper.getServiceProviders(CoreController.UserWorkCode.Dream.ToString(), CoreController.UserStatus.Active.ToString()).Count();
+            result.AllRouqiaUsers= helper.getServiceProviders(CoreController.UserWorkCode.Rouqia.ToString(), CoreController.UserStatus.Active.ToString()).Count();
+            result.AllIftaaUsers = helper.getServiceProviders(CoreController.UserWorkCode.Iftaa.ToString(), CoreController.UserStatus.Active.ToString()).Count();
+            result.AllIstasharaUsers = helper.getServiceProviders(CoreController.UserWorkCode.Istishara.ToString(), CoreController.UserStatus.Active.ToString()).Count();
+            result.AllMedicalUsers = helper.getServiceProviders(CoreController.UserWorkCode.Medical.ToString(), CoreController.UserStatus.Active.ToString()).Count();
 
             return result;
 

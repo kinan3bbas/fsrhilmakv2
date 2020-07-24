@@ -349,119 +349,160 @@ namespace fsrhilmakv2.Controllers
         [Route("Register")]
         public async Task<IHttpActionResult> Register(RegisterBindingModel model)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            ApplicationUser tempUser = db.Users.Where(a => a.UserName.Equals(model.Username) || a.PhoneNumber.Equals(model.PhoneNumber)).FirstOrDefault();
-            if (tempUser != null)
-                await core.throwExcetpion("Username or phone number is already taken!");
-            IdentityResult result = null;
-            //Admin User
-            if (model.Type.Equals(CoreController.UserType.Admin.ToString()))
-            {
-                var user = new ApplicationUser()
-                {
-                    UserName = model.Username,
-                    Email = model.Email,
-                    Name = model.Name,
-                    Status = CoreController.UserStatus.Active.ToString(),
-                    Type = model.Type,
-                    CreationDate = DateTime.Now,
-                    FireBaseId = model.FireBaseId,
-                    LastModificationDate = DateTime.Now
-
-                };
-                result = await UserManager.CreateAsync(user, model.Password);
-                await UserManager.AddToRoleAsync(user.Id, "Admin");
-            }
-
-
-            //Cliet User
-            if (model.Type.Equals(CoreController.UserType.Client.ToString()))
-            {
-                var user = new ApplicationUser()
-                {
-                    UserName = model.Username,
-                    Email = model.Email,
-                    Name = model.Name,
-                    PhoneNumber = model.PhoneNumber,
-                    Status = CoreController.UserStatus.Active.ToString(),
-                    Type = model.Type,
-                    CreationDate = DateTime.Now,
-                    LastModificationDate = DateTime.Now,
-                    SocialState = model.SocialState
-                };
-
-                if (model.UserRegistrationCode != null&&!model.UserRegistrationCode.Equals(""))
-                {
-                    user.UserRegistrationCode = model.UserRegistrationCode;
-                    addPoints(model);  
-                }
-                GenerateUserSpecialCode(user);
-                result = await UserManager.CreateAsync(user, model.Password);
-                await UserManager.AddToRoleAsync(user.Id, "Client");
-            }
-
             
-            // Interpreter
-            if (model.Type.Equals(CoreController.UserType.Service_Provider.ToString()))
+
+            ApplicationUser tempUserUserName = db.Users.Where(a => a.UserName.Equals(model.Username)).FirstOrDefault();
+            if (tempUserUserName != null)
+                await core.throwExcetpion("Username is already taken!");
+
+            if (model.PhoneNumber != null) {
+                ApplicationUser tempUserPhoneNUmber = db.Users.Where(a => a.PhoneNumber.Equals(model.PhoneNumber)).FirstOrDefault();
+                if (tempUserPhoneNUmber != null)
+                    await core.throwExcetpion("phone number is already taken!");
+            }
+            
+
+            ApplicationUser tempUserEmail = db.Users.Where(a => a.Email.Equals(model.Email)).FirstOrDefault();
+            if (tempUserEmail != null)
+                await core.throwExcetpion("Email is already taken!");
+            IdentityResult result = null;
+            if (model.SocialState == "Normal")
             {
-                var user = new ApplicationUser()
+                //Admin User
+                if (model.Type.Equals(CoreController.UserType.Admin.ToString()))
                 {
-                    UserName = model.Username,
-                    Name = model.Name,
-                    Email = model.Email,
-                    PhoneNumber = model.PhoneNumber,
-                    MartialStatus = model.MartialStatus,
-                    Sex = model.Sex,
-                    Age = model.Age,
-                    JobDescription = model.JobDescription,
-                    PersonalDescription = model.PersonalDescription,
-                    Country = model.Country,
-                    JoiningDate = DateTime.Now,
-                    PictureId = model.PictureId,
-                    Status = CoreController.UserStatus.Active.ToString(),
-                    Type = model.Type,
-                    CreationDate = DateTime.Now,
-                    LastModificationDate = DateTime.Now,
-                    verifiedInterpreter = false
-                };
-                
-                
-                
-                List<UserWork> userworks = db.UserWorks.ToList();
-                ICollection<UserWorkBinding> userWorksToBind = new List<UserWorkBinding>();
-                if (model.UserWork != null && model.UserWork.Count > 0)
-                {
-
-                    foreach (var item in model.UserWork)
+                    var user = new ApplicationUser()
                     {
-                        //db.Entry(item).State = EntityState.Deleted;
-                        UserWorkBinding temp=new UserWorkBinding
-                        {
-                            CreationDate = DateTime.Now,
-                            LastModificationDate=DateTime.Now,
-                            UserId = user.Id,
-                           // User = user,
-                            UserWork = userworks.Where(a => a.id.Equals(item.id)).ToList()[0],
-                            UserWorkId = item.id
-                            
+                        UserName = model.Username,
+                        Email = model.Email,
+                        Name = model.Name,
+                        Status = CoreController.UserStatus.Active.ToString(),
+                        Type = model.Type,
+                        CreationDate = DateTime.Now,
+                        FireBaseId = model.FireBaseId,
+                        LastModificationDate = DateTime.Now
 
-                        };
-                        db.Entry(temp.UserWork).State = EntityState.Unchanged;
-                        db.UserWorkBindings.Add(temp);
+                    };
+                    result = await UserManager.CreateAsync(user, model.Password);
+                    //await UserManager.AddToRoleAsync(user.Id, "Admin");
+                }
 
-                        userWorksToBind.Add(temp);
+
+                //Cliet User
+                if (model.Type.Equals(CoreController.UserType.Client.ToString()))
+                {
+                    var user = new ApplicationUser()
+                    {
+                        UserName = model.Username,
+                        Email = model.Email,
+                        Name = model.Name,
+                        PhoneNumber = model.PhoneNumber,
+                        Status = CoreController.UserStatus.Active.ToString(),
+                        Type = model.Type,
+                        CreationDate = DateTime.Now,
+                        LastModificationDate = DateTime.Now,
+                        SocialState = model.SocialState
+                    };
+
+                    if (model.UserRegistrationCode != null && !model.UserRegistrationCode.Equals(""))
+                    {
+                        user.UserRegistrationCode = model.UserRegistrationCode;
+                        addPoints(model);
                     }
-                    user.userWorkBinding = userWorksToBind;
-                    //db.Entry(user).State = EntityState.Modified;
-                    //db.SaveChanges();
+                    GenerateUserSpecialCode(user);
+                    result = await UserManager.CreateAsync(user, model.Password);
+                   // await UserManager.AddToRoleAsync(user.Id, "Client");
+                }
+
+
+                // Interpreter
+                if (model.Type.Equals(CoreController.UserType.Service_Provider.ToString()))
+                {
+                    var user = new ApplicationUser()
+                    {
+                        UserName = model.Username,
+                        Name = model.Name,
+                        Email = model.Email,
+                        PhoneNumber = model.PhoneNumber,
+                        MartialStatus = model.MartialStatus,
+                        Sex = model.Sex,
+                        Age = model.Age,
+                        JobDescription = model.JobDescription,
+                        PersonalDescription = model.PersonalDescription,
+                        Country = model.Country,
+                        JoiningDate = DateTime.Now,
+                        PictureId = model.PictureId,
+                        Status = CoreController.UserStatus.Active.ToString(),
+                        Type = model.Type,
+                        CreationDate = DateTime.Now,
+                        LastModificationDate = DateTime.Now,
+                        verifiedInterpreter = false
+                    };
+
+
+
+                    List<UserWork> userworks = db.UserWorks.ToList();
+                    ICollection<UserWorkBinding> userWorksToBind = new List<UserWorkBinding>();
+                    if (model.UserWork != null && model.UserWork.Count > 0)
+                    {
+
+                        foreach (var item in model.UserWork)
+                        {
+                            //db.Entry(item).State = EntityState.Deleted;
+                            UserWorkBinding temp = new UserWorkBinding
+                            {
+                                CreationDate = DateTime.Now,
+                                LastModificationDate = DateTime.Now,
+                                UserId = user.Id,
+                                // User = user,
+                                UserWork = userworks.Where(a => a.id.Equals(item.id)).ToList()[0],
+                                UserWorkId = item.id
+
+
+                            };
+                            db.Entry(temp.UserWork).State = EntityState.Unchanged;
+                            db.UserWorkBindings.Add(temp);
+
+                            userWorksToBind.Add(temp);
+                        }
+                        user.userWorkBinding = userWorksToBind;
+                        //db.Entry(user).State = EntityState.Modified;
+                        //db.SaveChanges();
+                    }
+
+                    result = await UserManager.CreateAsync(user, model.Password);
+                   // await UserManager.AddToRoleAsync(user.Id, "Service_Provider");
                 }
                 
-                result = await UserManager.CreateAsync(user, model.Password);
-                await UserManager.AddToRoleAsync(user.Id, "Service_Provider");
+            }
+            else
+            {
+                //Facebook User
+                if (model.Type.Equals(CoreController.UserType.Client.ToString()))
+                {
+                    var user = new ApplicationUser()
+                    {
+                        UserName = model.Username,
+                        Email = model.Email,
+                        Name = model.Name,
+                        Status = CoreController.UserStatus.Active.ToString(),
+                        Type = model.Type,
+                        CreationDate = DateTime.Now,
+                        LastModificationDate = DateTime.Now,
+                        SocialState = model.SocialState,
+                        SocialToken = model.SocialToken,
+                        imageUrl = model.imageUrl
+                    };
+
+                    if (model.UserRegistrationCode != null && !model.UserRegistrationCode.Equals(""))
+                    {
+                        user.UserRegistrationCode = model.UserRegistrationCode;
+                        addPoints(model);
+                    }
+                    GenerateUserSpecialCode(user);
+                    result = await UserManager.CreateAsync(user, model.Password);
+                    // await UserManager.AddToRoleAsync(user.Id, "Client");
+                }
             }
             //IdentityResult result = await UserManager.CreateAsync(user, model.Password);
 
@@ -678,6 +719,9 @@ namespace fsrhilmakv2.Controllers
                 Speed = 10,
                 AvgServicesInOneDay = 10,
                 UserRoles = userManager.GetRoles(user.Id).ToList(),
+                SocialStatus = user.SocialState,
+                ImageUrl = user.imageUrl,
+                SocialToken=user.SocialToken
                 
                 
 
@@ -754,6 +798,68 @@ namespace fsrhilmakv2.Controllers
                 result.Add(temp);
             }
             return result[0];
+        }
+
+
+        [HttpPost]
+        [AllowAnonymous]
+        [Route("VerifyEmail")]
+        public async Task<IHttpActionResult> VerifyEmail(VerifyEmail model)
+        {
+            var user = db.Users.Where(a => a.Email.Equals(model.email)).FirstOrDefault();
+            if (user == null)
+            {
+                return BadRequest("No matching user with this email!");
+            }
+            UserVerificationHelper.VerificationResult result = UserVerificationHelper.verifyCode(model.userId == null ? user.Id : model.userId, model.code);
+
+            if (result.status.Equals("500"))
+                return BadRequest(result.message);
+            else
+                return Ok(result);
+
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        [Route("RequestPasswordReset")]
+        public async Task<IHttpActionResult> RequestPasswordReset([FromUri] String Email)
+        {
+            var user = db.Users.Where(a => a.Email.Equals(Email)).FirstOrDefault();
+            if (user == null)
+            {
+                return BadRequest("No matching user with this email!");
+            }
+            UserVerificationHelper.VerificationResult result = UserVerificationHelper.generateVerificationLog(user.Id, Email);
+
+            if (result.status.Equals("500"))
+                return BadRequest(result.message);
+            else
+                return Ok(result);
+
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        [Route("ForgetPassword")]
+        public async Task<IHttpActionResult> ForgetPassword([FromUri] String Email, [FromUri]String NewPassword)
+        {
+            var user = db.Users.Where(a => a.Email.Equals(Email)).FirstOrDefault();
+            if (user == null)
+            {
+                return BadRequest("No matching user with this email!");
+            }
+
+            IdentityResult remove = await UserManager.RemovePasswordAsync(user.Id);
+            IdentityResult result = await UserManager.AddPasswordAsync(user.Id, NewPassword);
+
+            if (!result.Succeeded)
+            {
+                return GetErrorResult(result);
+            }
+
+            return Ok();
+
         }
         #endregion
     }

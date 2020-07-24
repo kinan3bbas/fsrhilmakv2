@@ -38,6 +38,7 @@ namespace fsrhilmakv2
                 builder.EntitySet<ApplicationUser>("Users");
                 builder.EntitySet<Attachment>("Attachments");
                 builder.EntitySet<ServiceComment>("ServiceComments");
+                builder.EntitySet<UsersDeviceTokens>("UsersDeviceTokens");
 
             config.Routes.MapODataServiceRoute("odata", "odata", builder.GetEdmModel());
             config.Formatters.JsonFormatter.SerializerSettings.ReferenceLoopHandling= Newtonsoft.Json.ReferenceLoopHandling.Ignore;
