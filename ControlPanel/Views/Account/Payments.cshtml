@@ -1,4 +1,4 @@
-﻿@model  IEnumerable<ControlPanel.Models.ServicePath>
+﻿@model List<ControlPanel.Models.Payment>
 @{
     ViewBag.Title = "Personal Info Page";
     Layout = "~/Views/Shared/_PLayout.cshtml";
@@ -11,7 +11,7 @@
             crossorigin="anonymous"></script>*@
 <link href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css" />
 <link href="https://cdn.datatables.net/buttons/1.6.1/css/buttons.dataTables.min.css" rel="stylesheet" type="text/css" />
-<h2 class="text-center" style="color: #071689 !important;">Service Path List</h2>
+<h2 class="text-center" style="color: #071689 !important;">Payment </h2>
 <br />
 <div class="container">
     <div class="row">
@@ -112,62 +112,49 @@
 
 
 
-            <p style="float:right;text-decoration-color:white;">
-
-                <button class="btn btn-primary btn-default" onclick="location.href='@Url.Action("CreateServicePath", "Account")'">
-                    <i class="fa  pull-right" style="font-size:large"></i> @Resources.Global.CreateNewServicePath
-                </button>
-
-            </p>
             <table id="myTable" class="cell-border hover stripe" style="width:100%">
                 <thead>
                     <tr>
+                        <th>
+                            amount
+                        </th>
+                        <th>
+                           method
+                        </th>
+                        <th>
+                            Currency
+                        </th>
+                        <th>
+                          status
+                        </th>
+                        </th>
 
-                        <th>
-                            @Resources.UserWork.Name
-                        </th>
-                        <th>
-                            @Resources.Global.Cost
-                        </th>
-                        <th>
-                            @Resources.UserWork.Enabled
-                        </th>
-
-                        <th>
-                            @Resources.UserWork.CreationDate
-                        </th>
-                        <th>
-                            الرسالة
-                        </th>
-                        <th></th>
+                        @*<th></th>*@
                     </tr>
+                </thead>
                 <tbody>
                     @foreach (var item in Model)
-            {
+                    {
                         <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Amount)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Method)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Currency)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Status)
+                            </td>
+                           
 
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Name)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Cost)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Enabled)
-                            </td>
-
-                            <td>
-                                @Html.DisplayFor(modelItem => item.CreationDate)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Message)
-                            </td>
-
-                            <td>
-                                @Html.ActionLink(@Resources.UserWork.Edit, "Edit", new { id = item.id }) |
-                                @Html.ActionLink(@Resources.UserWork.Details, "Details", new { id = item.id }) |
-                                @Html.ActionLink(@Resources.UserWork.Delete, "Delete", new { id = item.id })
-                            </td>
+                            @*<td>
+                            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
+                            @Html.ActionLink("Details", "Details", new { id=item.id }) |
+                            @Html.ActionLink("Delete", "Delete", new { id=item.id })
+                        </td>*@
                         </tr>
                     }
                 </tbody>

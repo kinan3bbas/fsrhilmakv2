@@ -118,6 +118,8 @@ namespace ControlPanel.Models
         public System.Data.Entity.DbSet<UserVerificationLog> UserVerificationLogs { get; set; }
         public System.Data.Entity.DbSet<EmailLog> EmailLogs { get; set; }
 
+        public System.Data.Entity.DbSet<Payment> Payments { get; set; }
+
         //public System.Data.Entity.DbSet<ControlPanel.Models.ApplicationUser> ApplicationUsers { get; set; }
 
 

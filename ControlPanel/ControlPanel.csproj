@@ -356,6 +356,8 @@
     <Content Include="Views\Services\InterpreterServices.cshtml" />
     <Content Include="Views\Account\ServicePath.cshtml" />
     <Content Include="Views\Account\CreateServicePath.cshtml" />
+    <Content Include="Views\Account\Payments.cshtml" />
+    <Content Include="Views\Account\Ratings.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

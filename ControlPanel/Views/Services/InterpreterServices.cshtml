@@ -8,7 +8,9 @@
     var userType = ViewBag.Type;
 }
 
-<h2>Service List</h2>
+<link href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css" />
+<link href="https://cdn.datatables.net/buttons/1.6.1/css/buttons.dataTables.min.css" rel="stylesheet" type="text/css" />
+<h2 class="text-center" style="color: #071689 !important;">Interpreter Service List</h2>
 <br />
 <div class="container">
     <div class="row">
@@ -20,7 +22,7 @@
                     <div class="card-header" id="headingOne">
                         <h2 class="mb-0">
                             <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                @Html.ActionLink(Resources.Register.PersonalInformation, "PersonalPage", new { userId = Id })
+                                @Html.ActionLink(Resources.Register.PersonalInformation, "PersonalPage","Account", new { userId = Id },null)
                             </button>
                         </h2>
                     </div>
@@ -33,7 +35,7 @@
                     <div class="card-header" id="headingOne">
                         <h2 class="mb-0">
                             <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                @Html.ActionLink(Resources.Global.service_Paths, "PersonalPage", new { id = Id })
+                                @Html.ActionLink(Resources.Global.service_Paths, "ServicePath", "Account", new { userId = Id },null)
                             </button>
                         </h2>
                     </div>
@@ -45,7 +47,7 @@
                     <div class="card-header" id="headingOne">
                         <h2 class="mb-0">
                             <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                @Html.ActionLink(Resources.Global.Payments, "PersonalPage", new { Employeeid = Id })
+                                @Html.ActionLink(Resources.Global.Payments, "Payments", "Account", new { userId = Id },null)
                             </button>
                         </h2>
                     </div>
@@ -57,7 +59,9 @@
                     <div class="card-header" id="headingOne">
                         <h2 class="mb-0">
                             <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                @Html.ActionLink(Resources.Global.InterpretedServices, "InterpreterServices", new { id = Id })
+                                @Html.ActionLink("Interpreted Services", "InterpreterServices",  new { id = Id })
+
+
                             </button>
                         </h2>
                     </div>
@@ -69,7 +73,7 @@
                     <div class="card-header" id="headingOne">
                         <h2 class="mb-0">
                             <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                @Html.ActionLink(Resources.Global.ServicesUnderInterpretation, "ServicesUnderInterpretation", new { id = Id })
+                                @Html.ActionLink("الخدمات قيد التنفيذ", "ServicesUnderInterpretation", new { id = Id })
                             </button>
                         </h2>
                     </div>
@@ -81,7 +85,7 @@
                     <div class="card-header" id="headingOne">
                         <h2 class="mb-0">
                             <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                @Html.ActionLink(Resources.Global.Ratings, "PersonalPage", new { Employeeid = Id })
+                                @Html.ActionLink(Resources.Global.Ratings, "Ratings", "Account", new { userId = Id },null)
                             </button>
                         </h2>
                     </div>

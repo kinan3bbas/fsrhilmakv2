@@ -580,7 +580,34 @@ namespace ControlPanel.Controllers
 ;
         }
 
+        public ActionResult Ratings(String userId)
+        {
+            List<Service> ratings = db.Services.Where(a => a.ServiceProviderId.Equals(userId)).
+                Include(s => s.Creator).Include(s => s.Modifier).Include(s => s.ServiceProvider).ToList();
+            if (ratings == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.userId = userId;
+            return View(ratings);
+        }
 
+
+
+
+
+        // GET: Payments
+        public ActionResult Payments(String userId)
+        {
+            List<Payment> payments = db.Payments.Where(a => a.Service.ServiceProviderId.Equals(userId)).Include(s => s.Creator).Include(s => s.Modifier).Include(s => s.Service.ServiceProvider).ToList();
+
+            if (payments == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.userId = userId;
+            return View(payments);
+        }
 
         public ActionResult ServicePath(String userId)
         {
