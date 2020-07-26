@@ -22,7 +22,8 @@
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
-    <IISExpressUseClassicPipelineMode>true</IISExpressUseClassicPipelineMode>
+    <IISExpressUseClassicPipelineMode>
+    </IISExpressUseClassicPipelineMode>
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
@@ -201,6 +202,7 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PaymentsController.cs" />
     <Compile Include="Controllers\ServicePathsController.cs" />
+    <Compile Include="Controllers\PaymentsController.cs" />
     <Compile Include="Controllers\SystemParametersController.cs" />
     <Compile Include="Controllers\ServicesController.cs" />
     <Compile Include="Controllers\UserWorksController.cs" />
@@ -354,7 +356,14 @@
     <Content Include="Views\Services\ServiceInfo.cshtml" />
     <Content Include="Views\Services\ServicesUnderInterpretation.cshtml" />
     <Content Include="Views\Services\InterpreterServices.cshtml" />
+
+    <Content Include="Views\Account\ServicePath.cshtml" />
+    <Content Include="Views\Account\CreateServicePath.cshtml" />
+    <Content Include="Views\Account\Payments.cshtml" />
+    <Content Include="Views\Account\Ratings.cshtml" />
+
     <Content Include="Views\Payments\Index.cshtml" />
+
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
