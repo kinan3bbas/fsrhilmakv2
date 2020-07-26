@@ -1,4 +1,5 @@
 
+using ControlPanel.Extra;
 using ControlPanel.Extras;
 using ControlPanel.Models;
 using ControlPanel.ViewModels;
@@ -24,12 +25,7 @@ namespace ControlPanel.Controllers
 
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        // GET: services
         public ActionResult Index(int? UserWorkId, string status, String fromDate = "", String toDate = "")
-
-        private ApplicationDbContext db = new ApplicationDbContext();
-        // GET: Payments
-        public ActionResult Index(int? UserWorkId,  String fromDate = "", String toDate = "")
 
         {
             DateTime from = new DateTime(2000, 1, 1);
@@ -262,24 +258,7 @@ namespace ControlPanel.Controllers
 
             return result;
         }
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-
-            List<Payment> payments = db.Payments
-                .Include("Service")
-                .Include("Service.ServiceProvider")
-                .Include("Service.ServicePath")
-                .Include("Creator")
-                .ToList();
-
-            ViewBag.UserWorkId = new SelectList(db.UserWorks.Where(a => a.Enabled), "id", "AdjectiveName");
-            return View(payments);
-        }
+       
 
         // GET: Payments/Details/5
         public ActionResult Details(int id)
@@ -310,48 +289,7 @@ namespace ControlPanel.Controllers
         }
 
         // GET: Payments/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
+      
 
-        // POST: Payments/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: Payments/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: Payments/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-
-        }
     }
 }
