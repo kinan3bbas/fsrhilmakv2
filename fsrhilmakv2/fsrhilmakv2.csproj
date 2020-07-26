@@ -390,6 +390,22 @@
     <Compile Include="Migrations\202007261229343_transactions.Designer.cs">
       <DependentUpon>202007261229343_transactions.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202007261838528_test.cs" />
+    <Compile Include="Migrations\202007261838528_test.Designer.cs">
+      <DependentUpon>202007261838528_test.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202007261846295_test2.cs" />
+    <Compile Include="Migrations\202007261846295_test2.Designer.cs">
+      <DependentUpon>202007261846295_test2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202007261847313_test21.cs" />
+    <Compile Include="Migrations\202007261847313_test21.Designer.cs">
+      <DependentUpon>202007261847313_test21.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202007261904320_fix-userWork.cs" />
+    <Compile Include="Migrations\202007261904320_fix-userWork.Designer.cs">
+      <DependentUpon>202007261904320_fix-userWork.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -417,10 +433,6 @@
     <Compile Include="ViewModels\VerifyEmail.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\aspnet-fsrhilmakv2-20200618100158.mdf" />
-    <Content Include="App_Data\aspnet-fsrhilmakv2-20200618100158_log.ldf">
-      <DependentUpon>aspnet-fsrhilmakv2-20200618100158.mdf</DependentUpon>
-    </Content>
     <Content Include="Areas\HelpPage\HelpPage.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
@@ -481,6 +493,7 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="App_Data\" />
     <Folder Include="Repositories\" />
     <Folder Include="Views\Actions\" />
   </ItemGroup>
@@ -584,6 +597,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202007261229343_transactions.resx">
       <DependentUpon>202007261229343_transactions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202007261838528_test.resx">
+      <DependentUpon>202007261838528_test.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202007261846295_test2.resx">
+      <DependentUpon>202007261846295_test2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202007261847313_test21.resx">
+      <DependentUpon>202007261847313_test21.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202007261904320_fix-userWork.resx">
+      <DependentUpon>202007261904320_fix-userWork.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

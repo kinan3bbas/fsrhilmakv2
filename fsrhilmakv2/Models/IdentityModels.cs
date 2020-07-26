@@ -68,7 +68,7 @@ namespace fsrhilmakv2.Models
         public string SocialState { get; set; }
 
         public ICollection<UserWorkBinding> userWorkBinding { get; set; }
-        
+
         public String UserSpecialCode { get; set; }
 
         public String UserRegistrationCode { get; set; }
@@ -110,6 +110,11 @@ namespace fsrhilmakv2.Models
                 .HasRequired<ApplicationUser>(s => s.User)
                 .WithMany(g => g.userWorkBinding)
                 .HasForeignKey<string>(s => s.UserId);
+
+            modelBuilder.Entity<UserWorkBinding>()
+                .HasRequired<UserWork>(s => s.UserWork)
+                .WithMany(g => g.userWorkBinding)
+                .HasForeignKey<int>(s => s.UserWorkId);
 
             modelBuilder.Entity<ServiceComment>()
                 .HasRequired<Service>(s => s.Service)

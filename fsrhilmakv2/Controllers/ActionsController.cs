@@ -160,7 +160,7 @@ namespace fsrhilmakv2.Controllers
             service.ServicePathId = temp.ServicePathId;
             if (!temp.UseUserPoints)
             {
-                AddPayment(temp);
+                AddPayment(temp,service);
             }
             else
             {
@@ -185,7 +185,7 @@ namespace fsrhilmakv2.Controllers
             return service;
         }
 
-        private void AddPayment(PaymentBinding temp)
+        private void AddPayment(PaymentBinding temp,Service service)
         {
             Payment payment = new Payment();
             payment.Method = temp.Method;
@@ -193,6 +193,7 @@ namespace fsrhilmakv2.Controllers
             payment.Status = "Done";
             payment.Currency = temp.Currency;
             payment.Amount = temp.Amount;
+            //payment.ServiceProviderId = service.ServiceProviderId;
             payment.CreatorId = core.getCurrentUser().Id;
             payment.ModifierId = core.getCurrentUser().Id;
             payment.CreationDate = DateTime.Now;

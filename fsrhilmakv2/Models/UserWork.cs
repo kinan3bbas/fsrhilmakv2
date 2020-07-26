@@ -26,5 +26,7 @@ namespace fsrhilmakv2.Models
         public bool Enabled { get; set; }
 
         public String Code { get; set; }
+
+        public ICollection<UserWorkBinding> userWorkBinding { get; set; }
     }
 }
