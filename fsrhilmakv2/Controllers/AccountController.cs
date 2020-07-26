@@ -456,11 +456,10 @@ namespace fsrhilmakv2.Controllers
                                 UserId = user.Id,
                                 // User = user,
                                 UserWork = userworks.Where(a => a.id.Equals(item.id)).ToList()[0],
-                                UserWorkId = item.id
-
+                                //UserWorkId = item.id
 
                             };
-                            db.Entry(temp.UserWork).State = EntityState.Unchanged;
+                            //db.Entry(temp.UserWork).State = EntityState.Unchanged;
                             db.UserWorkBindings.Add(temp);
 
                             userWorksToBind.Add(temp);

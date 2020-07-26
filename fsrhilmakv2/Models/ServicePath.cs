@@ -33,6 +33,8 @@ namespace fsrhilmakv2.Models
 
         public String Message { get; set; }
 
+        public double Ratio { get; set; }
+
 
     }
 }

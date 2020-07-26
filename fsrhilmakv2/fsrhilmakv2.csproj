@@ -256,7 +256,9 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ServiceCommentsController.cs" />
     <Compile Include="Controllers\ServicesController.cs" />
+    <Compile Include="Controllers\PaymentsController.cs" />
     <Compile Include="Controllers\UsersDeviceTokensController.cs" />
+    <Compile Include="Controllers\TransactionsController.cs" />
     <Compile Include="Controllers\UserWorksController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Extra\BasicModel.cs" />
@@ -265,6 +267,7 @@
     <Compile Include="Extra\Message.cs" />
     <Compile Include="Extra\Notification.cs" />
     <Compile Include="Extra\ParameterRepository.cs" />
+    <Compile Include="Extra\PushNotificationLogic.cs" />
     <Compile Include="Extra\ResponseEntity.cs" />
     <Compile Include="Extra\UserHelperLibrary.cs" />
     <Compile Include="Extra\UserVerificationHelper.cs" />
@@ -371,6 +374,38 @@
     <Compile Include="Migrations\202007242025481_userDeviceTokens.Designer.cs">
       <DependentUpon>202007242025481_userDeviceTokens.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202007250717367_dreamHistory.cs" />
+    <Compile Include="Migrations\202007250717367_dreamHistory.Designer.cs">
+      <DependentUpon>202007250717367_dreamHistory.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202007252054049_creatorName.cs" />
+    <Compile Include="Migrations\202007252054049_creatorName.Designer.cs">
+      <DependentUpon>202007252054049_creatorName.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202007252101076_ratio.cs" />
+    <Compile Include="Migrations\202007252101076_ratio.Designer.cs">
+      <DependentUpon>202007252101076_ratio.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202007261229343_transactions.cs" />
+    <Compile Include="Migrations\202007261229343_transactions.Designer.cs">
+      <DependentUpon>202007261229343_transactions.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202007261838528_test.cs" />
+    <Compile Include="Migrations\202007261838528_test.Designer.cs">
+      <DependentUpon>202007261838528_test.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202007261846295_test2.cs" />
+    <Compile Include="Migrations\202007261846295_test2.Designer.cs">
+      <DependentUpon>202007261846295_test2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202007261847313_test21.cs" />
+    <Compile Include="Migrations\202007261847313_test21.Designer.cs">
+      <DependentUpon>202007261847313_test21.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202007261904320_fix-userWork.cs" />
+    <Compile Include="Migrations\202007261904320_fix-userWork.Designer.cs">
+      <DependentUpon>202007261904320_fix-userWork.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -384,6 +419,8 @@
     <Compile Include="Models\UsersDeviceTokens.cs" />
     <Compile Include="Models\UserVerificationLog.cs" />
     <Compile Include="Models\Payment.cs" />
+    <Compile Include="Models\DreamHistory.cs" />
+    <Compile Include="Models\Transaction.cs" />
     <Compile Include="Models\UserWorkBinding.cs" />
     <Compile Include="Models\UserWork.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -396,10 +433,6 @@
     <Compile Include="ViewModels\VerifyEmail.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\aspnet-fsrhilmakv2-20200618100158.mdf" />
-    <Content Include="App_Data\aspnet-fsrhilmakv2-20200618100158_log.ldf">
-      <DependentUpon>aspnet-fsrhilmakv2-20200618100158.mdf</DependentUpon>
-    </Content>
     <Content Include="Areas\HelpPage\HelpPage.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
@@ -460,6 +493,7 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="App_Data\" />
     <Folder Include="Repositories\" />
     <Folder Include="Views\Actions\" />
   </ItemGroup>
@@ -551,6 +585,30 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202007242025481_userDeviceTokens.resx">
       <DependentUpon>202007242025481_userDeviceTokens.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202007250717367_dreamHistory.resx">
+      <DependentUpon>202007250717367_dreamHistory.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202007252054049_creatorName.resx">
+      <DependentUpon>202007252054049_creatorName.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202007252101076_ratio.resx">
+      <DependentUpon>202007252101076_ratio.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202007261229343_transactions.resx">
+      <DependentUpon>202007261229343_transactions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202007261838528_test.resx">
+      <DependentUpon>202007261838528_test.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202007261846295_test2.resx">
+      <DependentUpon>202007261846295_test2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202007261847313_test21.resx">
+      <DependentUpon>202007261847313_test21.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202007261904320_fix-userWork.resx">
+      <DependentUpon>202007261904320_fix-userWork.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

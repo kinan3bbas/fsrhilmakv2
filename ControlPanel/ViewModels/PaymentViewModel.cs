@@ -1,15 +1,25 @@
-﻿using fsrhilmakv2.Extras;
+﻿using ControlPanel.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
-namespace fsrhilmakv2.Models
+namespace ControlPanel.ViewModels
 {
-    public class UserWork
+    public class PaymentViewModel
     {
-        [Key]
+        public int ServiceId { get; set; }
+        public Service Service { get; set; }
+
+        public double Amount { get; set; }
+        public string Method { get; set; }
+
+        public string Currency { get; set; }
+
+        [Display(Name = "Status")]
+        public string Status { get; set; }
+
         public int id { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}")]
@@ -19,14 +29,9 @@ namespace fsrhilmakv2.Models
         [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}")]
         [Display(Name = "Last Modification Date")]
         public DateTime LastModificationDate { get; set; }
-        public String Name { get; set; }
 
-        public String AdjectiveName { get; set; }
+        public ApplicationUser Creator { get; set; }
 
-        public bool Enabled { get; set; }
-
-        public String Code { get; set; }
-
-        public ICollection<UserWorkBinding> userWorkBinding { get; set; }
+        public String CreatorId { get; set; }
     }
 }

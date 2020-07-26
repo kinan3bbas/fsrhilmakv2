@@ -31,6 +31,8 @@ namespace fsrhilmakv2.Extras
 
         public long AttachmentId { get; set; }
 
+        public String CreatorName { get; set; }
+
 
     }
 }

@@ -12,8 +12,7 @@ namespace fsrhilmakv2.Models
         public int ServiceId { get; set; }
         public Service Service { get; set; }
 
-
-
+        public int ServiceProviderId { get; set; }
         public double Amount { get; set; }
         public string Method { get; set; }
 

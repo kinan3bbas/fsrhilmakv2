@@ -12,8 +12,6 @@ namespace ControlPanel.Models
         public int ServiceId { get; set; }
         public Service Service { get; set; }
 
-
-
         public double Amount { get; set; }
         public string Method { get; set; }
 

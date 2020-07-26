@@ -21,31 +21,33 @@ namespace fsrhilmakv2.Controllers
     using System.Web.Http.OData.Extensions;
     using fsrhilmakv2.Models;
     ODataConventionModelBuilder builder = new ODataConventionModelBuilder();
-    builder.EntitySet<SystemParameter>("SystemParameters");
-    config.Routes.MapODataServiceCommentRoute("odata", "odata", builder.GetEdmModel());
+    builder.EntitySet<Transaction>("Transactions");
+    builder.EntitySet<ApplicationUser>("ApplicationUsers"); 
+    config.Routes.MapODataServiceRoute("odata", "odata", builder.GetEdmModel());
     */
-    [Authorize]
-    public class ServiceCommentsController : ODataController
+
+        [AllowAnonymous]
+    public class TransactionsController : ODataController
     {
         private ApplicationDbContext db = new ApplicationDbContext();
-        CoreController core = new CoreController();
+        private CoreController core = new CoreController();
 
-        // GET: odata/ServiceComments
+        // GET: odata/Transactions
         [EnableQuery]
-        public IQueryable<ServiceComment> GetServiceComments()
+        public IQueryable<Transaction> GetTransactions()
         {
-            return db.ServiceComments;
+            return db.Transactions;
         }
 
-        // GET: odata/ServiceComments(5)
+        // GET: odata/Transactions(5)
         [EnableQuery]
-        public SingleResult<ServiceComment> GetServiceComment([FromODataUri] int key)
+        public SingleResult<Transaction> GetTransaction([FromODataUri] int key)
         {
-            return SingleResult.Create(db.ServiceComments.Where(ServiceComment => ServiceComment.id == key));
+            return SingleResult.Create(db.Transactions.Where(Transaction => Transaction.id == key));
         }
 
-        // PUT: odata/ServiceComments(5)
-        public IHttpActionResult Put([FromODataUri] int key, Delta<ServiceComment> patch)
+        // PUT: odata/Transactions(5)
+        public IHttpActionResult Put([FromODataUri] int key, Delta<Transaction> patch)
         {
             Validate(patch.GetEntity());
 
@@ -54,13 +56,13 @@ namespace fsrhilmakv2.Controllers
                 return BadRequest(ModelState);
             }
 
-            ServiceComment ServiceComment = db.ServiceComments.Find(key);
-            if (ServiceComment == null)
+            Transaction Transaction = db.Transactions.Find(key);
+            if (Transaction == null)
             {
                 return NotFound();
             }
 
-            patch.Put(ServiceComment);
+            patch.Put(Transaction);
 
             try
             {
@@ -68,7 +70,7 @@ namespace fsrhilmakv2.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!ServiceCommentExists(key))
+                if (!TransactionExists(key))
                 {
                     return NotFound();
                 }
@@ -78,33 +80,30 @@ namespace fsrhilmakv2.Controllers
                 }
             }
 
-            return Updated(ServiceComment);
+            return Updated(Transaction);
         }
 
-        // POST: odata/ServiceComments
-        public IHttpActionResult Post(ServiceComment ServiceComment)
+        // POST: odata/Transactions
+        public IHttpActionResult Post(Transaction Transaction)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-           
-            ApplicationUser currentUser = core.getCurrentUser();
-            ServiceComment.CreationDate = DateTime.Now;
-            ServiceComment.LastModificationDate = DateTime.Now;
-            ServiceComment.CreatorId = core.getCurrentUser().Id;
-            ServiceComment.ModifierId = core.getCurrentUser().Id;
-            ServiceComment.CreatorName = core.getCurrentUser().Name;
-            
-            db.ServiceComments.Add(ServiceComment);
+
+            Transaction.CreationDate = DateTime.Now;
+            Transaction.LastModificationDate = DateTime.Now;
+            //Transaction.Creator = core.getCurrentUser();
+            //Transaction.Modifier = core.getCurrentUser();
+            db.Transactions.Add(Transaction);
             db.SaveChanges();
 
-            return Created(ServiceComment);
+            return Created(Transaction);
         }
 
-        // PATCH: odata/ServiceComments(5)
+        // PATCH: odata/Transactions(5)
         [AcceptVerbs("PATCH", "MERGE")]
-        public IHttpActionResult Patch([FromODataUri] int key, Delta<ServiceComment> patch)
+        public IHttpActionResult Patch([FromODataUri] int key, Delta<Transaction> patch)
         {
             Validate(patch.GetEntity());
 
@@ -113,13 +112,13 @@ namespace fsrhilmakv2.Controllers
                 return BadRequest(ModelState);
             }
 
-            ServiceComment ServiceComment = db.ServiceComments.Find(key);
-            if (ServiceComment == null)
+            Transaction Transaction = db.Transactions.Find(key);
+            if (Transaction == null)
             {
                 return NotFound();
             }
 
-            patch.Patch(ServiceComment);
+            patch.Patch(Transaction);
 
             try
             {
@@ -127,7 +126,7 @@ namespace fsrhilmakv2.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!ServiceCommentExists(key))
+                if (!TransactionExists(key))
                 {
                     return NotFound();
                 }
@@ -137,23 +136,37 @@ namespace fsrhilmakv2.Controllers
                 }
             }
 
-            return Updated(ServiceComment);
+            return Updated(Transaction);
         }
 
-        // DELETE: odata/ServiceComments(5)
+        // DELETE: odata/Transactions(5)
         public IHttpActionResult Delete([FromODataUri] int key)
         {
-            ServiceComment ServiceComment = db.ServiceComments.Find(key);
-            if (ServiceComment == null)
+            Transaction Transaction = db.Transactions.Find(key);
+            if (Transaction == null)
             {
                 return NotFound();
             }
 
-            db.ServiceComments.Remove(ServiceComment);
+            db.Transactions.Remove(Transaction);
             db.SaveChanges();
 
             return StatusCode(HttpStatusCode.NoContent);
         }
+
+        //// GET: odata/Transactions(5)/Creator
+        //[EnableQuery]
+        //public SingleResult<ApplicationUser> GetCreator([FromODataUri] int key)
+        //{
+        //    return SingleResult.Create(db.Transactions.Where(m => m.id == key).Select(m => m.Creator));
+        //}
+
+        //// GET: odata/Transactions(5)/Modifier
+        //[EnableQuery]
+        //public SingleResult<ApplicationUser> GetModifier([FromODataUri] int key)
+        //{
+        //    return SingleResult.Create(db.Transactions.Where(m => m.id == key).Select(m => m.Modifier));
+        //}
 
         protected override void Dispose(bool disposing)
         {
@@ -164,9 +177,9 @@ namespace fsrhilmakv2.Controllers
             base.Dispose(disposing);
         }
 
-        private bool ServiceCommentExists(int key)
+        private bool TransactionExists(int key)
         {
-            return db.ServiceComments.Count(e => e.id == key) > 0;
+            return db.Transactions.Count(e => e.id == key) > 0;
         }
     }
 }
