@@ -82,6 +82,10 @@ namespace fsrhilmakv2.Models
         public String UserRegistrationCode { get; set; }
 
         public long PointsBalance { get; set; }
+
+        public String SocialToken { get; set; }
+
+        public String ImageUrl { get; set; }
     }
 
     public class UserLoginInfoViewModel

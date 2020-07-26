@@ -77,6 +77,10 @@ namespace fsrhilmakv2.Models
 
         public bool Online { get; set; }
 
+        public String imageUrl { get; set; }
+
+        public String SocialToken { get; set; }
+
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager, string authenticationType)
         {
@@ -131,6 +135,7 @@ namespace fsrhilmakv2.Models
         public System.Data.Entity.DbSet<EmailLog> EmailLogs { get; set; }
 
         public System.Data.Entity.DbSet<Payment> Payments { get; set; }
+        public System.Data.Entity.DbSet<UsersDeviceTokens> UsersDeviceTokens { get; set; }
     }
 
 }

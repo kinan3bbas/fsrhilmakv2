@@ -121,8 +121,8 @@ namespace fsrhilmakv2.Extra
 
             if (isOnProcuctionParameter==1)
             {
-                String subject = "Verification Code for Fashoin U3D  Account";
-                String body = "Please use the following code to register to the application " + code;
+                String subject = "كود التفعيل من أجل كلمة مرور تطبيق أهل الذكر";
+                String body = "استخدم الكود التالي من أجل إعادة ضبط كلمة السر " + code;
                 List<string> receivers = new List<string>();
                 receivers.Add(email);
                 EmailHelper.sendEmail(receivers, subject, body);
