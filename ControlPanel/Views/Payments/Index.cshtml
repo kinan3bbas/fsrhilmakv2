@@ -1,0 +1,228 @@
+﻿@model IEnumerable<ControlPanel.Models.Payment>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_PLayout.cshtml";
+    //var totalPayments = Model.Sum(a => a.Amount);
+    // var CompanyPayments = Model.Sum(a => a.CompanyAmount);
+    //var UserPayments = Model.Sum(a => a.UserAmount);
+
+}
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        .collapsible {
+            /*background-color: #777;
+            color: white;
+            cursor: pointer;
+            padding: 18px;
+            width: 100%;
+            border: none;
+            text-align: left;
+            outline: none;
+            font-size: 15px;*/
+        }
+
+            .active, .collapsible:hover {
+                background-color: #555;
+            }
+
+        .content {
+            padding: 0 18px;
+            display: none;
+            overflow: hidden;
+            background-color: #f1f1f1;
+        }
+    </style>
+</head>
+<h1>Payments</h1>
+<br />
+
+<link href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css" />
+<link href="https://cdn.datatables.net/buttons/1.6.1/css/buttons.dataTables.min.css" rel="stylesheet" type="text/css" />
+
+<div class="container">
+        @using (Html.BeginForm())
+        {
+
+            <button type="button" class="collapsible" >تصفية</button>
+            <div id="demo" class="content">
+                <div class="row ">
+                    <div class="col-md-4">
+                        @Html.Label("التخصص")
+                        @Html.DropDownList("UserWorkId", null, htmlAttributes: new { @class = "form-control m-input m-input--air" })
+                    </div>
+                    <div class="col-md-4">
+                        @Html.Label("From Date")
+                        @Html.TextBox("fromDate", null, new { type = "date", @class = "form-control m-input m-input--air" })
+                    </div>
+                    <div class="col-md-4">
+                        @Html.Label("To Date")
+                        @Html.TextBox("toDate", null, new { type = "date", @class = "form-control m-input m-input--air" })
+
+                    </div>
+                </div>
+                <br />
+                <div class="text-center">
+                    <button type="submit" class="btn btn-default">
+                        Filter
+                    </button>
+                </div>
+            </div>
+            
+
+            @*<div class="row">
+                <div class="col-md-6">
+                    <p class="label label-info" style="font-size:large">Total Amount : @totalPayments</p>
+                    <p class="label label-info" style="font-size:large"> Total Company's Amount: @CompanyPayments</p>
+                    <p class="label label-info" style="font-size:large">Total User's Amount : @UserPayments</p>
+
+
+                </div>
+
+            </div>*@
+
+
+        }
+    </div>
+<br />
+<br />
+
+<table id="myTable" class="cell-border hover stripe" style="width:100%">
+    <thead>
+        <tr>
+            <th>
+                اسم الزبون
+            </th>
+            <th>
+                اسم مقدم الخدمة
+            </th>
+
+            <th>
+                طريقة الدفع
+            </th>
+            <th>
+                العملة
+            </th>
+            <th>
+                تاريخ الدفع
+            </th>
+            <th>
+                الخدمة
+            </th>
+            <th>
+                المبلغ المدفوع
+            </th>
+            <th>
+                كلفة المسار
+            </th>
+            <th>
+                الخدمة خاصة؟
+            </th>
+            <th>
+                نسبة مقدم الخدمة
+            </th>
+
+
+            @*<th></th>*@
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Creator.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Service.ServiceProvider.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Method)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Currency)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreationDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ServiceId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Amount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Service.ServicePath.Cost)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Service.PrivateService)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Service.ServicePath.Ratio)
+                </td>
+
+                @*<td>
+                        @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
+                        @Html.ActionLink("Details", "Details", new { id=item.id }) |
+                        @Html.ActionLink("Delete", "Delete", new { id=item.id })
+                    </td>*@
+            </tr>
+        }
+
+    </tbody>
+</table>
+
+@section scripts{
+    <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.6.1/js/dataTables.buttons.min.js"></script>
+    <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.colVis.min.js"></script>
+    <script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.html5.min.js"></script>
+
+    <script type="text/javascript">
+
+        var coll = document.getElementsByClassName("collapsible");
+        var i;
+
+        for (i = 0; i < coll.length; i++) {
+            coll[i].addEventListener("click", function () {
+                this.classList.toggle("active");
+                var content = this.nextElementSibling;
+                if (content.style.display === "block") {
+                    content.style.display = "none";
+                } else {
+                    content.style.display = "block";
+                }
+            });
+        }
+
+        $('#myTable').DataTable(
+            {
+                dom: 'Bfrtip',
+                columnDefs: [
+                    {
+                        targets: 1,
+                        className: 'noVis'
+                    }
+                ],
+                buttons: [
+                    {
+                        extend: 'colvis',
+                        columns: ':not(.noVis)'
+                    },
+                    'copyHtml5',
+                    'excelHtml5',
+                    'pdfHtml5'
+                ]
+
+            }
+
+
+        );
+    </script>
+}

@@ -21,31 +21,33 @@ namespace fsrhilmakv2.Controllers
     using System.Web.Http.OData.Extensions;
     using fsrhilmakv2.Models;
     ODataConventionModelBuilder builder = new ODataConventionModelBuilder();
-    builder.EntitySet<SystemParameter>("SystemParameters");
-    config.Routes.MapODataServiceCommentRoute("odata", "odata", builder.GetEdmModel());
+    builder.EntitySet<Payment>("Payments");
+    builder.EntitySet<ApplicationUser>("ApplicationUsers"); 
+    config.Routes.MapODataServiceRoute("odata", "odata", builder.GetEdmModel());
     */
-    [Authorize]
-    public class ServiceCommentsController : ODataController
+
+        [AllowAnonymous]
+    public class PaymentsController : ODataController
     {
         private ApplicationDbContext db = new ApplicationDbContext();
-        CoreController core = new CoreController();
+        private CoreController core = new CoreController();
 
-        // GET: odata/ServiceComments
+        // GET: odata/Payments
         [EnableQuery]
-        public IQueryable<ServiceComment> GetServiceComments()
+        public IQueryable<Payment> GetPayments()
         {
-            return db.ServiceComments;
+            return db.Payments;
         }
 
-        // GET: odata/ServiceComments(5)
+        // GET: odata/Payments(5)
         [EnableQuery]
-        public SingleResult<ServiceComment> GetServiceComment([FromODataUri] int key)
+        public SingleResult<Payment> GetPayment([FromODataUri] int key)
         {
-            return SingleResult.Create(db.ServiceComments.Where(ServiceComment => ServiceComment.id == key));
+            return SingleResult.Create(db.Payments.Where(Payment => Payment.id == key));
         }
 
-        // PUT: odata/ServiceComments(5)
-        public IHttpActionResult Put([FromODataUri] int key, Delta<ServiceComment> patch)
+        // PUT: odata/Payments(5)
+        public IHttpActionResult Put([FromODataUri] int key, Delta<Payment> patch)
         {
             Validate(patch.GetEntity());
 
@@ -54,13 +56,13 @@ namespace fsrhilmakv2.Controllers
                 return BadRequest(ModelState);
             }
 
-            ServiceComment ServiceComment = db.ServiceComments.Find(key);
-            if (ServiceComment == null)
+            Payment Payment = db.Payments.Find(key);
+            if (Payment == null)
             {
                 return NotFound();
             }
 
-            patch.Put(ServiceComment);
+            patch.Put(Payment);
 
             try
             {
@@ -68,7 +70,7 @@ namespace fsrhilmakv2.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!ServiceCommentExists(key))
+                if (!PaymentExists(key))
                 {
                     return NotFound();
                 }
@@ -78,33 +80,30 @@ namespace fsrhilmakv2.Controllers
                 }
             }
 
-            return Updated(ServiceComment);
+            return Updated(Payment);
         }
 
-        // POST: odata/ServiceComments
-        public IHttpActionResult Post(ServiceComment ServiceComment)
+        // POST: odata/Payments
+        public IHttpActionResult Post(Payment Payment)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-           
-            ApplicationUser currentUser = core.getCurrentUser();
-            ServiceComment.CreationDate = DateTime.Now;
-            ServiceComment.LastModificationDate = DateTime.Now;
-            ServiceComment.CreatorId = core.getCurrentUser().Id;
-            ServiceComment.ModifierId = core.getCurrentUser().Id;
-            ServiceComment.CreatorName = core.getCurrentUser().Name;
-            
-            db.ServiceComments.Add(ServiceComment);
+
+            Payment.CreationDate = DateTime.Now;
+            Payment.LastModificationDate = DateTime.Now;
+            //Payment.Creator = core.getCurrentUser();
+            //Payment.Modifier = core.getCurrentUser();
+            db.Payments.Add(Payment);
             db.SaveChanges();
 
-            return Created(ServiceComment);
+            return Created(Payment);
         }
 
-        // PATCH: odata/ServiceComments(5)
+        // PATCH: odata/Payments(5)
         [AcceptVerbs("PATCH", "MERGE")]
-        public IHttpActionResult Patch([FromODataUri] int key, Delta<ServiceComment> patch)
+        public IHttpActionResult Patch([FromODataUri] int key, Delta<Payment> patch)
         {
             Validate(patch.GetEntity());
 
@@ -113,13 +112,13 @@ namespace fsrhilmakv2.Controllers
                 return BadRequest(ModelState);
             }
 
-            ServiceComment ServiceComment = db.ServiceComments.Find(key);
-            if (ServiceComment == null)
+            Payment Payment = db.Payments.Find(key);
+            if (Payment == null)
             {
                 return NotFound();
             }
 
-            patch.Patch(ServiceComment);
+            patch.Patch(Payment);
 
             try
             {
@@ -127,7 +126,7 @@ namespace fsrhilmakv2.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!ServiceCommentExists(key))
+                if (!PaymentExists(key))
                 {
                     return NotFound();
                 }
@@ -137,23 +136,37 @@ namespace fsrhilmakv2.Controllers
                 }
             }
 
-            return Updated(ServiceComment);
+            return Updated(Payment);
         }
 
-        // DELETE: odata/ServiceComments(5)
+        // DELETE: odata/Payments(5)
         public IHttpActionResult Delete([FromODataUri] int key)
         {
-            ServiceComment ServiceComment = db.ServiceComments.Find(key);
-            if (ServiceComment == null)
+            Payment Payment = db.Payments.Find(key);
+            if (Payment == null)
             {
                 return NotFound();
             }
 
-            db.ServiceComments.Remove(ServiceComment);
+            db.Payments.Remove(Payment);
             db.SaveChanges();
 
             return StatusCode(HttpStatusCode.NoContent);
         }
+
+        //// GET: odata/Payments(5)/Creator
+        //[EnableQuery]
+        //public SingleResult<ApplicationUser> GetCreator([FromODataUri] int key)
+        //{
+        //    return SingleResult.Create(db.Payments.Where(m => m.id == key).Select(m => m.Creator));
+        //}
+
+        //// GET: odata/Payments(5)/Modifier
+        //[EnableQuery]
+        //public SingleResult<ApplicationUser> GetModifier([FromODataUri] int key)
+        //{
+        //    return SingleResult.Create(db.Payments.Where(m => m.id == key).Select(m => m.Modifier));
+        //}
 
         protected override void Dispose(bool disposing)
         {
@@ -164,9 +177,9 @@ namespace fsrhilmakv2.Controllers
             base.Dispose(disposing);
         }
 
-        private bool ServiceCommentExists(int key)
+        private bool PaymentExists(int key)
         {
-            return db.ServiceComments.Count(e => e.id == key) > 0;
+            return db.Payments.Count(e => e.id == key) > 0;
         }
     }
 }

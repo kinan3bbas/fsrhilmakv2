@@ -43,6 +43,18 @@ namespace fsrhilmakv2.Controllers
             service.Explanation = temp.Explanation;
             service.ExplanationDate = DateTime.Now;
             service.Status = CoreController.ServiceStatus.Done.ToString();
+            if (temp.ServiceProviderId != null)
+            {
+                DreamHistory history = new DreamHistory();
+                history.NewInterpreterId = temp.ServiceProviderId;
+                history.OldInterpreterId = service.ServiceProviderId;
+                history.ServiceId = service.id;
+                history.CreatorId = core.getCurrentUser().Id;
+                history.CreationDate = DateTime.Now;
+                history.LastModificationDate = DateTime.Now;
+                db.DreamHistories.Add(history);
+                service.ServiceProviderId = temp.ServiceProviderId;
+            }
            
             SaveService(service);
             return service;
@@ -188,6 +200,49 @@ namespace fsrhilmakv2.Controllers
             db.Payments.Add(payment);
         }
 
+        //****************************** Get Public Services **************************
+        [Route("GetPublicServices")]
+        [HttpGet]
+        [AllowAnonymous]
+        public List<Service> GetPublicServices([FromUri] String Status,int? UserWorkId)
+        {
+            String _hoursToPublicService = ParameterRepository.findByCode("hours_To_Public_Service");
+            int hoursToPublicService = (int)Int32.Parse(_hoursToPublicService);
+            DateTime dateToCompare = DateTime.Now.AddHours(-1 * hoursToPublicService);
+            List<Service> services = db.Services.Where(a => a.Status.Equals(Status) &&
+                a.CreationDate.CompareTo(dateToCompare) <= 0)
+                .Include("Comments")
+                .Include("UserWork")
+                .Include("ServiceProvider")
+                .Include("Creator")
+                .OrderByDescending(a=>a.CreationDate)
+                .ToList();
+            if (UserWorkId != null)
+            {
+                services = services.Where(a => a.UserWorkId.Equals(UserWorkId)).ToList();
+            }
+            return services;
+
+        }
+
+        //****************************** Get Payments **************************
+        [Route("GetPayments")]
+        [HttpGet]
+        [AllowAnonymous]
+        public List<Payment> GetPayments([FromUri] String UserID)
+        {
+            ApplicationUser user = db.Users.Where(a => a.Id == UserID).FirstOrDefault();
+            if (user.Type=="Client")
+            {
+               return db.Payments.Where(a => a.Creator.Equals(UserID)).OrderByDescending(a => a.CreationDate).ToList();
+            }
+            else
+            {
+                return db.Payments.Where(a => a.Service.ServiceProviderId.Equals(UserID)).OrderByDescending(a => a.CreationDate).ToList();
+            }
+
+
+        }
         //****************************** Functions*************************************
 
         public void SaveService(Service Service)

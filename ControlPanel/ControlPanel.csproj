@@ -199,6 +199,7 @@
     <Compile Include="Controllers\CoreController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\PaymentsController.cs" />
     <Compile Include="Controllers\ServicePathsController.cs" />
     <Compile Include="Controllers\SystemParametersController.cs" />
     <Compile Include="Controllers\ServicesController.cs" />
@@ -219,6 +220,7 @@
     <Compile Include="Models\EmailLog.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Payment.cs" />
     <Compile Include="Models\Service.cs" />
     <Compile Include="Models\ServiceComment.cs" />
     <Compile Include="Models\ServicePath.cs" />
@@ -258,6 +260,7 @@
       <DependentUpon>UserWork.resx</DependentUpon>
     </Compile>
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\PaymentViewModel.cs" />
     <Compile Include="ViewModels\ServiceViewModel.cs" />
     <Compile Include="ViewModels\Test.cs" />
     <Compile Include="ViewModels\UserInfoViewModel.cs" />
@@ -351,6 +354,7 @@
     <Content Include="Views\Services\ServiceInfo.cshtml" />
     <Content Include="Views\Services\ServicesUnderInterpretation.cshtml" />
     <Content Include="Views\Services\InterpreterServices.cshtml" />
+    <Content Include="Views\Payments\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

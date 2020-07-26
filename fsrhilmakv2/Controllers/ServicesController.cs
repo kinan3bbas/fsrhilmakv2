@@ -135,9 +135,22 @@ namespace fsrhilmakv2.Controllers
             //Service.Modifier = core.getCurrentUser();
             
             db.Services.Add(Service);
+            addComment(Service.id, Service.ServiceProviderId, Service.ServicePathId);
             db.SaveChanges();
 
             return Created(Service);
+        }
+
+        private void addComment(int serviceId,string serviceProviderId, int servicePathId)
+        {
+            ServiceComment comment = new ServiceComment();
+            comment.CreatorId = serviceProviderId;
+            comment.ServiceId = serviceId;
+            comment.CreationDate = DateTime.Now;
+            comment.LastModificationDate = DateTime.Now;
+            comment.CreatorName = db.Users.Find(serviceProviderId).Name;
+            comment.Text = db.ServicePaths.Find(servicePathId).Message != null ? db.ServicePaths.Find(servicePathId).Message : "";
+            db.ServiceComments.Add(comment);
         }
 
         // PATCH: odata/Services(5)

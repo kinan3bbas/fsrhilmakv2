@@ -256,7 +256,9 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ServiceCommentsController.cs" />
     <Compile Include="Controllers\ServicesController.cs" />
+    <Compile Include="Controllers\PaymentsController.cs" />
     <Compile Include="Controllers\UsersDeviceTokensController.cs" />
+    <Compile Include="Controllers\TransactionsController.cs" />
     <Compile Include="Controllers\UserWorksController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Extra\BasicModel.cs" />
@@ -265,6 +267,7 @@
     <Compile Include="Extra\Message.cs" />
     <Compile Include="Extra\Notification.cs" />
     <Compile Include="Extra\ParameterRepository.cs" />
+    <Compile Include="Extra\PushNotificationLogic.cs" />
     <Compile Include="Extra\ResponseEntity.cs" />
     <Compile Include="Extra\UserHelperLibrary.cs" />
     <Compile Include="Extra\UserVerificationHelper.cs" />
@@ -371,6 +374,22 @@
     <Compile Include="Migrations\202007242025481_userDeviceTokens.Designer.cs">
       <DependentUpon>202007242025481_userDeviceTokens.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202007250717367_dreamHistory.cs" />
+    <Compile Include="Migrations\202007250717367_dreamHistory.Designer.cs">
+      <DependentUpon>202007250717367_dreamHistory.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202007252054049_creatorName.cs" />
+    <Compile Include="Migrations\202007252054049_creatorName.Designer.cs">
+      <DependentUpon>202007252054049_creatorName.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202007252101076_ratio.cs" />
+    <Compile Include="Migrations\202007252101076_ratio.Designer.cs">
+      <DependentUpon>202007252101076_ratio.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202007261229343_transactions.cs" />
+    <Compile Include="Migrations\202007261229343_transactions.Designer.cs">
+      <DependentUpon>202007261229343_transactions.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -384,6 +403,8 @@
     <Compile Include="Models\UsersDeviceTokens.cs" />
     <Compile Include="Models\UserVerificationLog.cs" />
     <Compile Include="Models\Payment.cs" />
+    <Compile Include="Models\DreamHistory.cs" />
+    <Compile Include="Models\Transaction.cs" />
     <Compile Include="Models\UserWorkBinding.cs" />
     <Compile Include="Models\UserWork.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -551,6 +572,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202007242025481_userDeviceTokens.resx">
       <DependentUpon>202007242025481_userDeviceTokens.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202007250717367_dreamHistory.resx">
+      <DependentUpon>202007250717367_dreamHistory.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202007252054049_creatorName.resx">
+      <DependentUpon>202007252054049_creatorName.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202007252101076_ratio.resx">
+      <DependentUpon>202007252101076_ratio.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202007261229343_transactions.resx">
+      <DependentUpon>202007261229343_transactions.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

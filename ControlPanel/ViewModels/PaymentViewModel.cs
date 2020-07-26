@@ -1,17 +1,25 @@
-﻿
-using fsrhilmakv2.Models;
+﻿using ControlPanel.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
-namespace fsrhilmakv2.Extras
+namespace ControlPanel.ViewModels
 {
-    public class BasicModel
+    public class PaymentViewModel
     {
-        [Key]
+        public int ServiceId { get; set; }
+        public Service Service { get; set; }
+
+        public double Amount { get; set; }
+        public string Method { get; set; }
+
+        public string Currency { get; set; }
+
+        [Display(Name = "Status")]
+        public string Status { get; set; }
+
         public int id { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}")]
@@ -25,14 +33,5 @@ namespace fsrhilmakv2.Extras
         public ApplicationUser Creator { get; set; }
 
         public String CreatorId { get; set; }
-
-        public ApplicationUser Modifier { get; set; }
-        public String ModifierId { get; set; }
-
-        public long AttachmentId { get; set; }
-
-        public String CreatorName { get; set; }
-
-
     }
 }

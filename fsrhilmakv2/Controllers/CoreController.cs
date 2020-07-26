@@ -181,8 +181,8 @@ namespace fsrhilmakv2.Controllers
         public void ChangeOnlineStatus(ApplicationUser user, bool online)
         {
             user.Online = online;
-            db.Entry(user).State = EntityState.Modified;
-            db.SaveChanges();
+            //db.Entry(user).State = EntityState.Modified;
+           // db.SaveChanges();
         }
     }
 }
