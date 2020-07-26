@@ -14,7 +14,7 @@ using System.Web.Mvc;
 
 namespace ControlPanel.Controllers
 {
-    public class ServicesController : Controller
+    public class PaymentsController : Controller
     {
         private UserHelperLibrary helper = new UserHelperLibrary();
 

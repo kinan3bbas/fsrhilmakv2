@@ -1,17 +1,23 @@
-﻿
-@model List<ControlPanel.ViewModels.ServiceViewModel>
-
+﻿@model  IEnumerable<ControlPanel.Models.ServicePath>
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Personal Info Page";
     Layout = "~/Views/Shared/_PLayout.cshtml";
-    var Id = Request.QueryString["id"];    //var userType = ViewBag.Type;
+    var Id = Request.QueryString["userId"];
 }
-
-<h2>Dreams List</h2>
+</style>
+@*<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js"
+            integrity="sha384-NaWTHo/8YCBYJ59830LTz/P4aQZK1sS0SneOgAvhsIl3zBu8r9RevNg5lHCHAuQ/"
+            crossorigin="anonymous"></script>*@
+<link href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css" />
+<link href="https://cdn.datatables.net/buttons/1.6.1/css/buttons.dataTables.min.css" rel="stylesheet" type="text/css" />
+<h2 class="text-center" style="color: #071689 !important;">Name </h2>
 <br />
 <div class="container">
     <div class="row">
         <div class="col-md-3">
+
+
             <div class="accordion" id="accordionExample">
                 <div class="card">
                     <div class="card-header" id="headingOne">
@@ -30,7 +36,7 @@
                     <div class="card-header" id="headingOne">
                         <h2 class="mb-0">
                             <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                @Html.ActionLink(Resources.Global.service_Paths, "PersonalPage", new { Employeeid = Id })
+                                @Html.ActionLink(Resources.Global.service_Paths, "PersonalPage", new { userId = Id })
                             </button>
                         </h2>
                     </div>
@@ -42,7 +48,7 @@
                     <div class="card-header" id="headingOne">
                         <h2 class="mb-0">
                             <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                @Html.ActionLink(Resources.Global.Payments, "PersonalPage", new { Employeeid = Id })
+                                @Html.ActionLink(Resources.Global.Payments, "PersonalPage", new { id = Id })
                             </button>
                         </h2>
                     </div>
@@ -54,7 +60,9 @@
                     <div class="card-header" id="headingOne">
                         <h2 class="mb-0">
                             <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                @Html.ActionLink(Resources.Global.InterpretedServices, "InterpreterServices", new { id = Id })
+                                @Html.ActionLink("Interprete dServices", "InterpreterServices", "Services", new { id = Id }, null)
+
+
                             </button>
                         </h2>
                     </div>
@@ -66,7 +74,7 @@
                     <div class="card-header" id="headingOne">
                         <h2 class="mb-0">
                             <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                @Html.ActionLink(Resources.Global.ServicesUnderInterpretation, "ServicesUnderInterpretation", new { id = Id })
+                                @Html.ActionLink("الخدمات قيد التنفيذ", "ServicesUnderInterpretation", "Services", new { userId = Id }, null)
                             </button>
                         </h2>
                     </div>
@@ -99,114 +107,77 @@
         </div>
 
 
-        <div class="container">
-            @using (Html.BeginForm())
+
+        <div class="col-md-9" id="PersonalInfoDV">
+
+
+
+            <p style="float:right;text-decoration-color:white;">
+
+                <button class="btn btn-primary btn-default" onclick="location.href='@Url.Action("CreateServicePath", "Account")'">
+                    <i class="fa  pull-right" style="font-size:large"></i> @Resources.Global.CreateNewServicePath
+                </button>
+
+            </p>
+            <table id="myTable" class="cell-border hover stripe" style="width:100%">
+                <thead>
+                    <tr>
+
+                        <th>
+                            @Resources.UserWork.Name
+                        </th>
+                        <th>
+                            @Resources.Global.Cost
+                        </th>
+                        <th>
+                            @Resources.UserWork.Enabled
+                        </th>
+
+                        <th>
+                            @Resources.UserWork.CreationDate
+                        </th>
+                        <th>
+                            الرسالة
+                        </th>
+                        <th></th>
+                    </tr>
+                <tbody>
+                    @foreach (var item in Model)
             {
-
-                <div class="row">
-
-                    <div class="col-md-4">
-                        @Html.Label("From Date")
-                        @Html.TextBox("fromDate", null, new { type = "date", @class = "form-control m-input m-input--air" })
-                    </div>
-                    <div class="col-md-4">
-                        @Html.Label("To Date")
-                        @Html.TextBox("toDate", null, new { type = "date", @class = "form-control m-input m-input--air" })
-
-                    </div>
-                </div>
-                <br />
-                <div class="text-center">
-                    <button type="submit" class="btn btn-default">
-                        Filter
-                    </button>
-                </div>
-
-              
-
-
-            }
-        </div>
-        <br />
-        <br />
-
-        <div class="col-md-9">
-            <div class="table-responsive ">
-                <table id="myTable" class="cell-border hover stripe" style="width:100%">
-                    <thead>
                         <tr>
 
-                            <th>
-                                Name
-                            </th>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Cost)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Enabled)
+                            </td>
 
-                            <th>
-                                userwork
-                            </th>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CreationDate)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Message)
+                            </td>
 
-                            <th>
-                                CreationDate
-                            </th>
-                            <th>
-                                creator
-                            </th>
-                            <th>
-                                service path
-                            </th>
-                            <th>
-                                description
-                            </th>
-                            <th>
-                                status
-                            </th>
-
-                            <th></th>
+                            <td>
+                                @Html.ActionLink(@Resources.UserWork.Edit, "Edit", new { id = item.id }) |
+                                @Html.ActionLink(@Resources.UserWork.Details, "Details", new { id = item.id }) |
+                                @Html.ActionLink(@Resources.UserWork.Delete, "Delete", new { id = item.id })
+                            </td>
                         </tr>
-                    <tbody>
-                        @foreach (var item in Model)
-            {
-
-                            <tr>
-
-                                <td>
-                                    @Html.ActionLink(item.Name, "ServiceInfo", new { id = @item.Id }, null)
-                                </td>
-
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.UserWork.Name)
-                                </td>
-
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.CreationDate)
-                                </td>
-
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Creator.Name)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.ServicePath.Cost)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Description)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Status)
-                                </td>
-
-
-                                <td>
-                                    @Html.ActionLink(@Resources.UserWork.Edit, "Edit", new { id = @item.id }) |
-                                    @Html.ActionLink(@Resources.UserWork.Details, "Details", new { id = item.id }) |
-                                    @Html.ActionLink(@Resources.UserWork.Delete, "Delete", new { id = item.id })
-                                </td>
-                            </tr>
-                        }
-
-                    </tbody>
-                </table>
-            </div>
+                    }
+                </tbody>
+            </table>
         </div>
+        <br />
+        <br />
+    </div>
 
+</div>
 
         @section scripts{
             <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>

@@ -16,7 +16,7 @@ using System.Data.Entity;
 
 namespace ControlPanel.Controllers
 {
-    [Authorize]
+    [AllowAnonymous]
     public class AccountController : Controller
     {
         private ApplicationSignInManager _signInManager;
@@ -511,20 +511,24 @@ namespace ControlPanel.Controllers
         }
 
 
-        public ActionResult PersonalPage(String id)
+        public ActionResult PersonalPage(String userId)
         {
             ApplicationUser temp = db
                 .Users
-                .Where(e => e.Id.Equals(id))
+                .Where(e => e.Id.Equals(userId))
                 .Include("userWorkBinding")
                 .FirstOrDefault();
             if (temp == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.userId = id;
+            ViewBag.userId = userId;
             return View(getInfoMapping(temp));
         }
+
+
+
+
 
 
         public ActionResult EditPersonalPage(String id)
@@ -577,6 +581,51 @@ namespace ControlPanel.Controllers
         }
 
 
+
+        public ActionResult ServicePath(String userId)
+        {
+
+            var servicePaths = db.ServicePaths.Where(a => a.ServiceProviderId.Equals(userId)).Include(s => s.Creator).Include(s => s.Modifier).Include(s => s.ServiceProvider);
+
+            if (servicePaths == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.userId = userId;
+            return View(servicePaths.ToList());
+
+        }
+
+        // GET: /CreateServicePath
+        public ActionResult CreateServicePath(String ServiceProviderId)
+        {
+            ViewBag.CreatorId = new SelectList(db.Users, "Id", "Sex");
+            ViewBag.ModifierId = new SelectList(db.Users, "Id", "Sex");
+            ViewBag.ServiceProviderId = new SelectList(db.Users, "Id", "Sex");
+            return View();
+        }
+
+        // POST: CreateServicePath
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateServicePath(ServicePath servicePath)
+        {
+            if (ModelState.IsValid)
+            {
+                servicePath.CreationDate = DateTime.Now;
+                servicePath.LastModificationDate = DateTime.Now;
+                db.ServicePaths.Add(servicePath);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+            ViewBag.CreatorId = new SelectList(db.Users, "Id", "Sex", servicePath.CreatorId);
+            ViewBag.ModifierId = new SelectList(db.Users, "Id", "Sex", servicePath.ModifierId);
+            ViewBag.ServiceProviderId = new SelectList(db.Users, "Id", "Sex", servicePath.ServiceProviderId);
+            return View(servicePath);
+        }
         protected override void Dispose(bool disposing)
         {
             if (disposing)

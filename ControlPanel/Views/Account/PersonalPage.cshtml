@@ -35,7 +35,7 @@
                     <div class="card-header" id="headingOne">
                         <h2 class="mb-0">
                             <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                @Html.ActionLink(Resources.Global.service_Paths, "PersonalPage", new { userId = Id })
+                                @Html.ActionLink(Resources.Global.service_Paths, "ServicePath", new { userId = Id })
                             </button>
                         </h2>
                     </div>
@@ -47,7 +47,7 @@
                     <div class="card-header" id="headingOne">
                         <h2 class="mb-0">
                             <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                @Html.ActionLink(Resources.Global.Payments, "PersonalPage", new { userId = Id })
+                                @Html.ActionLink(Resources.Global.Payments, "PersonalPage", new { id = Id })
                             </button>
                         </h2>
                     </div>
@@ -59,7 +59,7 @@
                     <div class="card-header" id="headingOne">
                         <h2 class="mb-0">
                             <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                @Html.ActionLink("Interprete dServices","InterpreterServices", "Services",  new { userId = Model.Id }, null)
+                                @Html.ActionLink("Interprete dServices","InterpreterServices", "Services",  new { id = Id }, null)
 
 
                             </button>
@@ -73,7 +73,7 @@
                     <div class="card-header" id="headingOne">
                         <h2 class="mb-0">
                             <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                @Html.ActionLink("ServicesUnder Interpretation", "ServicesUnderInterpretation", "Services", new { userId = Model.Id },null)
+                                @Html.ActionLink("الخدمات قيد التنفيذ", "ServicesUnderInterpretation", "Services", new { userId = Id },null)
                             </button>
                         </h2>
                     </div>
