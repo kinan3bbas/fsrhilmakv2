@@ -406,6 +406,14 @@
     <Compile Include="Migrations\202007261904320_fix-userWork.Designer.cs">
       <DependentUpon>202007261904320_fix-userWork.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202007261949432_newFIx.cs" />
+    <Compile Include="Migrations\202007261949432_newFIx.Designer.cs">
+      <DependentUpon>202007261949432_newFIx.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202007261955115_newFIx__return.cs" />
+    <Compile Include="Migrations\202007261955115_newFIx__return.Designer.cs">
+      <DependentUpon>202007261955115_newFIx__return.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -609,6 +617,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202007261904320_fix-userWork.resx">
       <DependentUpon>202007261904320_fix-userWork.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202007261949432_newFIx.resx">
+      <DependentUpon>202007261949432_newFIx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202007261955115_newFIx__return.resx">
+      <DependentUpon>202007261955115_newFIx__return.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -419,7 +419,7 @@ namespace ControlPanel.Controllers
                     && a.Status!="Deleted").ToList();
             if (UserWorkId != null)
             {
-                List<UserWorkBinding> bindings = db.UserWorkBindings.Where(a => a.UserWorkId==UserWorkId
+                List<UserWorkBinding> bindings = db.UserWorkBindings.Where(a => a.UserWorkId == UserWorkId
                         ).Include("User").ToList();
                 users = bindings.Select(a => a.User).ToList();
                 users = users.Where(a => a.CreationDate.CompareTo(from) >= 0 && a.CreationDate.CompareTo(to) <= 0).ToList();
@@ -499,7 +499,7 @@ namespace ControlPanel.Controllers
                 FireBaseId = user.FireBaseId,
                 Id = user.Id,
                 HasRegistered = user.verifiedInterpreter,
-                UserWorks = userWork.Select(a=>a.UserWork).ToList(),
+                UserWorks = userWork.Select(a => a.UserWork).ToList(),
                 NumberOfActiveServices = 10,
                 NumberOfDoneServices = 10,
                 Speed = 10,

@@ -205,12 +205,12 @@ namespace fsrhilmakv2.Controllers
         [Route("GetPublicServices")]
         [HttpGet]
         [AllowAnonymous]
-        public List<Service> GetPublicServices([FromUri] String Status,int? UserWorkId)
+        public List<Service> GetPublicServices([FromUri] int? UserWorkId)
         {
             String _hoursToPublicService = ParameterRepository.findByCode("hours_To_Public_Service");
             int hoursToPublicService = (int)Int32.Parse(_hoursToPublicService);
             DateTime dateToCompare = DateTime.Now.AddHours(-1 * hoursToPublicService);
-            List<Service> services = db.Services.Where(a => a.Status.Equals(Status) &&
+            List<Service> services = db.Services.Where(a => a.Status.Equals("Active") &&
                 a.CreationDate.CompareTo(dateToCompare) <= 0)
                 .Include("Comments")
                 .Include("UserWork")
@@ -226,25 +226,62 @@ namespace fsrhilmakv2.Controllers
 
         }
 
+        [Route("GetPublicServicesWithoutFilter")]
+        [HttpGet]
+        [AllowAnonymous]
+        public List<Service> GetPublicServicesWithoutFilter()
+        {
+            String _hoursToPublicService = ParameterRepository.findByCode("hours_To_Public_Service");
+            int hoursToPublicService = (int)Int32.Parse(_hoursToPublicService);
+            DateTime dateToCompare = DateTime.Now.AddHours(-1 * hoursToPublicService);
+            List<Service> services = db.Services.Where(a => a.Status.Equals("Active") &&
+                a.CreationDate.CompareTo(dateToCompare) <= 0)
+                .Include("Comments")
+                .Include("UserWork")
+                .Include("ServiceProvider")
+                .Include("Creator")
+                .OrderByDescending(a => a.CreationDate)
+                .ToList();
+            
+            return services;
+
+        }
+
         //****************************** Get Payments **************************
         [Route("GetPayments")]
         [HttpGet]
-        [AllowAnonymous]
-        public List<Payment> GetPayments([FromUri] String UserID)
+        public List<Payment> GetPayments()
         {
-            ApplicationUser user = db.Users.Where(a => a.Id == UserID).FirstOrDefault();
+            ApplicationUser user = core.getCurrentUser();
             if (user.Type=="Client")
             {
-               return db.Payments.Where(a => a.Creator.Equals(UserID)).OrderByDescending(a => a.CreationDate).ToList();
+               return db.Payments.Where(a => a.CreatorId.Equals(user.Id)).OrderByDescending(a => a.CreationDate).ToList();
             }
             else
             {
-                return db.Payments.Where(a => a.Service.ServiceProviderId.Equals(UserID)).OrderByDescending(a => a.CreationDate).ToList();
+                return db.Payments.Where(a => a.Service.ServiceProviderId.Equals(user.Id)).OrderByDescending(a => a.CreationDate).ToList();
             }
 
 
         }
         //****************************** Functions*************************************
+
+        [Route("AddBindings")]
+        [HttpPost]
+        [AllowAnonymous]
+        public List<UserWorkBinding> AddBindings(List<UserWorkBinding> bindings)
+        {
+            foreach (var item in bindings)
+            {
+                item.CreationDate = DateTime.Now;
+                item.LastModificationDate = DateTime.Now;
+                db.UserWorkBindings.Add(item);
+            }
+
+            db.SaveChanges();
+            return bindings;
+        }
+
 
         public void SaveService(Service Service)
         {
@@ -266,6 +303,8 @@ namespace fsrhilmakv2.Controllers
             List<Service> activeSerives = helper.getServicesFiltered(services, CoreController.ServiceStatus.Active.ToString());
             List<Service> doneServices = helper.getServicesFiltered(services, CoreController.ServiceStatus.Done.ToString());
             double speed = UserHelperLibrary.ServiceProviderSpeed(helper.findUser(service.ServiceProviderId), doneServices.Count);
+            List<UsersDeviceTokens> Clienttokens = db.UsersDeviceTokens.Where(a => a.UserId.Equals(service.CreatorId)).ToList();
+            List<UsersDeviceTokens> ServiceProvidertokens = db.UsersDeviceTokens.Where(a => a.UserId.Equals(service.ServiceProviderId)).ToList();
 
             AccountController accountCont = new AccountController();
             ServiceViewModel result = new ServiceViewModel();
@@ -307,8 +346,8 @@ namespace fsrhilmakv2.Controllers
             result.NumberOfRemainingPeople = allService.Count > 0 ? allService.Where(a => a.CreationDate.CompareTo(service.CreationDate) < 0).Count() : 0;
             result.AvgWaitingTime= UserHelperLibrary.getWaitingTimeMessage(Double.Parse(speed.ToString()),
                 Double.Parse(result.NumberOfRemainingPeople.ToString())).Replace("Your average waiting time is ", "");
-
-
+            result.ClientToken = Clienttokens.Count > 0 ? Clienttokens[0].token : "";
+            result.ServiceProviderToken = ServiceProvidertokens.Count > 0 ? ServiceProvidertokens[0].token : "";
 
 
             return result;

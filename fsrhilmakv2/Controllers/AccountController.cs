@@ -441,35 +441,46 @@ namespace fsrhilmakv2.Controllers
 
 
 
-                    List<UserWork> userworks = db.UserWorks.ToList();
-                    ICollection<UserWorkBinding> userWorksToBind = new List<UserWorkBinding>();
-                    if (model.UserWork != null && model.UserWork.Count > 0)
-                    {
+                    //List<int> userworksIds = new List<int>();
+                    //List<UserWork> userworks = db.UserWorks.ToList();
+                    //ICollection<UserWorkBinding> userWorksToBind = new List<UserWorkBinding>();
+                    //if (model.UserWork != null && model.UserWork.Count > 0)
+                    //{
 
-                        foreach (var item in model.UserWork)
-                        {
-                            //db.Entry(item).State = EntityState.Deleted;
-                            UserWorkBinding temp = new UserWorkBinding
-                            {
-                                CreationDate = DateTime.Now,
-                                LastModificationDate = DateTime.Now,
-                                UserId = user.Id,
-                                // User = user,
-                                UserWork = userworks.Where(a => a.id.Equals(item.id)).ToList()[0],
-                                //UserWorkId = item.id
+                    //    foreach (var item in model.UserWork)
+                    //    {
+                    //        //db.Entry(item).State = EntityState.Deleted;
+                    //        UserWorkBinding temp = new UserWorkBinding
+                    //        {
+                    //            CreationDate = DateTime.Now,
+                    //            LastModificationDate = DateTime.Now,
+                    //            UserId = user.Id,
+                    //            // User = user,
+                    //            //UserWork = userworks.Where(a => a.id.Equals(item.id)).ToList()[0],
+                    //            UserWorkId = item.id
 
-                            };
-                            //db.Entry(temp.UserWork).State = EntityState.Unchanged;
-                            db.UserWorkBindings.Add(temp);
+                    //        };
+                    //        userworksIds.Add(item.id);
+                    //        db.UserWorkBindings.Add(temp);
 
-                            userWorksToBind.Add(temp);
-                        }
-                        user.userWorkBinding = userWorksToBind;
-                        //db.Entry(user).State = EntityState.Modified;
-                        //db.SaveChanges();
-                    }
+                    //        userWorksToBind.Add(temp);
+                    //    }
+                    //    user.userWorkBinding = userWorksToBind;
+                    //    //db.Entry(user).State = EntityState.Modified;
+                    //    //db.SaveChanges();
+                    //}
 
                     result = await UserManager.CreateAsync(user, model.Password);
+                    //int j = 0;
+                    //List<UserWorkBinding> bindings = user.userWorkBinding.ToList(); ;
+                    //foreach (var item in bindings)
+                    //{
+                    //    db.UserWorks.Remove(item.UserWork);
+                    //    //item.UserWorkId = userworksIds[j];
+                    //    j++;
+                    //    db.Entry(item).State = EntityState.Modified;
+                    //}
+                    db.SaveChanges();
                    // await UserManager.AddToRoleAsync(user.Id, "Service_Provider");
                 }
                 
@@ -720,7 +731,10 @@ namespace fsrhilmakv2.Controllers
                 UserRoles = userManager.GetRoles(user.Id).ToList(),
                 SocialStatus = user.SocialState,
                 ImageUrl = user.imageUrl,
-                SocialToken=user.SocialToken
+                SocialToken = user.SocialToken,
+                TotalBalance = 10,
+                AvailableBalance=5,
+                SuspendedBalance=5
                 
                 
 
