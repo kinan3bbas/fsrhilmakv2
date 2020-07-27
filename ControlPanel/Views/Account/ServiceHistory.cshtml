@@ -11,7 +11,7 @@
             crossorigin="anonymous"></script>*@
 <link href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css" />
 <link href="https://cdn.datatables.net/buttons/1.6.1/css/buttons.dataTables.min.css" rel="stylesheet" type="text/css" />
-<h2 class="text-center" style="color: #071689 !important;">Payment </h2>
+<h2 class="text-center" style="color: #071689 !important;">Service History List </h2>
 <br />
 <div class="container">
     <div class="row">
@@ -92,6 +92,20 @@
                     </div>
                 </div>
             </div>
+
+            <div class="accordion" id="accordionExample">
+                <div class="card">
+                    <div class="card-header" id="headingOne">
+                        <h2 class="mb-0">
+                            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                @Html.ActionLink("Service History", "ServiceHistory", new { userId = Id })
+                            </button>
+                        </h2>
+                    </div>
+                </div>
+            </div>
+
+
 
             <div class="accordion" id="accordionExample">
                 <div class="card">

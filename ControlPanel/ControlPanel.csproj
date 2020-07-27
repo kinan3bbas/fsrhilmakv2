@@ -362,6 +362,7 @@
     <Content Include="Views\Account\Ratings.cshtml" />
     <Content Include="Views\Payments\Index.cshtml" />
     <Content Include="Views\Account\ServiceHistory.cshtml" />
+    <Content Include="Views\Account\EditServicePath.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
