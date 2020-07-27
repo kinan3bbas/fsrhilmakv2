@@ -594,6 +594,19 @@ namespace ControlPanel.Controllers
 
 
 
+        public ActionResult ServiceHistory(String userId)
+        {
+            List<DreamHistory> dreamhistory = db.DreamHistorys.Where(a => a.Service.ServiceProviderId.Equals(userId)).
+                Include(s => s.Creator).Include(s => s.Modifier).Include(s => s.Service.ServiceProvider).ToList();
+            if (dreamhistory == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.userId = userId;
+            return View(dreamhistory);
+        }
+
+
 
 
         // GET: Payments
