@@ -120,6 +120,13 @@ namespace ControlPanel.Models
 
         public System.Data.Entity.DbSet<Payment> Payments { get; set; }
 
+        
+        public System.Data.Entity.DbSet<DreamHistory> DreamHistorys { get; set; }
+
+        
+
+
+
         //public System.Data.Entity.DbSet<ControlPanel.Models.ApplicationUser> ApplicationUsers { get; set; }
 
 
