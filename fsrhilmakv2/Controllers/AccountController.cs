@@ -441,35 +441,46 @@ namespace fsrhilmakv2.Controllers
 
 
 
-                    List<UserWork> userworks = db.UserWorks.ToList();
-                    ICollection<UserWorkBinding> userWorksToBind = new List<UserWorkBinding>();
-                    if (model.UserWork != null && model.UserWork.Count > 0)
-                    {
+                    //List<int> userworksIds = new List<int>();
+                    //List<UserWork> userworks = db.UserWorks.ToList();
+                    //ICollection<UserWorkBinding> userWorksToBind = new List<UserWorkBinding>();
+                    //if (model.UserWork != null && model.UserWork.Count > 0)
+                    //{
 
-                        foreach (var item in model.UserWork)
-                        {
-                            //db.Entry(item).State = EntityState.Deleted;
-                            UserWorkBinding temp = new UserWorkBinding
-                            {
-                                CreationDate = DateTime.Now,
-                                LastModificationDate = DateTime.Now,
-                                UserId = user.Id,
-                                // User = user,
-                                UserWork = userworks.Where(a => a.id.Equals(item.id)).ToList()[0],
-                                //UserWorkId = item.id
+                    //    foreach (var item in model.UserWork)
+                    //    {
+                    //        //db.Entry(item).State = EntityState.Deleted;
+                    //        UserWorkBinding temp = new UserWorkBinding
+                    //        {
+                    //            CreationDate = DateTime.Now,
+                    //            LastModificationDate = DateTime.Now,
+                    //            UserId = user.Id,
+                    //            // User = user,
+                    //            //UserWork = userworks.Where(a => a.id.Equals(item.id)).ToList()[0],
+                    //            UserWorkId = item.id
 
-                            };
-                            //db.Entry(temp.UserWork).State = EntityState.Unchanged;
-                            db.UserWorkBindings.Add(temp);
+                    //        };
+                    //        userworksIds.Add(item.id);
+                    //        db.UserWorkBindings.Add(temp);
 
-                            userWorksToBind.Add(temp);
-                        }
-                        user.userWorkBinding = userWorksToBind;
-                        //db.Entry(user).State = EntityState.Modified;
-                        //db.SaveChanges();
-                    }
+                    //        userWorksToBind.Add(temp);
+                    //    }
+                    //    user.userWorkBinding = userWorksToBind;
+                    //    //db.Entry(user).State = EntityState.Modified;
+                    //    //db.SaveChanges();
+                    //}
 
                     result = await UserManager.CreateAsync(user, model.Password);
+                    //int j = 0;
+                    //List<UserWorkBinding> bindings = user.userWorkBinding.ToList(); ;
+                    //foreach (var item in bindings)
+                    //{
+                    //    db.UserWorks.Remove(item.UserWork);
+                    //    //item.UserWorkId = userworksIds[j];
+                    //    j++;
+                    //    db.Entry(item).State = EntityState.Modified;
+                    //}
+                    db.SaveChanges();
                    // await UserManager.AddToRoleAsync(user.Id, "Service_Provider");
                 }
                 
@@ -692,8 +703,13 @@ namespace fsrhilmakv2.Controllers
 
         public UserInfoViewModel getInfoMapping(ApplicationUser user)
         {
+            List<Service> services = helper.getUserServices(user.Id);
+            List<Service> activeSerives = helper.getServicesFiltered(services, CoreController.ServiceStatus.Active.ToString());
+            List<Service> doneServices = helper.getServicesFiltered(services, CoreController.ServiceStatus.Done.ToString());
             var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
             List<UserWorkBinding> userWork = db.UserWorkBindings.Where(a => a.UserId.Equals(user.Id)).Include("UserWork").ToList();
+            double speed = UserHelperLibrary.ServiceProviderSpeed(helper.findUser(user.Id), doneServices.Count);
+            UserBalance balance = helper.getUserBalance(user);
             return new UserInfoViewModel
             {
                 Email = User.Identity.GetUserName(),
@@ -713,14 +729,17 @@ namespace fsrhilmakv2.Controllers
                 Id = user.Id,
                 HasRegistered = user.verifiedInterpreter,
                 UserWorks = userWork,
-                NumberOfActiveServices = 10,
-                NumberOfDoneServices = 10,
-                Speed = 10,
-                AvgServicesInOneDay = 10,
+                NumberOfActiveServices = activeSerives.Count(),
+                NumberOfDoneServices = doneServices.Count(),
+                Speed = speed<1?1:speed,
+                AvgServicesInOneDay = speed == 0 ? 1 : speed,
                 UserRoles = userManager.GetRoles(user.Id).ToList(),
                 SocialStatus = user.SocialState,
                 ImageUrl = user.imageUrl,
-                SocialToken=user.SocialToken
+                SocialToken = user.SocialToken,
+                TotalBalance = balance.TransferedBalance,
+                AvailableBalance = balance.DoneBalance,
+                SuspendedBalance = balance.SuspendedBalance
                 
                 
 
@@ -738,6 +757,20 @@ namespace fsrhilmakv2.Controllers
             foreach (var item in bindings)
             {
                 users.Add(getInfoMapping(item.User));
+            }
+            return users;
+        }
+
+        [AllowAnonymous]
+        [Route("GetServiceProvidersWithoutFilter")]
+        public List<UserInfoViewModel> GetServiceProvidersWithoutFilter()
+        {
+            List<ApplicationUser> result = db.Users.Where(a => a.Type.Equals(CoreController.UserType.Service_Provider.ToString())
+              && !a.Status.Equals(CoreController.UserStatus.Deleted.ToString())).ToList();
+            List<UserInfoViewModel> users = new List<UserInfoViewModel>();
+            foreach (var item in result)
+            {
+                users.Add(getInfoMapping(item));
             }
             return users;
         }
