@@ -10,7 +10,10 @@
             integrity="sha384-NaWTHo/8YCBYJ59830LTz/P4aQZK1sS0SneOgAvhsIl3zBu8r9RevNg5lHCHAuQ/"
             crossorigin="anonymous"></script>*@
 
+<link href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css" />
+<link href="https://cdn.datatables.net/buttons/1.6.1/css/buttons.dataTables.min.css" rel="stylesheet" type="text/css" />
 <h2 class="text-center" style="color: #071689 !important;">Transactions List </h2>
+<br />
 <br />
 <div class="container">
     <div class="row">
@@ -173,7 +176,7 @@
                                 @Html.DisplayFor(modelItem => item.Amount)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.Method)
+                                @Html.DisplayFor(modelItem => item.method)
                             </td>
                             <td>
                                 @Html.DisplayFor(modelItem => item.Bank)

@@ -614,7 +614,7 @@ namespace ControlPanel.Controllers
         public ActionResult Transactions(String userId)
         {
             List<Transaction> transaction = db.Transactions.Where(a => a.UserId.Equals(userId)).
-                Include(s => s.Creator).Include(s => s.Modifier).Include(s => s.UserId).ToList();
+                Include(s => s.Creator).Include(s => s.Modifier).ToList();
 
             if (transaction == null)
             {
