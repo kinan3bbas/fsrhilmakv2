@@ -16,7 +16,7 @@ using System.Data.Entity;
 
 namespace ControlPanel.Controllers
 {
-    [Authorize]
+    [AllowAnonymous]
     public class AccountController : Controller
     {
         private ApplicationSignInManager _signInManager;
@@ -639,9 +639,9 @@ namespace ControlPanel.Controllers
         // GET: /CreateServicePath
         public ActionResult CreateServicePath(String ServiceProviderId)
         {
-            ViewBag.CreatorId = new SelectList(db.Users, "Id", "Sex");
-            ViewBag.ModifierId = new SelectList(db.Users, "Id", "Sex");
-            ViewBag.ServiceProviderId = new SelectList(db.Users, "Id", "Sex");
+            //ViewBag.CreatorId = new SelectList(db.Users, "Id", "Sex");
+            //ViewBag.ModifierId = new SelectList(db.Users, "Id", "Sex");
+            //ViewBag.ServiceProviderId = new SelectList(db.Users, "Id", "Sex");
             return View();
         }
 
@@ -658,12 +658,12 @@ namespace ControlPanel.Controllers
                 servicePath.LastModificationDate = DateTime.Now;
                 db.ServicePaths.Add(servicePath);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("ServicePath",new {userId=servicePath.ServiceProviderId });
             }
 
-            ViewBag.CreatorId = new SelectList(db.Users, "Id", "Sex", servicePath.CreatorId);
-            ViewBag.ModifierId = new SelectList(db.Users, "Id", "Sex", servicePath.ModifierId);
-            ViewBag.ServiceProviderId = new SelectList(db.Users, "Id", "Sex", servicePath.ServiceProviderId);
+            //ViewBag.CreatorId = new SelectList(db.Users, "Id", "Sex", servicePath.CreatorId);
+            //ViewBag.ModifierId = new SelectList(db.Users, "Id", "Sex", servicePath.ModifierId);
+            //ViewBag.ServiceProviderId = new SelectList(db.Users, "Id", "Sex", servicePath.ServiceProviderId);
             return View(servicePath);
         }
         protected override void Dispose(bool disposing)
