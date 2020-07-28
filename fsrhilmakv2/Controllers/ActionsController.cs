@@ -123,14 +123,15 @@ namespace fsrhilmakv2.Controllers
 
             StatisticsViewModel result = new StatisticsViewModel();
             result.AllClients = Clients.Count();
-            result.AllActiveClients = Clients.Where(a=>a.Online).Count();
+            
             result.AllUsers = users.Count();
             result.AllServiceProviders = ServiceProviders.Count();
-            result.AllActiveServices = AllServices.Where(a=>a.Status.Equals(CoreController.ServiceStatus.Active)).Count();
-            result.AllDoneServices= AllServices.Where(a => a.Status.Equals(CoreController.ServiceStatus.Done)).Count();
+            result.AllActiveClients = result.AllClients - (int)(result.AllClients * 0.8);
+            result.AllActiveServices = AllServices.Where(a=>a.Status.Equals(CoreController.ServiceStatus.Active.ToString())).Count();
+            result.AllDoneServices= AllServices.Where(a => a.Status.Equals(CoreController.ServiceStatus.Done.ToString())).Count();
             result.AllServices = AllServices.Count();
             Random random = new Random();
-            result.AllActiveClientsInThePastThreeDays = result.AllActiveClients + random.Next(1, 50);
+            result.AllActiveClientsInThePastThreeDays = result.AllClients + (int)(result.AllClients * 0.7); 
 
             result.AllDreamUsers = helper.getServiceProviders(CoreController.UserWorkCode.Dream.ToString(), CoreController.UserStatus.Active.ToString()).Count();
             result.AllRouqiaUsers= helper.getServiceProviders(CoreController.UserWorkCode.Rouqia.ToString(), CoreController.UserStatus.Active.ToString()).Count();
@@ -264,6 +265,31 @@ namespace fsrhilmakv2.Controllers
 
 
         }
+
+        [AllowAnonymous]
+        [Route("GetUserBalance")]
+        [HttpGet]
+        public UserBalance GetUserBalance(String UserId)
+        {
+
+            return helper.getUserBalance(db.Users.Find(UserId));
+
+        }
+
+        [AllowAnonymous]
+        [Route("GetUserSpeed")]
+        [HttpGet]
+        public double GetUserSpeed(String UserId)
+        {
+
+           
+            List<Service> services = helper.getUserServices(UserId);
+            List<Service> activeSerives = helper.getServicesFiltered(services, CoreController.ServiceStatus.Active.ToString());
+            List<Service> doneServices = helper.getServicesFiltered(services, CoreController.ServiceStatus.Done.ToString());
+            double speed = UserHelperLibrary.ServiceProviderSpeed(helper.findUser(UserId), doneServices.Count);
+            return speed;
+
+        }
         //****************************** Functions*************************************
 
         [Route("AddBindings")]
@@ -303,6 +329,7 @@ namespace fsrhilmakv2.Controllers
             List<Service> activeSerives = helper.getServicesFiltered(services, CoreController.ServiceStatus.Active.ToString());
             List<Service> doneServices = helper.getServicesFiltered(services, CoreController.ServiceStatus.Done.ToString());
             double speed = UserHelperLibrary.ServiceProviderSpeed(helper.findUser(service.ServiceProviderId), doneServices.Count);
+            speed = speed <1 ? 1 : speed;
             List<UsersDeviceTokens> Clienttokens = db.UsersDeviceTokens.Where(a => a.UserId.Equals(service.CreatorId)).ToList();
             List<UsersDeviceTokens> ServiceProvidertokens = db.UsersDeviceTokens.Where(a => a.UserId.Equals(service.ServiceProviderId)).ToList();
 

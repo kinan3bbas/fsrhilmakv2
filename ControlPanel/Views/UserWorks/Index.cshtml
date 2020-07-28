@@ -63,60 +63,68 @@
 </p>
 <table id="myTable" class="cell-border hover stripe" style="width:100%">
     <thead>
-    <tr>
+        <tr>
 
-        <th>
-           @Resources.UserWork.Name
-        </th>
+            <th>
+                @Resources.UserWork.Name
+            </th>
 
-        <th>
-           @Resources.UserWork.AdjectiveName
-        </th>
+            <th>
+                @Resources.UserWork.AdjectiveName
+            </th>
 
-        <th>
-         @Resources.UserWork.CreationDate
-        </th>
-        @*<th>
-                @Html.DisplayNameFor(model => model.LastModificationDate)
-            </th>*@
+            <th>
+                @Resources.UserWork.CreationDate
+            </th>
+            @*<th>
+            @Html.DisplayNameFor(model => model.LastModificationDate)
+        </th>*@
 
 
-        <th>
-            @Resources.UserWork.Enabled
-        </th>
-        <th></th>
-    </tr>
+            <th>
+                @Resources.UserWork.Enabled
+            </th>
+
+            <th>
+                Code
+            </th>
+            <th></th>
+        </tr>
         <tbody>
             @foreach (var item in Model)
             {
 
-                <tr>
+            <tr>
 
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Name)
-                    </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
 
-                    <td>
-                        @Html.DisplayFor(modelItem => item.AdjectiveName)
-                    </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AdjectiveName)
+                </td>
 
-                    <td>
-                        @Html.DisplayFor(modelItem => item.CreationDate)
-                    </td>
-                    @*<td>
-                        @Html.DisplayFor(modelItem => item.LastModificationDate)
-                    </td>*@
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreationDate)
+                </td>
+                @*<td>
+            @Html.DisplayFor(modelItem => item.LastModificationDate)
+        </td>*@
 
 
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Enabled)
-                    </td>
-                    <td>
-                        @Html.ActionLink(@Resources.UserWork.Edit, "Edit", new { id = item.id }) |
-                        @Html.ActionLink(@Resources.UserWork.Details, "Details", new { id = item.id }) |
-                        @Html.ActionLink(@Resources.UserWork.Delete, "Delete", new { id = item.id })
-                    </td>
-                </tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Enabled)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Code)
+                </td>
+                <td>
+                    @Html.ActionLink(@Resources.UserWork.Edit, "Edit", new { id = item.id }) |
+                    @Html.ActionLink(@Resources.UserWork.Details, "Details", new { id = item.id }) |
+                    @Html.ActionLink(@Resources.UserWork.Delete, "Delete", new { id = item.id })
+                </td>
+            </tr>
             }
 
         </tbody>

@@ -438,6 +438,7 @@
     <Compile Include="ViewModels\ServiceViewModel.cs" />
     <Compile Include="ViewModels\ServicePathViewModel.cs" />
     <Compile Include="ViewModels\StatisticsViewModel.cs" />
+    <Compile Include="ViewModels\UserBalance.cs" />
     <Compile Include="ViewModels\VerifyEmail.cs" />
   </ItemGroup>
   <ItemGroup>
