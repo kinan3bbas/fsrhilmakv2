@@ -46,7 +46,7 @@ namespace ControlPanel.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id,Name,AdjectiveName,Enabled")] UserWork userWork)
+        public ActionResult Create(UserWork userWork)
         {
             if (ModelState.IsValid)
             {
@@ -80,7 +80,7 @@ namespace ControlPanel.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id,Name,AdjectiveName,Enabled")] UserWork userWork)
+        public ActionResult Edit( UserWork userWork)
         {
             if (ModelState.IsValid)
             {
@@ -89,6 +89,7 @@ namespace ControlPanel.Controllers
                 origin.AdjectiveName = userWork.AdjectiveName;
                 origin.Enabled = userWork.Enabled;
                 origin.LastModificationDate = DateTime.Now;
+                origin.Code = userWork.Code;
                 db.Entry(origin).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

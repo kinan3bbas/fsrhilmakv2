@@ -37,36 +37,43 @@
             <th>
                 الرسالة
             </th>
+            <th>
+                نسبة المفسر
+            </th>
             <th></th>
         </tr>
     <tbody>
         @foreach (var item in Model)
             {
-            <tr>
+        <tr>
 
-                <td>
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Cost)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Enabled)
-                </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cost)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Enabled)
+            </td>
 
-                <td>
-                    @Html.DisplayFor(modelItem => item.CreationDate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Message)
-                </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreationDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Message)
+            </td>
 
-                <td>
-                    @Html.ActionLink(@Resources.UserWork.Edit, "Edit", new { id = item.id }) |
-                    @Html.ActionLink(@Resources.UserWork.Details, "Details", new { id = item.id }) |
-                    @Html.ActionLink(@Resources.UserWork.Delete, "Delete", new { id = item.id })
-                </td>
-            </tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Ratio)
+            </td>
+
+            <td>
+                @Html.ActionLink(@Resources.UserWork.Edit, "Edit", new { id = item.id }) |
+                @Html.ActionLink(@Resources.UserWork.Details, "Details", new { id = item.id }) |
+                @Html.ActionLink(@Resources.UserWork.Delete, "Delete", new { id = item.id })
+            </td>
+        </tr>
         }
     </tbody>
 </table>

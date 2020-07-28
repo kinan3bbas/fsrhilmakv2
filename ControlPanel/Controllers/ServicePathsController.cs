@@ -100,6 +100,7 @@ namespace ControlPanel.Controllers
                 origin.Enabled = servicePath.Enabled;
                 origin.LastModificationDate = DateTime.Now;
                 origin.Message = servicePath.Message;
+                origin.Ratio = servicePath.Ratio;
                 db.Entry(origin).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

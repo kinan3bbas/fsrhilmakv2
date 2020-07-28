@@ -99,5 +99,9 @@ namespace fsrhilmakv2.ViewModels
         public String ModifierId { get; set; }
 
         public long AttachmentId { get; set; }
+
+        public String ServiceProviderToken{ get; set; }
+
+        public String ClientToken { get; set; }
     }
 }

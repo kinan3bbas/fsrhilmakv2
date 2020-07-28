@@ -52,7 +52,7 @@ namespace fsrhilmakv2.Models
 
         public string PictureId { get; set; }
 
-        public int AvgServicesInOneDay { get; set; }
+        public double AvgServicesInOneDay { get; set; }
 
         public int Age { get; set; }
 
@@ -86,6 +86,12 @@ namespace fsrhilmakv2.Models
         public String SocialToken { get; set; }
 
         public String ImageUrl { get; set; }
+
+        public double TotalBalance { get; set; }
+
+        public double SuspendedBalance { get; set; }
+
+        public double AvailableBalance { get; set; }
     }
 
     public class UserLoginInfoViewModel
