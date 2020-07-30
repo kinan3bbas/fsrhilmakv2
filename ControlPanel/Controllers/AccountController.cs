@@ -13,6 +13,7 @@ using ControlPanel.ViewModels;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Net;
 
 namespace ControlPanel.Controllers
 {
@@ -608,6 +609,23 @@ namespace ControlPanel.Controllers
 
 
 
+        // GET:         Transactions
+
+        public ActionResult Transactions(String userId)
+        {
+            List<Transaction> transaction = db.Transactions.Where(a => a.UserId.Equals(userId)).
+                Include(s => s.Creator).Include(s => s.Modifier).ToList();
+
+            if (transaction == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.userId = userId;
+            return View(transaction);
+        }
+
+
+
 
         // GET: Payments
         public ActionResult Payments(String userId)
@@ -639,9 +657,9 @@ namespace ControlPanel.Controllers
         // GET: /CreateServicePath
         public ActionResult CreateServicePath(String ServiceProviderId)
         {
-            ViewBag.CreatorId = new SelectList(db.Users, "Id", "Sex");
-            ViewBag.ModifierId = new SelectList(db.Users, "Id", "Sex");
-            ViewBag.ServiceProviderId = new SelectList(db.Users, "Id", "Sex");
+            //ViewBag.CreatorId = new SelectList(db.Users, "Id", "Sex");
+            //ViewBag.ModifierId = new SelectList(db.Users, "Id", "Sex");
+            //ViewBag.ServiceProviderId = new SelectList(db.Users, "Id", "Sex");
             return View();
         }
 
@@ -658,13 +676,85 @@ namespace ControlPanel.Controllers
                 servicePath.LastModificationDate = DateTime.Now;
                 db.ServicePaths.Add(servicePath);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("ServicePath",new {userId=servicePath.ServiceProviderId });
             }
 
-            ViewBag.CreatorId = new SelectList(db.Users, "Id", "Sex", servicePath.CreatorId);
-            ViewBag.ModifierId = new SelectList(db.Users, "Id", "Sex", servicePath.ModifierId);
-            ViewBag.ServiceProviderId = new SelectList(db.Users, "Id", "Sex", servicePath.ServiceProviderId);
+            
             return View(servicePath);
+        }
+
+
+
+
+        // GET: /EditServicePath
+        public ActionResult EditServicePath(int? userId)
+        {
+            if (userId == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            ServicePath servicePath = db.ServicePaths.Find(userId);
+            if (servicePath == null)
+            {
+                return HttpNotFound();
+            }
+            return View(servicePath);
+        }
+
+
+
+        // POST: EditServicePath
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditServicePath(ServicePath servicePath)
+        {
+            if (ModelState.IsValid)
+            {
+                ServicePath origin = db.ServicePaths.Where(y => y.id == servicePath.id).First();
+                origin.Name = servicePath.Name;
+                origin.Cost = servicePath.Cost;
+                origin.Enabled = servicePath.Enabled;
+                origin.LastModificationDate = DateTime.Now;
+                origin.Message = servicePath.Message;
+                origin.Ratio = servicePath.Ratio;
+                db.Entry(origin).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("ServicePath", new { userId = servicePath.ServiceProviderId });
+            }
+           
+            return View(servicePath);
+        }
+
+
+
+
+
+        // GET: ServicePaths/Delete/5
+        public ActionResult Delete(int? userId)
+        {
+            if (userId == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            ServicePath servicePath = db.ServicePaths.Find(userId);
+            if (servicePath == null)
+            {
+                return HttpNotFound();
+            }
+            return RedirectToAction("ServicePath", new { userId = servicePath.ServiceProviderId });
+        }
+
+        // POST: ServicePaths/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int userId)
+        {
+            ServicePath servicePath = db.ServicePaths.Find(userId);
+            db.ServicePaths.Remove(servicePath);
+            db.SaveChanges();
+            return RedirectToAction("Index");
         }
         protected override void Dispose(bool disposing)
         {
