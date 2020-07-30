@@ -810,6 +810,7 @@ namespace fsrhilmakv2.Controllers
             List<Service> activeSerives = helper.getServicesFiltered(services, CoreController.ServiceStatus.Active.ToString());
             List<Service> doneServices = helper.getServicesFiltered(services, CoreController.ServiceStatus.Done.ToString());
             double speed = UserHelperLibrary.ServiceProviderSpeed(helper.findUser(id), doneServices.Count);
+            speed = speed < 1 ? 1 : speed;
             List<ServicePath> paths = db.ServicePaths.Where(a => a.id.Equals(pathId)).ToList();
             if (paths.Count == 0)
             {
