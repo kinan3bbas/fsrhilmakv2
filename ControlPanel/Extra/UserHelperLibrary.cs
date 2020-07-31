@@ -1,13 +1,14 @@
 ﻿using ControlPanel.Controllers;
 using ControlPanel.Models;
-using ControlPanel.Extras;
+using ControlPanel.ViewModels;
 using NodaTime;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 
-namespace ControlPanel.Extra
+namespace fsrhilmakv2.Extra
 {
     public class UserHelperLibrary
     {
@@ -80,6 +81,46 @@ namespace ControlPanel.Extra
             return services.Where(a => a.Status.Equals(status)).ToList();
         }
 
+        public List<ApplicationUser>  getServiceProviders(String code,string status)
+        {
+            List<UserWorkBinding> bindings = db.UserWorkBindings.Where(a => a.UserWork.Code.Equals(code)
+            ).Include("User").ToList();
+            return bindings.Select(a=>a.User).ToList();
+        }
+
+
+        public UserBalance getUserBalance (ApplicationUser user)
+        {
+            UserBalance balance = new UserBalance();
+            List<Service> services = db.Services.Where(a => a.ServiceProviderId.Equals(user.Id)&&a.Status.Equals("Active"))
+                .Include("ServiceProvider")
+                .Include("ServicePath")
+                .ToList();
+            List<Transaction> transactions = db.Transactions.Where(a => a.UserId.Equals(user.Id)).ToList();
+            List<Payment> payments = db.Payments.Where(a => a.Service.ServiceProviderId.Equals(user.Id))
+                .Include("Service")
+                .Include("Service.ServiceProvider")
+                .Include("Service.ServicePath")
+                .ToList();
+            double doneBalance = 0;
+            double ActiveBalance = 0;
+            foreach (var item in services)
+            {
+               ActiveBalance += item.ServicePath.Cost * item.ServicePath.Ratio;
+            }
+            balance.TransferedBalance = transactions.Sum(a => a.Amount);
+            foreach (var item in payments)
+            {
+                doneBalance += item.Service.ServicePath.Cost * item.Service.ServicePath.Ratio;
+            }
+            balance.DoneBalance = doneBalance - balance.TransferedBalance;
+            balance.SuspendedBalance = ActiveBalance;
+
+            return balance;
+
+            
+
+        }
         public ApplicationUser findUser(string id)
         {
             return db.Users.Find(id);

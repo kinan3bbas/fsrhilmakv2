@@ -414,6 +414,14 @@
     <Compile Include="Migrations\202007261955115_newFIx__return.Designer.cs">
       <DependentUpon>202007261955115_newFIx__return.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202007281242243_serviceProviderNewDate.cs" />
+    <Compile Include="Migrations\202007281242243_serviceProviderNewDate.Designer.cs">
+      <DependentUpon>202007281242243_serviceProviderNewDate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202007281245025_serviceProviderNewDate2.cs" />
+    <Compile Include="Migrations\202007281245025_serviceProviderNewDate2.Designer.cs">
+      <DependentUpon>202007281245025_serviceProviderNewDate2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -439,6 +447,7 @@
     <Compile Include="ViewModels\ServicePathViewModel.cs" />
     <Compile Include="ViewModels\StatisticsViewModel.cs" />
     <Compile Include="ViewModels\UserBalance.cs" />
+    <Compile Include="ViewModels\UserWorkViewModel.cs" />
     <Compile Include="ViewModels\VerifyEmail.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -624,6 +633,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202007261955115_newFIx__return.resx">
       <DependentUpon>202007261955115_newFIx__return.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202007281242243_serviceProviderNewDate.resx">
+      <DependentUpon>202007281242243_serviceProviderNewDate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202007281245025_serviceProviderNewDate2.resx">
+      <DependentUpon>202007281245025_serviceProviderNewDate2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -16,7 +16,7 @@
         <section id="loginForm">
             @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
             {
-                <img src="~/Images/Logo.png" style="height:200px;width:200px;" />
+                <img class="text-center" src="~/Images/Logo.png" style="height:200px;width:200px;" />
                 @Html.AntiForgeryToken()
                 <h4>Log in</h4>
                 <hr />

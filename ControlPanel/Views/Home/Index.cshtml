@@ -1,25 +1,42 @@
-﻿@{
+﻿@model ControlPanel.ViewModels.StatisticsViewModel
+@{
     ViewBag.Title = "Home Page";
     Layout = "~/Views/Shared/_PLayout.cshtml";
 }
 <div class="jumbotron">
-    <h1>@Resources.Global.Statistics</h1>
+    <h1>الإحصائيات</h1>
     <p class="lead">
         <div class="row" style="font-size:large">
-            <div class="col-md-6 col-sm-6 "><span> @Resources.Global.All_Users: </span> <span id="AllUsers"> value</span></div>
-            <div class="col-md-6 col-sm-6"><span> @Resources.Global.Admins: </span> <span id="Admins"> value</span></div>
+            <div class="col-md-6 col-sm-6 "><span> @Resources.Global.All_Users: </span> <span id="AllUsers"> @Model.AllUsers</span></div>
+            <div class="col-md-6 col-sm-6 "><span> الزبائن </span> <span id="Clients"> @Model.AllClients</span></div>
         </div>
         <div class="row " style="font-size:large">
-            <div class="col-md-6 col-sm-6 "><span> @Resources.Global.Clients: </span> <span id="Clients"> value</span></div>
-            <div class="col-md-6 col-sm-6"><span> @Resources.Global.ServiceProvider : </span> <span id="Service Provider"> value</span></div>
+            <div class="col-md-6 col-sm-6 "><span> النشظون خلال الثلاث ايأم الماضية </span> <span id="Clients"> @Model.AllActiveClientsInThePastThreeDays</span></div>
+            <div class="col-md-6 col-sm-6"><span> مزودوا الخدمة : </span> <span id="Service Provider"> @Model.AllServiceProviders</span></div>
         </div>
         <div class="row" style="font-size:large">
-            <div class="col-md-6 col-sm-6 "><span> @Resources.Global.All_services: </span> <span id="AllServices"> value</span></div>
-            <div class="col-md-6 col-sm-6"><span> @Resources.Global.Active_services: </span> <span id="ActiveServices"> value</span></div>
+            <div class="col-md-6 col-sm-6 "><span> @Resources.Global.All_services: </span> <span id="AllServices"> @Model.AllServices</span></div>
+            <div class="col-md-6 col-sm-6"><span> @Resources.Global.Active_services: </span> <span id="ActiveServices"> @Model.AllActiveServices</span></div>
         </div>
         <div class="row" style="font-size:large">
-            <div class="col-md-6 col-sm-6 "><span> @Resources.Global.Done_services: </span> <span id="DoneServices"> value</span></div>
-            <div class="col-md-6 col-sm-6 "><span> @Resources.Global.OnlineUsers: </span> <span id="onlineUsers"> value</span></div>
+            <div class="col-md-6 col-sm-6 "><span> @Resources.Global.Done_services: </span> <span id="DoneServices"> @Model.AllDoneServices</span></div>
+            <div class="col-md-6 col-sm-6 "><span> المستخدمون المتصلون الأن: </span> <span id="onlineUsers"> @Model.AllActiveClients</span></div>
+        </div>
+        <div class="row" style="font-size:large">
+            <div class="col-md-6 col-sm-6 "><span> مفسري الاحلام </span> <span id="DreamUsers"> @Model.AllDreamUsers</span></div>
+            <div class="col-md-6 col-sm-6 "><span> المفتين الشرعيين </span> <span id="IftaaUsers"> @Model.AllIftaa</span></div>
+        </div>
+        <div class="row" style="font-size:large">
+            <div class="col-md-6 col-sm-6 "><span> الرقات الشرعيين </span> <span id="RouqatUsers"> @Model.AllRouqiaUsers</span></div>
+            <div class="col-md-6 col-sm-6 "><span> المستشارين الأسريين </span> <span id="MustasharUser"> @Model.AllIstasharaUsers</span></div>
+        </div>
+        <div class="row" style="font-size:large">
+            <div class="col-md-6 col-sm-6 "><span> المستشارين الطبيين </span> <span id="MedicalUsers"> @Model.AllMedicalUsers</span></div>
+            <div class="col-md-6 col-sm-6 "><span> الرصيد المحول </span> <span id="MedicalUsers"> @Model.TotalBalance</span></div>
+        </div>
+        <div class="row" style="font-size:large">
+            <div class="col-md-6 col-sm-6 "><span> الرصيد الجاهز للتحويل </span> <span id="RouqatUsers"> @Model.AvailableBalance</span></div>
+            <div class="col-md-6 col-sm-6 "><span> الرصيد المعلق </span> <span id="MustasharUser"> @Model.SuspendedBalance</span></div>
         </div>
     </p>
     <p></p>
@@ -32,15 +49,15 @@
     </div>
     <div class="col-md-4">
         <h2>Service  Paths</h2>
-        <p><a class="btn btn-default" href="@Url.Action("Index","InterprationPaths")">@Resources.Global.service_Paths &raquo;</a></p>
-        <p><a class="btn btn-default" href="@Url.Action("Create","InterprationPaths")">@Resources.Global.Add_path &raquo;</a></p>
+        <p><a class="btn btn-default" href="@Url.Action("Index","ServicePaths")">@Resources.Global.service_Paths &raquo;</a></p>
+        <p><a class="btn btn-default" href="@Url.Action("Create","ServicePaths")">@Resources.Global.Add_path &raquo;</a></p>
     </div>
     <div class="col-md-4">
         <h2>Service Provider</h2>
-        <p><a class="btn btn-default" href="@Url.Action("Service Provider","Account")">@Resources.Global.ServiceProvider &raquo;</a></p>
+        <p><a class="btn btn-default" href="@Url.Action("ServiceProvider","Account")">@Resources.Global.ServiceProvider &raquo;</a></p>
     </div>
 </div>
-@section Scripts
+@*@section Scripts
 {
     <script type="text/javascript">
     $(document).ready(function () {
@@ -86,4 +103,4 @@
             return false;
        }
     </script>
-}
+}*@

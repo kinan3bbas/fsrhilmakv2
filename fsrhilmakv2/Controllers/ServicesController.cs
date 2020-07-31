@@ -129,6 +129,7 @@ namespace fsrhilmakv2.Controllers
             Service.Status = CoreController.ServiceStatus.Active.ToString();
             Service.CreationDate = DateTime.Now;
             Service.LastModificationDate = DateTime.Now;
+            Service.ServiceProviderNewDate = DateTime.Now;
             Service.CreatorId = core.getCurrentUser().Id;
             Service.ModifierId = core.getCurrentUser().Id;
             //Service.Creator = core.getCurrentUser();

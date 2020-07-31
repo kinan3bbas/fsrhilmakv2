@@ -3,6 +3,7 @@ using ControlPanel.Extra;
 using ControlPanel.Extras;
 using ControlPanel.Models;
 using ControlPanel.ViewModels;
+using fsrhilmakv2.Extra;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -16,6 +17,7 @@ using System.Web.Mvc;
 
 namespace ControlPanel.Controllers
 {
+    [Authorize]
     public class PaymentsController : Controller
     {
         private UserHelperLibrary helper = new UserHelperLibrary();
@@ -38,33 +40,15 @@ namespace ControlPanel.Controllers
             {
                 DateTime.TryParse(toDate, out to);
             }
-
-
-            List<Service> services = db.Services.Include("Comments")
-                .Include("ServicePath")
-                .Include("UserWork")
-                .Include("ServiceProvider")
+            List<Payment> payments = db.Payments
+                .Include("Service")
+                .Include("Service.ServiceProvider")
+                .Include("Service.ServicePath")
                 .Include("Creator")
                 .ToList();
-            if (status != null && !status.Equals(""))
-                services = services.Where(a => a.Status.Equals(status)).OrderByDescending(r => r.CreationDate).ToList();
-
-            if (UserWorkId != null)
-            {
-
-                services = services.Where(a => a.UserWorkId .Equals( UserWorkId)).OrderByDescending(r => r.CreationDate).ToList();
-                //services = bindings.Select(a => a.U).ToList();
-            }
-            services = services.Where(a => a.CreationDate.CompareTo(from) >= 0 && a.CreationDate.CompareTo(to) <= 0).ToList();
-
-            List<ServiceViewModel> result = new List<ServiceViewModel>();
-            foreach (var item in services)
-            {
-                result.Add(getMapping(item));
-            }
 
             ViewBag.UserWorkId = new SelectList(db.UserWorks.Where(a => a.Enabled), "id", "AdjectiveName");
-            return View(result);
+            return View(payments);
         }
 
 

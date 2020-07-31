@@ -12,13 +12,15 @@ namespace ControlPanel.Models
     // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit https://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
     public class ApplicationUser : IdentityUser
     {
+
+
         [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}")]
         [Display(Name = "Creation Date")]
         public DateTime CreationDate { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}")]
         [Display(Name = "Last Modification Date")]
-        public DateTime? LastModificationDate { get; set; }
+        public DateTime LastModificationDate { get; set; }
         [Display(Name = "Sex")]
         public string Sex { get; set; }
 
@@ -61,13 +63,19 @@ namespace ControlPanel.Models
 
         public string SocialState { get; set; }
 
-        //public ICollection<UserWork> userWork { get; set; }
         public ICollection<UserWorkBinding> userWorkBinding { get; set; }
 
+        public String UserSpecialCode { get; set; }
 
         public String UserRegistrationCode { get; set; }
 
         public long PointsBalance { get; set; }
+
+        public bool Online { get; set; }
+
+        public String imageUrl { get; set; }
+
+        public String SocialToken { get; set; }
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType

@@ -4,7 +4,7 @@
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_PLayout.cshtml";
-    var Id = Request.QueryString["id"];    //var userType = ViewBag.Type;
+    var Id = Request.QueryString["userId"];    //var userType = ViewBag.Type;
 }
 
 <link href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css" />
@@ -59,7 +59,7 @@
                     <div class="card-header" id="headingOne">
                         <h2 class="mb-0">
                             <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                @Html.ActionLink("Interpreted Services", "InterpreterServices", new { id = Id })
+                                @Html.ActionLink("الخدمات المفسرة", "InterpreterServices", new { userId = Id })
 
 
                             </button>
@@ -73,7 +73,7 @@
                     <div class="card-header" id="headingOne">
                         <h2 class="mb-0">
                             <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                @Html.ActionLink("الخدمات قيد التنفيذ", "ServicesUnderInterpretation",  new { id = Id })
+                                @Html.ActionLink("الخدمات قيد التنفيذ", "ServicesUnderInterpretation",  new { userId = Id })
                             </button>
                         </h2>
                     </div>
@@ -97,7 +97,7 @@
                     <div class="card-header" id="headingOne">
                         <h2 class="mb-0">
                             <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                @Html.ActionLink("Service History", "ServiceHistory", new { userId = Id })
+                                @Html.ActionLink("سجل الخدمات المستلمة", "ServiceHistory", new { userId = Id })
                             </button>
                         </h2>
                     </div>

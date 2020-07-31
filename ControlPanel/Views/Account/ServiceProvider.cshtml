@@ -3,6 +3,12 @@
 @{
     ViewBag.Title = "ServiceProvider";
     Layout = "~/Views/Shared/_PLayout.cshtml";
+    int numberOfrecords = Model.Count();
+    int numOfActiveServices = Model.Sum(a => a.NumberOfActiveServices);
+    int numOfDoneServices = Model.Sum(a => a.NumberOfDoneServices);
+    double totalbalance = Model.Sum(a => a.TotalBalance);
+    double suspendedBalance=Model.Sum(a => a.SuspendedBalance);
+    double availableBalance=Model.Sum(a => a.AvailableBalance);
 }
 
 
@@ -55,6 +61,33 @@
         </div>
     }
 
+<div class="row" style="direction:rtl">
+    <div class="col-md-4">
+        <span style="direction:rtl;float:right;font-size:large"> عدد المستخدمين:<br /></span>
+        <span style="direction:rtl;float:right;font-size:large"> &nbsp; &nbsp; @numberOfrecords</span>
+    </div>
+    <div class="col-md-4">
+        <span style="direction:rtl;float:right;font-size:large"> عدد الخدمات المنجزة;</span>
+        <span style="direction:rtl;float:right;font-size:large">   &nbsp; &nbsp; @numOfDoneServices</span>
+    </div>
+    <div class="col-md-4">
+        <span style="direction:rtl;float:right;font-size:large">عدد الخدمات غير المنجزة:</span>
+        <span style="direction:rtl;float:right;font-size:large">&nbsp; &nbsp; @numOfActiveServices</span>
+    </div>
+    <div class="col-md-4">
+        <span style="direction:rtl;float:right;font-size:large"> الرصيد المحول:</span>
+        <span style="direction:rtl;float:right;font-size:large">&nbsp; &nbsp;@totalbalance</span>
+    </div>
+    <div class="col-md-4">
+        <span style="direction:rtl;float:right;font-size:large"> الرصيد المعلق:</span>
+        <span style="direction:rtl;float:right;font-size:large">&nbsp; &nbsp;@suspendedBalance</span>
+    </div>
+    <div class="col-md-4">
+        <span style="direction:rtl;float:right;font-size:large"> الرصيد المتاح:</span>
+        <span style="direction:rtl;float:right;font-size:large">&nbsp; &nbsp;@availableBalance</span>
+
+    </div>
+</div>
 <table id="myTable" class="cell-border hover stripe" style="width:100%">
     <thead>
         <tr>
@@ -83,6 +116,16 @@
                 @Resources.Global.AvgServicesInOneDay
             </th>
 
+            <th>
+                الرصيد المعلق
+            </th>
+            <th>
+                الرصيد المحول
+            </th>
+            <th>
+                الرصيد المتاح
+            </th>
+
 
 
 
@@ -92,19 +135,22 @@
     <tbody>
         @foreach (var user in Model)
             {
-            <tr>
-                <td>
-                    @Html.ActionLink(@user.Name, "PersonalPage", new { userId = @user.Id }, null)
-                </td>
-                <td>@user.phoneNumber</td>
-                <th>@user.Email</th>
-                <th>@user.Country</th>
-                <th>@user.NumberOfActiveServices</th>
-                <th>@user.NumberOfDoneServices</th>
-                <th>@user.Speed</th>
-                <th>@user.AvgServicesInOneDay</th>
+        <tr>
+            <td>
+                @Html.ActionLink(@user.Name, "PersonalPage", new { userId = @user.Id }, null)
+            </td>
+            <td>@user.phoneNumber</td>
+            <th>@user.Email</th>
+            <th>@user.Country</th>
+            <th>@user.NumberOfActiveServices</th>
+            <th>@user.NumberOfDoneServices</th>
+            <th>@user.Speed</th>
+            <th>@user.AvgServicesInOneDay</th>
+            <th>@user.SuspendedBalance</th>
+            <th>@user.TotalBalance</th>
+            <th>@user.AvailableBalance</th>
 
-            </tr>
+        </tr>
         }
     </tbody>
 </table>

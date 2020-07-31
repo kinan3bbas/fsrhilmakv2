@@ -124,7 +124,7 @@
     <value>البلد</value>
   </data>
   <data name="MartialStatus" xml:space="preserve">
-    <value>الخدمة العسكرية</value>
+    <value>الحالة الاجتماعية</value>
   </data>
   <data name="Name" xml:space="preserve">
     <value>الاسم</value>
