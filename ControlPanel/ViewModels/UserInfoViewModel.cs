@@ -33,7 +33,7 @@ namespace ControlPanel.ViewModels
 
         public string PictureId { get; set; }
 
-        public int AvgServicesInOneDay { get; set; }
+        public double AvgServicesInOneDay { get; set; }
 
         public int Age { get; set; }
 
@@ -44,7 +44,7 @@ namespace ControlPanel.ViewModels
         public string Id { get; set; }
 
         public int NumberOfActiveServices { get; set; }
-    
+
         public int NumberOfDoneServices { get; set; }
 
         public string SocialStatus { get; set; }
@@ -58,13 +58,22 @@ namespace ControlPanel.ViewModels
 
         public double Speed { get; set; }
 
-
         public String UserSpecialCode { get; set; }
 
         public String UserRegistrationCode { get; set; }
 
         public long PointsBalance { get; set; }
 
-        public string PhoneNumber { get; set; }
+        public String SocialToken { get; set; }
+
+        public String ImageUrl { get; set; }
+
+        public double TotalBalance { get; set; }
+
+        public double SuspendedBalance { get; set; }
+
+        public double AvailableBalance { get; set; }
+
     }
+
 }

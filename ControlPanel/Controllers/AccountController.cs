@@ -14,6 +14,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Net;
+using fsrhilmakv2.Extra;
 
 namespace ControlPanel.Controllers
 {
@@ -23,6 +24,8 @@ namespace ControlPanel.Controllers
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
         private ApplicationDbContext db = new ApplicationDbContext();
+        private UserHelperLibrary helper = new UserHelperLibrary();
+        private CoreController core = new CoreController();
         public AccountController()
         {
         }
@@ -480,8 +483,13 @@ namespace ControlPanel.Controllers
 
         public UserInfoViewModel getInfoMapping(ApplicationUser user)
         {
+            List<Service> services = helper.getUserServices(user.Id);
+            List<Service> activeSerives = helper.getServicesFiltered(services, CoreController.ServiceStatus.Active.ToString());
+            List<Service> doneServices = helper.getServicesFiltered(services, CoreController.ServiceStatus.Done.ToString());
             var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
             List<UserWorkBinding> userWork = db.UserWorkBindings.Where(a => a.UserId.Equals(user.Id)).Include("UserWork").ToList();
+            double speed = UserHelperLibrary.ServiceProviderSpeed(helper.findUser(user.Id), doneServices.Count);
+            UserBalance balance = helper.getUserBalance(user);
             return new UserInfoViewModel
             {
                 Email = User.Identity.GetUserName(),
@@ -501,15 +509,23 @@ namespace ControlPanel.Controllers
                 Id = user.Id,
                 HasRegistered = user.verifiedInterpreter,
                 UserWorks = userWork.Select(a => a.UserWork).ToList(),
-                NumberOfActiveServices = 10,
-                NumberOfDoneServices = 10,
-                Speed = 10,
-                AvgServicesInOneDay = 10,
+                NumberOfActiveServices = activeSerives.Count(),
+                NumberOfDoneServices = doneServices.Count(),
+                Speed = speed < 1 ? 1 : speed,
+                AvgServicesInOneDay = speed == 0 ? 1 : speed,
                 UserRoles = userManager.GetRoles(user.Id).ToList(),
+                SocialStatus = user.SocialState,
+                ImageUrl = user.imageUrl,
+                SocialToken = user.SocialToken,
+                TotalBalance = balance.TransferedBalance,
+                AvailableBalance = balance.DoneBalance,
+                SuspendedBalance = balance.SuspendedBalance
+
 
 
             };
         }
+
 
 
         public ActionResult PersonalPage(String userId)
@@ -597,7 +613,7 @@ namespace ControlPanel.Controllers
 
         public ActionResult ServiceHistory(String userId)
         {
-            List<DreamHistory> dreamhistory = db.DreamHistorys.Where(a => a.Service.ServiceProviderId.Equals(userId)).
+            List<DreamHistory> dreamhistory = db.DreamHistorys.Where(a => a.NewInterpreter.Id.Equals(userId)).
                 Include(s => s.Creator).Include(s => s.Modifier).Include(s => s.Service.ServiceProvider).ToList();
             if (dreamhistory == null)
             {

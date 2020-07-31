@@ -2,6 +2,7 @@
 using ControlPanel.Extras;
 using ControlPanel.Models;
 using ControlPanel.ViewModels;
+using fsrhilmakv2.Extra;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -14,6 +15,7 @@ using System.Web.Mvc;
 
 namespace ControlPanel.Controllers
 {
+    [Authorize]
     public class ServicesController : Controller
     {
         private UserHelperLibrary helper = new UserHelperLibrary();
@@ -137,7 +139,7 @@ namespace ControlPanel.Controllers
 ;
         }
 
-        public  ActionResult InterpreterServices(String id, String fromDate = "", String toDate = "")
+        public  ActionResult InterpreterServices(String userId, String fromDate = "", String toDate = "")
         {
 
             DateTime from = new DateTime(2000, 1, 1);
@@ -150,10 +152,10 @@ namespace ControlPanel.Controllers
             {
                 DateTime.TryParse(toDate, out to);
             }
-            ApplicationUser user = db.Users.Find(id);
+            ApplicationUser user = db.Users.Find(userId);
             List<Service> services = new List<Service>();
             if (user.Type.Equals("Service_Provider"))
-                services = db.Services.Where(a => a.ServiceProviderId.Equals(id) && a.Status == "Done").OrderByDescending(a => a.CreationDate).ToList();
+                services = db.Services.Where(a => a.ServiceProviderId.Equals(userId) && a.Status == "Done").OrderByDescending(a => a.CreationDate).ToList();
             services = services.Where(a => a.CreationDate.CompareTo(from) >= 0 && a.CreationDate.CompareTo(to) <= 0).ToList();
 
             List<ServiceViewModel> result = new List<ServiceViewModel>();
@@ -168,7 +170,7 @@ namespace ControlPanel.Controllers
 
 
 
-        public  ActionResult ServicesUnderInterpretation(String id, String fromDate = "", String toDate = "")
+        public  ActionResult ServicesUnderInterpretation(String userId, String fromDate = "", String toDate = "")
         {
 
             DateTime from = new DateTime(2000, 1, 1);
@@ -181,10 +183,10 @@ namespace ControlPanel.Controllers
             {
                 DateTime.TryParse(toDate, out to);
             }
-            ApplicationUser user = db.Users.Find(id);
+            ApplicationUser user = db.Users.Find(userId);
             List<Service> services = new List<Service>();
             if (user.Type.Equals("Client"))
-                services = db.Services.Where(a => a.CreatorId.Equals(id) && a.Status == "Active").OrderByDescending(a => a.CreationDate).ToList();
+                services = db.Services.Where(a => a.CreatorId.Equals(userId) && a.Status == "Active").OrderByDescending(a => a.CreationDate).ToList();
             services = services.Where(a => a.CreationDate.CompareTo(from) >= 0 && a.CreationDate.CompareTo(to) <= 0).ToList();
 
             List<ServiceViewModel> result = new List<ServiceViewModel>();

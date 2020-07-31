@@ -59,7 +59,7 @@
                     <div class="card-header" id="headingOne">
                         <h2 class="mb-0">
                             <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                @Html.ActionLink("Interpreted Services","InterpreterServices", "Services",  new { id = Id }, null)
+                                @Html.ActionLink("الخدمات المفسرة","InterpreterServices", "Services",  new { userId = Id }, null)
 
 
                             </button>
@@ -73,7 +73,7 @@
                     <div class="card-header" id="headingOne">
                         <h2 class="mb-0">
                             <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                @Html.ActionLink("الخدمات قيد التنفيذ", "ServicesUnderInterpretation", "Services", new { id = Id },null)
+                                @Html.ActionLink("الخدمات قيد التنفيذ", "ServicesUnderInterpretation", "Services", new { userId = Id },null)
                             </button>
                         </h2>
                     </div>
@@ -97,7 +97,7 @@
                     <div class="card-header" id="headingOne">
                         <h2 class="mb-0">
                             <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                @Html.ActionLink("Service History", "ServiceHistory", new { userId = Id })
+                                @Html.ActionLink("سجل الخدمات المستلمة", "ServiceHistory", new { userId = Id })
                             </button>
                         </h2>
                     </div>
@@ -181,7 +181,7 @@
                                 @Html.DisplayFor(model => model.Country)
                             </td>
                         </tr>
-                       
+
                         <tr>
                             <th>
                                 @Resources.Register.Status :
@@ -196,7 +196,7 @@
                                 @Resources.Register.PhoneNumber:
                             </th>
                             <td>
-                                @Html.DisplayFor(model => model.PhoneNumber)
+                                @Html.DisplayFor(model => model.phoneNumber)
                             </td>
                         </tr>
 
@@ -209,103 +209,122 @@
                             </td>
                         </tr>
 
-                   @if (Model.Type.ToString() == "Service_Provider")
-                   {
-                    <tr>
-                        <th>
-                            @Resources.Register.Sex :
-                        </th>
-                        <td>
-                            @Html.DisplayFor(model => model.Sex)
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                            @Resources.Global.Email :
-                        </th>
-                        <td>
-                            @Html.DisplayFor(model => model.Email)
-                        </td>
-                    </tr>
-                    
-                        <tr>
-                            <th>
-                                @Resources.Register.MartialStatus:
-                            </th>
-                            <td>
-                                @Html.DisplayFor(model => model.MartialStatus)
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>
-                                @Resources.Global.UserWorks:
-                            </th>
-                            <td>
-                                @foreach (var item in Model.UserWorks)
-                                {
-                                    <span>@item.Name</span><br />
-                                }
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>
-                                JobDescription:
-                            </th>
-                            <td>
-                                @Html.DisplayFor(model => model.JobDescription)
-                            </td>
-                        </tr>
+                        @if (Model.Type.ToString() == "Service_Provider")
+                        {
+                            <tr>
+                                <th>
+                                    @Resources.Register.Sex :
+                                </th>
+                                <td>
+                                    @Html.DisplayFor(model => model.Sex)
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    @Resources.Global.Email :
+                                </th>
+                                <td>
+                                    @Html.DisplayFor(model => model.Email)
+                                </td>
+                            </tr>
 
-                        <tr>
-                            <th>
-                                JoiningDate:
-                            </th>
-                            <td>
-                                @Html.DisplayFor(model => model.JoiningDate)
-                            </td>
-                        </tr>
+                            <tr>
+                                <th>
+                                    @Resources.Register.MartialStatus:
+                                </th>
+                                <td>
+                                    @Html.DisplayFor(model => model.MartialStatus)
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    @Resources.Global.UserWorks:
+                                </th>
+                                <td>
+                                    @foreach (var item in Model.UserWorks)
+                                    {
+                                        <span>@item.Name</span><br />
+                                    }
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    الوصف العملي
+                                </th>
+                                <td>
+                                    @Html.DisplayFor(model => model.JobDescription)
+                                </td>
+                            </tr>
 
-                        <tr>
-                            <th>
-                                PictureId:
-                            </th>
-                            <td>
-                                @Html.DisplayFor(model => model.PictureId)
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <th>
-                                PersonalDescription:
-                            </th>
-                            <td>
-                                @Html.DisplayFor(model => model.PersonalDescription)
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <th>
-                                FireBaseId:
-                            </th>
-                            <td>
-                                @Html.DisplayFor(model => model.FireBaseId)
-                            </td>
-                        </tr>
-
-                        @*<tr>
-                            <th>
-                                NumberOfActiveServices:
-                            </th>
-                            <td>
-                                @Html.DisplayFor(model => model.n)
-                            </td>
-                        </tr>*@
+                            <tr>
+                                <th>
+                                    تاريخ الانضمام
+                                </th>
+                                <td>
+                                    @Html.DisplayFor(model => model.JoiningDate)
+                                </td>
+                            </tr>
 
 
 
+                            <tr>
+                                <th>
+                                    الوصف الشخصي
+                                </th>
+                                <td>
+                                    @Html.DisplayFor(model => model.PersonalDescription)
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <th>
+                                    السرعة:
+                                </th>
+                                <td>
+                                    @Html.DisplayFor(model => model.Speed)
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <th>
+                                    :الرصيد المحول
+                                </th>
+                                <td>
+                                    @Html.DisplayFor(model => model.TotalBalance)
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <th>
+                                    :الرصيد المعلق
+                                </th>
+                                <td>
+                                    @Html.DisplayFor(model => model.SuspendedBalance)
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <th>
+                                    :الرصيد القابل للسحب
+                                </th>
+                                <td>
+                                    @Html.DisplayFor(model => model.AvailableBalance)
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    : معدل الاحلام اليومي
+                                </th>
+                                <td>
+                                    @Html.DisplayFor(model => model.AvgServicesInOneDay)
+                                </td>
+                            </tr>
 
 
-                   }
+
+
+
+                        }
                     </table>
 
                 </div>
@@ -329,7 +348,7 @@
 
 
         </div>
-@section Scripts
+@*@section Scripts
 {
     <script type="text/javascript">
     $(document).ready(function () {
@@ -340,7 +359,7 @@
 
         $.ajax({
             type: 'GET',
-            @*url: '@Url.Action("getInterpreterInfo", "Account")',*@
+            url: '@Url.Action("getInterpreterInfo", "Account")',
             url: "/Account/getInterpreterInfo?phoneNumber="+String(@Model.PhoneNumber),
             dataType: 'json',
             data: { },
@@ -392,7 +411,7 @@
 
         $.ajax({
             type: 'GET',
-            @*url: '@Url.Action("getInterpreterInfo", "Account")',*@
+            url: '@Url.Action("getInterpreterInfo", "Account")',
             url: "/Account/resetBalance?phoneNumber="+String(@Model.PhoneNumber),
             dataType: 'json',
             data: { },
@@ -417,7 +436,7 @@
 
         $.ajax({
             type: 'GET',
-            @*url: '@Url.Action("getInterpreterInfo", "Account")',*@
+            url: '@Url.Action("getInterpreterInfo", "Account")',
             url: "/Account/deleteUser?phoneNumber="+String(@Model.PhoneNumber),
             dataType: 'json',
             data: { },
@@ -438,4 +457,4 @@
             return false;
         }
     </script>
-}
+}*@

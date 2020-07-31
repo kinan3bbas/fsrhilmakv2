@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 
 namespace ControlPanel.Controllers
 {
+    [Authorize]
     public class SystemParametersController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -81,11 +82,17 @@ namespace ControlPanel.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id,CreationDate,LastModificationDate,Name,Code,Value")] SystemParameter systemParameter)
+        public ActionResult Edit(SystemParameter systemParameter)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(systemParameter).State = EntityState.Modified;
+                SystemParameter temp = db.SystemParameters.Find(systemParameter.id);
+                temp.Name = systemParameter.Name;
+                temp.Code = systemParameter.Code;
+                temp.Value = systemParameter.Value;
+                temp.LastModificationDate = DateTime.Now;
+                
+                db.Entry(temp).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
