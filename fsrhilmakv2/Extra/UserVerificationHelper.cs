@@ -20,12 +20,13 @@ namespace fsrhilmakv2.Extra
     public class UserVerificationHelper : Controller
     {
         private static ApplicationDbContext db = new ApplicationDbContext();
+        public static int Code_Length = 4;
         public static string GenerateCode()
         {
             List<char> chars = new List<char>();
  
-            chars.AddRange(GetLowerCaseChars(4));
-            chars.AddRange(GetNumericChars(4));
+            //chars.AddRange(GetLowerCaseChars(Code_Length));
+            chars.AddRange(GetNumericChars(Code_Length));
  
             return GenerateCodeFromList(chars);
         }
@@ -76,8 +77,19 @@ namespace fsrhilmakv2.Extra
 
         public static VerificationResult generateVerificationLog(string userId, String email)
         {
+            string code = GenerateCode();
+            List<UserVerificationLog> logs = db.UserVerificationLogs.ToList();
+            bool found = logs.Where(a => a.Code.Equals(code)).Count() > 0;
+            int j = 0;
+            int limit = (int)Math.Pow(10, Code_Length);
+            while (!found&&j<(limit-1))
+            {
+                code = GenerateCode();
+                found = logs.Where(a => a.Code.Equals(code)).Count() > 0;
+                j++;
+            }
             UserVerificationLog log=new UserVerificationLog();
-            log.Code=GenerateCode();
+            log.Code = code;
             log.CreationDate=DateTime.Now;
             log.ExpiryDate=DateTime.Now.AddHours(2);
             log.LastModificationDate=DateTime.Now;

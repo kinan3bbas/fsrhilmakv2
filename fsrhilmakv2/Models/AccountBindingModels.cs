@@ -133,4 +133,41 @@ namespace fsrhilmakv2.Models
         [Compare("NewPassword", ErrorMessage = "The new password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
     }
+
+    public class updateUserInfoBindingModel
+    {
+        public string id { get; set; }
+        public int Age { get; set; }
+
+        [Display(Name = "Sex")]
+        public string Sex { get; set; }
+
+        [Display(Name = "Country")]
+        public string Country { get; set; }
+
+        [Display(Name = "Name")]
+        public string Name { get; set; }
+
+        [Display(Name = "Status")]
+        public string Status { get; set; }
+
+        [Display(Name = "Martial Status")]
+        public string MartialStatus { get; set; }
+
+        [Display(Name = "Job Description")]
+        public string JobDescription { get; set; }
+        public string PersonalDescription { get; set; }
+
+
+        [Display(Name = "Picture Id")]
+        public string PictureId { get; set; }
+
+        [Display(Name = "Phone Number")]
+        public string PhoneNumber { get; set; }
+
+
+        public int numbOfDreamsInOneDay { get; set; }
+
+        public string FireBaseId { get; set; }
+    }
 }

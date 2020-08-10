@@ -103,5 +103,9 @@ namespace fsrhilmakv2.ViewModels
         public String ServiceProviderToken{ get; set; }
 
         public String ClientToken { get; set; }
+
+        public double ServiceProviderSpeed { get; set; }
+
+        public double ServiceProviderAvgServices { get; set; }
     }
 }
