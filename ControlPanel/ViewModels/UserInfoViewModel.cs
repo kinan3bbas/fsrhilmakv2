@@ -31,6 +31,9 @@ namespace ControlPanel.ViewModels
 
         public DateTime? JoiningDate { get; set; }
 
+        public DateTime? CreationDate { get; set; }
+
+
         public string PictureId { get; set; }
 
         public double AvgServicesInOneDay { get; set; }

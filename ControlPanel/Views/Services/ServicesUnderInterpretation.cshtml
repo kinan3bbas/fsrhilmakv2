@@ -5,6 +5,8 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_PLayout.cshtml";
     var Id = Request.QueryString["userId"];    //var userType = ViewBag.Type;
+    int numOfServicesunderinterpretation = Model.Count();
+
 }
 
 <link href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css" />
@@ -139,7 +141,12 @@
                     </button>
                 </div>
 
-
+                <div class="row" style="direction:rtl">
+                    <div class="col-md-4">
+                        <span style="direction:rtl;float:right;font-size:large"> عدد الخدمات قيد التفسير:<br /></span>
+                        <span style="direction:rtl;float:right;font-size:large"> &nbsp; &nbsp; @numOfServicesunderinterpretation</span>
+                    </div>
+                </div>
 
                 <div class="col-md-9" id="PersonalInfoDV">
 
