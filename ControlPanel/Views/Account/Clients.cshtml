@@ -3,6 +3,8 @@
 @{
     ViewBag.Title = "Clients";
     Layout = "~/Views/Shared/_PLayout.cshtml";
+    int numOfUsers = Model.Count();
+    double totalbalance = Model.Sum(a => a.TotalBalance);
 }
 
 
@@ -51,84 +53,94 @@
 <br />
 <br />
 
-
-
-<table id="myTable" class="cell-border hover stripe" style="width:100%">
-    <thead>
-        <tr>
-            <th>
-                @Resources.Global.Name
-            </th>
-            <th>
-                @Resources.Global.PhoneNumber
-            </th>
-            <th>
-                @Resources.Global.Email
-            </th>
-            <th>
-                @Resources.Global.Country
-            </th>
-            <th>
-                @Resources.Global.NumberOfActiveServices
-            </th>
-            <th>
-                @Resources.Global.NumberOfDoneServices
-            </th>
-
-
-            @*<th></th>*@
-        </tr>
+<div class="row" style="direction:rtl">
    
-    <tbody>
-        @foreach (var user in Model)
-            {
+    <div class="col-md-4">
+        <span style="direction:rtl;float:right;font-size:large">عدد الخدمات غير المنجزة:</span>
+        <span style="direction:rtl;float:right;font-size:large">&nbsp; &nbsp; @numOfUsers</span>
+    </div>
+    <div class="col-md-4">
+        <span style="direction:rtl;float:right;font-size:large"> عدد النقاط:</span>
+        <span style="direction:rtl;float:right;font-size:large">&nbsp; &nbsp;@totalbalance</span>
+    </div>
+</div>
+
+    <table id="myTable" class="cell-border hover stripe" style="width:100%">
+        <thead>
             <tr>
-                <td>
-                    @Html.ActionLink(@user.Name, "PersonalPage", new { userId = @user.Id }, null)
-                </td>
-                <td>@user.phoneNumber</td>
-                <th>@user.Country</th>
-                <th>@user.Email</th>
+                <th>
+                    @Resources.Global.Name
+                </th>
+                <th>
+                    @Resources.Global.PhoneNumber
+                </th>
+                <th>
+                    @Resources.Global.Email
+                </th>
+                <th>
+                    @Resources.Global.Country
+                </th>
+                <th>
+                    @Resources.UserWork.CreationDate
+                </th>
+                <th>
+                    @Resources.Global.NumberOfDoneServices
+                </th>
 
-                <th>@user.NumberOfActiveServices</th>
-                <th>@user.NumberOfDoneServices</th>
 
+                @*<th></th>*@
             </tr>
-        }
-    </tbody>
-</table>
-@section scripts{
-    <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
-    <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.6.1/js/dataTables.buttons.min.js"></script>
-    <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.colVis.min.js"></script>
-    <script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
-    <script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
-    <script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
-    <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.html5.min.js"></script>
-    <script type="text/javascript">
 
-        $('#myTable').DataTable(
+        <tbody>
+            @foreach (var user in Model)
             {
-                dom: 'Bfrtip',
-                columnDefs: [
-                    {
-                        targets: 1,
-                        className: 'noVis'
-                    }
-                ],
-                buttons: [
-                    {
-                        extend: 'colvis',
-                        columns: ':not(.noVis)'
-                    },
-                    'copyHtml5',
-                    'excelHtml5',
-                    'pdfHtml5'
-                ]
+                <tr>
+                    <td>
+                        @Html.ActionLink(@user.Name, "PersonalPage", new { userId = @user.Id }, null)
+                    </td>
+                    <td>@user.phoneNumber</td>
+                    <th>@user.Country</th>
+                    <th>@user.Email</th>
 
+                    <th>@user.CreationDate</th>
+                    <th>@user.PointsBalance</th>
+
+                </tr>
             }
+        </tbody>
+    </table>
+    @section scripts{
+        <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+        <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.6.1/js/dataTables.buttons.min.js"></script>
+        <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.colVis.min.js"></script>
+        <script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+        <script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+        <script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+        <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.html5.min.js"></script>
+        <script type="text/javascript">
+
+            $('#myTable').DataTable(
+                {
+                    dom: 'Bfrtip',
+                    columnDefs: [
+                        {
+                            targets: 1,
+                            className: 'noVis'
+                        }
+                    ],
+                    buttons: [
+                        {
+                            extend: 'colvis',
+                            columns: ':not(.noVis)'
+                        },
+                        'copyHtml5',
+                        'excelHtml5',
+                        'pdfHtml5'
+                    ]
+
+                }
 
 
-        );
-    </script>
-}
+            );
+        </script>
+    }

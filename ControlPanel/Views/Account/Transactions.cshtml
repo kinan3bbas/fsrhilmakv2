@@ -3,6 +3,8 @@
     ViewBag.Title = "Personal Info Page";
     Layout = "~/Views/Shared/_PLayout.cshtml";
     var Id = Request.QueryString["userId"];
+    int numOfTransactions = Model.Count();
+    double Amount = Model.Sum(a => a.Amount);
 }
 </style>
 @*<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.js"></script>
@@ -145,6 +147,19 @@
                     </li>
                 </ul>*@
         </div>
+        <div class="row" style="direction:rtl">
+
+            <div class="col-md-4">
+                <span style="direction:rtl;float:right;font-size:large">عدد المدفوعات:</span>
+                <span style="direction:rtl;float:right;font-size:large">&nbsp; &nbsp; @numOfTransactions</span>
+            </div>
+            <div class="col-md-4">
+                <span style="direction:rtl;float:right;font-size:large"> مجموع المدفوعات:</span>
+                <span style="direction:rtl;float:right;font-size:large">&nbsp; &nbsp;@Amount</span>
+            </div>
+        </div>
+
+
 
         <div class="col-md-9" id="PersonalInfoDV">
 
