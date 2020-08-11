@@ -422,6 +422,14 @@
     <Compile Include="Migrations\202007281245025_serviceProviderNewDate2.Designer.cs">
       <DependentUpon>202007281245025_serviceProviderNewDate2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202008101025344_services.cs" />
+    <Compile Include="Migrations\202008101025344_services.Designer.cs">
+      <DependentUpon>202008101025344_services.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202008101137186_services3.cs" />
+    <Compile Include="Migrations\202008101137186_services3.Designer.cs">
+      <DependentUpon>202008101137186_services3.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -481,6 +489,7 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="Properties\PublishProfiles\Default Settings.pubxml" />
     <None Include="Properties\PublishProfiles\Final Publish.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -639,6 +648,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202007281245025_serviceProviderNewDate2.resx">
       <DependentUpon>202007281245025_serviceProviderNewDate2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202008101025344_services.resx">
+      <DependentUpon>202008101025344_services.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202008101137186_services3.resx">
+      <DependentUpon>202008101137186_services3.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

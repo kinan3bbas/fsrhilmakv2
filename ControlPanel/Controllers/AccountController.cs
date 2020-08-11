@@ -738,7 +738,7 @@ namespace ControlPanel.Controllers
                 origin.Ratio = servicePath.Ratio;
                 db.Entry(origin).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("ServicePath", new { userId = servicePath.ServiceProviderId });
+                return RedirectToAction("ServicePath", new { userId =origin.ServiceProviderId });
             }
            
             return View(servicePath);

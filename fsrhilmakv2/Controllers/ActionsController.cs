@@ -258,9 +258,18 @@ namespace fsrhilmakv2.Controllers
         [AllowAnonymous]
         public List<Service> GetPublicServices([FromUri] int? UserWorkId)
         {
+            //Hours to public Serive
             String _hoursToPublicService = ParameterRepository.findByCode("hours_To_Public_Service");
             int hoursToPublicService = (int)Int32.Parse(_hoursToPublicService);
             DateTime dateToCompare = DateTime.Now.AddHours(-1 * hoursToPublicService);
+
+            //Service Provider Speed
+            String _PublicServiceUserSpeed = ParameterRepository.findByCode("Public_Service_User_Speed");
+            double PublicServiceUserSpeed = Double.Parse(_PublicServiceUserSpeed);
+            //Avg Service In a day
+            String _PublicServiceUserAvg = ParameterRepository.findByCode("Public_Service_User_Avg_Services");
+            double PublicServiceUserAvg = Double.Parse(_PublicServiceUserAvg);
+
             List<Service> services = db.Services.Where(a => a.Status.Equals("Active") &&
                 a.ServiceProviderNewDate.CompareTo(dateToCompare) <= 0)
                 .Include("Comments")
@@ -280,12 +289,19 @@ namespace fsrhilmakv2.Controllers
         [Route("GetPublicServicesWithoutFilter")]
         [HttpGet]
         [AllowAnonymous]
-        public List<Service> GetPublicServicesWithoutFilter()
+        public List<ServiceViewModel> GetPublicServicesWithoutFilter()
         {
 
             String _hoursToPublicService = ParameterRepository.findByCode("hours_To_Public_Service");
-            int hoursToPublicService = (int)Int32.Parse(_hoursToPublicService);
+            int hoursToPublicService = _hoursToPublicService==null? 24: (int)Int32.Parse(_hoursToPublicService);
             DateTime dateToCompare = DateTime.Now.AddHours(-1 * hoursToPublicService);
+            //Service Provider Speed
+            String _PublicServiceUserSpeed = ParameterRepository.findByCode("Public_Service_User_Speed");
+            double PublicServiceUserSpeed = _PublicServiceUserSpeed==null?1.0:Double.Parse(_PublicServiceUserSpeed);
+            //Avg Service In a day
+            String _PublicServiceUserAvg = ParameterRepository.findByCode("Public_Service_User_Avg_Services");
+            double PublicServiceUserAvg = _PublicServiceUserAvg==null?1.0: Double.Parse(_PublicServiceUserAvg);
+
             String userId = core.getCurrentUser().Id;
             ApplicationUser user = db.Users.Where(a => a.Id.Equals(userId)).Include("userWorkBinding").FirstOrDefault();
             List<int> userWorkIds = new List<int>();
@@ -311,8 +327,15 @@ namespace fsrhilmakv2.Controllers
                 services = new List<Service>();
             }
 
+            List<ServiceViewModel> result = new List<ServiceViewModel>();
+            foreach (var item in services)
+            {
+                result.Add(getMapping(item));
+            }
 
-            return services;
+
+            return result.Where(a => a.ServiceProviderAvgServices < PublicServiceUserAvg && a.ServiceProviderSpeed <PublicServiceUserSpeed).ToList();
+
 
         }
 
@@ -434,6 +457,7 @@ namespace fsrhilmakv2.Controllers
             List<Service> doneServices = helper.getServicesFiltered(services, CoreController.ServiceStatus.Done.ToString());
             double speed = UserHelperLibrary.ServiceProviderSpeed(helper.findUser(service.ServiceProviderId), doneServices.Count);
             speed = speed < 1 ? 1 : speed;
+            double avg = UserHelperLibrary.ServiceProviderAvgServices(helper.findUser(service.ServiceProviderId), services.Count);
             List<UsersDeviceTokens> Clienttokens = db.UsersDeviceTokens.Where(a => a.UserId.Equals(service.CreatorId)).ToList();
             List<UsersDeviceTokens> ServiceProvidertokens = db.UsersDeviceTokens.Where(a => a.UserId.Equals(service.ServiceProviderId)).ToList();
 
@@ -479,7 +503,8 @@ namespace fsrhilmakv2.Controllers
                 Double.Parse(result.NumberOfRemainingPeople.ToString())).Replace("Your average waiting time is ", "");
             result.ClientToken = Clienttokens.Count > 0 ? Clienttokens[0].token : "";
             result.ServiceProviderToken = ServiceProvidertokens.Count > 0 ? ServiceProvidertokens[0].token : "";
-
+            result.ServiceProviderSpeed = speed;
+            result.ServiceProviderAvgServices = avg == 0 ? 1 : avg;
 
             return result;
         }

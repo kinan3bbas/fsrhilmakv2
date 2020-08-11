@@ -709,6 +709,7 @@ namespace fsrhilmakv2.Controllers
             var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
             List<UserWorkBinding> userWork = db.UserWorkBindings.Where(a => a.UserId.Equals(user.Id)).Include("UserWork").ToList();
             double speed = UserHelperLibrary.ServiceProviderSpeed(helper.findUser(user.Id), doneServices.Count);
+            double avg= UserHelperLibrary.ServiceProviderAvgServices(helper.findUser(user.Id), services.Count);
             UserBalance balance = helper.getUserBalance(user);
             return new UserInfoViewModel
             {
@@ -732,7 +733,7 @@ namespace fsrhilmakv2.Controllers
                 NumberOfActiveServices = activeSerives.Count(),
                 NumberOfDoneServices = doneServices.Count(),
                 Speed = speed<1?1:speed,
-                AvgServicesInOneDay = speed == 0 ? 1 : speed,
+                AvgServicesInOneDay = avg == 0 ? 1 : avg,
                 UserRoles = userManager.GetRoles(user.Id).ToList(),
                 SocialStatus = user.SocialState,
                 ImageUrl = user.imageUrl,
@@ -746,17 +747,64 @@ namespace fsrhilmakv2.Controllers
             };
         }
 
+        public UserInfoViewModel getInfoMapping2(ApplicationUser user)
+        {
+            List<Service> services = helper.getUserServices(user.Id);
+            List<Service> activeSerives = helper.getServicesFiltered(services, CoreController.ServiceStatus.Active.ToString());
+            List<Service> doneServices = helper.getServicesFiltered(services, CoreController.ServiceStatus.Done.ToString());
+            //var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
+            //List<UserWorkBinding> userWork = db.UserWorkBindings.Where(a => a.UserId.Equals(user.Id)).Include("UserWork").ToList();
+            //double speed = UserHelperLibrary.ServiceProviderSpeed(helper.findUser(user.Id), doneServices.Count);
+            //double avg = UserHelperLibrary.ServiceProviderAvgServices(helper.findUser(user.Id), services.Count);
+            //UserBalance balance = helper.getUserBalance(user);
+            return new UserInfoViewModel
+            {
+                Email = User.Identity.GetUserName(),
+                Age = user.Age,
+                Country = user.Country,
+                JobDescription = user.JobDescription,
+                JoiningDate = user.JoiningDate,
+                Name = user.Name,
+                MartialStatus = user.MartialStatus,
+                PictureId = user.PictureId,
+                Sex = user.Sex,
+                Status = user.Status,
+                Type = user.Type,
+                phoneNumber = user.PhoneNumber,
+                PersonalDescription = user.PersonalDescription,
+                FireBaseId = user.FireBaseId,
+                Id = user.Id,
+                HasRegistered = user.verifiedInterpreter,
+                //UserWorks = userWork,
+                NumberOfActiveServices = activeSerives.Count(),
+                NumberOfDoneServices = doneServices.Count(),
+              //  Speed = speed < 1 ? 1 : speed,
+                //AvgServicesInOneDay = avg == 0 ? 1 : avg,
+                //UserRoles = userManager.GetRoles(user.Id).ToList(),
+                SocialStatus = user.SocialState,
+                ImageUrl = user.imageUrl,
+                SocialToken = user.SocialToken,
+                //TotalBalance = balance.TransferedBalance,
+                //AvailableBalance = balance.DoneBalance,
+                //SuspendedBalance = balance.SuspendedBalance
+
+
+
+            };
+        }
 
         [AllowAnonymous]
         [Route("GetServiceProviders")]
-        public List<UserInfoViewModel> GetServiceProviders([FromUri]int id)
+        public List<UserInfoViewModel> GetServiceProviders([FromUri]int id,int skip,int top)
         {
+            skip = skip == null ? 0 : skip;
+            top = top == null ? 5 : top;
             List<UserWorkBinding> bindings = db.UserWorkBindings.Where(a => a.UserWorkId.Equals(id)
-            ).Include("User").ToList();
+            ).OrderByDescending(a=>a.CreationDate).Skip((skip-1)*top).Take(top).Include("User").ToList();
             List<UserInfoViewModel> users = new List<UserInfoViewModel>();
             foreach (var item in bindings)
             {
-                users.Add(getInfoMapping(item.User));
+                users.Add(getInfoMapping2(item.User));
             }
             return users;
         }
@@ -893,6 +941,44 @@ namespace fsrhilmakv2.Controllers
 
             return Ok();
 
+        }
+
+        // POST api/Account/updateUserInfo
+        [Route("updateUserInfo")]
+        public async Task<IHttpActionResult> updateUserInfo([FromBody]updateUserInfoBindingModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            ApplicationUser user = db.Users.AsNoTracking().Where(a => a.Id.Equals(model.id)).FirstOrDefault();
+            if (user == null)
+                await core.throwExcetpion("No matching user!");
+            if (model.Age != null)
+                user.Age = model.Age;
+            if (model.Country != null)
+                user.Country = model.Country;
+            if (model.JobDescription != null)
+                user.JobDescription = model.JobDescription;
+            if (model.MartialStatus != null)
+                user.MartialStatus = model.MartialStatus;
+            if (model.Name != null)
+                user.Name = model.Name;
+            if (model.Sex != null)
+                user.Sex = model.Sex;
+            if (model.Status != null)
+                user.Status = model.Status;
+            if (model.PersonalDescription != null)
+                user.PersonalDescription = model.PersonalDescription;
+            if (model.PictureId != null)
+                user.PictureId = model.PictureId;
+
+
+            user.LastModificationDate = DateTime.Now;
+            db.Entry(user).State = EntityState.Modified;
+            db.SaveChanges();
+            return Ok(user);
         }
         #endregion
     }
