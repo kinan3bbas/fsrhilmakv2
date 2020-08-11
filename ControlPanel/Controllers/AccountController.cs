@@ -495,6 +495,7 @@ namespace ControlPanel.Controllers
                 Email = User.Identity.GetUserName(),
                 Age = user.Age,
                 Country = user.Country,
+                CreationDate = user.CreationDate,
                 JobDescription = user.JobDescription,
                 JoiningDate = user.JoiningDate,
                 Name = user.Name,
