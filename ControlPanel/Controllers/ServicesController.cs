@@ -153,7 +153,12 @@ namespace ControlPanel.Controllers
                 DateTime.TryParse(toDate, out to);
             }
             ApplicationUser user = db.Users.Find(userId);
-            List<Service> services = new List<Service>();
+            List<Service> services = db.Services.Include("Comments")
+                .Include("ServicePath")
+                .Include("UserWork")
+                .Include("ServiceProvider")
+                .Include("Creator")
+                .ToList();
             if (user.Type.Equals("Service_Provider"))
                 services = db.Services.Where(a => a.ServiceProviderId.Equals(userId) && a.Status == "Done").OrderByDescending(a => a.CreationDate).ToList();
             services = services.Where(a => a.CreationDate.CompareTo(from) >= 0 && a.CreationDate.CompareTo(to) <= 0).ToList();
