@@ -81,6 +81,7 @@ namespace fsrhilmakv2.Models
 
         public String SocialToken { get; set; }
 
+        ////public List<Service> Services { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager, string authenticationType)
         {
@@ -120,7 +121,12 @@ namespace fsrhilmakv2.Models
                 .HasRequired<Service>(s => s.Service)
                 .WithMany(g => g.Comments)
                 .HasForeignKey<int>(s => s.ServiceId);
-            
+
+            //modelBuilder.Entity<Service>()
+            //    .HasRequired<ApplicationUser>(s => s.ServiceProvider)
+            //    .WithMany(g => g.Services)
+            //    .HasForeignKey<String>(s => s.ServiceProviderId);
+
 
             base.OnModelCreating(modelBuilder);
         }

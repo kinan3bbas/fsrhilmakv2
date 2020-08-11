@@ -752,8 +752,8 @@ namespace fsrhilmakv2.Controllers
             List<Service> services = helper.getUserServices(user.Id);
             List<Service> activeSerives = helper.getServicesFiltered(services, CoreController.ServiceStatus.Active.ToString());
             List<Service> doneServices = helper.getServicesFiltered(services, CoreController.ServiceStatus.Done.ToString());
-            var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
-            List<UserWorkBinding> userWork = db.UserWorkBindings.Where(a => a.UserId.Equals(user.Id)).Include("UserWork").ToList();
+            //var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
+            //List<UserWorkBinding> userWork = db.UserWorkBindings.Where(a => a.UserId.Equals(user.Id)).Include("UserWork").ToList();
             //double speed = UserHelperLibrary.ServiceProviderSpeed(helper.findUser(user.Id), doneServices.Count);
             //double avg = UserHelperLibrary.ServiceProviderAvgServices(helper.findUser(user.Id), services.Count);
             //UserBalance balance = helper.getUserBalance(user);
@@ -775,7 +775,7 @@ namespace fsrhilmakv2.Controllers
                 FireBaseId = user.FireBaseId,
                 Id = user.Id,
                 HasRegistered = user.verifiedInterpreter,
-                UserWorks = userWork,
+                //UserWorks = userWork,
                 NumberOfActiveServices = activeSerives.Count(),
                 NumberOfDoneServices = doneServices.Count(),
               //  Speed = speed < 1 ? 1 : speed,
@@ -795,10 +795,12 @@ namespace fsrhilmakv2.Controllers
 
         [AllowAnonymous]
         [Route("GetServiceProviders")]
-        public List<UserInfoViewModel> GetServiceProviders([FromUri]int id)
+        public List<UserInfoViewModel> GetServiceProviders([FromUri]int id,int skip,int top)
         {
+            skip = skip == null ? 0 : skip;
+            top = top == null ? 5 : top;
             List<UserWorkBinding> bindings = db.UserWorkBindings.Where(a => a.UserWorkId.Equals(id)
-            ).Include("User").ToList();
+            ).OrderByDescending(a=>a.CreationDate).Skip((skip-1)*top).Take(top).Include("User").ToList();
             List<UserInfoViewModel> users = new List<UserInfoViewModel>();
             foreach (var item in bindings)
             {
