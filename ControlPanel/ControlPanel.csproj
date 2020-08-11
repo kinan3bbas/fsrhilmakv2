@@ -642,7 +642,7 @@
     <Content Include="Views\Payments\Index.cshtml" />
     <Content Include="Views\Account\ServiceHistory.cshtml" />
     <Content Include="Views\Account\Transactions.cshtml" />
-    <Content Include="Views\Account\EditServiceParh.cshtml" />
+    <Content Include="Views\Account\EditServicePath.cshtml" />
     <Content Include="Views\Account\DeleteServicePath.cshtml" />
   </ItemGroup>
   <ItemGroup>
