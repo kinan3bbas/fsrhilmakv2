@@ -25,7 +25,7 @@ namespace fsrhilmakv2.Extra
             LocalDateTime d2 = new LocalDateTime(user.CreationDate.Year, user.CreationDate.Month, user.CreationDate.Day, user.CreationDate.Hour, user.CreationDate.Minute, user.CreationDate.Second);
             long days = Period.Between(d2, d1).Days;
 
-            return days == 0 ? 0 : totalDreams / days;
+            return days == 0 ? totalDreams : totalDreams / days;
         }
 
         public static double ServiceProviderAvgServices(ApplicationUser user, int totalDreams)
@@ -37,7 +37,7 @@ namespace fsrhilmakv2.Extra
             LocalDateTime d2 = new LocalDateTime(user.CreationDate.Year, user.CreationDate.Month, user.CreationDate.Day, user.CreationDate.Hour, user.CreationDate.Minute, user.CreationDate.Second);
             long days = Period.Between(d2, d1).Days;
 
-            return days == 0 ? 0 : totalDreams / days;
+            return days == 0 ? totalDreams : totalDreams / days;
         }
 
         public static string getWaitingTimeMessage(double x, double y)

@@ -83,7 +83,8 @@ namespace fsrhilmakv2.Controllers
                     UserRoles = userManager.GetRoles(user.Id).ToList(),
                     UserSpecialCode = user.UserSpecialCode,
                     PointsBalance = user.PointsBalance,
-                    UserRegistrationCode = user.UserRegistrationCode
+                    UserRegistrationCode = user.UserRegistrationCode,
+                    PictureId=user.PictureId
                 };
             }
 
@@ -401,7 +402,8 @@ namespace fsrhilmakv2.Controllers
                         Type = model.Type,
                         CreationDate = DateTime.Now,
                         LastModificationDate = DateTime.Now,
-                        SocialState = model.SocialState
+                        SocialState = model.SocialState,
+                        PictureId = model.PictureId
                     };
 
                     if (model.UserRegistrationCode != null && !model.UserRegistrationCode.Equals(""))
@@ -795,18 +797,21 @@ namespace fsrhilmakv2.Controllers
 
         [AllowAnonymous]
         [Route("GetServiceProviders")]
-        public List<UserInfoViewModel> GetServiceProviders([FromUri]int id,int skip,int top)
+        public IHttpActionResult GetServiceProviders([FromUri]int id,int skip=0,int top=10)
         {
             skip = skip == null ? 0 : skip;
             top = top == null ? 5 : top;
-            List<UserWorkBinding> bindings = db.UserWorkBindings.Where(a => a.UserWorkId.Equals(id)
-            ).OrderByDescending(a=>a.CreationDate).Skip((skip-1)*top).Take(top).Include("User").ToList();
+            int count = db.UserWorkBindings.Where(a => a.UserWorkId.Equals(id)
+            ).Count();
+            List <UserWorkBinding> bindings = db.UserWorkBindings.Where(a => a.UserWorkId.Equals(id)
+            ).OrderByDescending(a=>a.CreationDate).Skip((skip==0?skip:(skip-1))*top).Take(top).Include("User").ToList();
             List<UserInfoViewModel> users = new List<UserInfoViewModel>();
             foreach (var item in bindings)
             {
                 users.Add(getInfoMapping2(item.User));
             }
-            return users;
+            var genericResutl = new {Users=users,Count=count };
+            return Ok(genericResutl);
         }
 
         [AllowAnonymous]

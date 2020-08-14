@@ -489,6 +489,7 @@ namespace ControlPanel.Controllers
             var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
             List<UserWorkBinding> userWork = db.UserWorkBindings.Where(a => a.UserId.Equals(user.Id)).Include("UserWork").ToList();
             double speed = UserHelperLibrary.ServiceProviderSpeed(helper.findUser(user.Id), doneServices.Count);
+            double avg = UserHelperLibrary.ServiceProviderAvgServices(helper.findUser(user.Id), services.Count);
             UserBalance balance = helper.getUserBalance(user);
             return new UserInfoViewModel
             {
@@ -513,7 +514,7 @@ namespace ControlPanel.Controllers
                 NumberOfActiveServices = activeSerives.Count(),
                 NumberOfDoneServices = doneServices.Count(),
                 Speed = speed < 1 ? 1 : speed,
-                AvgServicesInOneDay = speed == 0 ? 1 : speed,
+                AvgServicesInOneDay = avg == 0 ? 1 : avg,
                 UserRoles = userManager.GetRoles(user.Id).ToList(),
                 SocialStatus = user.SocialState,
                 ImageUrl = user.imageUrl,
