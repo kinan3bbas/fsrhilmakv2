@@ -56,11 +56,11 @@
 <div class="row" style="direction:rtl">
    
     <div class="col-md-4">
-        <span style="direction:rtl;float:right;font-size:large">عدد الخدمات غير المنجزة:</span>
+        <span style="direction:rtl;float:right;font-size:large">عدد المستخدمين:</span>
         <span style="direction:rtl;float:right;font-size:large">&nbsp; &nbsp; @numOfUsers</span>
     </div>
     <div class="col-md-4">
-        <span style="direction:rtl;float:right;font-size:large"> عدد النقاط:</span>
+        <span style="direction:rtl;float:right;font-size:large"> مجموع النقاط:</span>
         <span style="direction:rtl;float:right;font-size:large">&nbsp; &nbsp;@totalbalance</span>
     </div>
 </div>
@@ -76,6 +76,9 @@
                 </th>
                 <th>
                     @Resources.Global.Email
+                </th>
+                <th>
+                    نقاط المستخدم
                 </th>
                 <th>
                     @Resources.Global.Country
@@ -97,8 +100,10 @@
                         @Html.ActionLink(@user.Name, "PersonalPage", new { userId = @user.Id }, null)
                     </td>
                     <td>@user.phoneNumber</td>
-                    <th>@user.Country</th>
                     <th>@user.Email</th>
+
+                    <td>@user.PointsBalance</td>
+                    <th>@user.Country</th>
 
                     <th>@user.CreationDate</th>
                    
