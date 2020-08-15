@@ -804,7 +804,7 @@ namespace fsrhilmakv2.Controllers
             int count = db.UserWorkBindings.Where(a => a.UserWorkId.Equals(id)
             ).Count();
             List <UserWorkBinding> bindings = db.UserWorkBindings.Where(a => a.UserWorkId.Equals(id)
-            ).OrderByDescending(a=>a.CreationDate).Skip((skip==0?skip:(skip-1))*top).Take(top).Include("User").ToList();
+            ).OrderByDescending(a=>a.CreationDate).Skip(skip).Take(top).Include("User").ToList();
             List<UserInfoViewModel> users = new List<UserInfoViewModel>();
             foreach (var item in bindings)
             {

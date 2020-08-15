@@ -18,7 +18,7 @@ using fsrhilmakv2.Extra;
 
 namespace ControlPanel.Controllers
 {
-    [Authorize]
+    [Authorize (Roles ="Admin")]
     public class AccountController : Controller
     {
         private ApplicationSignInManager _signInManager;
@@ -153,7 +153,7 @@ namespace ControlPanel.Controllers
         //
         // POST: /Account/Register
         [HttpPost]
-
+        [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {

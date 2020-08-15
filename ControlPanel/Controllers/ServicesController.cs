@@ -15,7 +15,7 @@ using System.Web.Mvc;
 
 namespace ControlPanel.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     public class ServicesController : Controller
     {
         private UserHelperLibrary helper = new UserHelperLibrary();

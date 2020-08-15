@@ -27,7 +27,7 @@ namespace ControlPanel.Controllers
 
         public enum ServiceStatus { Active,Done, Deleted };
 
-        public enum UserWorkCode { Dream, Iftaa, Medical, Istishara, Rouqia };
+        public enum UserWorkCode { Dream, Iftaa, Medical, Istishara, Rouqia, Law };
 
         public CoreController() { }
 

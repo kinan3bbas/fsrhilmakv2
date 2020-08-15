@@ -9,7 +9,7 @@ using System.Web.Mvc;
 
 namespace ControlPanel.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     public class HomeController : Controller
     {
         private UserHelperLibrary helper = new UserHelperLibrary();
@@ -41,6 +41,7 @@ namespace ControlPanel.Controllers
             result.AllIftaaUsers = helper.getServiceProviders(CoreController.UserWorkCode.Iftaa.ToString(), CoreController.UserStatus.Active.ToString()).Count();
             result.AllIstasharaUsers = helper.getServiceProviders(CoreController.UserWorkCode.Istishara.ToString(), CoreController.UserStatus.Active.ToString()).Count();
             result.AllMedicalUsers = helper.getServiceProviders(CoreController.UserWorkCode.Medical.ToString(), CoreController.UserStatus.Active.ToString()).Count();
+            result.AllLawUsers = helper.getServiceProviders(CoreController.UserWorkCode.Law.ToString(), CoreController.UserStatus.Active.ToString()).Count();
 
             List<UserBalance> balancer = new List<UserBalance>();
             foreach (var item in ServiceProviders)
@@ -50,6 +51,8 @@ namespace ControlPanel.Controllers
             result.TotalBalance = balancer.Sum(a => a.TransferedBalance);
             result.AvailableBalance = balancer.Sum(a => a.DoneBalance);
             result.SuspendedBalance = balancer.Sum(a => a.SuspendedBalance);
+            result.AllPaymentsSum = db.Payments.Sum(a => a.Amount);
+            result.Profit = result.AllPaymentsSum - (result.TotalBalance + result.AvailableBalance + result.SuspendedBalance);
             return View(result);
         }
 

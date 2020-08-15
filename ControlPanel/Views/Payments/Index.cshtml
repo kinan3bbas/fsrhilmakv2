@@ -3,6 +3,7 @@
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_PLayout.cshtml";
+    var ServiceProvideresRatio=Model.Sum(a=>a.)
     //var totalPayments = Model.Sum(a => a.Amount);
     // var CompanyPayments = Model.Sum(a => a.CompanyAmount);
     //var UserPayments = Model.Sum(a => a.UserAmount);
@@ -49,15 +50,15 @@
             <button type="button" class="collapsible" >تصفية</button>
             <div id="demo" class="content">
                 <div class="row ">
-                    <div class="col-md-4">
+                    @*<div class="col-md-4">
                         @Html.Label("التخصص")
                         @Html.DropDownList("UserWorkId", null, htmlAttributes: new { @class = "form-control m-input m-input--air" })
-                    </div>
-                    <div class="col-md-4">
+                    </div>*@
+                    <div class="col-md-6">
                         @Html.Label("From Date")
                         @Html.TextBox("fromDate", null, new { type = "date", @class = "form-control m-input m-input--air" })
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         @Html.Label("To Date")
                         @Html.TextBox("toDate", null, new { type = "date", @class = "form-control m-input m-input--air" })
 
@@ -88,6 +89,22 @@
     </div>
 <br />
 <br />
+
+<div class="row" style="direction:rtl">
+    <div class="col-md-4">
+        <span style="direction:rtl;float:right;font-size:large"> نسبة مقدمي الخدمات:<br /></span>
+        <span style="direction:rtl;float:right;font-size:large"> &nbsp; &nbsp; @numberOfrecords</span>
+    </div>
+    <div class="col-md-4">
+        <span style="direction:rtl;float:right;font-size:large"> عدد الخدمات المنجزة;</span>
+        <span style="direction:rtl;float:right;font-size:large">   &nbsp; &nbsp; @numOfDoneServices</span>
+    </div>
+    <div class="col-md-4">
+        <span style="direction:rtl;float:right;font-size:large">عدد الخدمات غير المنجزة:</span>
+        <span style="direction:rtl;float:right;font-size:large">&nbsp; &nbsp; @numOfActiveServices</span>
+    </div>
+    
+</div>
 
 <table id="myTable" class="cell-border hover stripe" style="width:100%">
     <thead>

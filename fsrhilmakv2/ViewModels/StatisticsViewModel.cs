@@ -32,6 +32,8 @@ namespace fsrhilmakv2.ViewModels
         public int AllMedicalUsers { get; set; }
         public int AllIftaaUsers { get; set; }
 
+        public int AllLawUsers { get; set; }
+
 
 
     }

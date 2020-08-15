@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace ControlPanel.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     public class SystemParametersController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
