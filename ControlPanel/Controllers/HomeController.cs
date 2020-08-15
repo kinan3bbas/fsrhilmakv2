@@ -48,11 +48,14 @@ namespace ControlPanel.Controllers
             {
                 balancer.Add(helper.getUserBalance(item));
             }
-            result.TotalBalance = balancer.Sum(a => a.TransferedBalance);
-            result.AvailableBalance = balancer.Sum(a => a.DoneBalance);
-            result.SuspendedBalance = balancer.Sum(a => a.SuspendedBalance);
-            result.AllPaymentsSum = db.Payments.Sum(a => a.Amount);
-            result.Profit = result.AllPaymentsSum - (result.TotalBalance + result.AvailableBalance + result.SuspendedBalance);
+            if (ServiceProviders.Count > 0) {
+                result.TotalBalance = balancer.Sum(a => a.TransferedBalance);
+                result.AvailableBalance = balancer.Sum(a => a.DoneBalance);
+                result.SuspendedBalance = balancer.Sum(a => a.SuspendedBalance);
+                result.AllPaymentsSum = db.Payments.Sum(a => a.Amount);
+                result.Profit = result.AllPaymentsSum - (result.TotalBalance + result.AvailableBalance + result.SuspendedBalance);
+            }
+            
             return View(result);
         }
 
