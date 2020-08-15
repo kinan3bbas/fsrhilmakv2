@@ -24,7 +24,7 @@
         </div>
         <div class="row" style="font-size:large">
             <div class="col-md-6 col-sm-6 "><span> مفسري الاحلام </span> <span id="DreamUsers"> @Model.AllDreamUsers</span></div>
-            <div class="col-md-6 col-sm-6 "><span> المفتين الشرعيين </span> <span id="IftaaUsers"> @Model.AllIftaa</span></div>
+            <div class="col-md-6 col-sm-6 "><span> المفتين الشرعيين </span> <span id="IftaaUsers"> @Model.AllIftaaUsers</span></div>
         </div>
         <div class="row" style="font-size:large">
             <div class="col-md-6 col-sm-6 "><span> الرقات الشرعيين </span> <span id="RouqatUsers"> @Model.AllRouqiaUsers</span></div>
@@ -32,11 +32,19 @@
         </div>
         <div class="row" style="font-size:large">
             <div class="col-md-6 col-sm-6 "><span> المستشارين الطبيين </span> <span id="MedicalUsers"> @Model.AllMedicalUsers</span></div>
-            <div class="col-md-6 col-sm-6 "><span> الرصيد المحول </span> <span id="MedicalUsers"> @Model.TotalBalance</span></div>
+            <div class="col-md-6 col-sm-6 "><span> المستشارين القانونيين </span> <span id="LawUsers"> @Model.AllLawUsers</span></div>
         </div>
         <div class="row" style="font-size:large">
-            <div class="col-md-6 col-sm-6 "><span> الرصيد الجاهز للتحويل </span> <span id="RouqatUsers"> @Model.AvailableBalance</span></div>
-            <div class="col-md-6 col-sm-6 "><span> الرصيد المعلق </span> <span id="MustasharUser"> @Model.SuspendedBalance</span></div>
+            <div class="col-md-6 col-sm-6 "><span> الرصيد المحول لمقدمي الخدمات </span> <span id="MedicalUsers"> @Model.TotalBalance</span></div>
+            <div class="col-md-6 col-sm-6 "><span> الرصيد الذي لم يحول بعد </span> <span id="RouqatUsers"> @Model.AvailableBalance</span></div>
+
+        </div>
+        <div class="row" style="font-size:large">
+            <div class="col-md-6 col-sm-6 "><span> الرصيد المعلق ولم يتم تقديم الخدمة بعد </span> <span id="MustasharUser"> @Model.SuspendedBalance</span></div>
+            <div class="col-md-6 col-sm-6 "><span> مجموع جميع المدفوعات </span> <span id="MustasharUser"> @Model.AllPaymentsSum</span></div>
+        </div>
+        <div class="row" style="font-size:large">
+            <div class="col-md-6 col-sm-6 "><span> المبلغ الصافي بعد خصم كل شيء </span> <span id="MustasharUser"> @Model.Profit</span></div>
         </div>
     </p>
     <p></p>

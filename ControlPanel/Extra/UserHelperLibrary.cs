@@ -25,9 +25,20 @@ namespace fsrhilmakv2.Extra
             LocalDateTime d2 = new LocalDateTime(user.CreationDate.Year, user.CreationDate.Month, user.CreationDate.Day, user.CreationDate.Hour, user.CreationDate.Minute, user.CreationDate.Second);
             long days = Period.Between(d2, d1).Days;
 
-            return days == 0 ? 0 : totalDreams / days;
+            return days == 0 ? totalDreams : totalDreams / days;
         }
 
+        public static double ServiceProviderAvgServices(ApplicationUser user, int totalDreams)
+        {
+            //TimeSpan difference = DateTime.Now - user.CreationDate;
+            TimeSpan span1 = new TimeSpan(DateTime.Now.Ticks);
+            //TimeSpan span2 = new TimeSpan(user.CreationDate.Ticks);
+            LocalDateTime d1 = new LocalDateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
+            LocalDateTime d2 = new LocalDateTime(user.CreationDate.Year, user.CreationDate.Month, user.CreationDate.Day, user.CreationDate.Hour, user.CreationDate.Minute, user.CreationDate.Second);
+            long days = Period.Between(d2, d1).Days;
+
+            return days == 0 ? totalDreams : totalDreams / days;
+        }
 
         public static string getWaitingTimeMessage(double x, double y)
         {
@@ -92,10 +103,10 @@ namespace fsrhilmakv2.Extra
         public UserBalance getUserBalance (ApplicationUser user)
         {
             UserBalance balance = new UserBalance();
-            List<Service> services = db.Services.Where(a => a.ServiceProviderId.Equals(user.Id)&&a.Status.Equals("Active"))
-                .Include("ServiceProvider")
-                .Include("ServicePath")
-                .ToList();
+            //List<Service> services = db.Services.Where(a => a.ServiceProviderId.Equals(user.Id)&&a.Status.Equals("Active"))
+            //    .Include("ServiceProvider")
+            //    .Include("ServicePath")
+            //    .ToList();
             List<Transaction> transactions = db.Transactions.Where(a => a.UserId.Equals(user.Id)).ToList();
             List<Payment> payments = db.Payments.Where(a => a.Service.ServiceProviderId.Equals(user.Id))
                 .Include("Service")
@@ -104,14 +115,17 @@ namespace fsrhilmakv2.Extra
                 .ToList();
             double doneBalance = 0;
             double ActiveBalance = 0;
-            foreach (var item in services)
-            {
-               ActiveBalance += item.ServicePath.Cost * item.ServicePath.Ratio;
-            }
+            //foreach (var item in services)
+            //{
+            //   ActiveBalance += item.ServicePath.Cost * item.ServicePath.Ratio;
+            //}
             balance.TransferedBalance = transactions.Sum(a => a.Amount);
             foreach (var item in payments)
             {
-                doneBalance += item.Service.ServicePath.Cost * item.Service.ServicePath.Ratio;
+                if(item.Service.Status.Equals("Done"))
+                    doneBalance += item.Service.ServicePath.Cost * item.Service.ServicePath.Ratio;
+                else
+                    ActiveBalance += item.Service.ServicePath.Cost * item.Service.ServicePath.Ratio;
             }
             balance.DoneBalance = doneBalance - balance.TransferedBalance;
             balance.SuspendedBalance = ActiveBalance;

@@ -31,10 +31,14 @@ namespace ControlPanel.ViewModels
         public int AllIstasharaUsers { get; set; }
         public int AllMedicalUsers { get; set; }
         public int AllIftaaUsers { get; set; }
+        public int AllLawUsers { get; set; }
 
         public double TotalBalance { get; set; }
         public double AvailableBalance { get; set; }
         public double SuspendedBalance { get; set; }
+
+        public double AllPaymentsSum { get; set; }
+        public double Profit { get; set; }
 
     }
 }

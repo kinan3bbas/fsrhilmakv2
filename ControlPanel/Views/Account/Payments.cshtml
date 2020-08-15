@@ -122,22 +122,24 @@
             </div>
         </div>
 
-        <div class="row" style="direction:rtl">
-
-            <div class="col-md-4">
-                <span style="direction:rtl;float:right;font-size:large">عدد المدفوعات:</span>
-                <span style="direction:rtl;float:right;font-size:large">&nbsp; &nbsp; @numOfPayments</span>
-            </div>
-            <div class="col-md-4">
-                <span style="direction:rtl;float:right;font-size:large"> مجموع المدفوعات:</span>
-                <span style="direction:rtl;float:right;font-size:large">&nbsp; &nbsp;@Amount</span>
-            </div>
-        </div>
+        
 
         <div class="col-md-9" id="PersonalInfoDV">
 
+            <div class="row" style="direction:rtl">
 
+                <div class="col-md-4">
+                    <span style="direction:rtl;float:right;font-size:large">عدد المدفوعات:</span>
+                    <span style="direction:rtl;float:right;font-size:large">&nbsp; &nbsp; @numOfPayments</span>
+                </div>
+                <div class="col-md-4">
+                    <span style="direction:rtl;float:right;font-size:large"> مجموع المدفوعات:</span>
+                    <span style="direction:rtl;float:right;font-size:large">&nbsp; &nbsp;@Amount</span>
+                </div>
+            </div>
 
+            <br />
+            <br />
             <table id="myTable" class="cell-border hover stripe" style="width:100%">
                 <thead>
                     <tr>
@@ -145,13 +147,13 @@
                             amount
                         </th>
                         <th>
-                           method
+                            method
                         </th>
                         <th>
                             Currency
                         </th>
                         <th>
-                          status
+                            status
                         </th>
                         </th>
 
@@ -174,7 +176,7 @@
                             <td>
                                 @Html.DisplayFor(modelItem => item.Status)
                             </td>
-                           
+
 
                             @*<td>
                             @Html.ActionLink("Edit", "Edit", new { id=item.id }) |

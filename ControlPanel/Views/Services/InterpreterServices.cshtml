@@ -156,27 +156,27 @@
                                 <tr>
 
                                     <th>
-                                        Name
+                                        Id
                                     </th>
 
                                     <th>
-                                        userwork
+                                        نوع الخدمة
                                     </th>
 
                                     <th>
-                                        CreationDate
+                                        تاريخ الانشاء
                                     </th>
                                     <th>
-                                        creator
+                                        المستخدم
                                     </th>
                                     <th>
-                                        service path
+                                        مسار الخدمة
                                     </th>
                                     <th>
-                                        description
+                                        الوصف
                                     </th>
                                     <th>
-                                        status
+                                        الحالة
                                     </th>
 
                                     <th></th>
@@ -188,11 +188,11 @@
                                     <tr>
 
                                         <td>
-                                            @Html.ActionLink(item.Name, "ServiceInfo", new { id = @item.Id }, null)
+                                            @Html.ActionLink(item.id, "ServiceInfo", new { id = @item.Id }, null)
                                         </td>
 
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.UserWork.Name)
+                                            @Html.DisplayFor(modelItem => item.UserWork.AdjectiveName)
                                         </td>
 
                                         <td>

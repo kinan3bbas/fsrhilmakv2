@@ -17,7 +17,7 @@ using System.Web.Mvc;
 
 namespace ControlPanel.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     public class PaymentsController : Controller
     {
         private UserHelperLibrary helper = new UserHelperLibrary();
@@ -46,7 +46,7 @@ namespace ControlPanel.Controllers
                 .Include("Service.ServicePath")
                 .Include("Creator")
                 .ToList();
-
+            payments=payments.Where(a => a.CreationDate.CompareTo(from) >= 0 && a.CreationDate.CompareTo(to) <= 0).ToList();
             ViewBag.UserWorkId = new SelectList(db.UserWorks.Where(a => a.Enabled), "id", "AdjectiveName");
             return View(payments);
         }

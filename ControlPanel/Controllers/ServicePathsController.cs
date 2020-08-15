@@ -10,7 +10,7 @@ using ControlPanel.Models;
 
 namespace ControlPanel.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     public class ServicePathsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
