@@ -4,7 +4,7 @@
     ViewBag.Title = "ServiceInfo";
     Layout = "~/Views/Shared/_PLayout.cshtml";
     var Id = Request.QueryString["serviceId"];
-    }
+}
 
 <h2>@*@Resources.Global.*@ServicesInformation</h2>
 
@@ -14,154 +14,165 @@
 <p style="float:right;text-decoration-color:white;">
 
     @*<button class="btn btn-primary btn-default" onclick="location.href='@Url.Action("Create", "ServicePaths")'">
-        <i class="fa  pull-right" style="font-size:large"></i> @Resources.Global.CreateNewServicePath
-    </button>*@
+            <i class="fa  pull-right" style="font-size:large"></i> @Resources.Global.CreateNewServicePath
+        </button>*@
 
 </p>  </div>
-<div class="container">
+<div>
+    <hr />
+    <dl class="dl-horizontal">
 
-    <div class="col-md-9" id="PersonalInfoDV">
+       
+        <dt>
 
-        <table class="table table-responsive" style="margin-top:3%">
-            <tr>
-                <th>
-                    @Resources.Register.Name :
-                </th>
-                <td>
-                    @Html.DisplayFor(model => model.Name)
-                </td>
-            </tr>
+            @Resources.Register.Name :
+        </dt>
 
-            <tr>
-                <th>
-                    userwork:
-                </th>
-                <td>
-                    @Html.DisplayFor(model => model.UserWork.Name)
-                </td>
-            </tr>
+        <dd>
 
-            <tr>
-                <th>
-                    creation date:
-                </th>
-                <td>
-                    @Html.DisplayFor(model => model.CreationDate)
-                </td>
-            </tr>
-            <tr>
-                <th>
-                    service path:
-                </th>
-                <td>
-                    @Html.DisplayFor(model => model.ServicePath)
-                </td>
-            </tr>
-            <tr>
-                <th>
-                    status:
-                </th>
-                <td>
-                    @Html.DisplayFor(model => model.Status)
-                </td>
-            </tr>
-            <tr>
-                <th>
-                    creator:
-                </th>
-                <td>
-                    @Html.DisplayFor(model => model.Creator.Name)
-                </td>
-            </tr>
-            @*@if (Model.UserWork.Code.ToString() == "Dreem")
-                {*@
-            <tr>
-                <th>
-                    Sex :
-                </th>
-                <td>
-                    @Html.DisplayFor(model => model.Sex)
-                </td>
-            </tr>
-            <tr>
-                <th>
-                    KidsStatus :
-                </th>
-                <td>
-                    @Html.DisplayFor(model => model.KidsStatus)
-                </td>
-            </tr>
-            <tr>
-                <th>
-                    IsThereWakefulness :
-                </th>
-                <td>
-                    @Html.DisplayFor(model => model.IsThereWakefulness)
-                </td>
-            </tr>
-            <tr>
-                <th>
-                    Country :
-                </th>
-                <td>
-                    @Html.DisplayFor(model => model.Country)
-                </td>
-            </tr>
-            <tr>
-                <th>
-                    HaveYouPrayedBeforeTheDream :
-                </th>
-                <td>
-                    @Html.DisplayFor(model => model.HaveYouPrayedBeforeTheDream)
-                </td>
-            </tr>
-            <tr>
-                <th>
-                    DidYouExorcism :
-                </th>
-                <td>
-                    @Html.DisplayFor(model => model.DidYouExorcism)
-                </td>
-            </tr>
-            <tr>
-                <th>
-                    RegligionStatus :
-                </th>
-                <td>
-                    @Html.DisplayFor(model => model.RegligionStatus)
-                </td>
-            </tr>
-            <tr>
-                <th>
-                    SocialStatus :
-                </th>
-                <td>
-                    @Html.DisplayFor(model => model.SocialStatus)
-                </td>
-            </tr>
-           
-            <tr>
-                <th>
-                    JobStatus :
-                </th>
-                <td>
-                    @Html.DisplayFor(model => model.JobStatus)
-                </td>
-            </tr>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt>
+
+            userwork:
+        </dt>
+
+        <dd>
+
+            @Html.DisplayFor(model => model.UserWork.Name)
+        </dd>
+        <dt>
+
+            creation date:
+        </dt>
+
+        <dd>
+
+            @Html.DisplayFor(model => model.CreationDate)
+        </dd>
+        <dt>
+
+            service path Cost:
+        </dt>
+
+        <dd>
+
+            @Html.DisplayFor(model => model.ServicePath.Cost)
+        </dd>
+        <dt>
+
+            status:
+        </dt>
+
+        <dd>
+
+            @Html.DisplayFor(model => model.Status)
+        </dd>
+        <dt>
+
+            creator:
+        </dt>
+
+        <dd>
+
+            @Html.DisplayFor(model => model.Creator.Name)
+        </dd>
+        <dt>
+
+            Sex :
+        </dt>
+
+        <dd>
+
+            @Html.DisplayFor(model => model.Sex)
+        </dd>
+        <dt>
+
+            KidsStatus :
+        </dt>
+
+        <dd>
+
+            @Html.DisplayFor(model => model.KidsStatus)
+        </dd>
+        <dt>
+
+            IsThereWakefulness :
+        </dt>
+
+        <dd>
+
+            @Html.DisplayFor(model => model.IsThereWakefulness)
+        </dd>
+        <dt>
+
+            Country :
+        </dt>
+
+        <dd>
+
+            @Html.DisplayFor(model => model.Country)
+        </dd>
+        <dt>
+
+            HaveYouPrayedBeforeTheDream :
+        </dt>
+
+        <dd>
+
+            @Html.DisplayFor(model => model.HaveYouPrayedBeforeTheDream)
+        </dd>
+        <dt>
+
+            DidYouExorcism :
+        </dt>
+
+        <dd>
+
+            @Html.DisplayFor(model => model.DidYouExorcism)
+        </dd>
+        <dt>
+
+            RegligionStatus :
+        </dt>
+
+        <dd>
+
+            @Html.DisplayFor(model => model.RegligionStatus)
+        </dd>
+        <dt>
+
+            SocialStatus :
+        </dt>
+
+        <dd>
+
+            @Html.DisplayFor(model => model.SocialStatus)
+        </dd>
+        <dt>
+
+            JobStatus :
+        </dt>
+
+        <dd>
+
+            @Html.DisplayFor(model => model.JobStatus)
+        </dd>
 
 
 
-
-
-
-
-            @*}*@
-        </table>
-
-    </div>
+</dl>
 </div>
-<div class="row ">
-   
+<p>
+    @Html.ActionLink(@Resources.UserWork.Edit, "Edit", new { id = Model.id }) |
+    @Html.ActionLink(@Resources.Global.BackToList, "Index")
+</p>
+
+
+
+
+@*<div class="row ">
+
 
     <div class="row">
         <div class="col-md-5">
@@ -173,9 +184,10 @@
         </div>
     </div>
 </div>
+</div>
 
 
-        </div>
+        </div>*@
 @section Scripts
 {
     <script type="text/javascript">

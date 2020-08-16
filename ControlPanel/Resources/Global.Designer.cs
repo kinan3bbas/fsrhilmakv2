@@ -142,6 +142,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Amount.
+        /// </summary>
+        public static string Amount {
+            get {
+                return ResourceManager.GetString("Amount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Are you sure you want to delete this?.
         /// </summary>
         public static string Areyousureyouwanttodeletethis {
@@ -174,6 +183,15 @@ namespace Resources {
         public static string BalanceRatio {
             get {
                 return ResourceManager.GetString("BalanceRatio", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bank.
+        /// </summary>
+        public static string Bank {
+            get {
+                return ResourceManager.GetString("Bank", resourceCulture);
             }
         }
         
@@ -439,6 +457,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Method.
+        /// </summary>
+        public static string Method {
+            get {
+                return ResourceManager.GetString("Method", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to name.
         /// </summary>
         public static string Name {
@@ -642,6 +669,15 @@ namespace Resources {
         public static string Statistics {
             get {
                 return ResourceManager.GetString("Statistics", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Status.
+        /// </summary>
+        public static string Status {
+            get {
+                return ResourceManager.GetString("Status", resourceCulture);
             }
         }
         

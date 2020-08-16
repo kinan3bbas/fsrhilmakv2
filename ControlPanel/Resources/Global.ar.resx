@@ -300,4 +300,16 @@
   <data name="ServicesInformation" xml:space="preserve">
     <value>معلومات الخدمات</value>
   </data>
+  <data name="Amount" xml:space="preserve">
+    <value>الكمية</value>
+  </data>
+  <data name="Bank" xml:space="preserve">
+    <value>البنك</value>
+  </data>
+  <data name="Method" xml:space="preserve">
+    <value>طريقة الدفع</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>الحالة</value>
+  </data>
 </root>

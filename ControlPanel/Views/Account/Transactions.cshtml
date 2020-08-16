@@ -147,73 +147,73 @@
                     </li>
                 </ul>*@
         </div>
-        <div class="row" style="direction:rtl">
-
-            <div class="col-md-4">
-                <span style="direction:rtl;float:right;font-size:large">عدد المدفوعات:</span>
-                <span style="direction:rtl;float:right;font-size:large">&nbsp; &nbsp; @numOfTransactions</span>
-            </div>
-            <div class="col-md-4">
-                <span style="direction:rtl;float:right;font-size:large"> مجموع المدفوعات:</span>
-                <span style="direction:rtl;float:right;font-size:large">&nbsp; &nbsp;@Amount</span>
-            </div>
-        </div>
-
-
-
         <div class="col-md-9" id="PersonalInfoDV">
+            <div class="row" style="direction:rtl">
 
-            <table id="myTable" class="cell-border hover stripe" style="width:100%">
-                <thead>
-                    <tr>
-                        <th>
-                            amount
-                        </th>
-                        <th>
-                            method
-                        </th>
-                        <th>
-                            Bank
-                        </th>
-                        <th>
-                            status
-                        </th>
-                        </th>
+                <div class="col-md-4">
+                    <span style="direction:rtl;float:right;font-size:large">عدد المدفوعات:</span>
+                    <span style="direction:rtl;float:right;font-size:large">&nbsp; &nbsp; @numOfTransactions</span>
+                </div>
+                <div class="col-md-4">
+                    <span style="direction:rtl;float:right;font-size:large"> مجموع المدفوعات:</span>
+                    <span style="direction:rtl;float:right;font-size:large">&nbsp; &nbsp;@Amount</span>
+                </div>
+            </div>
 
-                        @*<th></th>*@
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in Model)
-                    {
+
+
+
+                <table id="myTable" class="cell-border hover stripe" style="width:100%">
+                    <thead>
                         <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Amount)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.method)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Bank)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Status)
-                            </td>
+                            <th>
+                                amount
+                            </th>
+                            <th>
+                                method
+                            </th>
+                            <th>
+                                Bank
+                            </th>
+                            <th>
+                                status
+                            </th>
+                            </th>
+
+                            @*<th></th>*@
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Amount)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.method)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Bank)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Status)
+                                </td>
 
 
-                            @*<td>
+                                @*<td>
                                     @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
                                     @Html.ActionLink("Details", "Details", new { id=item.id }) |
                                     @Html.ActionLink("Delete", "Delete", new { id=item.id })
                                 </td>*@
-                        </tr>
-                    }
-                </tbody>
-            </table>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <br />
+            <br />
         </div>
-        <br />
-        <br />
-    </div>
 
 </div>
 

@@ -205,6 +205,7 @@
     <Compile Include="Controllers\CoreController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\TransactionsController .cs" />
     <Compile Include="Controllers\ServicePathsController.cs" />
     <Compile Include="Controllers\PaymentsController.cs" />
     <Compile Include="Controllers\SystemParametersController.cs" />
@@ -644,6 +645,8 @@
     <Content Include="Views\Account\Transactions.cshtml" />
     <Content Include="Views\Account\EditServicePath.cshtml" />
     <Content Include="Views\Account\DeleteServicePath.cshtml" />
+    <Content Include="Views\Transactions\Index.cshtml" />
+    <Content Include="Views\Services\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,12 +1,9 @@
-﻿@model IEnumerable<ControlPanel.Models.Payment>
+﻿@model IEnumerable<ControlPanel.Models.Transaction>
 
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_PLayout.cshtml";
-    var ServiceProvideresRatio = Model.Sum(a => a.Amount);
-    var totalPayments = Model.Sum(a => a.Amount);
-    // var CompanyPayments = Model.Sum(a => a.CompanyAmount);
-    //var UserPayments = Model.Sum(a => a.UserAmount);
+  
 
 }
 
@@ -37,7 +34,7 @@
         }
     </style>
 </head>
-<h1>Payments</h1>
+<h1>Transactions List</h1>
 <br />
 
 <link href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css" />
@@ -47,7 +44,6 @@
         @using (Html.BeginForm())
         {
 
-            <button type="button" class="collapsible" >تصفية</button>
             <div id="demo" class="content">
                 <div class="row ">
                     @*<div class="col-md-4">
@@ -90,93 +86,55 @@
 <br />
 <br />
 
-<div class="row" style="direction:rtl">
-        <div class="col-md-4">
-            <span style="direction:rtl;float:right;font-size:large"> محموع نسب المفسرين:<br /></span>
-            <span style="direction:rtl;float:right;font-size:large"> &nbsp; &nbsp; @ServiceProvideresRatio</span>
-        </div>
-        <div class="col-md-4">
-            <span style="direction:rtl;float:right;font-size:large"> مجموع جميع المفوعات:</span>
-            <span style="direction:rtl;float:right;font-size:large">   &nbsp; &nbsp; @totalPayments</span>
-        </div>
-       
 
-    </div>
 
 <table id="myTable" class="cell-border hover stripe" style="width:100%">
     <thead>
         <tr>
-            <th>
-                اسم الزبون
-            </th>
+          
             <th>
                 اسم مقدم الخدمة
             </th>
-
             <th>
-                طريقة الدفع
+               @Resources.Global.Amount
             </th>
             <th>
-                العملة
+                @Resources.Global.Method
             </th>
             <th>
+                @Resources.Global.Bank
+            </th>
+            <th>
+                @Resources.Global.Status
+            </th>
+             <th>
                 تاريخ الدفع
             </th>
-            <th>
-                الخدمة
             </th>
-            <th>
-                المبلغ المدفوع
-            </th>
-            <th>
-                كلفة المسار
-            </th>
-            <th>
-                الخدمة خاصة؟
-            </th>
-            <th>
-                نسبة مقدم الخدمة
-            </th>
-
 
             @*<th></th>*@
         </tr>
     </thead>
-
     <tbody>
         @foreach (var item in Model)
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Creator.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Service.ServiceProvider.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Method)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Currency)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CreationDate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ServiceId)
+                    @Html.ActionLink(@item.User.Name, "PersonalPage","Account", new { userId = @item.UserId }, null)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Amount)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Service.ServicePath.Cost)
+                    @Html.DisplayFor(modelItem => item.method)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Service.PrivateService)
+                    @Html.DisplayFor(modelItem => item.Bank)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Service.ServicePath.Ratio)
+                    @Html.DisplayFor(modelItem => item.Status)
                 </td>
+
 
                 @*<td>
                         @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
@@ -185,9 +143,10 @@
                     </td>*@
             </tr>
         }
-
     </tbody>
 </table>
+
+
 
 @section scripts{
     <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>

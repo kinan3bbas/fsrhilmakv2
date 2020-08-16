@@ -1,0 +1,166 @@
+﻿@model ControlPanel.ViewModels.ServiceViewModel
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_PLayout.cshtml";
+}
+
+<h2>Delete Information</h2>
+
+<h3>@Resources.Global.Areyousureyouwanttodeletethis</h3>
+<div>
+    
+    <hr />
+    <dl class="dl-horizontal">
+       
+
+        <dt>
+
+            @Resources.Register.Name :
+        </dt>
+
+        <dd>
+
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt>
+
+            userwork:
+        </dt>
+
+        <dd>
+
+            @Html.DisplayFor(model => model.UserWork.Name)
+        </dd>
+        <dt>
+
+            creation date:
+        </dt>
+
+        <dd>
+
+            @Html.DisplayFor(model => model.CreationDate)
+        </dd>
+        <dt>
+
+            service path Cost:
+        </dt>
+
+        <dd>
+
+            @Html.DisplayFor(model => model.ServicePath.Cost)
+        </dd>
+        <dt>
+
+            status:
+        </dt>
+
+        <dd>
+
+            @Html.DisplayFor(model => model.Status)
+        </dd>
+        <dt>
+
+            creator:
+        </dt>
+
+        <dd>
+
+            @Html.DisplayFor(model => model.Creator.Name)
+        </dd>
+        <dt>
+
+            Sex :
+        </dt>
+
+        <dd>
+
+            @Html.DisplayFor(model => model.Sex)
+        </dd>
+        <dt>
+
+            KidsStatus :
+        </dt>
+
+        <dd>
+
+            @Html.DisplayFor(model => model.KidsStatus)
+        </dd>
+        <dt>
+
+            IsThereWakefulness :
+        </dt>
+
+        <dd>
+
+            @Html.DisplayFor(model => model.IsThereWakefulness)
+        </dd>
+        <dt>
+
+            Country :
+        </dt>
+
+        <dd>
+
+            @Html.DisplayFor(model => model.Country)
+        </dd>
+        <dt>
+
+            HaveYouPrayedBeforeTheDream :
+        </dt>
+
+        <dd>
+
+            @Html.DisplayFor(model => model.HaveYouPrayedBeforeTheDream)
+        </dd>
+        <dt>
+
+            DidYouExorcism :
+        </dt>
+
+        <dd>
+
+            @Html.DisplayFor(model => model.DidYouExorcism)
+        </dd>
+        <dt>
+
+            RegligionStatus :
+        </dt>
+
+        <dd>
+
+            @Html.DisplayFor(model => model.RegligionStatus)
+        </dd>
+        <dt>
+
+            SocialStatus :
+        </dt>
+
+        <dd>
+
+            @Html.DisplayFor(model => model.SocialStatus)
+        </dd>
+        <dt>
+
+            JobStatus :
+        </dt>
+
+        <dd>
+
+            @Html.DisplayFor(model => model.JobStatus)
+        </dd>
+
+
+    
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="@Resources.Global.Delete " class="btn btn-default" />|
+            @Html.ActionLink(@Resources.Global.BackToList, "Index")
+        </div>
+    }
+</div>
