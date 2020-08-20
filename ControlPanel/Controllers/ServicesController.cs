@@ -85,22 +85,33 @@ namespace ControlPanel.Controllers
 
         }
 
+        //public ActionResult Edit(int id)
+        //{
+        //    var services = db.Services.Where(a => a.id.Equals(id))
+        //         .Include("Comments")
+        //         .Include("ServicePath")
+        //         .Include("UserWork")
+        //         .Include("ServiceProvider")
+        //         .Include("Creator").FirstOrDefault(); ;
+
+
+
+        //    ViewBag.userId = id;
+        //    return View(getMapping(services));
+
+        //}
         public ActionResult Edit(int id)
         {
-            var services = db.Services.Where(a => a.id.Equals(id))
-                 .Include("Comments")
-                 .Include("ServicePath")
-                 .Include("UserWork")
-                 .Include("ServiceProvider")
-                 .Include("Creator").FirstOrDefault(); ;
+          
+            Service services = db.Services.Find(id); ;
+            if (services == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.UserWorkId = new SelectList(db.UserWorks.Where(a => a.Enabled), "id", "ServiceProvider");
 
-
-
-            ViewBag.userId = id;
-            return View(getMapping(services));
-
+            return View(services);
         }
-
 
 
         [HttpPost]
@@ -264,8 +275,31 @@ namespace ControlPanel.Controllers
         }
 
 
+        // GET: Services/Delete/5
+        public ActionResult Delete(int id)
+        {
+            
+            Service services = db.Services.Find(id);
+            if (services == null)
+            {
+                return HttpNotFound();
+            }
+            return View(services);
+        }
 
-       
+
+
+
+        // POST: Services/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            Service services = db.Services.Find(id);
+            db.Services.Remove(services);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
 
         protected override void Dispose(bool disposing)
         {
