@@ -134,6 +134,30 @@ namespace fsrhilmakv2.Controllers
             SaveService(service);
             return service;
         }
+        //****************************** Service Edit Text*************************************
+        // POST api/ActionsController/EditService
+        [Route("EditService")]
+        [HttpPost]
+        public Service EditService([FromBody] Service temp)
+        {
+            if (temp.id.Equals(null))
+            {
+                core.throwExcetpion("Id is null");
+            }
+            Service service = db.Services.Where(a => a.id.Equals(temp.id))
+                .FirstOrDefault();
+            if (!temp.Description.Equals(null))
+            {
+                service.Description = temp.Description;
+            }
+            if (!temp.Explanation.Equals(null))
+            {
+                service.Explanation = temp.Explanation;
+            }
+
+            SaveService(service);
+            return service;
+        }
 
         //****************************** Single Service Info*************************************
 
@@ -306,7 +330,7 @@ namespace fsrhilmakv2.Controllers
             ApplicationUser user = db.Users.Where(a => a.Id.Equals(userId)).Include("userWorkBinding").FirstOrDefault();
             List<int> userWorkIds = new List<int>();
             List<Service> services = db.Services.Where(a => a.Status.Equals("Active") &&
-                a.ServiceProviderNewDate.CompareTo(dateToCompare) <= 0)
+                a.ServiceProviderNewDate.CompareTo(dateToCompare) <= 0&&a.PublicServiceAction)
                 .Include("Comments")
                 .Include("UserWork")
                 .Include("ServiceProvider")
@@ -413,6 +437,7 @@ namespace fsrhilmakv2.Controllers
             temp.AllIftaaUsers = helper.getServiceProviders(CoreController.UserWorkCode.Iftaa.ToString(), CoreController.UserStatus.Active.ToString()).Count();
             temp.AllIstasharaUsers = helper.getServiceProviders(CoreController.UserWorkCode.Istishara.ToString(), CoreController.UserStatus.Active.ToString()).Count();
             temp.AllMedicalUsers = helper.getServiceProviders(CoreController.UserWorkCode.Medical.ToString(), CoreController.UserStatus.Active.ToString()).Count();
+            temp.AllLawUsers = helper.getServiceProviders(CoreController.UserWorkCode.Law.ToString(), CoreController.UserStatus.Active.ToString()).Count();
             List<UserWork> UserWorks = db.UserWorks.Where(a => a.Enabled).ToList();
             List<UserWorkViewModel> result = new List<UserWorkViewModel>();
             foreach (var item in UserWorks)
@@ -431,6 +456,8 @@ namespace fsrhilmakv2.Controllers
                     u.UserCount = temp.AllIstasharaUsers;
                 else if (item.Code.Equals(CoreController.UserWorkCode.Medical.ToString()))
                     u.UserCount = temp.AllMedicalUsers;
+                else if (item.Code.Equals(CoreController.UserWorkCode.Law.ToString()))
+                    u.UserCount = temp.AllLawUsers;
                 result.Add(u);
 
             }
