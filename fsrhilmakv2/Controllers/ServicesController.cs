@@ -36,7 +36,7 @@ namespace fsrhilmakv2.Controllers
         [EnableQuery]
         public IQueryable<Service> GetServices()
         {
-            return db.Services;
+            return db.Services.OrderByDescending(a=>a.ServicePath.Cost);
         }
 
         [AllowAnonymous]

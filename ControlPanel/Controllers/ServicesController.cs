@@ -108,7 +108,8 @@ namespace ControlPanel.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.UserWorkId = new SelectList(db.UserWorks.Where(a => a.Enabled), "id", "ServiceProvider");
+            ViewBag.ServiceProviderId = new SelectList(db.Users.Where(a=>a.Type.Equals(CoreController.UserType.Service_Provider.ToString())&&
+            a.Status.Equals("Active")), "Id", "Name");
 
             return View(services);
         }
@@ -116,7 +117,7 @@ namespace ControlPanel.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(ServiceViewModel service)
+        public ActionResult Edit(Service service)
         {
             if (service == null)
             {
@@ -127,11 +128,7 @@ namespace ControlPanel.Controllers
                 Service temp = db.Services.Where(a => a.id.Equals(service.id)).FirstOrDefault();
                 temp.id = service.id;
                 temp.Name = service.Name;
-                temp.Status = service.Status;
                 temp.Sex = service.Sex;
-                temp.UserWork.Name = service.UserWork.Name;
-                temp.ServicePath = service.ServicePath;
-                temp.Creator.Name = service.Creator.Name;
                 temp.KidsStatus = service.KidsStatus;
                 temp.IsThereWakefulness = service.IsThereWakefulness;
                 temp.Country = service.Country;
@@ -140,10 +137,11 @@ namespace ControlPanel.Controllers
                 temp.RegligionStatus = service.RegligionStatus;
                 temp.SocialStatus = service.SocialStatus;
                 temp.JobStatus = service.JobStatus;
+                temp.ServiceProviderId = service.ServiceProviderId;
                 temp.Country = service.Country;
                 db.Entry(temp).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index", new { id = service.id });
+                return RedirectToAction("Index");
 
             }
             return View(service)
@@ -171,7 +169,11 @@ namespace ControlPanel.Controllers
                 .Include("Creator")
                 .ToList();
             if (user.Type.Equals("Service_Provider"))
-                services = db.Services.Where(a => a.ServiceProviderId.Equals(userId) && a.Status == "Done").OrderByDescending(a => a.CreationDate).ToList();
+                services = services.Where(a => a.ServiceProviderId.Equals(userId) && a.Status == "Done").OrderByDescending(a => a.CreationDate).ToList();
+            else
+            {
+                services = services.Where(a => a.CreatorId.Equals(userId) && a.Status == "Done").OrderByDescending(a => a.CreationDate).ToList();
+            }
             services = services.Where(a => a.CreationDate.CompareTo(from) >= 0 && a.CreationDate.CompareTo(to) <= 0).ToList();
 
             List<ServiceViewModel> result = new List<ServiceViewModel>();
@@ -200,11 +202,22 @@ namespace ControlPanel.Controllers
                 DateTime.TryParse(toDate, out to);
             }
             ApplicationUser user = db.Users.Find(userId);
-            List<Service> services = new List<Service>();
-            if (user.Type.Equals("Client"))
+            List<Service> services = db.Services.Include("Comments")
+                .Include("ServicePath")
+                .Include("UserWork")
+                .Include("ServiceProvider")
+                .Include("Creator")
+                .ToList();
+            if (user.Type.Equals(CoreController.UserType.Service_Provider.ToString())) {
+                services = db.Services.Where(a => a.ServiceProviderId.Equals(userId) && a.Status == "Active").OrderByDescending(a => a.CreationDate).ToList();
+                
+            }
+                
+            else
+            {
                 services = db.Services.Where(a => a.CreatorId.Equals(userId) && a.Status == "Active").OrderByDescending(a => a.CreationDate).ToList();
+            }
             services = services.Where(a => a.CreationDate.CompareTo(from) >= 0 && a.CreationDate.CompareTo(to) <= 0).ToList();
-
             List<ServiceViewModel> result = new List<ServiceViewModel>();
             foreach (var item in services)
             {

@@ -181,7 +181,7 @@
 
                             <td>
                                 @Html.ActionLink(@Resources.UserWork.Edit, "EditServicePath", new { userId = item.id }) |
-                                @Html.ActionLink(@Resources.UserWork.Delete, "DeleteServicePath", new { userId = item.id })
+                                @Html.ActionLink(@Resources.UserWork.Delete, "Delete","ServicePaths", new { id = item.id },null)
                             </td>
                         </tr>
                     }

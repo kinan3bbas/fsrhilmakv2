@@ -1,0 +1,66 @@
+﻿@model ControlPanel.Models.Transaction
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_PLayout.cshtml";
+    var Id = Request.QueryString["userId"];
+}
+
+<h2>أدخل معلومات عملية التحويل</h2>
+
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+<div class="form-horizontal">
+
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group">
+        المبلغ
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Amount, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Amount, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        البنك
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Bank, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Bank, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        طريقة التحويل
+        <div class="col-md-10">
+            <div class="checkbox">
+                @Html.EditorFor(model => model.method)
+                @Html.ValidationMessageFor(model => model.method, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+
+    
+
+    
+
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            @Html.HiddenFor(model => model.UserId, Model.id)
+            <input type="submit" value="@Resources.UserWork.Create " class="btn btn-default" />
+        </div>
+    </div>
+</div>
+}
+
+<div>
+    @Html.ActionLink(@Resources.Global.BackToList, "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

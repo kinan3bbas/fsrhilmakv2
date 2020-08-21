@@ -4,7 +4,7 @@
     Layout = "~/Views/Shared/_PLayout.cshtml";
     var Id = Request.QueryString["userId"];
 }
-</style>
+
 @*<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js"
             integrity="sha384-NaWTHo/8YCBYJ59830LTz/P4aQZK1sS0SneOgAvhsIl3zBu8r9RevNg5lHCHAuQ/"
@@ -146,6 +146,14 @@
                 <div class="col-md-9" id="PersonalInfoDV">
 
                     <table class="table table-responsive" style="margin-top:3%">
+                        <tr>
+                            <th>
+                                ID:
+                            </th>
+                            <td>
+                                @Html.DisplayFor(model => model.Id)
+                            </td>
+                        </tr>
                         <tr>
                             <th>
                                 @Resources.Register.Name :
@@ -329,115 +337,48 @@
 
                 </div>
             </div>
-            <div class="row ">
-                <div class="col-md-3"></div>
-                <div class="col-md-9">
-                    <hr />
+    <div class="row ">
+        <div class="col-md-3"></div>
+        <div class="col-md-9">
+            <hr />
 
-                    <div class="row">
-                        <div class="col-md-5">
-                            <input type="button"
-                                   class="btn btn-primary" value="@Resources.UserWork.Edit"
-                                   onclick="location.href='@Url.Action("EditPersonalPage", "Account", new { id = Model.Id })'" />
-                        </div>
-                    </div>
-
-
+            <div class="row">
+                <div class="col-md-5">
+                    <input type="button"
+                           class="btn btn-primary" value="@Resources.UserWork.Edit"
+                           onclick="location.href='@Url.Action("EditPersonalPage", "Account", new { id = Model.Id })'" />
                 </div>
+                @if (Model.Status == "Active")
+                {
+                    <div class="col-md-5">
+                        <input type="button"
+                               class="btn btn-danger" value="حذف المستخدم"
+                               onclick="location.href='@Url.Action("Delete", "Account", new { id = Model.Id })'" />
+                    </div>
+                }
+
             </div>
+
+ <br />
 
 
         </div>
-@*@section Scripts
+
+        
+    </div>
+
+
+        </div>
+@section Scripts
 {
     <script type="text/javascript">
-    $(document).ready(function () {
-        WorkExperienceLoadData();
-
-    });
-        function WorkExperienceLoadData() {
-
-        $.ajax({
-            type: 'GET',
-            url: '@Url.Action("getInterpreterInfo", "Account")',
-            url: "/Account/getInterpreterInfo?phoneNumber="+String(@Model.PhoneNumber),
-            dataType: 'json',
-            data: { },
-            success: function (data) {
-            var items = '';
-            $('#AllDreams').text(data.numberOfAllDreams);
-            $('#Done').text(data.numberOfDoneDreams);
-            $('#Active').text(data.numberOfActiveDreams);
-            $('#Day').text(data.numberOfDreamsByDay);
-            $('#Speed').text(data.speed);
-            $('#Rating').text(data.Rating);
-            $('#Balance').text(data.balance);
-
-
-
-            },
-            error: function (ex) {
-            var r = jQuery.parseJSON(response.responseText);
-            alert("Message: " + r.Message);
-            alert("StackTrace: " + r.StackTrace);
-            alert("ExceptionType: " + r.ExceptionType);
-            }
-            });
-            return false;
-        }
-        //Verify interpreter
-        $(function () {
-        $("#Skill_btnSave").click(function () {
-            var urlString='@Url.Action("VerifyInterpreter", "Account", new {id=Model.Id })';
-                $.ajax({
-                    type: "GET",
-                    url: urlString,
-                    data: {},
-                    dataType: "json",
-                    contentType: "application/json; charset=utf-8",
-                    success: function () {
-
-                        alert(1);
-                    },
-                    error: function () {
-                        alert("Error while inserting data");
-                    }
-                });
-                return false;
-            });
-        });
-
-        function resetbalance() {
-
-        $.ajax({
-            type: 'GET',
-            url: '@Url.Action("getInterpreterInfo", "Account")',
-            url: "/Account/resetBalance?phoneNumber="+String(@Model.PhoneNumber),
-            dataType: 'json',
-            data: { },
-            success: function (data) {
-
-                alert("balance was reseted");
-                WorkExperienceLoadData();
-
-
-            },
-            error: function (ex) {
-            var r = jQuery.parseJSON(response.responseText);
-            alert("Message: " + r.Message);
-            alert("StackTrace: " + r.StackTrace);
-            alert("ExceptionType: " + r.ExceptionType);
-            }
-            });
-            return false;
-        }
+    
 
         function deleteUser() {
 
         $.ajax({
             type: 'GET',
-            url: '@Url.Action("getInterpreterInfo", "Account")',
-            url: "/Account/deleteUser?phoneNumber="+String(@Model.PhoneNumber),
+            url: "/Account/deleteUser?id="+String(@Model.Id),
             dataType: 'json',
             data: { },
             success: function (data) {
@@ -457,4 +398,4 @@
             return false;
         }
     </script>
-}*@
+}

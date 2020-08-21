@@ -15,8 +15,12 @@
 <link href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css" />
 <link href="https://cdn.datatables.net/buttons/1.6.1/css/buttons.dataTables.min.css" rel="stylesheet" type="text/css" />
 <h2 class="text-center" style="color: #071689 !important;">Transactions List </h2>
+
+
 <br />
 <br />
+
+
 <div class="container">
     <div class="row">
         <div class="col-md-3">
@@ -148,6 +152,9 @@
                 </ul>*@
         </div>
         <div class="col-md-9" id="PersonalInfoDV">
+            <button class="btn btn-primary btn-primary" style="float:right" onclick="location.href='@Url.Action("Create", "Transactions",new { userId=Id})'">
+                <i class="fa  pull-right" style="font-size:large"></i> أضف عملية تحويل
+            </button>
             <div class="row" style="direction:rtl">
 
                 <div class="col-md-4">
@@ -163,54 +170,54 @@
 
 
 
-                <table id="myTable" class="cell-border hover stripe" style="width:100%">
-                    <thead>
+            <table id="myTable" class="cell-border hover stripe" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>
+                            amount
+                        </th>
+                        <th>
+                            method
+                        </th>
+                        <th>
+                            Bank
+                        </th>
+                        <th>
+                            status
+                        </th>
+                        </th>
+
+                        @*<th></th>*@
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
                         <tr>
-                            <th>
-                                amount
-                            </th>
-                            <th>
-                                method
-                            </th>
-                            <th>
-                                Bank
-                            </th>
-                            <th>
-                                status
-                            </th>
-                            </th>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Amount)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.method)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Bank)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Status)
+                            </td>
 
-                            @*<th></th>*@
+
+                            @*<td>
+                            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
+                            @Html.ActionLink("Details", "Details", new { id=item.id }) |
+                            @Html.ActionLink("Delete", "Delete", new { id=item.id })
+                        </td>*@
                         </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var item in Model)
-                        {
-                            <tr>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Amount)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.method)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Bank)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Status)
-                                </td>
-
-
-                                @*<td>
-                                    @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
-                                    @Html.ActionLink("Details", "Details", new { id=item.id }) |
-                                    @Html.ActionLink("Delete", "Delete", new { id=item.id })
-                                </td>*@
-                            </tr>
-                        }
-                    </tbody>
-                </table>
-            </div>
+                    }
+                </tbody>
+            </table>
+        </div>
             <br />
             <br />
         </div>

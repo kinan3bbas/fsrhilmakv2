@@ -1,4 +1,4 @@
-﻿@model ControlPanel.ViewModels.ServiceViewModel
+﻿@model ControlPanel.Models.Service
 
 @{
     ViewBag.Title = "Edit";
@@ -14,140 +14,127 @@
 {
     @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.id)
+<div class="form-horizontal">
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.id)
 
-        <div class="form-group">
-            @Resources.UserWork.Name
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+    <div class="form-group">
+        @Resources.UserWork.Name
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+
+
+
+
+
+
+    <div class="form-group">
+        الجنس
+        <div class="col-md-10">
+            <div class="checkbox">
+                @Html.EditorFor(model => model.Sex)
+                @Html.ValidationMessageFor(model => model.Sex, "", new { @class = "text-danger" })
             </div>
         </div>
-
-                <div class="form-group">
-        UserWork.Name
+    </div>
+    <div class="form-group">
+        الأطفال
         <div class="col-md-10">
-            @Html.EditorFor(model => model.UserWork.Name, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.UserWork.Name, "", new { @class = "text-danger" })
+            <div class="checkbox">
+                @Html.EditorFor(model => model.KidsStatus)
+                @Html.ValidationMessageFor(model => model.KidsStatus, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        هل هناك ارق؟
+        <div class="col-md-10">
+            <div class="checkbox">
+                @Html.EditorFor(model => model.IsThereWakefulness)
+                @Html.ValidationMessageFor(model => model.IsThereWakefulness, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        البلد
+        <div class="col-md-10">
+            <div class="checkbox">
+                @Html.EditorFor(model => model.Country)
+                @Html.ValidationMessageFor(model => model.Country, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        هل صليت استخارة؟
+        <div class="col-md-10">
+            <div class="checkbox">
+                @Html.EditorFor(model => model.HaveYouPrayedBeforeTheDream)
+                @Html.ValidationMessageFor(model => model.HaveYouPrayedBeforeTheDream, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        هل قمت برقية؟
+        <div class="col-md-10">
+            <div class="checkbox">
+                @Html.EditorFor(model => model.DidYouExorcism)
+                @Html.ValidationMessageFor(model => model.DidYouExorcism, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        الحالة الدينية
+        <div class="col-md-10">
+            <div class="checkbox">
+                @Html.EditorFor(model => model.RegligionStatus)
+                @Html.ValidationMessageFor(model => model.RegligionStatus, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        الحالة الاجتماعية
+        <div class="col-md-10">
+            <div class="checkbox">
+                @Html.EditorFor(model => model.SocialStatus)
+                @Html.ValidationMessageFor(model => model.SocialStatus, "", new { @class = "text-danger" })
+            </div>
         </div>
     </div>
 
     <div class="form-group">
-        ServicePath
+        الوظيفة
         <div class="col-md-10">
             <div class="checkbox">
-                @Html.EditorFor(model => model.ServicePath)
-                @Html.ValidationMessageFor(model => model.ServicePath, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.JobStatus)
+                @Html.ValidationMessageFor(model => model.JobStatus, "", new { @class = "text-danger" })
             </div>
         </div>
     </div>
 
-        <div class="form-group">
-            Status
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.Status)
-                    @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
-                </div>
-            </div>
-        </div>
-       
-        <div class="form-group">
-            Sex
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.Sex)
-                    @Html.ValidationMessageFor(model => model.Sex, "", new { @class = "text-danger" })
-                </div>
-            </div>
-        </div>
-        <div class="form-group">
-            KidsStatus
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.KidsStatus)
-                    @Html.ValidationMessageFor(model => model.KidsStatus, "", new { @class = "text-danger" })
-                </div>
-            </div>
-        </div>
-        <div class="form-group">
-            IsThereWakefulness
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.IsThereWakefulness)
-                    @Html.ValidationMessageFor(model => model.IsThereWakefulness, "", new { @class = "text-danger" })
-                </div>
-            </div>
-        </div>
-        <div class="form-group">
-            Country
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.Country)
-                    @Html.ValidationMessageFor(model => model.Country, "", new { @class = "text-danger" })
-                </div>
-            </div>
-        </div>
-        <div class="form-group">
-            HaveYouPrayedBeforeTheDream
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.HaveYouPrayedBeforeTheDream)
-                    @Html.ValidationMessageFor(model => model.HaveYouPrayedBeforeTheDream, "", new { @class = "text-danger" })
-                </div>
-            </div>
-        </div>
-        <div class="form-group">
-            DidYouExorcism
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.DidYouExorcism)
-                    @Html.ValidationMessageFor(model => model.DidYouExorcism, "", new { @class = "text-danger" })
-                </div>
-            </div>
-        </div>
-        <div class="form-group">
-            RegligionStatus
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.RegligionStatus)
-                    @Html.ValidationMessageFor(model => model.RegligionStatus, "", new { @class = "text-danger" })
-                </div>
-            </div>
-        </div>
-        <div class="form-group">
-            SocialStatus
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.SocialStatus)
-                    @Html.ValidationMessageFor(model => model.SocialStatus, "", new { @class = "text-danger" })
-                </div>
-            </div>
-        </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.ServiceProviderId, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownList("ServiceProviderId", null, htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.ServiceProviderId, "", new { @class = "text-danger" })
 
-        <div class="form-group">
-            JobStatus
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.JobStatus)
-                    @Html.ValidationMessageFor(model => model.JobStatus, "", new { @class = "text-danger" })
-                </div>
-            </div>
-        </div>
-
-
-
-
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="@Resources.Global.Save " class="btn btn-default" />
-            </div>
         </div>
     </div>
+
+
+
+
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="@Resources.Global.Save " class="btn btn-default" />
+        </div>
+    </div>
+</div>
 }
 
 <div>

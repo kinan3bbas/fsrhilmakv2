@@ -18,9 +18,11 @@ namespace ControlPanel.Controllers
         public ActionResult Index()
         {
 
-            List<ApplicationUser> users = db.Users.Where(a => !a.Status.Equals(CoreController.UserStatus.Deleted.ToString())).ToList();
-            List<ApplicationUser> Clients = db.Users.Where(a => a.Type.Equals(CoreController.UserType.Client.ToString())).ToList();
-            List<ApplicationUser> ServiceProviders = db.Users.Where(a => a.Type.Equals(CoreController.UserType.Service_Provider.ToString())).ToList();
+            List<ApplicationUser> users = db.Users.Where(a => a.Status.Equals(CoreController.UserStatus.Active.ToString())).ToList();
+            List<ApplicationUser> Clients = db.Users.Where(a => a.Type.Equals(CoreController.UserType.Client.ToString())&& 
+                a.Status.Equals(CoreController.UserStatus.Active.ToString())).ToList();
+            List<ApplicationUser> ServiceProviders = db.Users.Where(a => a.Type.Equals(CoreController.UserType.Service_Provider.ToString())&& 
+                a.Status.Equals(CoreController.UserStatus.Active.ToString())).ToList();
             List<Service> AllServices = db.Services.ToList();
 
 

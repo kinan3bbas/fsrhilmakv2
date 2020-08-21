@@ -152,78 +152,78 @@
                 </div>
 
 
-                    <table id="myTable" class="cell-border hover stripe" style="width:100%">
-                        <thead>
+                <table id="myTable" class="cell-border hover stripe" style="width:100%">
+                    <thead>
+                        <tr>
+
+                            <th>
+                                Id
+                            </th>
+
+                            <th>
+                                نوع الخدمة
+                            </th>
+
+                            <th>
+                                تاريخ الانشاء
+                            </th>
+                            <th>
+                                المستخدم
+                            </th>
+                            <th>
+                                مسار الخدمة
+                            </th>
+                            <th>
+                                الوصف
+                            </th>
+                            <th>
+                                الحالة
+                            </th>
+
+                            <th></th>
+                        </tr>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+
                             <tr>
 
-                                <th>
-                                    Name
-                                </th>
+                                <td>
 
-                                <th>
-                                    userwork
-                                </th>
+                                    @Html.ActionLink(@item.Name, "ServiceInfo", new { id = @item.Id })
+                                </td>
 
-                                <th>
-                                    Creation Date
-                                </th>
-                                <th>
-                                    creator
-                                </th>
-                                <th>
-                                    service path
-                                </th>
-                                <th>
-                                    description
-                                </th>
-                                <th>
-                                    status
-                                </th>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.UserWork.AdjectiveName)
+                                </td>
 
-                                <th></th>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.CreationDate)
+                                </td>
+
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Creator.Name)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ServicePath.Cost)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Description)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Status)
+                                </td>
+
+
+                                <td>
+                                    @Html.ActionLink(@Resources.UserWork.Edit, "Edit", new { id = @item.Id }) |
+                                    @Html.ActionLink(@Resources.UserWork.Delete, "Delete", new { id = item.Id })
+                                </td>
                             </tr>
-                        <tbody>
-                            @foreach (var item in Model)
-                            {
+                        }
 
-                                <tr>
-
-                                    <td>
-                                        @Html.ActionLink(item.Name, "ServiceInfo", new { id = @item.Id }, null)
-                                    </td>
-
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.UserWork.Name)
-                                    </td>
-
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.CreationDate)
-                                    </td>
-
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Creator.Name)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.ServicePath.Cost)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Description)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Status)
-                                    </td>
-
-
-                                    <td>
-                                        @Html.ActionLink(@Resources.UserWork.Edit, "Edit", new { id = @item.id }) |
-                                        @Html.ActionLink(@Resources.UserWork.Details, "Details", new { id = item.id }) |
-                                        @Html.ActionLink(@Resources.UserWork.Delete, "Delete", new { id = item.id })
-                                    </td>
-                                </tr>
-                            }
-
-                        </tbody>
-                    </table>
+                    </tbody>
+                </table>
 
             }
         </div>

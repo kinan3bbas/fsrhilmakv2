@@ -148,19 +148,16 @@
                         <thead>
                             <tr>
                                 <th>
-                                    Name
+                                    اسم العميل
                                 </th>
                                 <th>
-                                    Sex
+                                    التقييم
                                 </th>
                                 <th>
-                                    Status
+                                    رسالة المستخدم
                                 </th>
                                 <th>
-                                    Rating Message
-                                </th>
-                                <th>
-                                    Rating Date
+                                    تاريخ التقييم
                                 </th>
 
                                 @*<th></th>*@
@@ -172,13 +169,10 @@
                                 <tr>
                                   
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.Name)
+                                        @Html.DisplayFor(modelItem => item.Creator.Name)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.Sex)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Status)
+                                        @Html.DisplayFor(modelItem => item.UserRating)
                                     </td>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.RatingMessage)

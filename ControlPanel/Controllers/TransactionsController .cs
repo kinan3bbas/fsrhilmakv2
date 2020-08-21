@@ -50,9 +50,38 @@ namespace ControlPanel.Controllers
         }
 
 
-     
+        public ActionResult Create(String userId)
+        {
+            Transaction trans = new Transaction();
+            trans.UserId = userId;
+            return View(trans);
+        }
 
-    
+        // POST: Transaction/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create(Transaction Transaction)
+        {
+            if (Transaction.UserId == null)
+            {
+                return View(Transaction);
+            }
+            if (ModelState.IsValid)
+            {
+                Transaction.CreationDate = DateTime.Now;
+                Transaction.LastModificationDate = DateTime.Now;
+                Transaction.Status = "Done";
+                db.Transactions.Add(Transaction);
+                db.SaveChanges();
+                return RedirectToAction("PersonalPage", "Account", new { userId = Transaction.UserId });
+            }
+            return View(Transaction);
+        }
+
+
+
 
     }
 }

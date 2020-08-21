@@ -4,7 +4,7 @@
     ViewBag.Title = "Clients";
     Layout = "~/Views/Shared/_PLayout.cshtml";
     int numOfUsers = Model.Count();
-    double totalbalance = Model.Sum(a => a.TotalBalance);
+    double totalbalance = Model.Sum(a => a.PointsBalance);
 }
 
 
@@ -81,7 +81,7 @@
                     نقاط المستخدم
                 </th>
                 <th>
-                    @Resources.Global.Country
+                    كود المستخدم
                 </th>
                 <th>
                     @Resources.UserWork.CreationDate
@@ -103,7 +103,7 @@
                     <th>@user.Email</th>
 
                     <td>@user.PointsBalance</td>
-                    <th>@user.Country</th>
+                    <th>@user.UserSpecialCode</th>
 
                     <th>@user.CreationDate</th>
                    

@@ -95,6 +95,7 @@ namespace fsrhilmakv2.Extra
         public List<ApplicationUser>  getServiceProviders(String code,string status)
         {
             List<UserWorkBinding> bindings = db.UserWorkBindings.Where(a => a.UserWork.Code.Equals(code)
+            && a.User.Status.Equals(CoreController.UserStatus.Active.ToString())
             ).Include("User").ToList();
             return bindings.Select(a=>a.User).ToList();
         }

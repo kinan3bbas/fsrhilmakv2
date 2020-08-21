@@ -7,6 +7,7 @@
     var Id = Request.QueryString["userId"];//هادا اي دي المفسر اللي جبناه من ال URL وخزناه ضمن المتحول Id
     var userType = ViewBag.Type;
     int numOfDoneServices = Model.Count();
+    int numberOfServices = Model.Count();
 
 }
 
@@ -188,7 +189,8 @@
                                     <tr>
 
                                         <td>
-                                            @Html.ActionLink(item.id, "ServiceInfo", new { id = @item.Id }, null)
+                                           
+                                            @Html.ActionLink(@item.Name, "ServiceInfo", new { id = @item.Id })
                                         </td>
 
                                         <td>
@@ -214,9 +216,8 @@
 
 
                                         <td>
-                                            @Html.ActionLink(@Resources.UserWork.Edit, "Edit", new { id = @item.id }) |
-                                            @Html.ActionLink(@Resources.UserWork.Details, "Details", new { id = item.id }) |
-                                            @Html.ActionLink(@Resources.UserWork.Delete, "Delete", new { id = item.id })
+                                            @Html.ActionLink(@Resources.UserWork.Edit, "Edit", new { id = @item.Id }) |
+                                            @Html.ActionLink(@Resources.UserWork.Delete, "Delete", new { id = item.Id })
                                         </td>
                                     </tr>
                                 }

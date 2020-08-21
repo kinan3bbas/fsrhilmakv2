@@ -409,7 +409,7 @@ namespace fsrhilmakv2.Controllers
                     if (model.UserRegistrationCode != null && !model.UserRegistrationCode.Equals(""))
                     {
                         user.UserRegistrationCode = model.UserRegistrationCode;
-                        addPoints(model);
+                        addPoints(model,user);
                     }
                     GenerateUserSpecialCode(user);
                     result = await UserManager.CreateAsync(user, model.Password);
@@ -509,7 +509,7 @@ namespace fsrhilmakv2.Controllers
                     if (model.UserRegistrationCode != null && !model.UserRegistrationCode.Equals(""))
                     {
                         user.UserRegistrationCode = model.UserRegistrationCode;
-                        addPoints(model);
+                        addPoints(model,user);
                     }
                     GenerateUserSpecialCode(user);
                     result = await UserManager.CreateAsync(user, model.Password);
@@ -527,7 +527,7 @@ namespace fsrhilmakv2.Controllers
         }
 
 
-        public void addPoints(RegisterBindingModel model)
+        public void addPoints(RegisterBindingModel model,ApplicationUser user)
         {
             ApplicationUser winner = db.Users.Where(a => a.UserSpecialCode.Equals(model.UserRegistrationCode)).FirstOrDefault();
             if (winner != null)
@@ -536,6 +536,7 @@ namespace fsrhilmakv2.Controllers
                 
                 winner.PointsBalance = winner.PointsBalance + (parm!=null?long.Parse(parm.Value.ToString()):5);
                 winner.LastModificationDate = DateTime.Now;
+                user.PointsBalance = (parm != null ? long.Parse(parm.Value.ToString()) : 5);
                 db.Entry(winner).State = EntityState.Modified;
                 db.SaveChanges();
             }
@@ -803,7 +804,7 @@ namespace fsrhilmakv2.Controllers
             top = top == null ? 5 : top;
             int count = db.UserWorkBindings.Where(a => a.UserWorkId.Equals(id)
             ).Count();
-            List <UserWorkBinding> bindings = db.UserWorkBindings.Where(a => a.UserWorkId.Equals(id)
+            List <UserWorkBinding> bindings = db.UserWorkBindings.Where(a => a.UserWorkId.Equals(id)&&a.User.Status.Equals("Active")
             ).OrderByDescending(a=>a.CreationDate).Skip(skip).Take(top).Include("User").ToList();
             List<UserInfoViewModel> users = new List<UserInfoViewModel>();
             foreach (var item in bindings)

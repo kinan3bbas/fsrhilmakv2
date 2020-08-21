@@ -14,6 +14,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Net;
+using System.Net.Http;
 using fsrhilmakv2.Extra;
 
 namespace ControlPanel.Controllers
@@ -521,8 +522,10 @@ namespace ControlPanel.Controllers
                 SocialToken = user.SocialToken,
                 TotalBalance = balance.TransferedBalance,
                 AvailableBalance = balance.DoneBalance,
-                SuspendedBalance = balance.SuspendedBalance
-
+                SuspendedBalance = balance.SuspendedBalance,
+                PointsBalance = user.PointsBalance,
+                UserSpecialCode=user.UserSpecialCode
+                
 
 
             };
@@ -601,7 +604,7 @@ namespace ControlPanel.Controllers
 
         public ActionResult Ratings(String userId)
         {
-            List<Service> ratings = db.Services.Where(a => a.ServiceProviderId.Equals(userId)).
+            List<Service> ratings = db.Services.Where(a => a.ServiceProviderId.Equals(userId)&&a.Status.Equals("Done")&&a.UserRating>0).
                 Include(s => s.Creator).Include(s => s.Modifier).Include(s => s.ServiceProvider).ToList();
             if (ratings == null)
             {
@@ -749,31 +752,62 @@ namespace ControlPanel.Controllers
 
 
 
-        // GET: ServicePaths/Delete/5
-        public ActionResult Delete(int? userId)
+        //// GET: ServicePaths/Delete/5
+        //public ActionResult Delete(int? userId)
+        //{
+        //    if (userId == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+        //    ServicePath servicePath = db.ServicePaths.Find(userId);
+        //    if (servicePath == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    return RedirectToAction("ServicePath", new { userId = servicePath.ServiceProviderId });
+        //}
+
+        //// POST: ServicePaths/Delete/5
+        //[HttpPost, ActionName("Delete")]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult DeleteConfirmed(int userId)
+        //{
+        //    ServicePath servicePath = db.ServicePaths.Find(userId);
+        //    db.ServicePaths.Remove(servicePath);
+        //    db.SaveChanges();
+        //    return RedirectToAction("Index");
+        //}
+
+
+        // GET: Account/Delete/5
+        public ActionResult Delete(String id)
         {
-            if (userId == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            ServicePath servicePath = db.ServicePaths.Find(userId);
-            if (servicePath == null)
-            {
-                return HttpNotFound();
-            }
-            return RedirectToAction("ServicePath", new { userId = servicePath.ServiceProviderId });
+
+            ApplicationUser user = db.Users.Find(id);
+            ViewBag.Name = user.Name;
+            ViewBag.Id = user.Id;
+            return View();
         }
 
-        // POST: ServicePaths/Delete/5
+
+
+
+        // POST: Account/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int userId)
+        public ActionResult Delete(String id,bool ?test)
         {
-            ServicePath servicePath = db.ServicePaths.Find(userId);
-            db.ServicePaths.Remove(servicePath);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            ApplicationUser user = db.Users.Find(id);
+
+            user.Status = "Deleted";
+            user.PasswordHash = UserManager.PasswordHasher.HashPassword("You will never know me");
+            db.Entry(user).State = EntityState.Modified;
+            db.SaveChangesAsync();
+
+
+            return RedirectToAction("ServiceProvider");
         }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
