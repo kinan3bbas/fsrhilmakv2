@@ -354,18 +354,18 @@ namespace fsrhilmakv2.Controllers
 
             ApplicationUser tempUserUserName = db.Users.Where(a => a.UserName.Equals(model.Username)).FirstOrDefault();
             if (tempUserUserName != null)
-                await core.throwExcetpion("Username is already taken!");
+                await core.throwExcetpion("اسم المستخدم مستخدم، قم بإدخال اسم آخر!");
 
             if (model.PhoneNumber != null) {
                 ApplicationUser tempUserPhoneNUmber = db.Users.Where(a => a.PhoneNumber.Equals(model.PhoneNumber)).FirstOrDefault();
                 if (tempUserPhoneNUmber != null)
-                    await core.throwExcetpion("phone number is already taken!");
+                    await core.throwExcetpion("رقم الهاتف مستخدم، قم باستخدام رقم آخر!");
             }
             
 
             ApplicationUser tempUserEmail = db.Users.Where(a => a.Email.Equals(model.Email)).FirstOrDefault();
             if (tempUserEmail != null)
-                await core.throwExcetpion("Email is already taken!");
+                await core.throwExcetpion("البريد الالكتروني مستخدم، قم باستخدام بريد آخر!");
             IdentityResult result = null;
             if (model.SocialState == "Normal")
             {
@@ -755,9 +755,9 @@ namespace fsrhilmakv2.Controllers
             List<Service> services = helper.getUserServices(user.Id);
             List<Service> activeSerives = helper.getServicesFiltered(services, CoreController.ServiceStatus.Active.ToString());
             List<Service> doneServices = helper.getServicesFiltered(services, CoreController.ServiceStatus.Done.ToString());
-            //var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
+            var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
             //List<UserWorkBinding> userWork = db.UserWorkBindings.Where(a => a.UserId.Equals(user.Id)).Include("UserWork").ToList();
-            //double speed = UserHelperLibrary.ServiceProviderSpeed(helper.findUser(user.Id), doneServices.Count);
+            double speed = UserHelperLibrary.ServiceProviderSpeed(helper.findUser(user.Id), doneServices.Count);
             //double avg = UserHelperLibrary.ServiceProviderAvgServices(helper.findUser(user.Id), services.Count);
             //UserBalance balance = helper.getUserBalance(user);
             return new UserInfoViewModel
@@ -781,7 +781,7 @@ namespace fsrhilmakv2.Controllers
                 //UserWorks = userWork,
                 NumberOfActiveServices = activeSerives.Count(),
                 NumberOfDoneServices = doneServices.Count(),
-              //  Speed = speed < 1 ? 1 : speed,
+                Speed = speed < 1 ? 1 : speed,
                 //AvgServicesInOneDay = avg == 0 ? 1 : avg,
                 //UserRoles = userManager.GetRoles(user.Id).ToList(),
                 SocialStatus = user.SocialState,
@@ -800,18 +800,31 @@ namespace fsrhilmakv2.Controllers
         [Route("GetServiceProviders")]
         public IHttpActionResult GetServiceProviders([FromUri]int id,int skip=0,int top=10)
         {
+            //skip = skip == null ? 0 : skip;
+            //top = top == null ? 5 : top;
+            //int count = db.UserWorkBindings.Where(a => a.UserWorkId.Equals(id)
+            //).Count();
+            //List <UserWorkBinding> bindings = db.UserWorkBindings.Where(a => a.UserWorkId.Equals(id)&&a.User.Status.Equals("Active")
+            //).OrderByDescending(a=>a.CreationDate).Skip(skip).Take(top).Include("User").ToList();
+            //List<UserInfoViewModel> users = new List<UserInfoViewModel>();
+            //foreach (var item in bindings)
+            //{
+            //    users.Add(getInfoMapping2(item.User));
+            //}
+            //var genericResutl = new {Users=users,Count=count };
+            //return Ok(genericResutl);
             skip = skip == null ? 0 : skip;
             top = top == null ? 5 : top;
-            int count = db.UserWorkBindings.Where(a => a.UserWorkId.Equals(id)
+            int count = db.UserWorkBindings.Where(a => a.UserWorkId.Equals(id) && a.User.Status.Equals("Active")
             ).Count();
-            List <UserWorkBinding> bindings = db.UserWorkBindings.Where(a => a.UserWorkId.Equals(id)&&a.User.Status.Equals("Active")
-            ).OrderByDescending(a=>a.CreationDate).Skip(skip).Take(top).Include("User").ToList();
+            List<UserWorkBinding> bindings = db.UserWorkBindings.Where(a => a.UserWorkId.Equals(id) && a.User.Status.Equals("Active")
+            ).OrderByDescending(a => a.CreationDate).Include("User").ToList();
             List<UserInfoViewModel> users = new List<UserInfoViewModel>();
             foreach (var item in bindings)
             {
                 users.Add(getInfoMapping2(item.User));
             }
-            var genericResutl = new {Users=users,Count=count };
+            var genericResutl = new { Users = users.OrderByDescending(a=>a.Speed).Skip(skip).Take(top), Count = count };
             return Ok(genericResutl);
         }
 

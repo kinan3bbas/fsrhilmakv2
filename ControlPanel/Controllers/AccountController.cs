@@ -145,7 +145,7 @@ namespace ControlPanel.Controllers
 
         //
         // GET: /Account/Register
-
+        [AllowAnonymous]
         public ActionResult Register()
         {
             return View();
@@ -154,7 +154,7 @@ namespace ControlPanel.Controllers
         //
         // POST: /Account/Register
         [HttpPost]
-
+        [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
@@ -494,7 +494,7 @@ namespace ControlPanel.Controllers
             UserBalance balance = helper.getUserBalance(user);
             return new UserInfoViewModel
             {
-                Email = User.Identity.GetUserName(),
+                Email = user.Email,
                 Age = user.Age,
                 Country = user.Country,
                 CreationDate = user.CreationDate,
@@ -651,8 +651,12 @@ namespace ControlPanel.Controllers
         // GET: Payments
         public ActionResult Payments(String userId)
         {
-            List<Payment> payments = db.Payments.Where(a => a.Service.ServiceProviderId.Equals(userId)).Include(s => s.Creator).Include(s => s.Modifier).Include(s => s.Service.ServiceProvider).ToList();
-
+            List<Payment> payments = db.Payments.Where(a => a.Service.ServiceProviderId.Equals(userId)).Include("Service")
+                .Include("Service.ServiceProvider")
+                .Include("Service.ServicePath")
+                .Include("Creator")
+                .ToList();
+            
             if (payments == null)
             {
                 return HttpNotFound();

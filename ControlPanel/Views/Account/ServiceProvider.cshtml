@@ -133,22 +133,22 @@
             @*<th></th>*@
         </tr>
     <tbody>
-        @foreach (var user in Model)
+        @foreach (var item in Model)
             {
         <tr>
             <td>
-                @Html.ActionLink(@user.Name, "PersonalPage", new { userId = @user.Id }, null)
+                @Html.ActionLink(item.Name, "PersonalPage", new { userId = item.Id }, null)
             </td>
-            <td>@user.phoneNumber</td>
-            <th>@user.Email</th>
-            <th>@user.Country</th>
-            <th>@user.NumberOfActiveServices</th>
-            <th>@user.NumberOfDoneServices</th>
-            <th>@user.Speed</th>
-            <th>@user.AvgServicesInOneDay</th>
-            <th>@user.SuspendedBalance</th>
-            <th>@user.TotalBalance</th>
-            <th>@user.AvailableBalance</th>
+            <td>@item.phoneNumber</td>
+            <th>@item.Email</th>
+            <th>@item.Country</th>
+            <th>@item.NumberOfActiveServices</th>
+            <th>@item.NumberOfDoneServices</th>
+            <th>@item.Speed</th>
+            <th>@item.AvgServicesInOneDay</th>
+            <th>@item.SuspendedBalance</th>
+            <th>@item.TotalBalance</th>
+            <th>@item.AvailableBalance</th>
 
         </tr>
         }

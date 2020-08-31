@@ -79,7 +79,7 @@ namespace fsrhilmakv2.Controllers
             }
 
             
-            Service service = db.Services.Where(a => a.id.Equals(temp.id))
+            Service service = db.Services.Where(a => a.id.Equals(temp.id))/*.Include(a=>a.Comments)*/
                 .FirstOrDefault();
 
             String _hoursToPublicService = ParameterRepository.findByCode("hours_To_Public_Service");
@@ -103,7 +103,13 @@ namespace fsrhilmakv2.Controllers
             service.ServiceProviderNewDate = DateTime.Now;
 
 
-
+            //if (service.Comments.Count > 0)
+            //{
+            //    foreach (var item in service.Comments)
+            //    {
+            //        db.Entry(item).State = EntityState.Deleted;
+            //    }
+            //}
             SaveService(service);
             return service;
         }
@@ -177,6 +183,8 @@ namespace fsrhilmakv2.Controllers
                 .Include("ServiceProvider")
                 .Include("Creator")
                 .FirstOrDefault();
+            service.numberOfViews = service.numberOfViews + 1;
+            SaveService(service);
             return getMapping(service);
 
         }
@@ -232,6 +240,7 @@ namespace fsrhilmakv2.Controllers
             }
 
             service.ServicePathId = temp.ServicePathId;
+            service.PrivateService = temp.PrivateService;
             if (!temp.UseUserPoints)
             {
                 AddPayment(temp, service);
@@ -239,12 +248,18 @@ namespace fsrhilmakv2.Controllers
             else
             {
 
-                SystemParameter param = db.SystemParameters.Where(x => x.Code.Equals("ServicePricePerPoints")).AsNoTracking().FirstOrDefault();
-                int ServicePricePerPoints = Int32.Parse(param.Value);
+                //SystemParameter param = db.SystemParameters.Where(x => x.Code.Equals("ServicePricePerPoints")).AsNoTracking().FirstOrDefault();
+                //int ServicePricePerPoints = Int32.Parse(param.Value);
 
-                if (service.Creator.PointsBalance - ServicePricePerPoints > 0)
+                //if (service.Creator.PointsBalance - ServicePricePerPoints > 0)
+                //{
+                //    service.Creator.PointsBalance = service.Creator.PointsBalance - ServicePricePerPoints;
+                //    //db.Entry(user).State = EntityState.Modified;
+                //    // db.SaveChanges();
+                //}
+                if (service.Creator.PointsBalance - (temp.NumberOfPoints!=null?temp.NumberOfPoints:5) > 0)
                 {
-                    service.Creator.PointsBalance = service.Creator.PointsBalance - ServicePricePerPoints;
+                    service.Creator.PointsBalance = service.Creator.PointsBalance - (temp.NumberOfPoints != null ? temp.NumberOfPoints : 5);
                     //db.Entry(user).State = EntityState.Modified;
                     // db.SaveChanges();
                 }
@@ -463,6 +478,16 @@ namespace fsrhilmakv2.Controllers
             }
             return result;
         }
+        //**************************** Like Service***********************************
+        [Route("Like")]
+        [HttpGet]
+        public async Task<IHttpActionResult> LikeService([FromUri] int id)
+        {
+            Service service = db.Services.Find(id);
+            service.numberOfLikes++;
+            SaveService(service);
+            return Ok(service);
+        }
         public void SaveService(Service Service)
         {
             Service.LastModificationDate = DateTime.Now;
@@ -501,7 +526,7 @@ namespace fsrhilmakv2.Controllers
             result.Explanation = service.Explanation;
             result.ExplanationDate = service.ExplanationDate;
             result.HaveYouPrayedBeforeTheDream = service.HaveYouPrayedBeforeTheDream;
-            result.Id = service.id;
+            result.id = service.id;
             result.IsThereWakefulness = service.IsThereWakefulness;
             result.JobStatus = service.JobStatus;
             result.KidsStatus = service.KidsStatus;

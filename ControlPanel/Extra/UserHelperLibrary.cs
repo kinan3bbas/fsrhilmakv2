@@ -114,13 +114,13 @@ namespace fsrhilmakv2.Extra
                 .Include("Service.ServiceProvider")
                 .Include("Service.ServicePath")
                 .ToList();
-            double doneBalance = 0;
-            double ActiveBalance = 0;
+            double doneBalance = 0.0;
+            double ActiveBalance = 0.0;
             //foreach (var item in services)
             //{
             //   ActiveBalance += item.ServicePath.Cost * item.ServicePath.Ratio;
             //}
-            balance.TransferedBalance = transactions.Sum(a => a.Amount);
+            balance.TransferedBalance =transactions.Count>0? transactions.Sum(a => a.Amount):0.0;
             foreach (var item in payments)
             {
                 if(item.Service.Status.Equals("Done"))
@@ -129,7 +129,7 @@ namespace fsrhilmakv2.Extra
                     ActiveBalance += item.Service.ServicePath.Cost * item.Service.ServicePath.Ratio;
             }
             balance.DoneBalance = doneBalance - balance.TransferedBalance;
-            balance.SuspendedBalance = ActiveBalance;
+            balance.SuspendedBalance = ActiveBalance>=0?ActiveBalance:0.0;
 
             return balance;
 

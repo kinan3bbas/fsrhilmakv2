@@ -18,5 +18,9 @@ namespace fsrhilmakv2.Bindings
 
         public bool UseUserPoints { get; set; }
 
+        public bool PrivateService { get; set; }
+
+        public long NumberOfPoints { get; set; }
+
     }
 }

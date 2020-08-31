@@ -62,7 +62,7 @@
                     <div class="card-header" id="headingOne">
                         <h2 class="mb-0">
                             <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                @Html.ActionLink("الخدمات المفسرة", "InterpreterServices", "Services", new { id = Id }, null)
+                                @Html.ActionLink("الخدمات المفسرة", "InterpreterServices", "Services", new { userId = Id }, null)
 
 
                             </button>
@@ -76,7 +76,7 @@
                     <div class="card-header" id="headingOne">
                         <h2 class="mb-0">
                             <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                @Html.ActionLink("الخدمات قيد التنفيذ", "ServicesUnderInterpretation", "Services", new { id = Id }, null)
+                                @Html.ActionLink("الخدمات قيد التنفيذ", "ServicesUnderInterpretation", "Services", new { userId = Id }, null)
                             </button>
                         </h2>
                     </div>
@@ -144,28 +144,51 @@
                 <thead>
                     <tr>
                         <th>
-                            amount
+                            اسم الزبون
                         </th>
                         <th>
-                            method
+                            اسم مقدم الخدمة
+                        </th>
+
+                        <th>
+                            طريقة الدفع
                         </th>
                         <th>
-                            Currency
+                            العملة
                         </th>
                         <th>
-                            status
+                            تاريخ الدفع
                         </th>
+                        <th>
+                            الخدمة
                         </th>
+                        <th>
+                            المبلغ المدفوع
+                        </th>
+                        <th>
+                            كلفة المسار
+                        </th>
+                        <th>
+                            الخدمة خاصة؟
+                        </th>
+                        <th>
+                            نسبة مقدم الخدمة
+                        </th>
+
 
                         @*<th></th>*@
                     </tr>
                 </thead>
+
                 <tbody>
                     @foreach (var item in Model)
                     {
                         <tr>
                             <td>
-                                @Html.DisplayFor(modelItem => item.Amount)
+                                @Html.ActionLink(item.Creator.Name, "PersonalPage", "Account", new { userId = @item.CreatorId }, null)
+                            </td>
+                            <td>
+                                @Html.ActionLink(item.Service.ServiceProvider.Name, "PersonalPage", "Account", new { userId = @item.Service.ServiceProviderId }, null)
                             </td>
                             <td>
                                 @Html.DisplayFor(modelItem => item.Method)
@@ -174,17 +197,32 @@
                                 @Html.DisplayFor(modelItem => item.Currency)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.Status)
+                                @Html.DisplayFor(modelItem => item.CreationDate)
+                            </td>
+                            <td>
+                                @Html.ActionLink("Serv-" + item.ServiceId, "ServiceInfo", "Services", new { id = @item.ServiceId }, null)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Amount)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Service.ServicePath.Cost)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Service.PrivateService)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Service.ServicePath.Ratio)
                             </td>
 
-
                             @*<td>
-                            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
-                            @Html.ActionLink("Details", "Details", new { id=item.id }) |
-                            @Html.ActionLink("Delete", "Delete", new { id=item.id })
-                        </td>*@
+                        @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
+                        @Html.ActionLink("Details", "Details", new { id=item.id }) |
+                        @Html.ActionLink("Delete", "Delete", new { id=item.id })
+                    </td>*@
                         </tr>
                     }
+
                 </tbody>
             </table>
         </div>

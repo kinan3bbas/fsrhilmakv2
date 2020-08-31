@@ -46,14 +46,23 @@ namespace ControlPanel.Controllers
             result.AllLawUsers = helper.getServiceProviders(CoreController.UserWorkCode.Law.ToString(), CoreController.UserStatus.Active.ToString()).Count();
 
             List<UserBalance> balancer = new List<UserBalance>();
-            foreach (var item in ServiceProviders)
-            {
-                balancer.Add(helper.getUserBalance(item));
-            }
-            if (ServiceProviders.Count > 0) {
-                result.TotalBalance = balancer.Select(a => a.TransferedBalance).DefaultIfEmpty(0).Sum();
-                result.AvailableBalance = balancer.Select(a => a.DoneBalance).DefaultIfEmpty(0).Sum();
-                result.SuspendedBalance = balancer.Select(a => a.SuspendedBalance).DefaultIfEmpty(0).Sum();
+            //foreach (var item in ServiceProviders)
+            //{
+            //    balancer.Add(helper.getUserBalance(item));
+            //}
+            //result.TotalBalance = 0.0;
+            //result.AvailableBalance = 0.0;
+            //result.SuspendedBalance = 0.0;
+            if (ServiceProviders.Count > 0&&balancer.Count>0) {
+                //foreach (var item in balancer)
+                //{
+                //    result.TotalBalance += (item.TransferedBalance != null ? item.TransferedBalance : 0.0);
+                //    result.AvailableBalance += (item.DoneBalance != null ? item.DoneBalance : 0.0);
+                //    result.SuspendedBalance += (item.SuspendedBalance != null ? item.SuspendedBalance : 0.0);
+                //}
+                //result.TotalBalance = balancer.Select(a => a.TransferedBalance).DefaultIfEmpty(0.0).Sum();
+                //result.AvailableBalance = balancer.Select(a => a.DoneBalance).DefaultIfEmpty(0.0).Sum();
+                //result.SuspendedBalance = balancer.Select(a => a.SuspendedBalance).DefaultIfEmpty(0.0).Sum();
                 result.AllPaymentsSum = db.Payments.Sum(a => a.Amount);
                 result.Profit = result.AllPaymentsSum - (result.TotalBalance + result.AvailableBalance + result.SuspendedBalance);
             }

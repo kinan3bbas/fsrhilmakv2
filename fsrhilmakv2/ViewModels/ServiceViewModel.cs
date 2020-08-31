@@ -81,7 +81,7 @@ namespace fsrhilmakv2.ViewModels
         public String AvgWaitingTime { get; set; }
 
 
-        public int Id { get; set; }
+        //public int Id { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}")]
         [Display(Name = "Creation Date")]
