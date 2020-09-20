@@ -524,7 +524,8 @@ namespace ControlPanel.Controllers
                 AvailableBalance = balance.DoneBalance,
                 SuspendedBalance = balance.SuspendedBalance,
                 PointsBalance = user.PointsBalance,
-                UserSpecialCode=user.UserSpecialCode
+                UserSpecialCode=user.UserSpecialCode,
+                UserName=user.UserName
                 
 
 
@@ -595,7 +596,7 @@ namespace ControlPanel.Controllers
                 temp.Type = user.Type;
                 db.Entry(temp).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("PersonalPage", new { id = user.Id });
+                return RedirectToAction("PersonalPage", new { userId = user.Id });
 
             }
             return View(user)

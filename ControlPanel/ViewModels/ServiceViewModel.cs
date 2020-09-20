@@ -91,6 +91,10 @@ namespace ControlPanel.ViewModels
         [Display(Name = "Last Modification Date")]
         public DateTime LastModificationDate { get; set; }
 
+        [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}")]
+        [Display(Name = "Service Provider NewDate")]
+        public DateTime ServiceProviderNewDate { get; set; }
+
         public ApplicationUser Creator { get; set; }
 
         public String CreatorId { get; set; }
@@ -99,5 +103,14 @@ namespace ControlPanel.ViewModels
         public String ModifierId { get; set; }
 
         public long AttachmentId { get; set; }
+
+        public String ServiceProviderToken { get; set; }
+
+        public String ClientToken { get; set; }
+
+        public double ServiceProviderSpeed { get; set; }
+
+        public double ServiceProviderAvgServices { get; set; }
+
     }
 }

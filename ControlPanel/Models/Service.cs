@@ -86,7 +86,11 @@ namespace ControlPanel.Models
         [Display(Name ="Rating Message")]
         public String RatingMessage { get; set; }
 
-        
+        [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}")]
+        [Display(Name = "Service Provider New Date")]
+        public DateTime ServiceProviderNewDate { get; set; }
+
+
 
     }
 }

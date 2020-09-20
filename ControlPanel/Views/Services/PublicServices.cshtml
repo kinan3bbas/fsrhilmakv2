@@ -7,7 +7,7 @@
     
 }
 
-<h2>الخدمات </h2>
+<h2>الخدمات العامة </h2>
 
 <br />
 <link href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css" />
@@ -105,7 +105,7 @@
                     سرعة المفسر
                 </th>
                 <th>
-                    معدل الطلب اليومي
+                   معدل الطلب اليومي
                 </th>
                 <th>
                     العميل
@@ -113,9 +113,9 @@
                 <th>
                     كلفة المسار
                 </th>
-                @*<th>
+                <th>
                     وصف الخدمة
-                </th>*@
+                </th>
                 <th>
                     الحالة
                 </th>
@@ -129,56 +129,56 @@
             @foreach (var item in Model)
             {
 
-                <tr>
+            <tr>
 
-                    <td>
-                        @Html.ActionLink("Serv-" + item.Id, "ServiceInfo", new { id = @item.Id }, null)
-                    </td>
+                <td>
+                    @Html.ActionLink("Serv-" + item.Id, "ServiceInfo", new { id = @item.Id }, null)
+                </td>
 
-                    <td>
-                         @Html.ActionLink(item.ServiceProvider.Name, "PersonalPage", "Account", new { userId = @item.ServiceProviderId.Equals(null)?"1":item.ServiceProviderId }, null)
+                <td>
+                     @Html.ActionLink(item.ServiceProvider.Name, "PersonalPage", "Account", new { userId = @item.ServiceProviderId.Equals(null)?"1":item.ServiceProviderId }, null)
 
-                    </td>
+                </td>
 
-                    <td>
-                        @Html.DisplayFor(modelItem => item.UserWork.Name)
-                    </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserWork.Name)
+                </td>
 
-                    <td>
-                        @Html.DisplayFor(modelItem => item.CreationDate)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ServiceProviderNewDate)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ServiceProviderSpeed)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ServiceProviderAvgServices)
-                    </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreationDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ServiceProviderNewDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ServiceProviderSpeed)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ServiceProviderAvgServices)
+                </td>
 
-                    <td>
-                        @Html.ActionLink(item.Creator.Name, "PersonalPage", "Account", new { userId = @item.CreatorId }, null)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ServicePath.Cost)
-                    </td>
-                    @*<td>
-                        @Html.DisplayFor(modelItem => item.Description)
-                    </td>*@
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Status)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.PublicServiceAction)
-                    </td>
+                <td>
+                    @Html.ActionLink(item.Creator.Name, "PersonalPage", "Account", new { userId = @item.CreatorId }, null)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ServicePath.Cost)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Status)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PublicServiceAction)
+                </td>
 
-                    <td>
-                        @Html.ActionLink(@Resources.UserWork.Edit, "Edit", new { id = @item.Id }) |
-                        @*@Html.ActionLink(@Resources.UserWork.Details, "Details", new { id = item.id }) |*@
-                        @Html.ActionLink(@Resources.UserWork.Delete, "Delete", new { id = @item.Id })
-                    </td>
-                </tr>
+                <td>
+                    @Html.ActionLink(@Resources.UserWork.Edit, "Edit", new { id = @item.Id }) |
+                    @*@Html.ActionLink(@Resources.UserWork.Details, "Details", new { id = item.id }) |*@
+                    @Html.ActionLink(@Resources.UserWork.Delete, "Delete", new { id = @item.Id })
+                </td>
+            </tr>
             }
 
         </tbody>

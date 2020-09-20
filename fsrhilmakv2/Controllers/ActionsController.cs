@@ -67,7 +67,7 @@ namespace fsrhilmakv2.Controllers
         [HttpPost]
         public Service ReceiveService([FromBody] Service temp)
         {
-            
+
             if (temp.id.Equals(null))
             {
                 core.throwExcetpion("Id is null");
@@ -78,7 +78,7 @@ namespace fsrhilmakv2.Controllers
                 core.throwExcetpion("Service Provider id can't be null");
             }
 
-            
+
             Service service = db.Services.Where(a => a.id.Equals(temp.id))/*.Include(a=>a.Comments)*/
                 .FirstOrDefault();
 
@@ -152,11 +152,11 @@ namespace fsrhilmakv2.Controllers
             }
             Service service = db.Services.Where(a => a.id.Equals(temp.id))
                 .FirstOrDefault();
-            if (!temp.Description.Equals(null))
+            if (temp.Description!=null)
             {
                 service.Description = temp.Description;
             }
-            if (!temp.Explanation.Equals(null))
+            if (temp.Explanation!=null)
             {
                 service.Explanation = temp.Explanation;
             }
@@ -257,7 +257,7 @@ namespace fsrhilmakv2.Controllers
                 //    //db.Entry(user).State = EntityState.Modified;
                 //    // db.SaveChanges();
                 //}
-                if (service.Creator.PointsBalance - (temp.NumberOfPoints!=null?temp.NumberOfPoints:5) > 0)
+                if (service.Creator.PointsBalance - (temp.NumberOfPoints != null ? temp.NumberOfPoints : 5) > 0)
                 {
                     service.Creator.PointsBalance = service.Creator.PointsBalance - (temp.NumberOfPoints != null ? temp.NumberOfPoints : 5);
                     //db.Entry(user).State = EntityState.Modified;
@@ -327,44 +327,38 @@ namespace fsrhilmakv2.Controllers
 
         [Route("GetPublicServicesWithoutFilter")]
         [HttpGet]
-        [AllowAnonymous]
         public List<ServiceViewModel> GetPublicServicesWithoutFilter()
         {
 
             String _hoursToPublicService = ParameterRepository.findByCode("hours_To_Public_Service");
-            int hoursToPublicService = _hoursToPublicService==null? 24: (int)Int32.Parse(_hoursToPublicService);
+            int hoursToPublicService = _hoursToPublicService == null ? 24 : (int)Int32.Parse(_hoursToPublicService);
             DateTime dateToCompare = DateTime.Now.AddHours(-1 * hoursToPublicService);
             //Service Provider Speed
             String _PublicServiceUserSpeed = ParameterRepository.findByCode("Public_Service_User_Speed");
-            double PublicServiceUserSpeed = _PublicServiceUserSpeed==null?1.0:Double.Parse(_PublicServiceUserSpeed);
+            double PublicServiceUserSpeed = _PublicServiceUserSpeed == null ? 1.0 : Double.Parse(_PublicServiceUserSpeed);
             //Avg Service In a day
             String _PublicServiceUserAvg = ParameterRepository.findByCode("Public_Service_User_Avg_Services");
-            double PublicServiceUserAvg = _PublicServiceUserAvg==null?1.0: Double.Parse(_PublicServiceUserAvg);
+            double PublicServiceUserAvg = _PublicServiceUserAvg == null ? 1.0 : Double.Parse(_PublicServiceUserAvg);
 
             String userId = core.getCurrentUser().Id;
-            ApplicationUser user = db.Users.Where(a => a.Id.Equals(userId)).Include("userWorkBinding").FirstOrDefault();
+            ApplicationUser user = db.Users.Where(a => a.Id.Equals(userId)).Include(a=>a.userWorkBinding).FirstOrDefault();
             List<int> userWorkIds = new List<int>();
             List<Service> services = db.Services.Where(a => a.Status.Equals("Active") &&
-                a.ServiceProviderNewDate.CompareTo(dateToCompare) <= 0&&a.PublicServiceAction)
+                a.ServiceProviderNewDate.CompareTo(dateToCompare) <= 0 && a.PublicServiceAction)
                 .Include("Comments")
                 .Include("UserWork")
                 .Include("ServiceProvider")
                 .Include("Creator")
                 .OrderByDescending(a => a.CreationDate)
                 .ToList();
+            int bindingcount = db.UserWorkBindings.Where(a => a.UserId.Equals(userId)).ToList().Count();
 
-            if (user.userWorkBinding.Count > 0)
+            foreach (var item in user.userWorkBinding)
             {
-                foreach (var item in user.userWorkBinding)
-                {
-                    userWorkIds.Add(item.UserWorkId);
-                }
-                services = services.Where(a => userWorkIds.Contains(a.UserWorkId)).ToList();
+                userWorkIds.Add(item.UserWorkId);
             }
-            else
-            {
-                services = new List<Service>();
-            }
+            services = services.Where(a => userWorkIds.Contains(a.UserWorkId)).ToList();
+
 
             List<ServiceViewModel> result = new List<ServiceViewModel>();
             foreach (var item in services)
@@ -373,7 +367,7 @@ namespace fsrhilmakv2.Controllers
             }
 
 
-            return result.Where(a => a.ServiceProviderAvgServices < PublicServiceUserAvg && a.ServiceProviderSpeed <PublicServiceUserSpeed).ToList();
+            return result.Where(a => a.ServiceProviderAvgServices <= PublicServiceUserAvg && a.ServiceProviderSpeed <= PublicServiceUserSpeed).ToList();
 
 
         }

@@ -8,6 +8,8 @@ using Newtonsoft.Json.Serialization;
 using System.Web.Http.OData.Builder;
 using System.Web.Http.OData.Extensions;
 using fsrhilmakv2.Models;
+using System.Security.Claims;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace fsrhilmakv2
 {
@@ -35,12 +37,13 @@ namespace fsrhilmakv2
                 builder.EntitySet<Service>("Services");
                 builder.EntitySet<ServicePath>("ServicePaths");
                 builder.EntitySet<UserWorkBinding>("UserWorkBindings");
-                builder.EntitySet<ApplicationUser>("Users");
+                //builder.EntitySet<ApplicationUser>("Users");
                 builder.EntitySet<Attachment>("Attachments");
                 builder.EntitySet<ServiceComment>("ServiceComments");
                 builder.EntitySet<UsersDeviceTokens>("UsersDeviceTokens");
                 builder.EntitySet<Transaction>("Transactions");
                 builder.EntitySet<Payment>("Payments");
+                builder.EntitySet<IdentityUserClaim>("Claims");
 
             config.Routes.MapODataServiceRoute("odata", "odata", builder.GetEdmModel());
             config.Formatters.JsonFormatter.SerializerSettings.ReferenceLoopHandling= Newtonsoft.Json.ReferenceLoopHandling.Ignore;

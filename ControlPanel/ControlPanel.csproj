@@ -648,6 +648,7 @@
     <Content Include="Views\Services\Delete.cshtml" />
     <Content Include="Views\Account\Delete.cshtml" />
     <Content Include="Views\Transactions\Create.cshtml" />
+    <Content Include="Views\Services\PublicServices.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

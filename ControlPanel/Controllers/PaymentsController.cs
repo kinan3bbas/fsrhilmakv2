@@ -209,7 +209,7 @@ namespace ControlPanel.Controllers
             result.Explanation = service.Explanation;
             result.ExplanationDate = service.ExplanationDate;
             result.HaveYouPrayedBeforeTheDream = service.HaveYouPrayedBeforeTheDream;
-            result.Id = service.id;
+            result.id = service.id;
             result.IsThereWakefulness = service.IsThereWakefulness;
             result.JobStatus = service.JobStatus;
             result.KidsStatus = service.KidsStatus;
