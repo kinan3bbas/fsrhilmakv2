@@ -424,7 +424,8 @@ namespace ControlPanel.Controllers
                     && a.Status!="Deleted").ToList();
             if (UserWorkId != null)
             {
-                List<UserWorkBinding> bindings = db.UserWorkBindings.Where(a => a.UserWorkId == UserWorkId
+                List<UserWorkBinding> bindings = db.UserWorkBindings.Where(a => a.UserWorkId == UserWorkId && a.User.Status != "Deleted"
+              && a.User.Type== "Service_Provider"
                         ).Include("User").ToList();
                 users = bindings.Select(a => a.User).ToList();
                 users = users.Where(a => a.CreationDate.CompareTo(from) >= 0 && a.CreationDate.CompareTo(to) <= 0).ToList();
@@ -592,8 +593,11 @@ namespace ControlPanel.Controllers
                 temp.Status = user.Status;
                 temp.Sex = user.Sex;
                 temp.Country = user.Country;
-                temp.MartialStatus = user.MartialStatus;
-                temp.Type = user.Type;
+               // temp.MartialStatus = user.MartialStatus;
+                if(user.Type!=null)
+                     temp.Type = user.Type;
+
+                temp.Email = user.Email;
                 db.Entry(temp).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("PersonalPage", new { userId = user.Id });

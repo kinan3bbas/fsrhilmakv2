@@ -23,9 +23,9 @@ namespace fsrhilmakv2.Extra
             //TimeSpan span2 = new TimeSpan(user.CreationDate.Ticks);
             LocalDateTime d1 = new LocalDateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
             LocalDateTime d2 = new LocalDateTime(user.CreationDate.Year, user.CreationDate.Month, user.CreationDate.Day, user.CreationDate.Hour, user.CreationDate.Minute, user.CreationDate.Second);
-            long days = Period.Between(d2, d1).Days;
+            long days = Period.Between(d2, d1, PeriodUnits.Days).Days;
 
-            return days == 0 ? totalDreams : totalDreams / days;
+            return days == 0 ? totalDreams : Math.Round(totalDreams / (Double)days);
         }
 
         public static double ServiceProviderAvgServices(ApplicationUser user, int totalDreams)
@@ -35,9 +35,9 @@ namespace fsrhilmakv2.Extra
             //TimeSpan span2 = new TimeSpan(user.CreationDate.Ticks);
             LocalDateTime d1 = new LocalDateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
             LocalDateTime d2 = new LocalDateTime(user.CreationDate.Year, user.CreationDate.Month, user.CreationDate.Day, user.CreationDate.Hour, user.CreationDate.Minute, user.CreationDate.Second);
-            long days = Period.Between(d2, d1).Days;
+            long days = Period.Between(d2, d1, PeriodUnits.Days).Days;
 
-            return days == 0 ? totalDreams : totalDreams / days;
+            return days == 0 ? totalDreams : Math.Round(totalDreams / (Double)days);
         }
 
         public static string getWaitingTimeMessage(double x, double y)
@@ -95,7 +95,7 @@ namespace fsrhilmakv2.Extra
         public List<ApplicationUser>  getServiceProviders(String code,string status)
         {
             List<UserWorkBinding> bindings = db.UserWorkBindings.Where(a => a.UserWork.Code.Equals(code)
-            && a.User.Status.Equals(CoreController.UserStatus.Active.ToString())
+            && a.User.Status.Equals(CoreController.UserStatus.Active.ToString())&&a.User.Type== "Service_Provider"
             ).Include("User").ToList();
             return bindings.Select(a=>a.User).ToList();
         }

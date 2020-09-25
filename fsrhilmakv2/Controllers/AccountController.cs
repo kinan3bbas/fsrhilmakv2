@@ -818,6 +818,7 @@ namespace fsrhilmakv2.Controllers
             int count = db.UserWorkBindings.Where(a => a.UserWorkId.Equals(id) && a.User.Status.Equals("Active")
             ).Count();
             List<UserWorkBinding> bindings = db.UserWorkBindings.Where(a => a.UserWorkId.Equals(id) && a.User.Status.Equals("Active")
+            && a.User.Type.Equals(CoreController.UserType.Service_Provider.ToString())
             ).OrderByDescending(a => a.CreationDate).Include("User").ToList();
             List<UserInfoViewModel> users = new List<UserInfoViewModel>();
             foreach (var item in bindings)
