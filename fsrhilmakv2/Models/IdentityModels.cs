@@ -151,6 +151,8 @@ namespace fsrhilmakv2.Models
         public System.Data.Entity.DbSet<DreamHistory> DreamHistories { get; set; }
 
         public System.Data.Entity.DbSet<Transaction> Transactions { get; set; }
+
+        public System.Data.Entity.DbSet<Competition> Competitions { get; set; }
     }
 
 }

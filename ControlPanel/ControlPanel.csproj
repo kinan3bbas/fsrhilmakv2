@@ -204,6 +204,7 @@
     <Compile Include="Controllers\CoreController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\CompetitionController.cs" />
     <Compile Include="Controllers\TransactionsController .cs" />
     <Compile Include="Controllers\ServicePathsController.cs" />
     <Compile Include="Controllers\PaymentsController.cs" />
@@ -223,6 +224,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Compitition\Competition.cs" />
     <Compile Include="Models\DreamHistory.cs" />
     <Compile Include="Models\EmailLog.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -649,6 +651,7 @@
     <Content Include="Views\Account\Delete.cshtml" />
     <Content Include="Views\Transactions\Create.cshtml" />
     <Content Include="Views\Services\PublicServices.cshtml" />
+    <Content Include="Views\Competition\View.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

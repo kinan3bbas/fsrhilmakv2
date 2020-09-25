@@ -257,6 +257,7 @@
     <Compile Include="Controllers\ServiceCommentsController.cs" />
     <Compile Include="Controllers\ServicesController.cs" />
     <Compile Include="Controllers\PaymentsController.cs" />
+    <Compile Include="Controllers\CompetitionController.cs" />
     <Compile Include="Controllers\UsersDeviceTokensController.cs" />
     <Compile Include="Controllers\TransactionsController.cs" />
     <Compile Include="Controllers\UserWorksController.cs" />
@@ -430,10 +431,19 @@
     <Compile Include="Migrations\202008101137186_services3.Designer.cs">
       <DependentUpon>202008101137186_services3.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202009250855104_competition.cs" />
+    <Compile Include="Migrations\202009250855104_competition.Designer.cs">
+      <DependentUpon>202009250855104_competition.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202009250904324_competition2.cs" />
+    <Compile Include="Migrations\202009250904324_competition2.Designer.cs">
+      <DependentUpon>202009250904324_competition2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Attachment.cs" />
+    <Compile Include="Models\Compitition\Competition.cs" />
     <Compile Include="Models\EmailLog.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Service.cs" />
@@ -654,6 +664,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202008101137186_services3.resx">
       <DependentUpon>202008101137186_services3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009250855104_competition.resx">
+      <DependentUpon>202009250855104_competition.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009250904324_competition2.resx">
+      <DependentUpon>202009250904324_competition2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

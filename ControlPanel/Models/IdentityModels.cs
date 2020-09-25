@@ -133,7 +133,7 @@ namespace ControlPanel.Models
 
         public System.Data.Entity.DbSet<Transaction> Transactions { get; set; }
 
-
+        public System.Data.Entity.DbSet<Competition> Competitions { get; set; }
 
 
         //public System.Data.Entity.DbSet<ControlPanel.Models.ApplicationUser> ApplicationUsers { get; set; }
