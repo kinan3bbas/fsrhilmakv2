@@ -1,0 +1,75 @@
+﻿@model ControlPanel.Models.Competition
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_PLayout.cshtml";
+}
+
+<h2>Details Competition Information</h2>
+
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        
+
+        <dt>
+          @Resources.UserWork.Name 
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            Status
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Status)
+        </dd>
+
+        <dt>
+            Goal
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Goal)
+        </dd>
+
+
+        <dt>
+            UserWork
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserWork.Name)
+        </dd>
+        <dt>
+            StartDate
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StartDate)
+        </dd>
+
+        <dt>
+            EndDate
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EndDate)
+        </dd>
+
+       
+
+       
+
+        
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink(@Resources.UserWork.Edit, "Edit", new { id = Model.id }) |
+    @Html.ActionLink(@Resources.Global.BackToList, "Index")
+</p>

@@ -27,7 +27,8 @@
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
-    <IISExpressUseClassicPipelineMode>true</IISExpressUseClassicPipelineMode>
+    <IISExpressUseClassicPipelineMode>
+    </IISExpressUseClassicPipelineMode>
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
@@ -651,7 +652,12 @@
     <Content Include="Views\Account\Delete.cshtml" />
     <Content Include="Views\Transactions\Create.cshtml" />
     <Content Include="Views\Services\PublicServices.cshtml" />
-    <Content Include="Views\Competition\View.cshtml" />
+    <Content Include="Views\Competitions\View.cshtml" />
+    <Content Include="Views\Competitions\Index.cshtml" />
+    <Content Include="Views\Competitions\Create.cshtml" />
+    <Content Include="Views\Competitions\Delete.cshtml" />
+    <Content Include="Views\Competitions\Details.cshtml" />
+    <Content Include="Views\Competitions\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

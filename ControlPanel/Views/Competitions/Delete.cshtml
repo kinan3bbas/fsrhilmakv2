@@ -1,18 +1,18 @@
-﻿@model ControlPanel.Models.ServicePath
+﻿@model ControlPanel.Models.Competition
 
 @{
     ViewBag.Title = "Delete";
     Layout = "~/Views/Shared/_PLayout.cshtml";
 }
 
-<h2>@Resources.Global.DeleteUserWorkInformation</h2>
+<h2>Delete Competition Information</h2>
 
 <h3>@Resources.Global.Areyousureyouwanttodeletethis</h3>
 <div>
-
+    
     <hr />
     <dl class="dl-horizontal">
-
+       
 
         <dt>
             @Resources.UserWork.Name
@@ -23,36 +23,51 @@
         </dd>
 
         <dt>
-            @Resources.Global.Cost
+            Status
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Cost)
+            @Html.DisplayFor(model => model.Status)
         </dd>
 
         <dt>
-            @Resources.UserWork.Enabled
+            Goal
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Enabled)
+            @Html.DisplayFor(model => model.Goal)
         </dd>
 
 
         <dt>
-            @Resources.UserWork.CreationDate
+            User Work
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.CreationDate)
+            @Html.DisplayFor(model => model.UserWork.Name)
+        </dd>
+        
+        <dt>
+            StartDate
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StartDate)
         </dd>
 
 
+        <dt>
+            EndDate
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EndDate)
+        </dd>
+    
 
     </dl>
 
-    @using (Html.BeginForm())
-    {
+    @using (Html.BeginForm()) {
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">

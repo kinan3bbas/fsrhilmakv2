@@ -12,14 +12,19 @@ using System.Threading.Tasks;
 namespace ControlPanel.Controllers
 {
     [Authorize(Roles = "Admin")]
+
+
     public class CompetitionsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Competitions
-        public async Task<ActionResult> Index()
+        public ActionResult Index()
         {
-            return View(await db.Competitions.ToListAsync());
+
+
+            var competitions = db.Competitions.Include(s => s.UserWork);
+            return View(competitions.ToList());
         }
 
         // GET: Competitions/Details/5
@@ -40,6 +45,7 @@ namespace ControlPanel.Controllers
         // GET: Competitions/Create
         public ActionResult Create()
         {
+            ViewBag.UserWorkId = new SelectList(db.UserWorks.Where(a => a.Enabled), "id", "AdjectiveName");
             return View();
         }
 
@@ -48,10 +54,11 @@ namespace ControlPanel.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id,Name,Code,Value")] Competition Competition)
+        public ActionResult Create( Competition Competition)
         {
             if (ModelState.IsValid)
             {
+                Competition.Status = "active";
                 Competition.CreationDate = DateTime.Now;
                 Competition.LastModificationDate = DateTime.Now;
                 db.Competitions.Add(Competition);

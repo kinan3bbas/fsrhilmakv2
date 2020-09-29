@@ -1,0 +1,102 @@
+﻿@model ControlPanel.Models.Competition
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_PLayout.cshtml";
+}
+
+<h2>Edit Competition Information</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.id)
+
+    <div class="form-group">
+        @Resources.UserWork.Name
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        Status
+        <div class="col-md-10">
+            <div class="input-group">
+                @Html.DropDownList("Status", new List<SelectListItem>
+                                            { new SelectListItem { Text="Active", Value="Active"},
+                                              new SelectListItem{Text="Not Active", Value="Not Active"},                                             
+                                            }, "Select Status")
+                @Html.ValidationMessageFor(model => model.Status)
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        Goal
+        <div class="col-md-10">
+            <div class="input-group">
+                @Html.DropDownList("Goal", new List<SelectListItem>
+                                            { new SelectListItem { Text="أسرع مفسر", Value="Fastest"},
+                                              new SelectListItem{Text="أعلى مفسر تقييم", Value="Highest_Rating"},
+                                              new SelectListItem{Text="أعلى مفسر تقييم", Value="AVG_Request"},
+                                              new SelectListItem{Text="أعلى خدمات مفسرة", Value="Most_Done_Services"}
+                                            }, "Select Goal")
+                @Html.ValidationMessageFor(model => model.Goal)
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        User work
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.UserWork.Name, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.UserWork.Name, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        Start Date
+        <div class="col-md-10">
+            <div class="input-group">
+                @Html.TextBoxFor(model => model.StartDate, new { type = "date" })
+                @Html.ValidationMessageFor(model => model.StartDate)
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        End Date
+        <div class="col-md-10">
+            <div class="input-group">
+                @Html.TextBoxFor(model => model.EndDate, new { type = "date" })
+                @Html.ValidationMessageFor(model => model.EndDate)
+            </div>
+        </div>
+    </div>
+
+    
+
+   
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="@Resources.Global.Save " class="btn btn-default" />
+        </div>
+    </div>
+</div>
+}
+
+<div>
+    @Html.ActionLink(@Resources.Global.BackToList, "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
