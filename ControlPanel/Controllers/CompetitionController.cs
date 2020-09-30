@@ -28,14 +28,14 @@ namespace ControlPanel.Controllers
         }
 
         // GET: Competitions/Details/5
-        public ActionResult Details(String CompetitionId)
+        public ActionResult Details(int? id)
         {
 
-            if (CompetitionId == null)
+            if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Competition Competition = db.Competitions.Find(CompetitionId);
+            Competition Competition = db.Competitions.Find(id);
             if (Competition == null)
             {
                 return HttpNotFound();
