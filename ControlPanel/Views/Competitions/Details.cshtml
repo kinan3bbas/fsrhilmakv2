@@ -3,73 +3,206 @@
 @{
     ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_PLayout.cshtml";
+    var Id = Request.QueryString["CompetitionId"];
 }
 
-<h2>Details Competition Information</h2>
 
 
-<div>
-    <hr />
-    <dl class="dl-horizontal">
-        
-
-        <dt>
-          @Resources.UserWork.Name 
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-
-        <dt>
-            Status
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Status)
-        </dd>
-
-        <dt>
-            Goal
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Goal)
-        </dd>
+<h2 class="text-center" style="color: #071689 !important;">@Resources.Register.PersonalInformation @Model.Name </h2>
+<br />
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
 
 
-        <dt>
-            UserWork
-        </dt>
+            <div class="accordion" id="accordionExample">
+                <div class="card">
+                    <div class="card-header" id="headingOne">
+                        <h2 class="mb-0">
+                            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                @Html.ActionLink("معلومات المسابقة", "Details", new { CompetitionId = Id })
+                            </button>
+                        </h2>
+                    </div>
+                </div>
+            </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.UserWork.Name)
-        </dd>
-        <dt>
-            StartDate
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.StartDate)
-        </dd>
+            <div class="accordion" id="accordionExample">
+                <div class="card">
+                    <div class="card-header" id="headingOne">
+                        <h2 class="mb-0">
+                            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                @Html.ActionLink("الجوائز", "ServicePath", new { userId = Id })
+                            </button>
+                        </h2>
+                    </div>
+                </div>
+            </div>
 
-        <dt>
-            EndDate
-        </dt>
+            <div class="accordion" id="accordionExample">
+                <div class="card">
+                    <div class="card-header" id="headingOne">
+                        <h2 class="mb-0">
+                            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                @Html.ActionLink("المشاركون في المسابقة", "Payments", new { userId = Id })
+                            </button>
+                        </h2>
+                    </div>
+                </div>
+            </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.EndDate)
-        </dd>
+            <div class="accordion" id="accordionExample">
+                <div class="card">
+                    <div class="card-header" id="headingOne">
+                        <h2 class="mb-0">
+                            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                @Html.ActionLink("النتائج", "InterpreterServices", "Services", new { userId = Id }, null)
 
-       
 
-       
+                            </button>
+                        </h2>
+                    </div>
+                </div>
+            </div>
 
-        
+             
 
-    </dl>
+
+           
+
+
+        </div>
+
+        <div class="col-md-9" id="PersonalInfoDV">
+
+            <table class="table table-responsive" style="margin-top:3%">
+                <tr>
+                    <th>
+
+                        @Html.DisplayNameFor(model => model.Name) :
+                    </th>
+                    <td>
+                        @Html.DisplayFor(model => model.Name)
+                    </td>
+                </tr>
+                <tr>
+
+                    <th>
+                        @Html.DisplayNameFor(model => model.Status) :
+                    </th>
+                    <td>
+                        @Html.DisplayFor(model => model.Status)
+                    </td>
+                </tr>
+
+                <tr>
+
+
+                    <th>
+                        @Html.DisplayNameFor(model => model.Goal) :
+                    </th>
+                    <td>
+                        @Html.DisplayFor(model => model.Goal)
+                    </td>
+                </tr>
+
+                <tr>
+
+                    <th>
+                        @Html.DisplayNameFor(model => model.UserWork) :
+                    </th>
+                    <td>
+                        @Html.DisplayFor(model => model.UserWork.Name)
+                    </td>
+                </tr>
+
+                <tr>
+
+                    <th>
+                        @Html.DisplayNameFor(model => model.StartDate) :
+                    </th>
+                    <td>
+                        @Html.DisplayFor(model => model.StartDate)
+                    </td>
+                </tr>
+
+                <tr>
+
+                    <th>
+                        @Html.DisplayNameFor(model => model.EndDate):
+                    </th>
+                    <td>
+                        @Html.DisplayFor(model => model.EndDate)
+                    </td>
+                </tr>
+
+
+
+                
+            </table>
+
+        </div>
+    </div>
+    <div class="row ">
+        <div class="col-md-3"></div>
+        <div class="col-md-9">
+            <hr />
+
+            @*<div class="row">
+                <div class="col-md-5">
+                    <input type="button"
+                           class="btn btn-primary" value="@Resources.UserWork.Edit"
+                           onclick="location.href='@Url.Action("EditPersonalPage", "Account", new { id = Model.Id })'" />
+                </div>
+                @if (Model.Status == "Active")
+                {
+                    <div class="col-md-5">
+                        <input type="button"
+                               class="btn btn-danger" value="حذف المستخدم"
+                               onclick="location.href='@Url.Action("Delete", "Account", new { id = Model.Id })'" />
+                    </div>
+                }
+
+            </div>*@
+
+            <br />
+
+
+        </div>
+
+
+    </div>
+
+
 </div>
-<p>
-    @Html.ActionLink(@Resources.UserWork.Edit, "Edit", new { id = Model.id }) |
-    @Html.ActionLink(@Resources.Global.BackToList, "Index")
-</p>
+@section Scripts
+{
+    <script type="text/javascript">
+
+
+        function deleteUser() {
+
+        $.ajax({
+            type: 'GET',
+            url: "/Account/deleteUser?id="+String(@Model.id),
+            dataType: 'json',
+            data: { },
+            success: function (data) {
+
+                alert("User was deleted and won't appear anymore in userlist, close the current page");
+                location.reload();
+
+
+            },
+            error: function (ex) {
+            var r = jQuery.parseJSON(response.responseText);
+            alert("Message: " + r.Message);
+            alert("StackTrace: " + r.StackTrace);
+            alert("ExceptionType: " + r.ExceptionType);
+            }
+            });
+            return false;
+        }
+    </script>
+}
