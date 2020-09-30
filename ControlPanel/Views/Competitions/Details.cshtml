@@ -8,7 +8,7 @@
 
 
 
-<h2 class="text-center" style="color: #071689 !important;">@Resources.Register.PersonalInformation @Model.Name </h2>
+<h2 class="text-center" style="color: #071689 !important;">معلومات المسابقة </h2>
 <br />
 <div class="container">
     <div class="row">
@@ -80,7 +80,7 @@
                 <tr>
                     <th>
 
-                        @Html.DisplayNameFor(model => model.Name) :
+                      الاسم
                     </th>
                     <td>
                         @Html.DisplayFor(model => model.Name)
@@ -89,7 +89,7 @@
                 <tr>
 
                     <th>
-                        @Html.DisplayNameFor(model => model.Status) :
+                       الحالة
                     </th>
                     <td>
                         @Html.DisplayFor(model => model.Status)
@@ -100,7 +100,7 @@
 
 
                     <th>
-                        @Html.DisplayNameFor(model => model.Goal) :
+                       الهدف
                     </th>
                     <td>
                         @Html.DisplayFor(model => model.Goal)
@@ -110,7 +110,7 @@
                 <tr>
 
                     <th>
-                        @Html.DisplayNameFor(model => model.UserWork) :
+                        تخصص المسابقة
                     </th>
                     <td>
                         @Html.DisplayFor(model => model.UserWork.Name)
@@ -120,7 +120,7 @@
                 <tr>
 
                     <th>
-                        @Html.DisplayNameFor(model => model.StartDate) :
+                        تاريخ بدء المسابقة
                     </th>
                     <td>
                         @Html.DisplayFor(model => model.StartDate)
@@ -130,7 +130,7 @@
                 <tr>
 
                     <th>
-                        @Html.DisplayNameFor(model => model.EndDate):
+                        تاريخ انتهاء المسابقة
                     </th>
                     <td>
                         @Html.DisplayFor(model => model.EndDate)

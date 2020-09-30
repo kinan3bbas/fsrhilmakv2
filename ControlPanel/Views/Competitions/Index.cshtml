@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_PLayout.cshtml";
 }
 
-<h2>Competition Information</h2>
+<h2>مسابقات اهل الذكر</h2>
 
 <br />
 <link href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css" />
@@ -13,7 +13,7 @@
 <p style="float:right;text-decoration-color:white;">
 
     <button class="btn btn-primary btn-default" onclick="location.href='@Url.Action("Create", "Competitions")'">
-        <i class="fa  pull-right" style="font-size:large"></i> CreateNewCompetition
+        <i class="fa  pull-right" style="font-size:large"></i> اضف مسابقة جديدة
     </button>
 
 </p>
@@ -22,24 +22,24 @@
         <tr>
 
             <th>
-                @Resources.UserWork.Name
+               الاسم
             </th>
            
             <th>
-                Status 
+                الحالة 
             </th>
            
             <th>
-                Goal
+                الهدف
             </th>
             <th>
-                User Work
+               تخصص المسابقة
             </th>
             <th>
-                Start Date
+               تاريخ بدء المسابقة
             </th>
             <th>
-                End Date
+                تاريخ انتهاء المسابقة
             </th>
             <th></th>
         </tr>
