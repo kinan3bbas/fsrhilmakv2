@@ -10,104 +10,176 @@
 <br />
 <link href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css" />
 <link href="https://cdn.datatables.net/buttons/1.6.1/css/buttons.dataTables.min.css" rel="stylesheet" type="text/css" />
-<p style="float:right;text-decoration-color:white;">
+@using (Html.BeginForm())
+{
+
+    <div class="row"> 
+        
+        @*<div class="col-md-4">
+            @Html.Label("نوع الخدمة")
+            @Html.DropDownList("UserWorkId", null, htmlAttributes: new { @class = "form-control" })
+        </div>*@
+
+
+
+        <div class="col-md-4">
+            <b>الحالة</b>
+
+            @Html.DropDownList("Status", new List<SelectListItem>
+                           { new SelectListItem { Text="Active", Value="Active"},
+                            new SelectListItem{Text="Done", Value="Done"}
+                      }, new { @class = "form-control m-input m-input--air" })
+        </div>
+
+
+        <div class="col-md-4">
+            <b>الهدف</b>
+
+            @Html.DropDownList("Goal", new List<SelectListItem>
+                                            { new SelectListItem { Text="أسرع مفسر", Value="Fastest"},
+                                              new SelectListItem{Text="أعلى مفسر تقييم", Value="Highest_Rating"},
+                                              new SelectListItem{Text="أعلى معدل طلب", Value="AVG_Request"},
+                                              new SelectListItem{Text="أعلى خدمات مفسرة", Value="Most_Done_Services"}
+                                            }, new { @class = "form-control m-input m-input--air" })
+          
+        </div>
+        <div class="col-md-4">
+            <b>التخصص</b>
+
+           @Html.DropDownList("UserWorkId", null, htmlAttributes: new { @class = "form-control m-input m-input--air" })
+            </div>
+
+
+        <div class="col-md-4">
+            
+            <b>من تاريخ</b>
+            @Html.TextBox("fromDate", null, new { type = "date", @class = "form-control m-input m-input--air" })
+        </div>
+        <div class="col-md-4">
+            <b>الى تاريخ</b>
+            @Html.TextBox("toDate", null, new { type = "date", @class = "form-control m-input m-input--air" })
+
+        </div>
+        
+      
+
+
+    </div>
+
+    <div class="text-center">
+        <button type="submit" class="SearchBtn btn btn-outline-brand m-btn m-btn--icon btn-sm m-btn--icon-only m-btn--custom m-btn--outline-1x m-btn--pill m-btn--air">
+            <i class="fa fa-search"></i>
+        </button>
+    </div>
+
+    <br />
+
+
+
+
+
+
+}
+    <p style="float:right;text-decoration-color:white;">
+
+
 
     <button class="btn btn-primary btn-default" onclick="location.href='@Url.Action("Create", "Competitions")'">
         <i class="fa  pull-right" style="font-size:large"></i> اضف مسابقة جديدة
     </button>
 
 </p>
-<table id="myTable" class="cell-border hover stripe" style="width:100%">
-    <thead>
-        <tr>
+    <table id="myTable" class="cell-border hover stripe" style="width:100%">
+        <thead>
+            <tr>
 
-            <th>
-               الاسم
-            </th>
-           
-            <th>
-                الحالة 
-            </th>
-           
-            <th>
-                الهدف
-            </th>
-            <th>
-               تخصص المسابقة
-            </th>
-            <th>
-               تاريخ بدء المسابقة
-            </th>
-            <th>
-                تاريخ انتهاء المسابقة
-            </th>
-            <th></th>
-        </tr>
-    <tbody>
-        @foreach (var item in Model)
+                <th>
+                    الاسم
+                </th>
+
+                <th>
+                    الحالة
+                </th>
+
+                <th>
+                    الهدف
+                </th>
+                <th>
+                    تخصص المسابقة
+                </th>
+                <th>
+                    تاريخ بدء المسابقة
+                </th>
+                <th>
+                    تاريخ انتهاء المسابقة
+                </th>
+                <th></th>
+            </tr>
+        <tbody>
+            @foreach (var item in Model)
             {
-        <tr>
+                <tr>
 
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Status)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Goal)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UserWork.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.StartDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EndDate)
-            </td>
-            <td>
-                @Html.ActionLink(@Resources.UserWork.Edit, "Edit", new { id = item.id }) |
-                @Html.ActionLink(@Resources.UserWork.Details, "Details", new { id = item.id }) |
-                @Html.ActionLink(@Resources.UserWork.Delete, "Delete", new { id = item.id })
-            </td>
-        </tr>
-        }
-    </tbody>
-</table>
-
-@section scripts{
-    <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
-    <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.6.1/js/dataTables.buttons.min.js"></script>
-    <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.colVis.min.js"></script>
-    <script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
-    <script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
-    <script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
-    <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.html5.min.js"></script>
-    <script type="text/javascript">
-
-        $('#myTable').DataTable(
-            {
-                dom: 'Bfrtip',
-                columnDefs: [
-                    {
-                        targets: 1,
-                        className: 'noVis'
-                    }
-                ],
-                buttons: [
-                    {
-                        extend: 'colvis',
-                        columns: ':not(.noVis)'
-                    },
-                    'copyHtml5',
-                    'excelHtml5',
-                    'pdfHtml5'
-                ]
-
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Status)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Goal)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UserWork.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.StartDate.Value)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EndDate)
+                    </td>
+                    <td>
+                        @Html.ActionLink(@Resources.UserWork.Edit, "Edit", new { id = item.id }) |
+                        @Html.ActionLink(@Resources.UserWork.Details, "Details", new { id = item.id }) |
+                        @Html.ActionLink(@Resources.UserWork.Delete, "Delete", new { id = item.id })
+                    </td>
+                </tr>
             }
+        </tbody>
+    </table>
+
+    @section scripts{
+        <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+        <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.6.1/js/dataTables.buttons.min.js"></script>
+        <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.colVis.min.js"></script>
+        <script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+        <script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+        <script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+        <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.html5.min.js"></script>
+        <script type="text/javascript">
+
+            $('#myTable').DataTable(
+                {
+                    dom: 'Bfrtip',
+                    columnDefs: [
+                        {
+                            targets: 1,
+                            className: 'noVis'
+                        }
+                    ],
+                    buttons: [
+                        {
+                            extend: 'colvis',
+                            columns: ':not(.noVis)'
+                        },
+                        'copyHtml5',
+                        'excelHtml5',
+                        'pdfHtml5'
+                    ]
+
+                }
 
 
-        );
-    </script>
-}
+            );
+        </script>
+    }

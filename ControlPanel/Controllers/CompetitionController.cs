@@ -11,37 +11,66 @@ using System.Threading.Tasks;
 
 namespace ControlPanel.Controllers
 {
-    [Authorize(Roles = "Admin")]
-
+ [Authorize(Roles = "Admin")]
 
     public class CompetitionsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Competitions
-        public ActionResult Index()
+        public ActionResult Index(int? UserWorkId, string status, string goal, String fromDate = "", String toDate = "")
         {
+            DateTime from = new DateTime(2000, 1, 1);
+            DateTime to = new DateTime(3000, 1, 1);
+            if (!fromDate.Equals("") && fromDate != null)
+            {
+                DateTime.TryParse(fromDate, out from);
+            }
+            if (!toDate.Equals("") && toDate != null)
+            {
+                DateTime.TryParse(toDate, out to);
+            }
+            List<Competition> competitions = db.Competitions.Include("UserWork").ToList();
+            
 
+            if (status != null && !status.Equals(""))
+                competitions = competitions.Where(a => a.Status.Equals(status)).OrderByDescending(r => r.CreationDate).ToList();
+            //else
+            //    competitions = competitions.Where(a => a.Status.Equals("Active")).OrderByDescending(r => r.CreationDate).ToList();
 
-            var competitions = db.Competitions.Include(s => s.UserWork);
+            if (goal != null && !goal.Equals(""))
+                competitions = competitions.Where(a => a.Goal.Equals(goal)).OrderByDescending(r => r.CreationDate).ToList();
+            
+
+           
+            if (UserWorkId != null)
+            {
+
+                competitions = competitions.Where(a => a.UserWorkId.Equals(UserWorkId)).OrderByDescending(r => r.CreationDate).ToList();
+            }
+            competitions = competitions.Where(a => a.CreationDate.CompareTo(from) >= 0 && a.CreationDate.CompareTo(to) <= 0).ToList();
+            ViewBag.UserWorkId = new SelectList(db.UserWorks.Where(a => a.Enabled), "id", "AdjectiveName");
+
             return View(competitions.ToList());
         }
 
         // GET: Competitions/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult Details(int id)
         {
 
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Competition Competition = db.Competitions.Find(id);
+          
+            var Competition = db.Competitions.Where(e => e.id.Equals(id))
+               . Include("UserWork")
+                .FirstOrDefault();
             if (Competition == null)
             {
                 return HttpNotFound();
             }
+
+            ViewBag.UserWorkId = id;
             return View(Competition);
         }
+
 
         // GET: Competitions/Create
         public ActionResult Create()
@@ -71,18 +100,17 @@ namespace ControlPanel.Controllers
         }
 
         // GET: Competitions/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult Edit(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Competition Competition = db.Competitions.Find(id);
-            if (Competition == null)
+           
+            var competition = db.Competitions.Where(a => a.id.Equals(id))
+               .Include("UserWork")
+                .FirstOrDefault();
+            if (competition == null)
             {
                 return HttpNotFound();
             }
-            return View(Competition);
+            return View(competition);
         }
 
         // POST: Competitions/Edit/5
@@ -94,10 +122,15 @@ namespace ControlPanel.Controllers
         {
             if (ModelState.IsValid)
             {
-                Competition temp = db.Competitions.Find(Competition.id);
+
+                Competition temp = db.Competitions.Where(a => a.id.Equals(Competition.id)). Include("UserWork").FirstOrDefault();
                 temp.Name = Competition.Name;
-                temp.LastModificationDate = DateTime.Now;
-                
+                temp.Status = Competition.Status;
+                temp.UserWork.Name = Competition.UserWork.Name;
+                temp.Goal = Competition.Goal;
+                temp.StartDate = Competition.StartDate;
+                temp.EndDate = Competition.EndDate;
+                temp.LastModificationDate = DateTime.Now;                
                 db.Entry(temp).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

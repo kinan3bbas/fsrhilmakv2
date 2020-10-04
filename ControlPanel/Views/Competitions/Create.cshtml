@@ -4,6 +4,7 @@
     ViewBag.Title = "Create";
     Layout = "~/Views/Shared/_PLayout.cshtml";
 }
+<link rel="stylesheet" type="text/css" href="/jquery.datetimepicker.css"/ >
 
 <h2>ادخل معلومات المسابقة</h2>
 
@@ -39,7 +40,7 @@
                 @Html.DropDownList("Goal", new List<SelectListItem>
                                             { new SelectListItem { Text="أسرع مفسر", Value="Fastest"},
                                               new SelectListItem{Text="أعلى مفسر تقييم", Value="Highest_Rating"},
-                                              new SelectListItem{Text="أعلى مفسر تقييم", Value="AVG_Request"},
+                                              new SelectListItem{Text="أعلى معدل طلب", Value="AVG_Request"},
                                               new SelectListItem{Text="أعلى خدمات مفسرة", Value="Most_Done_Services"}
                                             }, "Select Goal")
                 @Html.ValidationMessageFor(model => model.Goal)
@@ -62,14 +63,17 @@
     <div class="form-group">
         تاريخ بدء المسابقة
         <div class="col-md-10">
-            <div class="input-group" >
-               @Html.TextBoxFor(model => model.StartDate, new { type = "date" })
-            @Html.ValidationMessageFor(model => model.StartDate)
-                
+            <div class='input-group date' id='date'>
+
+                @Html.TextBoxFor(model => model.StartDate, new { type = "datetime-local" })
+                @Html.ValidationMessageFor(model => model.StartDate)
+
             </div>
         </div>
     </div>
     
+
+
     @*<div class="form-group">
         End Date
         <div class="col-md-10">
@@ -96,21 +100,15 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
-<script src="~/Scripts/jquery-3.1.1.min.js"></script>
-<script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
-<script type="text/javascript">
-    $(function () {
-        $(".date-picker").datepicker({
-            dateFormat: 'dd-M-yy'
+
+<script src="jquery.min.js"></script>
+<script src="jquery-ui.min.js"></script>
+<script src="jquery-ui-timepicker-addon.js"></script> <script type="text/javascript">
+    $(document).ready(function () {
+        $("#date").datetimepicker({
+            dateFormat: 'dd-mm-yy', timeFormat: 'hh:mm:ss'
         });
-
     });
-
 </script>
-
-
-
 }
-
-
 
