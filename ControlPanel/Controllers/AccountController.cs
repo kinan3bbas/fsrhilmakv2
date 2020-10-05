@@ -19,7 +19,7 @@ using fsrhilmakv2.Extra;
 
 namespace ControlPanel.Controllers
 {
-    [Authorize (Roles ="Admin")]
+    [Authorize(Roles = "Admin")]
     public class AccountController : Controller
     {
         private ApplicationSignInManager _signInManager;

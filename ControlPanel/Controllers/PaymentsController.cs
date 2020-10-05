@@ -77,7 +77,7 @@ namespace ControlPanel.Controllers
                  .Include("ServicePath")
                  .Include("UserWork")
                  .Include("ServiceProvider")
-                 .Include("Creator").FirstOrDefault(); ;
+                 .Include("Creator").FirstOrDefault();
 
 
 
