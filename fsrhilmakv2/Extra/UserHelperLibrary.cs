@@ -96,7 +96,7 @@ namespace fsrhilmakv2.Extra
         {
             List<UserWorkBinding> bindings = db.UserWorkBindings.Where(a => a.UserWork.Code.Equals(code)
             && a.User.Status.Equals(CoreController.UserStatus.Active.ToString()) && a.User.Type == "Service_Provider"
-            ).Include("User").ToList();
+            &&a.User.verifiedInterpreter).Include("User").ToList();
             return bindings.Select(a => a.User).ToList();
         }
 

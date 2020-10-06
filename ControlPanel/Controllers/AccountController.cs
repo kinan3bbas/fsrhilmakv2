@@ -16,6 +16,7 @@ using System.Data.Entity;
 using System.Net;
 using System.Net.Http;
 using fsrhilmakv2.Extra;
+using PagedList;
 
 namespace ControlPanel.Controllers
 {
@@ -407,7 +408,7 @@ namespace ControlPanel.Controllers
 
 
         // GET: /Account/ServiceProvider
-        public ActionResult ServiceProvider(int? UserWorkId, String fromDate = "", String toDate = "")
+        public ActionResult ServiceProvider(int? UserWorkId, bool? verified, String fromDate = "", String toDate = "")
         {
 
             DateTime from = new DateTime(2000, 1, 1);
@@ -420,8 +421,8 @@ namespace ControlPanel.Controllers
             {
                 DateTime.TryParse(toDate, out to);
             }
-            List<ApplicationUser> users = db.Users.Where(a => a.Type== "Service_Provider"
-                    && a.Status!="Deleted").ToList();
+            List<ApplicationUser> users = db.Users.Where(a => a.Type == "Service_Provider"
+                    && a.Status != "Deleted" && a.verifiedInterpreter == (verified == null ? true:verified)).ToList();
             if (UserWorkId != null)
             {
                 List<UserWorkBinding> bindings = db.UserWorkBindings.Where(a => a.UserWorkId == UserWorkId && a.User.Status != "Deleted"
@@ -442,9 +443,10 @@ namespace ControlPanel.Controllers
 
         //// GET: /Account/Clients
         [HttpGet]
-        public ActionResult Clients(int? UserWorkId, String fromDate = "", String toDate = "")
+        public ActionResult Clients(int? UserWorkId, int? page, String fromDate = "", String toDate = "")
         {
-
+            int pageSize = 10;
+            int pageNumber = (page ?? 1);
             DateTime from = new DateTime(2000, 1, 1);
             DateTime to = new DateTime(3000, 1, 1);
             if (!fromDate.Equals("") && fromDate != null)
@@ -456,17 +458,20 @@ namespace ControlPanel.Controllers
                 DateTime.TryParse(toDate, out to);
             }
 
-            List<ApplicationUser> users = db.Users.Where(a => a.Type.Equals(CoreController.UserType.Client.ToString())
-            && !a.Status.Equals(CoreController.UserStatus.Deleted.ToString())).ToList();
-            users = users.Where(a => a.CreationDate.CompareTo(from) >= 0&& a.CreationDate.CompareTo(to) <= 0).ToList();
+            //List<ApplicationUser> users = db.Users.Where(a => a.Type.Equals(CoreController.UserType.Client.ToString())
+            //&& !a.Status.Equals(CoreController.UserStatus.Deleted.ToString())&& a.CreationDate.CompareTo(from) >= 0 
+            //&& a.CreationDate.CompareTo(to) <= 0).ToList();
+            //users = users.Where(a => a.CreationDate.CompareTo(from) >= 0&& a.CreationDate.CompareTo(to) <= 0).ToList();
             List<UserInfoViewModel> result = new List<UserInfoViewModel>();
-            foreach (var item in users)
-            {
-                result.Add(getInfoMapping(item));
-            }
+            //foreach (var item in users)
+            //{
+            //    result.Add(getInfoMapping(item));
+            //}
             ViewBag.UserWorkId = new SelectList(db.UserWorks.Where(a => a.Enabled), "id", "Name");
 
-            return View(result);
+            return View(db.Users.Where(a => a.Type.Equals(CoreController.UserType.Client.ToString())
+            && !a.Status.Equals(CoreController.UserStatus.Deleted.ToString()) && a.CreationDate.CompareTo(from) >= 0
+            && a.CreationDate.CompareTo(to) <= 0).OrderByDescending(a=>a.PointsBalance).ToPagedList(pageNumber, pageSize));
         }
 
         // GET: /Account/DeletdUsers
@@ -526,7 +531,8 @@ namespace ControlPanel.Controllers
                 SuspendedBalance = balance.SuspendedBalance,
                 PointsBalance = user.PointsBalance,
                 UserSpecialCode=user.UserSpecialCode,
-                UserName=user.UserName
+                UserName=user.UserName,
+                VerifiedUser=user.verifiedInterpreter
                 
 
 
@@ -815,6 +821,19 @@ namespace ControlPanel.Controllers
 
 
             return RedirectToAction("ServiceProvider");
+        }
+
+       
+        public JsonResult EnableUser(String PhoneNumber)
+        {
+            ApplicationUser user = db.Users.Where(a => a.PhoneNumber.Equals(PhoneNumber)).FirstOrDefault() ;
+
+            user.verifiedInterpreter = !user.verifiedInterpreter;
+            db.Entry(user).State = EntityState.Modified;
+            db.SaveChangesAsync();
+
+
+            return Json("200", JsonRequestBehavior.AllowGet);
         }
 
         protected override void Dispose(bool disposing)

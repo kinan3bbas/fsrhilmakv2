@@ -46,6 +46,20 @@
                 @Html.DropDownList("UserWorkId", null, htmlAttributes: new { @class = "form-control m-input m-input--air" })
             </div>
         </div>
+        <div class="row" style="margin-top:10px">
+            <div class="col-md-4">
+                @Html.DropDownList("verified", new List<SelectListItem>
+                                  { new SelectListItem { Text="مفعل", Value="true"},
+                                     new SelectListItem{Text="غير مفعل", Value="false"},
+                                    }, "اختر حالة المفسر", htmlAttributes: new { @class = "form-control m-input m-input--air" })
+            </div>
+            <div class="col-md-4">
+                
+            </div>
+            <div class="col-md-4">
+            </div>
+
+        </div>
         <br />
         @*<div class="text-center">
             <button type="submit" class="btn btn-default">

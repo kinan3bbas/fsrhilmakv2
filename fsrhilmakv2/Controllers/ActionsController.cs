@@ -198,7 +198,7 @@ namespace fsrhilmakv2.Controllers
         {
             List<ApplicationUser> users = db.Users.Where(a => a.Status.Equals(CoreController.UserStatus.Active.ToString())).ToList();
             List<ApplicationUser> Clients = users.Where(a => a.Type.Equals(CoreController.UserType.Client.ToString())).ToList();
-            List<ApplicationUser> ServiceProviders = users.Where(a => a.Type.Equals(CoreController.UserType.Service_Provider.ToString())).ToList();
+            List<ApplicationUser> ServiceProviders = users.Where(a => a.Type.Equals(CoreController.UserType.Service_Provider.ToString())&& a.verifiedInterpreter).ToList();
             List<Service> AllServices = db.Services.ToList();
 
 
@@ -341,6 +341,8 @@ namespace fsrhilmakv2.Controllers
             double PublicServiceUserAvg = _PublicServiceUserAvg == null ? 1.0 : Double.Parse(_PublicServiceUserAvg);
 
             String userId = core.getCurrentUser().Id;
+            if (!core.getCurrentUser().verifiedInterpreter)
+                return new List<ServiceViewModel>();
             ApplicationUser user = db.Users.Where(a => a.Id.Equals(userId)).Include(a=>a.userWorkBinding).FirstOrDefault();
             List<int> userWorkIds = new List<int>();
             List<Service> services = db.Services.Where(a => a.Status.Equals("Active") &&
