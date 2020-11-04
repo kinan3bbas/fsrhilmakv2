@@ -1,0 +1,173 @@
+﻿@model ControlPanel.Models.Competition
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_PLayout.cshtml";
+    var Id = Request.QueryString["CompetitionId"];
+}
+
+
+
+<h2 class="text-center" style="color: #071689 !important;">جوائز المسابقة @Model.Name </h2>
+<br />
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+
+
+            <div class="accordion" id="accordionExample">
+                <div class="card">
+                    <div class="card-header" id="headingOne">
+                        <h2 class="mb-0">
+                            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                @Html.ActionLink("معلومات المسابقة", "Details", new { CompetitionId = Id })
+                            </button>
+                        </h2>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="accordion" id="accordionExample">
+                <div class="card">
+                    <div class="card-header" id="headingOne">
+                        <h2 class="mb-0">
+                            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                @Html.ActionLink("الجوائز", "ServicePath", new { userId = Id })
+                            </button>
+                        </h2>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion" id="accordionExample">
+                <div class="card">
+                    <div class="card-header" id="headingOne">
+                        <h2 class="mb-0">
+                            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                @Html.ActionLink("المشاركون في المسابقة", "Payments", new { userId = Id })
+                            </button>
+                        </h2>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion" id="accordionExample">
+                <div class="card">
+                    <div class="card-header" id="headingOne">
+                        <h2 class="mb-0">
+                            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                @Html.ActionLink("النتائج", "InterpreterServices", "Services", new { userId = Id }, null)
+
+
+                            </button>
+                        </h2>
+                    </div>
+                </div>
+            </div>
+
+             
+
+
+           
+
+
+        </div>
+
+        <div class="col-md-9" id="PersonalInfoDV">
+
+            @if (Model.prizes == null)
+            {
+                <p> لم يتم إضافة جوائز حتى الأن</p>
+            }
+            else
+            {
+                <table class="table table-responsive" style="margin-top:3%">
+
+                    @for (int i = 0; i < Model.prizes.Count; i++)
+                {
+                        <tr>
+                            <th>
+
+                                i+1 المركز
+                            </th>
+                            <td>
+                                @Model.prizes[i]
+                            </td>
+                        </tr>
+                    }
+
+
+
+
+
+
+                </table>
+            }
+
+        </div>
+    </div>
+    <div class="row ">
+        <div class="col-md-3"></div>
+        <div class="col-md-9">
+            <hr />
+
+            @*<div class="row">
+                <div class="col-md-5">
+                    <input type="button"
+                           class="btn btn-primary" value="@Resources.UserWork.Edit"
+                           onclick="location.href='@Url.Action("EditPersonalPage", "Account", new { id = Model.Id })'" />
+                </div>
+                @if (Model.Status == "Active")
+                {
+                    <div class="col-md-5">
+                        <input type="button"
+                               class="btn btn-danger" value="حذف المستخدم"
+                               onclick="location.href='@Url.Action("Delete", "Account", new { id = Model.Id })'" />
+                    </div>
+                }
+
+            </div>*@
+
+            <br />
+
+
+        </div>
+
+
+    </div>
+
+
+</div>
+
+
+@section Scripts
+{
+    <script type="text/javascript">
+
+
+        function deleteUser() {
+
+        $.ajax({
+            type: 'GET',
+            url: "/Account/deleteUser?id="+String(@Model.id),
+            dataType: 'json',
+            data: { },
+            success: function (data) {
+
+                alert("User was deleted and won't appear anymore in userlist, close the current page");
+                location.reload();
+
+
+            },
+            error: function (ex) {
+            var r = jQuery.parseJSON(response.responseText);
+            alert("Message: " + r.Message);
+            alert("StackTrace: " + r.StackTrace);
+            alert("ExceptionType: " + r.ExceptionType);
+            }
+            });
+            return false;
+        }
+    </script>
+}

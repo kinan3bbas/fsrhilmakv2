@@ -56,6 +56,9 @@
     <Reference Include="Microsoft.Data.OData, Version=5.6.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Data.OData.5.6.0\lib\net40\Microsoft.Data.OData.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Owin, Version=4.1.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.4.1.1\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
     <Reference Include="NodaTime, Version=3.0.0.0, Culture=neutral, PublicKeyToken=4226afe0d9b296d1, processorArchitecture=MSIL">
       <HintPath>..\packages\NodaTime.3.0.0\lib\netstandard2.0\NodaTime.dll</HintPath>
     </Reference>
@@ -160,9 +163,6 @@
     </Reference>
     <Reference Include="Owin">
       <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Owin">
-      <HintPath>..\packages\Microsoft.Owin.3.0.1\lib\net45\Microsoft.Owin.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Owin.Host.SystemWeb">
       <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.3.0.1\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
@@ -439,13 +439,35 @@
     <Compile Include="Migrations\202009250904324_competition2.Designer.cs">
       <DependentUpon>202009250904324_competition2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202010090810166_compittion2.cs" />
+    <Compile Include="Migrations\202010090810166_compittion2.Designer.cs">
+      <DependentUpon>202010090810166_compittion2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202010091043110_compittion3.cs" />
+    <Compile Include="Migrations\202010091043110_compittion3.Designer.cs">
+      <DependentUpon>202010091043110_compittion3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202010220452181_publicService.cs" />
+    <Compile Include="Migrations\202010220452181_publicService.Designer.cs">
+      <DependentUpon>202010220452181_publicService.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202010220831053_publicService1.cs" />
+    <Compile Include="Migrations\202010220831053_publicService1.Designer.cs">
+      <DependentUpon>202010220831053_publicService1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202011040752560_priziesUPdate.cs" />
+    <Compile Include="Migrations\202011040752560_priziesUPdate.Designer.cs">
+      <DependentUpon>202011040752560_priziesUPdate.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Attachment.cs" />
+    <Compile Include="Models\Compitition\CompetitionPrize.cs" />
     <Compile Include="Models\Compitition\Competition.cs" />
     <Compile Include="Models\EmailLog.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\PublicService.cs" />
     <Compile Include="Models\Service.cs" />
     <Compile Include="Models\ServiceComment.cs" />
     <Compile Include="Models\SystemParameter.cs" />
@@ -670,6 +692,21 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202009250904324_competition2.resx">
       <DependentUpon>202009250904324_competition2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202010090810166_compittion2.resx">
+      <DependentUpon>202010090810166_compittion2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202010091043110_compittion3.resx">
+      <DependentUpon>202010091043110_compittion3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202010220452181_publicService.resx">
+      <DependentUpon>202010220452181_publicService.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202010220831053_publicService1.resx">
+      <DependentUpon>202010220831053_publicService1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202011040752560_priziesUPdate.resx">
+      <DependentUpon>202011040752560_priziesUPdate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

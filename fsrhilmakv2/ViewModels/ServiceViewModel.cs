@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Web;
 
 namespace fsrhilmakv2.ViewModels
@@ -64,7 +65,6 @@ namespace fsrhilmakv2.ViewModels
         public UserWork UserWork { get; set; }
 
         public String JobStatus { get; set; }
-
 
         public ICollection<ServiceComment> Comments { get; set; }
 

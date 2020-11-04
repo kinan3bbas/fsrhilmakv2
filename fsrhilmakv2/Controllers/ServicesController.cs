@@ -241,7 +241,11 @@ namespace fsrhilmakv2.Controllers
             {
                 return NotFound();
             }
-
+            PublicService publicService = db.PublicServices.Where(a => a.ServiceId.Equals(key)).FirstOrDefault();
+            if (publicService != null)
+            {
+                db.Entry(publicService).State = EntityState.Deleted;
+            }
             db.Services.Remove(Service);
             db.SaveChanges();
 

@@ -3,6 +3,7 @@ using ControlPanel.Extras;
 using ControlPanel.Models;
 using ControlPanel.ViewModels;
 using fsrhilmakv2.Extra;
+using PagedList;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -25,8 +26,10 @@ namespace ControlPanel.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: services
-        public ActionResult Index(int? UserWorkId, string status, String fromDate = "", String toDate = "")
+        public ActionResult Index(int? UserWorkId, int? page, string status, String fromDate = "", String toDate = "")
         {
+            int pageSize = 10;
+            int pageNumber = (page ?? 1);
             DateTime from = new DateTime(2000, 1, 1);
             DateTime to = new DateTime(3000, 1, 1);
             if (!fromDate.Equals("") && fromDate != null)
@@ -39,37 +42,41 @@ namespace ControlPanel.Controllers
             }
 
 
-            List<Service> services = db.Services.Include("Comments")
+            List<Service> services = db.Services.Where(a => a.CreationDate.CompareTo(from) >= 0 && a.CreationDate.CompareTo(to) <= 0
+            &&((status != null && !status.Equals(""))? a.Status.Equals(status): a.Status.Equals("Active"))
+            ).OrderByDescending(a => a.CreationDate)
                 .Include("ServicePath")
                 .Include("UserWork")
                 .Include("ServiceProvider")
                 .Include("Creator")
                 .ToList();
-            if (status != null && !status.Equals(""))
-                services = services.Where(a => a.Status.Equals(status)).OrderByDescending(r => r.CreationDate).ToList();
-            else
-                services = services.Where(a => a.Status.Equals("Active")).OrderByDescending(r => r.CreationDate).ToList();
+            //if (status != null && !status.Equals(""))
+            //    services = services.Where(a => a.Status.Equals(status)).ToList();
+            //else
+            //    services = services.Where(a => a.Status.Equals("Active")).ToList();
 
             if (UserWorkId != null)
             {
 
-                services = services.Where(a => a.UserWorkId .Equals( UserWorkId)).OrderByDescending(r => r.CreationDate).ToList();
+                services = services.Where(a => a.UserWorkId .Equals( UserWorkId)).ToList();
                 //services = bindings.Select(a => a.U).ToList();
             }
-            services = services.Where(a => a.CreationDate.CompareTo(from) >= 0 && a.CreationDate.CompareTo(to) <= 0).ToList();
 
-            List<ServiceViewModel> result = new List<ServiceViewModel>();
-            foreach (var item in services)
-            {
-                result.Add(getMapping(item));
-            }
+            //List<ServiceViewModel> result = new List<ServiceViewModel>();
+            //foreach (var item in Pservices)
+            //{
+            //    result.Add(getMappingv2(item));
+            //}
 
             ViewBag.UserWorkId = new SelectList(db.UserWorks.Where(a => a.Enabled), "id", "AdjectiveName");
-            return View(result);
+            ViewBag.numberOfServices = services.Count();
+            return View(services.ToPagedList(pageNumber,pageSize));
         }
 
-        public ActionResult PublicServices(int? UserWorkId, string status, String fromDate = "", String toDate = "")
+        public ActionResult PublicServices(int? UserWorkId, int? page, string status, String fromDate = "", String toDate = "")
         {
+            int pageSize = 10;
+            int pageNumber = (page ?? 1);
             DateTime from = new DateTime(2000, 1, 1);
             DateTime to = new DateTime(3000, 1, 1);
             if (!fromDate.Equals("") && fromDate != null)
@@ -81,45 +88,23 @@ namespace ControlPanel.Controllers
                 DateTime.TryParse(toDate, out to);
             }
 
-            String _hoursToPublicService = ParameterRepository.findByCode("hours_To_Public_Service");
-            int hoursToPublicService = _hoursToPublicService == null ? 24 : (int)Int32.Parse(_hoursToPublicService);
-            DateTime dateToCompare = DateTime.Now.AddHours(-1 * hoursToPublicService);
-            //Service Provider Speed
-            String _PublicServiceUserSpeed = ParameterRepository.findByCode("Public_Service_User_Speed");
-            double PublicServiceUserSpeed = _PublicServiceUserSpeed == null ? 1.0 : Double.Parse(_PublicServiceUserSpeed);
-            //Avg Service In a day
-            String _PublicServiceUserAvg = ParameterRepository.findByCode("Public_Service_User_Avg_Services");
-            double PublicServiceUserAvg = _PublicServiceUserAvg == null ? 1.0 : Double.Parse(_PublicServiceUserAvg);
-
-
-            List<Service> services = db.Services.Where(a => a.Status.Equals("Active") &&
-                a.ServiceProviderNewDate.CompareTo(dateToCompare) <= 0 && a.PublicServiceAction).Include("Comments")
-                .Include("ServicePath")
+            List<PublicService> publicServices = db.PublicServices
                 .Include("UserWork")
                 .Include("ServiceProvider")
-                .Include("Creator")
-                .ToList();
+                .Include("Creator").ToList();
             if (status != null && !status.Equals(""))
-                services = services.Where(a => a.Status.Equals(status)).OrderByDescending(r => r.CreationDate).ToList();
+                publicServices = publicServices.Where(a => a.Status.Equals(status)).OrderByDescending(r => r.CreationDate).ToList();
 
             if (UserWorkId != null)
             {
 
-                services = services.Where(a => a.UserWorkId.Equals(UserWorkId)).OrderByDescending(r => r.CreationDate).ToList();
-                //services = bindings.Select(a => a.U).ToList();
+                publicServices = publicServices.Where(a => a.UserWorkId.Equals(UserWorkId)).OrderByDescending(r => r.CreationDate).ToList();
             }
-            services = services.Where(a => a.CreationDate.CompareTo(from) >= 0 && a.CreationDate.CompareTo(to) <= 0).ToList();           
-
-           
-
-            List<ServiceViewModel> result = new List<ServiceViewModel>();
-            foreach (var item in services)
-            {
-                result.Add(getMapping(item));
-            }
-
+            publicServices = publicServices.Where(a => a.CreationDate.CompareTo(from) >= 0 && a.CreationDate.CompareTo(to) <= 0).ToList();
             ViewBag.UserWorkId = new SelectList(db.UserWorks.Where(a => a.Enabled), "id", "AdjectiveName");
-            return View(result.Where(a => a.ServiceProviderAvgServices <= PublicServiceUserAvg && a.ServiceProviderSpeed <= PublicServiceUserSpeed).ToList());
+            ViewBag.numberOfServices = publicServices.Count();
+            return View(publicServices.ToPagedList(pageNumber, pageSize));
+
         }
 
 
@@ -277,7 +262,7 @@ namespace ControlPanel.Controllers
             List<ServiceViewModel> result = new List<ServiceViewModel>();
             foreach (var item in services)
             {
-                result.Add(getMapping(item));
+                result.Add(getMappingv2(item));
             }
             ViewBag.UserWorkId = new SelectList(db.UserWorks.Where(a => a.Enabled), "id", "AdjectiveName");
             ViewBag.Type = user.Type;
@@ -337,6 +322,50 @@ namespace ControlPanel.Controllers
             result.NumberOfRemainingPeople = allService.Count > 0 ? allService.Where(a => a.CreationDate.CompareTo(service.CreationDate) < 0).Count() : 0;
             result.AvgWaitingTime = UserHelperLibrary.getWaitingTimeMessage(Double.Parse(speed.ToString()),
                 Double.Parse(result.NumberOfRemainingPeople.ToString())).Replace("Your average waiting time is ", "");
+            result.ServiceProviderNewDate = service.ServiceProviderNewDate;
+
+            result.ServiceProviderSpeed = speed;
+            result.ServiceProviderAvgServices = avg == 0 ? 1 : avg;
+
+            return result;
+
+
+        }
+
+
+        public ServiceViewModel getMappingv2(Service service)
+        {
+            List<Service> allService = db.Services.Where(a => a.ServiceProviderId.Equals(service.ServiceProviderId)
+                 && a.ServicePathId.Equals(service.ServicePathId)
+                 && a.Status.Equals(CoreController.ServiceStatus.Active.ToString())).ToList();
+
+            List<Service> services = helper.getUserServices(service.ServiceProviderId);
+            List<Service> activeSerives = helper.getServicesFiltered(services, CoreController.ServiceStatus.Active.ToString());
+            List<Service> doneServices = helper.getServicesFiltered(services, CoreController.ServiceStatus.Done.ToString());
+            double speed = UserHelperLibrary.ServiceProviderSpeed(helper.findUser(service.ServiceProviderId), doneServices.Count);
+            speed = speed < 1 ? 1 : speed;
+            double avg = UserHelperLibrary.ServiceProviderAvgServices(helper.findUser(service.ServiceProviderId), services.Count);
+            AccountController accountCont = new AccountController();
+            ServiceViewModel result = new ServiceViewModel();
+            result.Country = service.Country;
+            result.CreationDate = service.CreationDate;
+            result.Creator = service.Creator;
+            result.Description = service.Description;
+            result.CreatorId = service.CreatorId;
+            result.Id = service.id;
+            result.Name = service.Name;
+            result.numberOfLikes = service.numberOfLikes;
+            result.numberOfViews = service.numberOfViews;
+            result.PrivateService = service.PrivateService;
+            result.PrivateServicePrice = service.PrivateServicePrice;
+            result.PublicServiceAction = service.PublicServiceAction;
+            result.ServicePathId = service.ServicePathId;
+            result.ServiceProvider = service.ServiceProvider;
+            result.ServiceProviderId = service.ServiceProviderId;
+            result.Status = service.Status;
+            result.UserWork = service.UserWork;
+            result.UserWorkId = service.UserWorkId;
+            result.ServicePath = service.ServicePath;
             result.ServiceProviderNewDate = service.ServiceProviderNewDate;
 
             result.ServiceProviderSpeed = speed;

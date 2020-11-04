@@ -1,10 +1,11 @@
-﻿@model List<ControlPanel.ViewModels.ServiceViewModel>
-
+﻿
+@model PagedList.IPagedList<ControlPanel.Models.PublicService>
+@using PagedList.Mvc;
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_PLayout.cshtml";
     int numberOfServices = Model.Count();
-    
+
 }
 
 <h2>الخدمات العامة </h2>
@@ -75,68 +76,68 @@
     <div class="row" style="direction:rtl">
         <div class="col-md-4">
             <span style="direction:rtl;float:right;font-size:large"> عدد الخدمات:<br /></span>
-            <span style="direction:rtl;float:right;font-size:large"> &nbsp; &nbsp; @numberOfServices</span>
+            <span style="direction:rtl;float:right;font-size:large"> &nbsp; &nbsp; @ViewBag.numberOfServices</span>
+            <a class="btn btn-primary" href="http://api2.fsrhilmak.com/api/Actions/GeneratePublicServicesJob" target="_blank">توليد الخدمات العامة</a>
+
         </div>
-       
+
         </div>
 
-    <table id="myTable" class="cell-border hover stripe" style="width:100%">
-        <thead>
-            <tr>
+<table id="myTable" class="cell-border hover stripe" style="width:100%">
+    <thead>
+        <tr>
 
-                <th>
-                    Id
-                </th>
-                <th>
-                    مزود الخدمة
-                </th>
+            <th>
+                Id
+            </th>
+            <th>
+                مزود الخدمة
+            </th>
 
-                <th>
-                    تخصص مقدم الخدمة
-                </th>
+            <th>
+                تخصص مقدم الخدمة
+            </th>
 
-                <th>
-                    تاريخ الإنشاء
-                </th>
-                <th>
-                    تاريخ الاستلام
-                </th>
-                <th>
-                    سرعة المفسر
-                </th>
-                <th>
-                   معدل الطلب اليومي
-                </th>
-                <th>
-                    العميل
-                </th>
-                <th>
-                    كلفة المسار
-                </th>
-                <th>
-                    وصف الخدمة
-                </th>
-                <th>
-                    الحالة
-                </th>
-                <th>
-                    خدمة عامة؟
-                </th>
+            <th>
+                تاريخ الإنشاء
+            </th>
 
-                <th></th>
-            </tr>
-        <tbody>
-            @foreach (var item in Model)
+            <th>
+                سرعة المفسر
+            </th>
+            <th>
+                معدل الطلب اليومي
+            </th>
+            <th>
+                العميل
+            </th>
+            <th>
+                كلفة المسار
+            </th>
+            <th>
+                وصف الخدمة
+            </th>
+            <th>
+                الحالة
+            </th>
+            <th>
+                خدمة عامة؟
+            </th>
+
+            <th></th>
+        </tr>
+    <tbody>
+        @foreach (var item in Model)
             {
 
             <tr>
 
                 <td>
-                    @Html.ActionLink("Serv-" + item.Id, "ServiceInfo", new { id = @item.Id }, null)
+                    @Html.ActionLink("Serv-" + item.ServiceId, "ServiceInfo", new { id = @item.ServiceId }, null)
                 </td>
 
                 <td>
-                     @Html.ActionLink(item.ServiceProvider.Name, "PersonalPage", "Account", new { userId = @item.ServiceProviderId.Equals(null)?"1":item.ServiceProviderId }, null)
+                    @Html.ActionLink(item.ServiceProvider.Name, "PersonalPage", "Account", new { userId = @item.ServiceProviderId.Equals(null) ? "1" : item.ServiceProviderId }, null)
 
                 </td>
 
@@ -147,9 +148,7 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.CreationDate)
                 </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ServiceProviderNewDate)
-                </td>
+
                 <td>
                     @Html.DisplayFor(modelItem => item.ServiceProviderSpeed)
                 </td>
@@ -174,15 +173,24 @@
                 </td>
 
                 <td>
-                    @Html.ActionLink(@Resources.UserWork.Edit, "Edit", new { id = @item.Id }) |
+                    @Html.ActionLink(@Resources.UserWork.Edit, "Edit", new { id = @item.ServiceId }) |
                     @*@Html.ActionLink(@Resources.UserWork.Details, "Details", new { id = item.id }) |*@
-                    @Html.ActionLink(@Resources.UserWork.Delete, "Delete", new { id = @item.Id })
+                    @Html.ActionLink(@Resources.UserWork.Delete, "Delete", new { id = @item.ServiceId })
                 </td>
             </tr>
-            }
+        }
 
-        </tbody>
-    </table>
+    </tbody>
+</table>
+    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+    @Html.PagedListPager(Model, page => Url.Action("PublicServices", new { page }),
+    new PagedListRenderOptions
+    {
+        LiElementClasses = new string[] { "pagination" }
+    })
+
+
+
 
 
 
@@ -213,7 +221,9 @@
                         'copyHtml5',
                         'excelHtml5',
                         'pdfHtml5'
-                    ]
+                    ],
+                    paging: false,
+                    sorting: false
 
                 }
 

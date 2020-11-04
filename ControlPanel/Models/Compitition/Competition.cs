@@ -30,8 +30,13 @@ namespace ControlPanel.Models
         public int UserWorkId { get; set; }
         public UserWork UserWork { get; set; }
 
+        public CompetitionPrize prize { get; set; }
 
+        public int prizeId { get; set; }
 
+        public int duration { get; set; }
+
+        public bool repeat { get; set; }
 
 
     }

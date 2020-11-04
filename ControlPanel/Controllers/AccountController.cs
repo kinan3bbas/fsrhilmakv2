@@ -427,7 +427,7 @@ namespace ControlPanel.Controllers
             {
                 List<UserWorkBinding> bindings = db.UserWorkBindings.Where(a => a.UserWorkId == UserWorkId && a.User.Status != "Deleted"
               && a.User.Type== "Service_Provider"
-                        ).Include("User").ToList();
+                        && a.User.verifiedInterpreter == (verified == null ? true : verified)).Include("User").ToList();
                 users = bindings.Select(a => a.User).ToList();
                 users = users.Where(a => a.CreationDate.CompareTo(from) >= 0 && a.CreationDate.CompareTo(to) <= 0).ToList();
 
@@ -442,10 +442,9 @@ namespace ControlPanel.Controllers
         }
 
         //// GET: /Account/Clients
-        [HttpGet]
-        public ActionResult Clients(int? UserWorkId, int? page, String fromDate = "", String toDate = "")
+        public ActionResult Clients(int? UserWorkId, int? page, int? size,String fromDate = "", String toDate = "")
         {
-            int pageSize = 10;
+            int pageSize = (size ?? 100);
             int pageNumber = (page ?? 1);
             DateTime from = new DateTime(2000, 1, 1);
             DateTime to = new DateTime(3000, 1, 1);
@@ -458,20 +457,70 @@ namespace ControlPanel.Controllers
                 DateTime.TryParse(toDate, out to);
             }
 
-            //List<ApplicationUser> users = db.Users.Where(a => a.Type.Equals(CoreController.UserType.Client.ToString())
-            //&& !a.Status.Equals(CoreController.UserStatus.Deleted.ToString())&& a.CreationDate.CompareTo(from) >= 0 
-            //&& a.CreationDate.CompareTo(to) <= 0).ToList();
-            //users = users.Where(a => a.CreationDate.CompareTo(from) >= 0&& a.CreationDate.CompareTo(to) <= 0).ToList();
-            List<UserInfoViewModel> result = new List<UserInfoViewModel>();
-            //foreach (var item in users)
-            //{
-            //    result.Add(getInfoMapping(item));
-            //}
-            ViewBag.UserWorkId = new SelectList(db.UserWorks.Where(a => a.Enabled), "id", "Name");
-
-            return View(db.Users.Where(a => a.Type.Equals(CoreController.UserType.Client.ToString())
+             List < ApplicationUser > users = db.Users.Where(a => a.Type.Equals(CoreController.UserType.Client.ToString())
             && !a.Status.Equals(CoreController.UserStatus.Deleted.ToString()) && a.CreationDate.CompareTo(from) >= 0
-            && a.CreationDate.CompareTo(to) <= 0).OrderByDescending(a=>a.PointsBalance).ToPagedList(pageNumber, pageSize));
+            && a.CreationDate.CompareTo(to) <= 0).OrderByDescending(a => a.CreationDate).ToList();
+
+            ViewBag.UserWorkId = new SelectList(db.UserWorks.Where(a => a.Enabled), "id", "Name");
+            ViewBag.totalbalance= users.Sum(p=>p.PointsBalance);
+
+            return View(users.ToPagedList(pageNumber, pageSize));
+        }
+
+
+        [HttpGet]
+        public ActionResult ClientsV2(int? UserWorkId, int? page, String fromDate = "", String toDate = "")
+        {
+            //int pageSize = 10;
+            //int pageNumber = (page ?? 1);
+            //DateTime from = new DateTime(2000, 1, 1);
+            //DateTime to = new DateTime(3000, 1, 1);
+            //if (!fromDate.Equals("") && fromDate != null)
+            //{
+            //    DateTime.TryParse(fromDate, out from);
+            //}
+            //if (!toDate.Equals("") && toDate != null)
+            //{
+            //    DateTime.TryParse(toDate, out to);
+            //}
+
+            //List<ApplicationUser> users = db.Users.Where(a => a.Type.Equals(CoreController.UserType.Client.ToString())
+            // && !a.Status.Equals(CoreController.UserStatus.Deleted.ToString()) && a.CreationDate.CompareTo(from) >= 0
+            // && a.CreationDate.CompareTo(to) <= 0).ToList();
+            ////users = users.Where(a => a.CreationDate.CompareTo(from) >= 0&& a.CreationDate.CompareTo(to) <= 0).ToList();
+            //List<UserInfoViewModel> result = new List<UserInfoViewModel>();
+            ////foreach (var item in users)
+            ////{
+            ////    result.Add(getInfoMapping(item));
+            ////}
+            //ViewBag.UserWorkId = new SelectList(db.UserWorks.Where(a => a.Enabled), "id", "Name");
+            //ViewBag.totalbalance = users.Sum(p => p.PointsBalance);
+
+            //return View(db.Users.Where(a => a.Type.Equals(CoreController.UserType.Client.ToString())
+            //&& !a.Status.Equals(CoreController.UserStatus.Deleted.ToString()) && a.CreationDate.CompareTo(from) >= 0
+            //&& a.CreationDate.CompareTo(to) <= 0).OrderByDescending(a => a.PointsBalance).ToPagedList(pageNumber, pageSize));
+            return View();
+        }
+
+        [HttpPost]
+        public JsonResult ClientList()
+        {
+            try
+            {
+                //Get data from database
+
+                int studentCount = db.Users.Where(a => a.Type.Equals(CoreController.UserType.Client.ToString())
+                 && !a.Status.Equals(CoreController.UserStatus.Deleted.ToString())).Count();
+                List<ApplicationUser> students = db.Users.Where(a => a.Type.Equals(CoreController.UserType.Client.ToString())
+                      && !a.Status.Equals(CoreController.UserStatus.Deleted.ToString())).OrderByDescending(a=>a.PointsBalance).ToList();
+
+                //Return result to jTable
+                return Json(new { Result = "OK", Records = students, TotalRecordCount = studentCount });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { Result = "ERROR", Message = ex.Message });
+            }
         }
 
         // GET: /Account/DeletdUsers

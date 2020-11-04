@@ -96,7 +96,9 @@ namespace fsrhilmakv2.Models
     {
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
+
         {
+            
         }
         
         public static ApplicationDbContext Create()
@@ -121,6 +123,11 @@ namespace fsrhilmakv2.Models
                 .HasRequired<Service>(s => s.Service)
                 .WithMany(g => g.Comments)
                 .HasForeignKey<int>(s => s.ServiceId);
+
+            //modelBuilder.Entity<CompetitionPrize>()
+            //    .HasRequired<Competition>(s => s.competition)
+            //    .WithMany(g => g.prizes)
+            //    .HasForeignKey<int>(s => s.CompetitionId);
 
             //modelBuilder.Entity<Service>()
             //    .HasRequired<ApplicationUser>(s => s.ServiceProvider)
@@ -153,6 +160,10 @@ namespace fsrhilmakv2.Models
         public System.Data.Entity.DbSet<Transaction> Transactions { get; set; }
 
         public System.Data.Entity.DbSet<Competition> Competitions { get; set; }
+
+        public System.Data.Entity.DbSet<CompetitionPrize> CompetitionPrizes { get; set; }
+
+        public System.Data.Entity.DbSet<PublicService> PublicServices { get; set; }
     }
 
 }

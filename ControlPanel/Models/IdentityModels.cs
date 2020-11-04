@@ -110,6 +110,11 @@ namespace ControlPanel.Models
                 .WithMany(g => g.Comments)
                 .HasForeignKey<int>(s => s.ServiceId);
 
+            //modelBuilder.Entity<CompetitionPrize>()
+            //    .HasRequired<Competition>(s => s.competition)
+            //    .WithMany(g => g.prizes)
+            //    .HasForeignKey<int>(s => s.CompetitionId);
+
             base.OnModelCreating(modelBuilder);
         }
 
@@ -135,10 +140,10 @@ namespace ControlPanel.Models
 
         public System.Data.Entity.DbSet<Competition> Competitions { get; set; }
 
+        public System.Data.Entity.DbSet<CompetitionPrize> CompetitionPrizes { get; set; }
 
-        //public System.Data.Entity.DbSet<ControlPanel.Models.ApplicationUser> ApplicationUsers { get; set; }
 
+        public System.Data.Entity.DbSet<PublicService> PublicServices { get; set; }
 
-        //public System.Data.Entity.DbSet<ControlPanel.Models.ApplicationUser> ApplicationUsers { get; set; }
     }
 }

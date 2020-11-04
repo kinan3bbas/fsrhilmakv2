@@ -741,9 +741,9 @@ namespace fsrhilmakv2.Controllers
                 SocialStatus = user.SocialState,
                 ImageUrl = user.imageUrl,
                 SocialToken = user.SocialToken,
-                TotalBalance = balance.TransferedBalance,
-                AvailableBalance = balance.DoneBalance,
-                SuspendedBalance = balance.SuspendedBalance,
+                TotalBalance = Math.Round(balance.TransferedBalance,2),
+                AvailableBalance = Math.Round(balance.DoneBalance,2),
+                SuspendedBalance = Math.Round(balance.SuspendedBalance,2),
                 VerifiedUser=user.verifiedInterpreter
                 
                 
