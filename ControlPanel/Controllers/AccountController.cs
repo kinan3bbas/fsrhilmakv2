@@ -578,10 +578,12 @@ namespace ControlPanel.Controllers
                 TotalBalance = balance.TransferedBalance,
                 AvailableBalance = balance.DoneBalance,
                 SuspendedBalance = balance.SuspendedBalance,
+                CompetitionBalance = balance.CompetitionBalance,
                 PointsBalance = user.PointsBalance,
                 UserSpecialCode=user.UserSpecialCode,
                 UserName=user.UserName,
-                VerifiedUser=user.verifiedInterpreter
+                VerifiedUser=user.verifiedInterpreter,
+                ServiceProviderPoints=user.ServiceProviderPoints
                 
 
 
@@ -629,6 +631,7 @@ namespace ControlPanel.Controllers
         }
 
 
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult EditPersonalPage(ApplicationUser user)
@@ -659,6 +662,49 @@ namespace ControlPanel.Controllers
 
             }
             return View(user)
+;
+        }
+
+
+        public ActionResult EditCompetitionBalance(int id)
+        {
+            CompetitionBalance temp = db
+                .CompetitionBalances
+                .Where(e => e.id.Equals(id))
+                .FirstOrDefault();
+            if (temp == null)
+            {
+                return HttpNotFound();
+            }
+            //var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
+            //var user = userManager.FindById(User.Identity.GetUserId());
+            //ViewBag.CurrentUser = user;
+
+            ViewBag.userId = id;
+            return View(temp);
+        }
+
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditCompetitionBalance(CompetitionBalance balance)
+        {
+            if (balance == null)
+            {
+                return HttpNotFound();
+            }
+            if (ModelState.IsValid)
+            {
+                CompetitionBalance temp = db.CompetitionBalances.Where(a => a.id.Equals(balance.id)).FirstOrDefault();
+                temp.Amount = balance.Amount;
+                temp.LastModificationDate = DateTime.Now;
+                db.Entry(temp).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("PersonalPage", new { userId = temp.ServiceProviderId });
+
+            }
+            return View(balance)
 ;
         }
 
@@ -723,6 +769,16 @@ namespace ControlPanel.Controllers
             }
             ViewBag.userId = userId;
             return View(payments);
+        }
+        public ActionResult CompetitionBalance(String userId)
+        {
+            List<CompetitionBalance> CompetitionBalance = db.CompetitionBalances.Where(a => a.ServiceProviderId.Equals(userId))
+                .Include("ServiceProvider")
+                .ToList();
+
+            
+            ViewBag.userId = userId;
+            return View(CompetitionBalance);
         }
 
         public ActionResult ServicePath(String userId)

@@ -1,0 +1,226 @@
+﻿@model IEnumerable<ControlPanel.Models.Competition>
+
+@{
+    ViewBag.Title = "ServiceProvider";
+    Layout = "~/Views/Shared/_PLayout.cshtml";
+    var Id = Request.QueryString["CompetitionId"];
+    int numberOfrecords = Model.Count();
+
+}
+
+
+<h2>مسابقات اهل الذكر</h2>
+<br />
+<link href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css" />
+<link href="https://cdn.datatables.net/buttons/1.6.1/css/buttons.dataTables.min.css" rel="stylesheet" type="text/css" />
+@*<p style="float:right;text-decoration-color:white;">
+
+    <button class="btn btn-primary btn-default" onclick="location.href='@Url.Action("Create", "UserWorks")'">
+        <i class="fa  pull-right" style="font-size:large"></i> Create New userWork
+    </button>
+
+</p>*@
+
+<div class="container">
+    <div class="row">
+
+        <div class="col-md-3">
+
+            <div class="accordion" id="accordionExample">
+                <div class="card">
+                    <div class="card-header" id="headingOne">
+                        <h2 class="mb-0">
+                            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                @Html.ActionLink("معلومات المسابقة", "Details", new { CompetitionId = Id })
+                            </button>
+                        </h2>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="accordion" id="accordionExample">
+                <div class="card">
+                    <div class="card-header" id="headingOne">
+                        <h2 class="mb-0">
+                            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                @Html.ActionLink("الجوائز", "prizes", new { CompetitionId = Id })
+                            </button>
+                        </h2>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion" id="accordionExample">
+                <div class="card">
+                    <div class="card-header" id="headingOne">
+                        <h2 class="mb-0">
+                            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                @Html.ActionLink("المشاركون في المسابقة", "ServiceProvider", new { CompetitionId = Id })
+                            </button>
+                        </h2>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion" id="accordionExample">
+                <div class="card">
+                    <div class="card-header" id="headingOne">
+                        <h2 class="mb-0">
+                            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                @Html.ActionLink("النتائح المرحلية", "CompetitionResultTemp", new { CompetitionId = Id })
+
+
+                            </button>
+                        </h2>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion" id="accordionExample">
+                <div class="card">
+                    <div class="card-header" id="headingOne">
+                        <h2 class="mb-0">
+                            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                @Html.ActionLink("النتائح النهائية", "CompetitionResultFinal", new { CompetitionId = Id })
+
+
+                            </button>
+                        </h2>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion" id="accordionExample">
+                <div class="card">
+                    <div class="card-header" id="headingOne">
+                        <h2 class="mb-0">
+                            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                @Html.ActionLink("المسابقات السابقة", "OldCompetitions", new { CompetitionId = Id })
+
+
+                            </button>
+                        </h2>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+        </div>
+        <div class="col-md-4">
+            @*<div class="row" style="direction:rtl">
+                <div class="col-md-4">
+                    <span style="direction:rtl;float:right;font-size:large"> عدد المشاركين:<br /></span>
+                    <span style="direction:rtl;float:right;font-size:large"> &nbsp; &nbsp; @numberOfrecords</span>
+                </div>
+
+            </div>*@
+            <table id="myTable" class="cell-border hover stripe" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>
+                            Id
+                        </th>
+                        <th>
+                            الاسم
+                        </th>
+
+                        <th>
+                            الحالة
+                        </th>
+
+                        <th>
+                            الهدف
+                        </th>
+                        <th>
+                            تخصص المسابقة
+                        </th>
+                        <th>
+                            تاريخ بدء المسابقة
+                        </th>
+                        <th>
+                            تاريخ انتهاء المسابقة
+                        </th>
+                        <th></th>
+
+
+                        @*<th></th>*@
+                    </tr>
+                <tbody>
+                    @foreach (var item in Model)
+            {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.id)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Status)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Goal)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.UserWork.Name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.StartDate)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.EndDate)
+                            </td>
+                            <td>
+                                @Html.ActionLink(@Resources.UserWork.Edit, "Edit", new { id = item.id }) |
+                                @Html.ActionLink(@Resources.UserWork.Details, "Details", new { CompetitionId = item.id }) |
+                                @Html.ActionLink(@Resources.UserWork.Delete, "Delete", new { id = item.id })
+                            </td>
+
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+
+@section scripts{
+    <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.6.1/js/dataTables.buttons.min.js"></script>
+    <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.colVis.min.js"></script>
+    <script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.html5.min.js"></script>
+    <script type="text/javascript">
+
+        $('#myTable').DataTable(
+            {
+                dom: 'Bfrtip',
+                columnDefs: [
+                    {
+                        targets: 1,
+                        className: 'noVis'
+                    }
+                ],
+                buttons: [
+                    {
+                        extend: 'colvis',
+                        columns: ':not(.noVis)'
+                    },
+                    'copyHtml5',
+                    'excelHtml5',
+                    'pdfHtml5'
+                ]
+
+            }
+
+
+        );
+    </script>
+}

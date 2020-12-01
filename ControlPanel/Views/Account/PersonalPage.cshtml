@@ -119,7 +119,17 @@
                 </div>
             </div>
 
-
+            <div class="accordion" id="accordionExample">
+                <div class="card">
+                    <div class="card-header" id="headingOne">
+                        <h2 class="mb-0">
+                            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                @Html.ActionLink("رصيد المسابقات", "CompetitionBalance", new { userId = Id })
+                            </button>
+                        </h2>
+                    </div>
+                </div>
+            </div>
             @*<ul class="nav flex-column nav-fill">
                     <li id="PersonalInfo" class="nav-item nav-link active " style="border:solid;border-color:#071689;font-weight:600; font-size: larger">
                         @Html.ActionLink(Resources.Register.PersonalInformation, "PersonalPage", new { Employeeid = Id })
@@ -345,6 +355,15 @@
 
                     <tr>
                         <th>
+                            :رصيد المسابقات
+                        </th>
+                        <td>
+                            @Html.DisplayFor(model => model.CompetitionBalance)
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <th>
                             :الرصيد القابل للسحب
                         </th>
                         <td>
@@ -360,6 +379,14 @@
                         </td>
                     </tr>
 
+                    <tr>
+                        <th>
+                            : نقاط مقدم الخدمة
+                        </th>
+                        <td>
+                            @Html.DisplayFor(model => model.ServiceProviderPoints)
+                        </td>
+                    </tr>
 
 
 

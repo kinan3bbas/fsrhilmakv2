@@ -19,11 +19,11 @@ namespace ControlPanel.Models
         [Display(Name = "Name")]
         public String Name { get; set; }
 
-        [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}")]
+        
         [Display(Name = "Start Date")]
         public DateTime? StartDate { get; set; }
 
-        [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}")]
+        
         [Display(Name = "End Date")]
         public DateTime? EndDate { get; set; }
 
@@ -37,6 +37,11 @@ namespace ControlPanel.Models
         public int duration { get; set; }
 
         public bool repeat { get; set; }
+
+        public int? ParentCompetitionId { get; set; }
+        public Competition ParentCompetition { get; set; }
+
+        public long pointsBalance { get; set; }
 
 
     }

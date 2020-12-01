@@ -459,12 +459,42 @@
     <Compile Include="Migrations\202011040752560_priziesUPdate.Designer.cs">
       <DependentUpon>202011040752560_priziesUPdate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202011051152014_CompetitionResult.cs" />
+    <Compile Include="Migrations\202011051152014_CompetitionResult.Designer.cs">
+      <DependentUpon>202011051152014_CompetitionResult.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202011131116376_rank.cs" />
+    <Compile Include="Migrations\202011131116376_rank.Designer.cs">
+      <DependentUpon>202011131116376_rank.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202011281037258_parentCompetition.cs" />
+    <Compile Include="Migrations\202011281037258_parentCompetition.Designer.cs">
+      <DependentUpon>202011281037258_parentCompetition.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202011281106137_parentCompetition1.cs" />
+    <Compile Include="Migrations\202011281106137_parentCompetition1.Designer.cs">
+      <DependentUpon>202011281106137_parentCompetition1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202011281228097_CompetitionBalance.cs" />
+    <Compile Include="Migrations\202011281228097_CompetitionBalance.Designer.cs">
+      <DependentUpon>202011281228097_CompetitionBalance.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202011281234091_CompetitionBalance1.cs" />
+    <Compile Include="Migrations\202011281234091_CompetitionBalance1.Designer.cs">
+      <DependentUpon>202011281234091_CompetitionBalance1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202011302010117_serviceProviderPoints.cs" />
+    <Compile Include="Migrations\202011302010117_serviceProviderPoints.Designer.cs">
+      <DependentUpon>202011302010117_serviceProviderPoints.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Attachment.cs" />
+    <Compile Include="Models\Compitition\CompetitionBalance.cs" />
     <Compile Include="Models\Compitition\CompetitionPrize.cs" />
     <Compile Include="Models\Compitition\Competition.cs" />
+    <Compile Include="Models\Compitition\CompetitionResult.cs" />
     <Compile Include="Models\EmailLog.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\PublicService.cs" />
@@ -494,9 +524,62 @@
     <Content Include="Areas\HelpPage\HelpPage.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="css\MainPageStyles.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="Images\app-store.png" />
+    <Content Include="Images\book.png" />
+    <Content Include="Images\dream.png" />
+    <Content Include="Images\FB.png" />
+    <Content Include="Images\google-play.png" />
+    <Content Include="Images\Snap.png" />
+    <Content Include="MainPageStyle\css\all.css" />
+    <Content Include="MainPageStyle\css\all.min.css" />
+    <Content Include="MainPageStyle\css\brands.css" />
+    <Content Include="MainPageStyle\css\brands.min.css" />
+    <Content Include="MainPageStyle\css\fontawesome.css" />
+    <Content Include="MainPageStyle\css\fontawesome.min.css" />
+    <Content Include="MainPageStyle\css\regular.css" />
+    <Content Include="MainPageStyle\css\regular.min.css" />
+    <Content Include="MainPageStyle\css\solid.css" />
+    <Content Include="MainPageStyle\css\solid.min.css" />
+    <Content Include="MainPageStyle\css\style.css" />
+    <Content Include="MainPageStyle\css\svg-with-js.css" />
+    <Content Include="MainPageStyle\css\svg-with-js.min.css" />
+    <Content Include="MainPageStyle\css\v4-shims.css" />
+    <Content Include="MainPageStyle\css\v4-shims.min.css" />
+    <Content Include="MainPageStyle\img\app-store.png" />
+    <Content Include="MainPageStyle\img\asset-5.png" />
+    <Content Include="MainPageStyle\img\callus.svg" />
+    <Content Include="MainPageStyle\img\details.svg" />
+    <Content Include="MainPageStyle\img\google-play.png" />
+    <Content Include="MainPageStyle\img\Group 1668.svg" />
+    <Content Include="MainPageStyle\img\Group 1694.svg" />
+    <Content Include="MainPageStyle\img\Group 1696.svg" />
+    <Content Include="MainPageStyle\img\Group 1697.svg" />
+    <Content Include="MainPageStyle\img\Group 1698.svg" />
+    <Content Include="MainPageStyle\img\Group 1699.svg" />
+    <Content Include="MainPageStyle\img\Group 2020.svg" />
+    <Content Include="MainPageStyle\img\Group1663.png" />
+    <Content Include="MainPageStyle\img\home.svg" />
+    <Content Include="MainPageStyle\img\others.svg" />
+    <Content Include="MainPageStyle\js\all.js" />
+    <Content Include="MainPageStyle\js\all.min.js" />
+    <Content Include="MainPageStyle\js\brands.js" />
+    <Content Include="MainPageStyle\js\brands.min.js" />
+    <Content Include="MainPageStyle\js\conflict-detection.js" />
+    <Content Include="MainPageStyle\js\conflict-detection.min.js" />
+    <Content Include="MainPageStyle\js\date.format.js" />
+    <Content Include="MainPageStyle\js\fontawesome.js" />
+    <Content Include="MainPageStyle\js\fontawesome.min.js" />
+    <Content Include="MainPageStyle\js\regular.js" />
+    <Content Include="MainPageStyle\js\regular.min.js" />
+    <Content Include="MainPageStyle\js\script.js" />
+    <Content Include="MainPageStyle\js\solid.js" />
+    <Content Include="MainPageStyle\js\solid.min.js" />
+    <Content Include="MainPageStyle\js\v4-shims.js" />
+    <Content Include="MainPageStyle\js\v4-shims.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Areas\HelpPage\Views\Web.config" />
@@ -550,6 +633,8 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Home\Main.cshtml" />
+    <Content Include="Views\Shared\_Layout_main.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -707,6 +792,27 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202011040752560_priziesUPdate.resx">
       <DependentUpon>202011040752560_priziesUPdate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202011051152014_CompetitionResult.resx">
+      <DependentUpon>202011051152014_CompetitionResult.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202011131116376_rank.resx">
+      <DependentUpon>202011131116376_rank.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202011281037258_parentCompetition.resx">
+      <DependentUpon>202011281037258_parentCompetition.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202011281106137_parentCompetition1.resx">
+      <DependentUpon>202011281106137_parentCompetition1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202011281228097_CompetitionBalance.resx">
+      <DependentUpon>202011281228097_CompetitionBalance.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202011281234091_CompetitionBalance1.resx">
+      <DependentUpon>202011281234091_CompetitionBalance1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202011302010117_serviceProviderPoints.resx">
+      <DependentUpon>202011302010117_serviceProviderPoints.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

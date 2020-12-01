@@ -744,7 +744,8 @@ namespace fsrhilmakv2.Controllers
                 TotalBalance = Math.Round(balance.TransferedBalance,2),
                 AvailableBalance = Math.Round(balance.DoneBalance,2),
                 SuspendedBalance = Math.Round(balance.SuspendedBalance,2),
-                VerifiedUser=user.verifiedInterpreter
+                VerifiedUser=user.verifiedInterpreter,
+                ServiceProviderPoints=user.ServiceProviderPoints
                 
                 
 

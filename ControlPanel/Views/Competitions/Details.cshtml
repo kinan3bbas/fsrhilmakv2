@@ -4,11 +4,22 @@
     ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_PLayout.cshtml";
     var Id = Request.QueryString["CompetitionId"];
-}
 
+}
+<style>
+    p {
+        text-align: center;
+        font-size: x-large;
+    }
+</style>
 
 
 <h2 class="text-center" style="color: #071689 !important;">معلومات المسابقة </h2>
+@if (Model.Status == "Active")
+{
+    <p id="demo"></p>
+}
+
 <br />
 <div class="container">
     <div class="row">
@@ -33,7 +44,7 @@
                     <div class="card-header" id="headingOne">
                         <h2 class="mb-0">
                             <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                @Html.ActionLink("الجوائز", "ServicePath", new { userId = Id })
+                                @Html.ActionLink("الجوائز", "prizes", new { CompetitionId = Id })
                             </button>
                         </h2>
                     </div>
@@ -45,7 +56,7 @@
                     <div class="card-header" id="headingOne">
                         <h2 class="mb-0">
                             <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                @Html.ActionLink("المشاركون في المسابقة", "Payments", new { userId = Id })
+                                @Html.ActionLink("المشاركون في المسابقة", "ServiceProvider", new { CompetitionId = Id })
                             </button>
                         </h2>
                     </div>
@@ -57,7 +68,21 @@
                     <div class="card-header" id="headingOne">
                         <h2 class="mb-0">
                             <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                @Html.ActionLink("النتائج", "InterpreterServices", "Services", new { userId = Id }, null)
+                                @Html.ActionLink("النتائح المرحلية", "CompetitionResultTemp", new { CompetitionId = Id })
+
+
+                            </button>
+                        </h2>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion" id="accordionExample">
+                <div class="card">
+                    <div class="card-header" id="headingOne">
+                        <h2 class="mb-0">
+                            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                @Html.ActionLink("النتائح النهائية", "CompetitionResultFinal", new { CompetitionId = Id })
 
 
                             </button>
@@ -68,81 +93,116 @@
 
              
 
+            <div class="accordion" id="accordionExample">
+                <div class="card">
+                    <div class="card-header" id="headingOne">
+                        <h2 class="mb-0">
+                            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                @Html.ActionLink("المسابقات السابقة", "OldCompetitions", new { CompetitionId = Id })
 
+
+                            </button>
+                        </h2>
+                    </div>
+                </div>
+            </div>
            
 
 
         </div>
 
         <div class="col-md-9" id="PersonalInfoDV">
+            <div class="col-md-9" id="PersonalInfoDV">
+                <input type="button" style="float:right"
+                       class="btn btn-info" value="تعديل معلومات المسابقة"
+                       onclick="location.href='@Url.Action("Edit","Competitions", new { id = Model.id })'" />
+                <table class="table table-responsive" style="margin-top:3%">
+                    <tr>
+                        <th>
 
-            <table class="table table-responsive" style="margin-top:3%">
-                <tr>
-                    <th>
+                            الاسم
+                        </th>
+                        <td>
+                            @Html.DisplayFor(model => model.Name)
+                        </td>
+                    </tr>
+                    <tr>
 
-                      الاسم
-                    </th>
-                    <td>
-                        @Html.DisplayFor(model => model.Name)
-                    </td>
-                </tr>
-                <tr>
+                        <th>
+                            الحالة
+                        </th>
+                        <td>
+                            @Html.DisplayFor(model => model.Status)
+                        </td>
+                    </tr>
 
-                    <th>
-                       الحالة
-                    </th>
-                    <td>
-                        @Html.DisplayFor(model => model.Status)
-                    </td>
-                </tr>
-
-                <tr>
-
-
-                    <th>
-                       الهدف
-                    </th>
-                    <td>
-                        @Html.DisplayFor(model => model.Goal)
-                    </td>
-                </tr>
-
-                <tr>
-
-                    <th>
-                        تخصص المسابقة
-                    </th>
-                    <td>
-                        @Html.DisplayFor(model => model.UserWork.Name)
-                    </td>
-                </tr>
-
-                <tr>
-
-                    <th>
-                        تاريخ بدء المسابقة
-                    </th>
-                    <td>
-                        @Html.DisplayFor(model => model.StartDate)
-                    </td>
-                </tr>
-
-                <tr>
-
-                    <th>
-                        تاريخ انتهاء المسابقة
-                    </th>
-                    <td>
-                        @Html.DisplayFor(model => model.EndDate)
-                    </td>
-                </tr>
+                    <tr>
 
 
+                        <th>
+                            الهدف
+                        </th>
+                        <td>
+                            @Html.DisplayFor(model => model.Goal)
+                        </td>
+                    </tr>
 
-                
-            </table>
+                    <tr>
 
-        </div>
+                        <th>
+                            تخصص المسابقة
+                        </th>
+                        <td>
+                            @Html.DisplayFor(model => model.UserWork.Name)
+                        </td>
+                    </tr>
+
+                    <tr>
+
+                        <th>
+                            تاريخ بدء المسابقة
+                        </th>
+                        <td>
+                            @Html.DisplayFor(model => model.StartDate)
+                        </td>
+                    </tr>
+
+                    <tr>
+
+                        <th>
+                            تاريخ انتهاء المسابقة
+                        </th>
+                        <td>
+                            @if (Model.Status != "Not_Started_Yet")
+	                            {
+		                             @Html.DisplayFor(model => model.EndDate)
+                            }
+                            
+                        </td>
+                    </tr>
+                    <tr>
+
+                        <th>
+                            المدة
+                        </th>
+                        <td>
+                            @Html.DisplayFor(model => model.duration)
+                        </td>
+                    </tr>
+                    <tr>
+
+                        <th>
+                            هل ستعاد المسابقة؟
+                        </th>
+                        <td>
+                            @Html.DisplayFor(model => model.repeat)
+                        </td>
+                    </tr>
+
+
+                </table>
+
+            </div>
     </div>
     <div class="row ">
         <div class="col-md-3"></div>
@@ -174,25 +234,71 @@
 
     </div>
 
+    <div class="row">
+        <div class="col-md-3"></div>
+        @if (Model.Status == "Not_Started_Yet")
+        {
+            <div class="col-md-9 text-center" >
+                <div class="alert alert-danger" style="font-size:larger">
+                    <strong>تنبيه</strong> المسابقة لم تبدأ حتى الآن، اضغط على بدء المسابقة.
+                </div>
+            </div>
 
+            <div class="col-md-3"></div>
+            <div class="col-md-9 text-center">
+                <input type="button"
+                       class="btn btn-info" value="بدء المسابقة"
+                       onclick="StartCompetition()" />
+            </div>
+
+
+        }
+        else if (Model.Status == "Active")
+        {
+            <div class="col-md-9 text-center">
+                <div class="alert alert-success" style="font-size:larger" >
+                    <strong>المسابقة جارية الآن</strong> 
+                </div>
+            </div>
+            <div class="col-md-3"></div>
+            <div class="col-md-9 text-center">
+                <input type="button"
+                       class="btn btn-info" value="إنهاء المسابقة"
+                       onclick="EndCompetition()" />
+            </div>
+        }
+        else if (Model.Status == "Not_Active")
+        {
+            <div class="col-md-9 text-center">
+                <div class="alert alert-warning" style="font-size:larger">
+                    <strong>المسابقة منتهية</strong>
+                </div>
+            </div>
+            <div class="col-md-3"></div>
+            <div class="col-md-9 text-center">
+                <input type="button" style="float:right"
+                       class="btn btn-info" value="الانتقال إلى صفحة النتائج"
+                       onclick="location.href='@Url.Action("CompetitionResultFinal","Competitions", new { CompetitionId = Id })'" />
+            </div>
+        }
+    </div>
 </div>
+
 
 
 @section Scripts
 {
     <script type="text/javascript">
 
-
-        function deleteUser() {
-
-        $.ajax({
-            type: 'GET',
-            url: "/Account/deleteUser?id="+String(@Model.id),
+        function StartCompetition() {
+            if (confirm("هل تريد حقاً بدء المسابقة؟!")) {
+                $.ajax({
+                    type: 'GET',
+                    url: "/Competitions/StartCompetition?id=" + String(@Model.id),
             dataType: 'json',
             data: { },
             success: function (data) {
 
-                alert("User was deleted and won't appear anymore in userlist, close the current page");
                 location.reload();
 
 
@@ -205,6 +311,62 @@
             }
             });
             return false;
+            }
+
         }
+
+        function EndCompetition() {
+            if (confirm("هل تريد حقاً أنهاء المسابقة؟ لا يمكن التراجع عن هذا الاجراء! متابعة؟!!")) {
+                $.ajax({
+            type: 'GET',
+            url: "/Competitions/FinishCompetition?id="+String(@Model.id),
+            dataType: 'json',
+            data: { },
+            success: function (data) {
+
+                location.reload();
+
+
+            },
+            error: function (ex) {
+            var r = jQuery.parseJSON(response.responseText);
+            alert("Message: " + r.Message);
+            alert("StackTrace: " + r.StackTrace);
+            alert("ExceptionType: " + r.ExceptionType);
+            }
+            });
+            return false;
+            }
+
+        }
+        var countDownDate;
+        if(@Model.Status=="Active")
+             countDownDate = new Date("@Model.EndDate.Value.ToUniversalTime().AddHours(3)").getTime();
+
+        // Update the count down every 1 second
+        var x = setInterval(function () {
+
+            // Get today's date and time
+            var now = new Date().getTime();
+
+            // Find the distance between now and the count down date
+            var distance = countDownDate - now;
+
+            // Time calculations for days, hours, minutes and seconds
+            var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            // Output the result in an element with id="demo"
+            document.getElementById("demo").innerHTML = days + "d " + hours + "h "
+                + minutes + "m " + seconds + "s ";
+
+            // If the count down is over, write some text 
+            if (distance < 0) {
+                clearInterval(x);
+                document.getElementById("demo").innerHTML = "";
+            }
+        }, 1000);
     </script>
 }

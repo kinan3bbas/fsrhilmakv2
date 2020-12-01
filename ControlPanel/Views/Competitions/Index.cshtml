@@ -92,6 +92,9 @@
     <table id="myTable" class="cell-border hover stripe" style="width:100%">
         <thead>
             <tr>
+                <th>
+                    ID
+                </th>
 
                 <th>
                     الاسم
@@ -119,6 +122,9 @@
             @foreach (var item in Model)
             {
                 <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.id)
+                    </td>
 
                     <td>
                         @Html.DisplayFor(modelItem => item.Name)
@@ -133,14 +139,14 @@
                         @Html.DisplayFor(modelItem => item.UserWork.Name)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.StartDate.Value)
+                        @Html.DisplayFor(modelItem => item.StartDate)
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.EndDate)
                     </td>
                     <td>
                         @Html.ActionLink(@Resources.UserWork.Edit, "Edit", new { id = item.id }) |
-                        @Html.ActionLink(@Resources.UserWork.Details, "Details", new { id = item.id }) |
+                        @Html.ActionLink(@Resources.UserWork.Details, "Details", new { CompetitionId = item.id }) |
                         @Html.ActionLink(@Resources.UserWork.Delete, "Delete", new { id = item.id })
                     </td>
                 </tr>

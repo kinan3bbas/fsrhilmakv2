@@ -73,6 +73,53 @@ namespace ControlPanel.Controllers
             return View(services.ToPagedList(pageNumber,pageSize));
         }
 
+        public ActionResult Index2(int? UserWorkId, int? size, int? page, string status, String fromDate = "", String toDate = "")
+        {
+            int pageSize = (size ?? 100);
+            int pageNumber = (page ?? 1);
+            DateTime from = new DateTime(2000, 1, 1);
+            DateTime to = new DateTime(3000, 1, 1);
+            if (!fromDate.Equals("") && fromDate != null)
+            {
+                DateTime.TryParse(fromDate, out from);
+            }
+            if (!toDate.Equals("") && toDate != null)
+            {
+                DateTime.TryParse(toDate, out to);
+            }
+
+
+            List<Service> services = db.Services.Where(a => a.CreationDate.CompareTo(from) >= 0 && a.CreationDate.CompareTo(to) <= 0
+            && ((status != null && !status.Equals("")) ? a.Status.Equals(status) : a.Status.Equals("Active"))
+            ).OrderByDescending(a => a.CreationDate)
+                .Include("ServicePath")
+                .Include("UserWork")
+                .Include("ServiceProvider")
+                .Include("Creator")
+                .ToList();
+            //if (status != null && !status.Equals(""))
+            //    services = services.Where(a => a.Status.Equals(status)).ToList();
+            //else
+            //    services = services.Where(a => a.Status.Equals("Active")).ToList();
+
+            if (UserWorkId != null)
+            {
+
+                services = services.Where(a => a.UserWorkId.Equals(UserWorkId)).ToList();
+                //services = bindings.Select(a => a.U).ToList();
+            }
+
+            //List<ServiceViewModel> result = new List<ServiceViewModel>();
+            //foreach (var item in Pservices)
+            //{
+            //    result.Add(getMappingv2(item));
+            //}
+
+            ViewBag.UserWorkId = new SelectList(db.UserWorks.Where(a => a.Enabled), "id", "AdjectiveName");
+            ViewBag.numberOfServices = services.Count();
+            return View(services.ToPagedList(pageNumber, pageSize));
+        }
+
         public ActionResult PublicServices(int? UserWorkId, int? page, string status, String fromDate = "", String toDate = "")
         {
             int pageSize = 10;

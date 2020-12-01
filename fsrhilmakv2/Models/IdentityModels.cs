@@ -81,6 +81,8 @@ namespace fsrhilmakv2.Models
 
         public String SocialToken { get; set; }
 
+        public long ServiceProviderPoints { get; set; }
+
         ////public List<Service> Services { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager, string authenticationType)
@@ -164,6 +166,10 @@ namespace fsrhilmakv2.Models
         public System.Data.Entity.DbSet<CompetitionPrize> CompetitionPrizes { get; set; }
 
         public System.Data.Entity.DbSet<PublicService> PublicServices { get; set; }
+
+        public System.Data.Entity.DbSet<CompetitionResult> CompetitionResults { get; set; }
+
+        public System.Data.Entity.DbSet<CompetitionBalance> CompetitionBalances { get; set; }
     }
 
 }

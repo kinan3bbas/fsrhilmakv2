@@ -32,7 +32,7 @@ namespace ControlPanel.Controllers
 
         public enum CompetitionGoal { Fastest, Highest_Rating, AVG_Request, Most_Done_Services };
 
-        public enum CompetitionStatus { Active, Not_Active, Deleted, Not_Started_Yet };
+        public enum CompetitionStatus { Active, Not_Active, Deleted, Not_Started_Yet,Finished };
         public CoreController() { }
 
         

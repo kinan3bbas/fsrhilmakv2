@@ -12,5 +12,7 @@ namespace ControlPanel.ViewModels
         public double TransferedBalance { get; set; }
 
         public double SuspendedBalance { get; set; }
+
+        public double CompetitionBalance { get; set; }
     }
 }

@@ -39,7 +39,10 @@ namespace fsrhilmakv2.Models
         public bool repeat { get; set; }
 
 
+        public int? ParentCompetitionId { get; set; }
+        public Competition ParentCompetition { get; set; }
 
+        public long pointsBalance { get; set; }
 
     }
 }

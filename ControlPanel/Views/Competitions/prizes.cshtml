@@ -1,14 +1,15 @@
 ﻿@model ControlPanel.Models.Competition
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Prizes";
     Layout = "~/Views/Shared/_PLayout.cshtml";
     var Id = Request.QueryString["CompetitionId"];
+    var x = 1;
 }
 
 
 
-<h2 class="text-center" style="color: #071689 !important;">جوائز المسابقة @Model.Name </h2>
+<h2 class="text-center" style="color: #071689 !important;">جوائز المسابقة </h2>
 <br />
 <div class="container">
     <div class="row">
@@ -33,7 +34,7 @@
                     <div class="card-header" id="headingOne">
                         <h2 class="mb-0">
                             <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                @Html.ActionLink("الجوائز", "ServicePath", new { userId = Id })
+                                @Html.ActionLink("الجوائز", "prizes", new { CompetitionId = Id })
                             </button>
                         </h2>
                     </div>
@@ -45,7 +46,7 @@
                     <div class="card-header" id="headingOne">
                         <h2 class="mb-0">
                             <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                @Html.ActionLink("المشاركون في المسابقة", "Payments", new { userId = Id })
+                                @Html.ActionLink("المشاركون في المسابقة", "ServiceProvider", new { CompetitionId = Id })
                             </button>
                         </h2>
                     </div>
@@ -57,7 +58,7 @@
                     <div class="card-header" id="headingOne">
                         <h2 class="mb-0">
                             <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                @Html.ActionLink("النتائج", "InterpreterServices", "Services", new { userId = Id }, null)
+                                @Html.ActionLink("النتائح المرحلية", "CompetitionResultTemp", new { CompetitionId = Id })
 
 
                             </button>
@@ -66,44 +67,870 @@
                 </div>
             </div>
 
-             
+            <div class="accordion" id="accordionExample">
+                <div class="card">
+                    <div class="card-header" id="headingOne">
+                        <h2 class="mb-0">
+                            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                @Html.ActionLink("النتائح النهائية", "CompetitionResultFinal", new { CompetitionId = Id })
 
 
-           
+                            </button>
+                        </h2>
+                    </div>
+                </div>
+            </div>
+            <div class="accordion" id="accordionExample">
+                <div class="card">
+                    <div class="card-header" id="headingOne">
+                        <h2 class="mb-0">
+                            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                @Html.ActionLink("المسابقات السابقة", "OldCompetitions", new { CompetitionId = Id })
+
+
+                            </button>
+                        </h2>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
 
 
         </div>
 
         <div class="col-md-9" id="PersonalInfoDV">
+            <input type="button" style="float:right"
+                   class="btn btn-info" value="تعديل الجوائز"
+                   onclick="location.href='@Url.Action("Edit","Competitions", new { id = Model.id })'"  />
 
-            @if (Model.prizes == null)
-            {
-                <p> لم يتم إضافة جوائز حتى الأن</p>
-            }
-            else
-            {
-                <table class="table table-responsive" style="margin-top:3%">
+            <table class="cell-border hover stripe" style="width:100%;">
+                <thead>
+                    <tr>
+                        <th>
+                            المركز
+                        </th>
+                        <th>
+                            الجائزة
+                        </th>
+                        <th>
+                            المركز
+                        </th>
+                        <th>
+                            الجائزة
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            @x
+                            @{ x = x + 1;}
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model=>model.prize.rank1)
+                        </td>
+                        <td>
+                            @x
+                            @{ x = x + 1;}
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.prize.rank2)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @x
+                            @{ x = x + 1;}
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.prize.rank3)
+                        </td>
+                        <td>
+                            @x
+                            @{ x = x + 1;}
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.prize.rank4)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @x
+                            @{ x = x + 1;}
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.prize.rank5)
+                        </td>
+                        <td>
+                            @x
+                            @{ x = x + 1;}
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.prize.rank6)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @x
+                            @{ x = x + 1;}
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.prize.rank7)
+                        </td>
+                        <td>
+                            @x
+                            @{ x = x + 1;}
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.prize.rank8)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @x
+                            @{ x = x + 1;}
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.prize.rank9)
+                        </td>
+                        <td>
+                            @x
+                            @{ x = x + 1;}
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.prize.rank10)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @x
+                            @{ x = x + 1;}
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.prize.rank11)
+                        </td>
+                        <td>
+                            @x
+                            @{ x = x + 1;}
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.prize.rank12)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @x
+                            @{ x = x + 1;}
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.prize.rank13)
+                        </td>
+                        <td>
+                            @x
+                            @{ x = x + 1;}
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.prize.rank14)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @x
+                            @{ x = x + 1;}
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.prize.rank15)
+                        </td>
+                        <td>
+                            @x
+                            @{ x = x + 1;}
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.prize.rank16)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @x
+                            @{ x = x + 1;}
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.prize.rank17)
+                        </td>
+                        <td>
+                            @x
+                            @{ x = x + 1;}
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.prize.rank18)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @x
+                            @{ x = x + 1;}
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.prize.rank19)
+                        </td>
+                        <td>
+                            @x
+                            @{ x = x + 1;}
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.prize.rank20)
+                        </td>
+                    </tr>
 
-                    @for (int i = 0; i < Model.prizes.Count; i++)
-                {
-                        <tr>
-                            <th>
+                    <tr>
+                        <td>
+                            @x
+                            @{ x = x + 1;}
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.prize.rank21)
+                        </td>
+                        <td>
+                            @x
+                            @{ x = x + 1;}
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.prize.rank22)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @x
+                            @{ x = x + 1;}
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.prize.rank23)
+                        </td>
+                        <td>
+                            @x
+                            @{ x = x + 1;}
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.prize.rank24)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @x
+                            @{ x = x + 1;}
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.prize.rank25)
+                        </td>
+                        <td>
+                            @x
+                            @{ x = x + 1;}
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.prize.rank26)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @x
+                            @{ x = x + 1;}
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.prize.rank27)
+                        </td>
+                        <td>
+                            @x
+                            @{ x = x + 1;}
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.prize.rank28)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @x
+                            @{ x = x + 1;}
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.prize.rank29)
+                        </td>
+                        <td>
+                            @x
+                            @{ x = x + 1;}
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.prize.rank30)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @x
+                            @{ x = x + 1;}
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.prize.rank31)
+                        </td>
+                        <td>
+                            @x
+                            @{ x = x + 1;}
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.prize.rank32)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @x
+                            @{ x = x + 1;}
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.prize.rank33)
+                        </td>
+                        <td>
+                            @x
+                            @{ x = x + 1;}
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.prize.rank34)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @x
+                            @{ x = x + 1;}
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.prize.rank35)
+                        </td>
+                        <td>
+                            @x
+                            @{ x = x + 1;}
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.prize.rank36)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @x
+                            @{ x = x + 1;}
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.prize.rank37)
+                        </td>
+                        <td>
+                            @x
+                            @{ x = x + 1;}
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.prize.rank38)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @x
+                            @{ x = x + 1;}
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.prize.rank39)
+                        </td>
+                        <td>
+                            @x
+                            @{ x = x + 1;}
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.prize.rank40)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @x
+                            @{ x = x + 1;}
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.prize.rank41)
+                        </td>
+                        <td>
+                            @x
+                            @{ x = x + 1;}
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.prize.rank42)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @x
+                            @{ x = x + 1;}
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.prize.rank43)
+                        </td>
+                        <td>
+                            @x
+                            @{ x = x + 1;}
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.prize.rank44)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @x
+                            @{ x = x + 1;}
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.prize.rank45)
+                        </td>
+                        <td>
+                            @x
+                            @{ x = x + 1;}
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.prize.rank46)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @x
+                            @{ x = x + 1;}
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.prize.rank47)
+                        </td>
+                        <td>
+                            @x
+                            @{ x = x + 1;}
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.prize.rank48)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @x
+                            @{ x = x + 1;}
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.prize.rank49)
+                        </td>
+                        <td>
+                            @x
+                            @{ x = x + 1;}
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.prize.rank50)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @x
+                            @{ x = x + 1;}
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.prize.rank51)
+                        </td>
+                        <td>
+                            @x
+                            @{ x = x + 1;}
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.prize.rank52)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @x
+                            @{ x = x + 1;}
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.prize.rank53)
+                        </td>
+                        <td>
+                            @x
+                            @{ x = x + 1;}
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.prize.rank54)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @x
+                            @{ x = x + 1;}
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.prize.rank55)
+                        </td>
+                        <td>
+                            @x
+                            @{ x = x + 1;}
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.prize.rank56)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @x
+                            @{ x = x + 1;}
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.prize.rank57)
+                        </td>
+                        <td>
+                            @x
+                            @{ x = x + 1;}
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.prize.rank58)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @x
+                            @{ x = x + 1;}
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.prize.rank59)
+                        </td>
+                        <td>
+                            @x
+                            @{ x = x + 1;}
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.prize.rank60)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @x
+                            @{ x = x + 1;}
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.prize.rank61)
+                        </td>
+                        <td>
+                            @x
+                            @{ x = x + 1;}
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.prize.rank62)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @x
+                            @{ x = x + 1;}
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.prize.rank63)
+                        </td>
+                        <td>
+                            @x
+                            @{ x = x + 1;}
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.prize.rank64)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @x
+                            @{ x = x + 1;}
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.prize.rank65)
+                        </td>
+                        <td>
+                            @x
+                            @{ x = x + 1;}
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.prize.rank66)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @x
+                            @{ x = x + 1;}
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.prize.rank67)
+                        </td>
+                        <td>
+                            @x
+                            @{ x = x + 1;}
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.prize.rank68)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @x
+                            @{ x = x + 1;}
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.prize.rank69)
+                        </td>
+                        <td>
+                            @x
+                            @{ x = x + 1;}
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.prize.rank70)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @x
+                            @{ x = x + 1;}
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.prize.rank71)
+                        </td>
+                        <td>
+                            @x
+                            @{ x = x + 1;}
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.prize.rank72)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @x
+                            @{ x = x + 1;}
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.prize.rank73)
+                        </td>
+                        <td>
+                            @x
+                            @{ x = x + 1;}
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.prize.rank74)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @x
+                            @{ x = x + 1;}
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.prize.rank75)
+                        </td>
+                        <td>
+                            @x
+                            @{ x = x + 1;}
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.prize.rank76)
+                        </td>
+                    </tr>
 
-                                i+1 المركز
-                            </th>
-                            <td>
-                                @Model.prizes[i]
-                            </td>
-                        </tr>
-                    }
+                    <tr>
+                        <td>
+                            @x
+                            @{ x = x + 1;}
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.prize.rank77)
+                        </td>
+                        <td>
+                            @x
+                            @{ x = x + 1;}
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.prize.rank78)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @x
+                            @{ x = x + 1;}
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.prize.rank79)
+                        </td>
+                        <td>
+                            @x
+                            @{ x = x + 1;}
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.prize.rank80)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @x
+                            @{ x = x + 1;}
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.prize.rank81)
+                        </td>
+                        <td>
+                            @x
+                            @{ x = x + 1;}
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.prize.rank82)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @x
+                            @{ x = x + 1;}
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.prize.rank83)
+                        </td>
+                        <td>
+                            @x
+                            @{ x = x + 1;}
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.prize.rank84)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @x
+                            @{ x = x + 1;}
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.prize.rank85)
+                        </td>
+                        <td>
+                            @x
+                            @{ x = x + 1;}
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.prize.rank86)
+                        </td>
+                    </tr>
 
 
-
-
-
-
-                </table>
-            }
+                    <tr>
+                        <td>
+                            @x
+                            @{ x = x + 1;}
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.prize.rank87)
+                        </td>
+                        <td>
+                            @x
+                            @{ x = x + 1;}
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.prize.rank88)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @x
+                            @{ x = x + 1;}
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.prize.rank89)
+                        </td>
+                        <td>
+                            @x
+                            @{ x = x + 1;}
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.prize.rank90)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @x
+                            @{ x = x + 1;}
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.prize.rank91)
+                        </td>
+                        <td>
+                            @x
+                            @{ x = x + 1;}
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.prize.rank92)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @x
+                            @{ x = x + 1;}
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.prize.rank93)
+                        </td>
+                        <td>
+                            @x
+                            @{ x = x + 1;}
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.prize.rank94)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @x
+                            @{ x = x + 1;}
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.prize.rank95)
+                        </td>
+                        <td>
+                            @x
+                            @{ x = x + 1;}
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.prize.rank96)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @x
+                            @{ x = x + 1;}
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.prize.rank97)
+                        </td>
+                        <td>
+                            @x
+                            @{ x = x + 1;}
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.prize.rank98)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @x
+                            @{ x = x + 1;}
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.prize.rank99)
+                        </td>
+                        <td>
+                            @x
+                            @{ x = x + 1;}
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.prize.rank100)
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
 
         </div>
     </div>
@@ -112,22 +939,7 @@
         <div class="col-md-9">
             <hr />
 
-            @*<div class="row">
-                <div class="col-md-5">
-                    <input type="button"
-                           class="btn btn-primary" value="@Resources.UserWork.Edit"
-                           onclick="location.href='@Url.Action("EditPersonalPage", "Account", new { id = Model.Id })'" />
-                </div>
-                @if (Model.Status == "Active")
-                {
-                    <div class="col-md-5">
-                        <input type="button"
-                               class="btn btn-danger" value="حذف المستخدم"
-                               onclick="location.href='@Url.Action("Delete", "Account", new { id = Model.Id })'" />
-                    </div>
-                }
-
-            </div>*@
+            
 
             <br />
 
@@ -143,31 +955,5 @@
 
 @section Scripts
 {
-    <script type="text/javascript">
-
-
-        function deleteUser() {
-
-        $.ajax({
-            type: 'GET',
-            url: "/Account/deleteUser?id="+String(@Model.id),
-            dataType: 'json',
-            data: { },
-            success: function (data) {
-
-                alert("User was deleted and won't appear anymore in userlist, close the current page");
-                location.reload();
-
-
-            },
-            error: function (ex) {
-            var r = jQuery.parseJSON(response.responseText);
-            alert("Message: " + r.Message);
-            alert("StackTrace: " + r.StackTrace);
-            alert("ExceptionType: " + r.ExceptionType);
-            }
-            });
-            return false;
-        }
-    </script>
+    
 }
