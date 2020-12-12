@@ -264,6 +264,7 @@
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Extra\BasicModel.cs" />
     <Compile Include="Extra\BasicRepository.cs" />
+    <Compile Include="Extra\CompetitionLibrary.cs" />
     <Compile Include="Extra\EmailHelper.cs" />
     <Compile Include="Extra\Message.cs" />
     <Compile Include="Extra\Notification.cs" />
@@ -513,6 +514,7 @@
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />
     <Compile Include="Results\ChallengeResult.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\CompetitionViewModel.cs" />
     <Compile Include="ViewModels\ServiceViewModel.cs" />
     <Compile Include="ViewModels\ServicePathViewModel.cs" />
     <Compile Include="ViewModels\StatisticsViewModel.cs" />

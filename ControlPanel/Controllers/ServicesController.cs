@@ -73,9 +73,9 @@ namespace ControlPanel.Controllers
             return View(services.ToPagedList(pageNumber,pageSize));
         }
 
-        public ActionResult Index2(int? UserWorkId, int? size, int? page, string status, String fromDate = "", String toDate = "")
+        public ActionResult Index2(int? UserWorkId, int? sizee, int? page, string status, String fromDate = "", String toDate = "")
         {
-            int pageSize = (size ?? 100);
+            int pageSize = (sizee ?? 100);
             int pageNumber = (page ?? 1);
             DateTime from = new DateTime(2000, 1, 1);
             DateTime to = new DateTime(3000, 1, 1);
@@ -102,7 +102,7 @@ namespace ControlPanel.Controllers
             //else
             //    services = services.Where(a => a.Status.Equals("Active")).ToList();
 
-            if (UserWorkId != null)
+            if (UserWorkId != null&&UserWorkId!=0)
             {
 
                 services = services.Where(a => a.UserWorkId.Equals(UserWorkId)).ToList();
@@ -114,8 +114,36 @@ namespace ControlPanel.Controllers
             //{
             //    result.Add(getMappingv2(item));
             //}
+            //var myList= new SelectList(db.UserWorks.Where(a => a.Enabled), "id", "AdjectiveName");
+            //myList.add
+            //myList.add(new SelectListItem("-- ALL --", 0));
+            var selectlist= new SelectList(db.UserWorks.Where(a => a.Enabled), "id", "AdjectiveName");
+            selectlist.ToList().Add(new SelectListItem() { Text = "--Select--", Value = "0" });
+            if (UserWorkId != null)
+            {
+                foreach (var item in selectlist)
+                {
+                    if (item.Value == UserWorkId.ToString())
+                    {
+                        item.Selected = true;
+                        break;
+                    }
+                }
+            }
+            
+            ViewBag.UserWorkId = selectlist;
+            ViewBag.selectVaule = UserWorkId;
+            if (status != null)
+                ViewBag.status = status;
+
 
             ViewBag.UserWorkId = new SelectList(db.UserWorks.Where(a => a.Enabled), "id", "AdjectiveName");
+            if (fromDate != null)
+                ViewBag.fromDate = fromDate;
+            if (toDate != null)
+                ViewBag.toDate = toDate;
+            if (sizee != null)
+                ViewBag.sizee = sizee;
             ViewBag.numberOfServices = services.Count();
             return View(services.ToPagedList(pageNumber, pageSize));
         }

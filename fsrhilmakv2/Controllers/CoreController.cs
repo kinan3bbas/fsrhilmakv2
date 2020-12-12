@@ -30,7 +30,9 @@ namespace fsrhilmakv2.Controllers
 
         public enum UserWorkCode { Dream, Iftaa, Medical,Istishara,Rouqia, Law };
 
-        public enum CompetitionGoal { Fastest,Highest_Rating,AVG_Request,Most_Done_Services };
+        public enum CompetitionGoal { Fastest, Highest_Rating, AVG_Request, Most_Done_Services };
+
+        public enum CompetitionStatus { Active, Not_Active, Deleted, Not_Started_Yet, Finished };
 
         public CoreController() { }
 

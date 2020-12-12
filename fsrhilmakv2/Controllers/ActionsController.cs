@@ -9,6 +9,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
+using System.Web.Http.Results;
 
 namespace fsrhilmakv2.Controllers
 {
@@ -20,6 +21,7 @@ namespace fsrhilmakv2.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
         private CoreController core = new CoreController();
         private UserHelperLibrary helper = new UserHelperLibrary();
+        private CompetitionLibrary libComp = new CompetitionLibrary();
 
 
 
@@ -568,6 +570,81 @@ namespace fsrhilmakv2.Controllers
             SaveService(service);
             return Ok(service);
         }
+
+        //*************************** Competition List********************
+        [Route("GetCompetitions")]
+        public IHttpActionResult GetCompetitions(String status="Active", int skip = 0, int top = 10)
+        {
+            List<CompetitionViewModel> result = new List<CompetitionViewModel>();
+            String userId = core.getCurrentUser().Id;
+            if (!core.getCurrentUser().verifiedInterpreter)
+                return Ok(result);
+            ApplicationUser user = db.Users.Where(a => a.Id.Equals(userId)).Include(a => a.userWorkBinding).FirstOrDefault();
+            List<int> userWorkIds = new List<int>();
+            foreach (var item in user.userWorkBinding)
+            {
+                userWorkIds.Add(item.UserWorkId);
+            }
+            skip = skip == null ? 0 : skip;
+            top = top == null ? 5 : top;
+            
+            List<Competition> competitions= db.Competitions.Where(a => a.Status.Equals(status)
+            && userWorkIds.Contains(a.UserWorkId))
+            .Include(a=>a.UserWork)
+            .Include(a=>a.prize)
+            .ToList();
+            int count = competitions.Count();
+            foreach (var item in competitions)
+            {
+                result.Add(GetCompetitionMapping(item));
+            }
+            var genericResutl = new { Competitions = result.OrderBy(a => a.EndDate).Skip(skip).Take(top), Count = count };
+            return Ok(genericResutl);
+        }
+
+        //*************************** Get Competition Results********************
+        [AllowAnonymous]
+        [Route("GetCompetitionResult")]
+        public IHttpActionResult GetCompetitionResult(int CompetitionId)
+        {
+
+            List<CompetitionResult> resutl = new List<CompetitionResult>();
+            Competition Competition = db.Competitions.Find(CompetitionId);
+            if (Competition.Status.Equals(CoreController.CompetitionStatus.Active.ToString()))
+            {
+                //temp results here
+                List<UserWorkBinding> bindings = db.UserWorkBindings.Where(a => a.UserWorkId == Competition.UserWorkId && a.User.Status != "Deleted"
+                     && a.User.Type == "Service_Provider"
+                    && a.User.verifiedInterpreter).Include("User").ToList();
+                List<ApplicationUser> users = bindings.Select(a => a.User).ToList();
+                //FinishCompetitionJob();
+                return Ok(libComp.getFinalList(Competition, users, Competition.StartDate.Value, true));
+            }
+            else if (Competition.Status.Equals(CoreController.CompetitionStatus.Finished.ToString())) {
+                //Final Results here 
+                return Ok(db.CompetitionResults.Where(a => a.competitionId.Equals(CompetitionId)).OrderByDescending(a => a.NumberOfActiveServices).Include(a => a.ServiceProvider).ToList());
+            }
+
+            
+            return Ok(resutl);
+        }
+
+        public void FinishCompetitionJob()
+        {
+            DateTime now = DateTime.Now.ToUniversalTime().AddHours(3);
+            List<Competition> Competitions = db.Competitions.Where(a => a.Status.Equals("Active") && a.EndDate.Value.CompareTo(DateTime.Now) <= 0)
+                .Include(a => a.prize)
+                .Include(a => a.UserWork).ToList();
+            foreach (var Competition in Competitions)
+            {
+                List<UserWorkBinding> bindings = db.UserWorkBindings.Where(a => a.UserWorkId == Competition.UserWorkId && a.User.Status != "Deleted"
+                     && a.User.Type == "Service_Provider"
+                    && a.User.verifiedInterpreter).Include("User").ToList();
+                List<ApplicationUser> users = bindings.Select(a => a.User).ToList();
+                libComp.finishCompetition(Competition, libComp.getFinalList(Competition, users, Competition.StartDate.Value, false));
+
+            }
+        }
         public void SaveService(Service Service)
         {
             Service.LastModificationDate = DateTime.Now;
@@ -576,7 +653,23 @@ namespace fsrhilmakv2.Controllers
             db.SaveChanges();
         }
 
+        public CompetitionViewModel GetCompetitionMapping(Competition comp)
+        {
+            CompetitionViewModel temp = new CompetitionViewModel();
+            temp.duration = comp.duration;
+            temp.EndDate = comp.EndDate;
+            temp.StartDate = comp.StartDate;
+            temp.FirstPlacePrice = comp.prize.rank1;
+            temp.Goal = comp.Goal;
+            temp.repeat = comp.repeat;
+            temp.Status = comp.Status;
+            temp.UserWork = comp.UserWork;
+            temp.Name = comp.Name;
+            temp.id = comp.id;
+            return temp;
 
+
+        }
 
         public ServiceViewModel getMapping(Service service)
         {

@@ -57,7 +57,7 @@
             </div>
             <div class="col-md-4">
                 @Html.Label("عدد الخدمات في الصفحة الواحدة")
-                @Html.TextBox("size", null, new { @class = "form-control m-input m-input--air" })
+                @Html.TextBox("sizee", null, new { @class = "form-control m-input m-input--air" })
 
             </div>
 
@@ -208,7 +208,12 @@
         </tbody>
     </table>
     Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
-    @Html.PagedListPager(Model, page => Url.Action("Index", new { page }),
+    @Html.PagedListPager(Model, page => Url.Action("Index2", new { page,status=ViewBag.status,size=ViewBag.size,
+    fromDate= ViewBag.fromDate,
+    toDate= ViewBag.toDate,sizee = ViewBag.sizee,
+    UserWorkId = ViewBag.selectVaule
+}
+        ),
     new PagedListRenderOptions
     {
         LiElementClasses = new string[] { "pagination" }
