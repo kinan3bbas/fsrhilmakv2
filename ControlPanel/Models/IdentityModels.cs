@@ -76,6 +76,8 @@ namespace ControlPanel.Models
         public String imageUrl { get; set; }
 
         public String SocialToken { get; set; }
+
+        public long ServiceProviderPoints { get; set; }
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
@@ -110,6 +112,11 @@ namespace ControlPanel.Models
                 .WithMany(g => g.Comments)
                 .HasForeignKey<int>(s => s.ServiceId);
 
+            //modelBuilder.Entity<CompetitionPrize>()
+            //    .HasRequired<Competition>(s => s.competition)
+            //    .WithMany(g => g.prizes)
+            //    .HasForeignKey<int>(s => s.CompetitionId);
+            //modelBuilder.Entity<Competition>().HasOptional<Competition>(g => g.ParentCompetition);
             base.OnModelCreating(modelBuilder);
         }
 
@@ -133,12 +140,16 @@ namespace ControlPanel.Models
 
         public System.Data.Entity.DbSet<Transaction> Transactions { get; set; }
 
+        public System.Data.Entity.DbSet<Competition> Competitions { get; set; }
+
+        public System.Data.Entity.DbSet<CompetitionPrize> CompetitionPrizes { get; set; }
 
 
+        public System.Data.Entity.DbSet<PublicService> PublicServices { get; set; }
 
-        //public System.Data.Entity.DbSet<ControlPanel.Models.ApplicationUser> ApplicationUsers { get; set; }
+        public System.Data.Entity.DbSet<CompetitionResult> CompetitionResults { get; set; }
 
+        public System.Data.Entity.DbSet<CompetitionBalance> CompetitionBalances { get; set; }
 
-        //public System.Data.Entity.DbSet<ControlPanel.Models.ApplicationUser> ApplicationUsers { get; set; }
     }
 }

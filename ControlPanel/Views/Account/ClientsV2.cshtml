@@ -1,0 +1,146 @@
+﻿@model PagedList.IPagedList<ControlPanel.Models.ApplicationUser>
+@using PagedList.Mvc;
+@{
+    ViewBag.Title = "Clients";
+    Layout = "~/Views/Shared/_PLayoutv2.cshtml";
+}
+
+
+
+
+<h1>@Resources.Global.Users</h1>
+<br />
+<link href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css" />
+<link href="https://cdn.datatables.net/buttons/1.6.1/css/buttons.dataTables.min.css" rel="stylesheet" type="text/css" />
+@*<p style="float:right;text-decoration-color:white;">
+
+        <button class="btn btn-primary btn-default" onclick="location.href='@Url.Action("Create", "UserWorks")'">
+            <i class="fa  pull-right" style="font-size:large"></i> Create New userWork
+        </button>
+
+    </p>*@
+<div class="container">
+    @using (Html.BeginForm())
+    {
+
+        <div class="row">
+
+            <div class="col-md-4">
+                @Html.Label("From Date")
+                @Html.TextBox("fromDate", null, new { type = "date", @class = "form-control m-input m-input--air" })
+            </div>
+            <div class="col-md-4">
+                @Html.Label("To Date")
+                @Html.TextBox("toDate", null, new { type = "date", @class = "form-control m-input m-input--air" })
+
+            </div>
+        </div>
+        <br />
+        @*<div class="text-center">
+                <button type="submit" class="btn btn-default">
+                    Filter
+                </button>
+            </div>*@
+
+        <div class="text-center">
+            <button type="submit" class="SearchBtn btn btn-outline-brand m-btn m-btn--icon btn-sm m-btn--icon-only m-btn--custom m-btn--outline-1x m-btn--pill m-btn--air">
+                <i class="fa fa-search"></i>
+            </button>
+        </div>
+
+    }
+</div>
+<br />
+<br />
+
+<div id="StudentTableContainer">
+</div>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        $('#StudentTableContainer').jtable({
+            title: 'Client List',
+            paging: true,
+            pageSize: 10,
+            sorting: false,
+            //defaultSorting: 'Name ASC',
+            actions: {
+                listAction: '@Url.Action("ClientList")',
+                @*deleteAction: '@Url.Action("DeleteStudent")',
+                updateAction: '@Url.Action("UpdateStudent")',
+                createAction: '@Url.Action("CreateStudent")'*@
+            },
+            fields: {
+                PhoneNumber: {
+                    title: 'PhonNumber',
+                    width: '23%'
+                },
+                Email: {
+                    title: 'Email address',
+                    list: false
+                }
+            }
+        });
+
+        //Load student list from server
+        $('#StudentTableContainer').jtable('load');
+    });
+
+</script>
+
+@*<table id="myTable" class="cell-border hover stripe" style="width:100%">
+    <thead>
+        <tr>
+            <th>
+                @Resources.Global.Name
+            </th>
+            <th>
+                @Resources.Global.PhoneNumber
+            </th>
+            <th>
+                @Resources.Global.Email
+            </th>
+            <th>
+                نقاط المستخدم
+            </th>
+            <th>
+                كود المستخدم
+            </th>
+            <th>
+                @Resources.UserWork.CreationDate
+            </th>
+
+
+
+
+        </tr>
+
+    <tbody>
+        @foreach (var user in Model)
+        {
+            <tr>
+                <td>
+                    @Html.ActionLink(@user.Name, "PersonalPage", new { userId = @user.Id }, null)
+                </td>
+                <td>@user.PhoneNumber</td>
+                <th>@user.Email</th>
+
+                <td>@user.PointsBalance</td>
+                <th>@user.UserSpecialCode</th>
+
+                <th>@user.CreationDate</th>
+
+
+            </tr>
+        }
+    </tbody>
+</table>
+
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount 
+@Html.PagedListPager(Model, page => Url.Action("Clients",new { page }),
+    new PagedListRenderOptions
+    {
+        LiElementClasses = new string[] { "pagination" }
+    })*@

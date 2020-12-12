@@ -1,0 +1,304 @@
+﻿@model ControlPanel.Bindings.CompetitionBindings
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_PLayout.cshtml";
+}
+@*<link rel="stylesheet" type="text/css" href="/jquery.datetimepicker.css"/ >*@
+
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+<!-- Google Fonts -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
+<!-- Bootstrap core CSS -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet">
+<!-- Material Design Bootstrap -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/css/mdb.min.css" rel="stylesheet">
+
+@*<link href="css/addons-pro/steppers.min.css" rel="stylesheet">*@
+<link href="~/Scripts/MDB/css/addons-pro/steppers.min.css" rel="stylesheet" />
+@*<h2>ادخل معلومات المسابقة</h2>*@
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+
+        <hr />
+        <ul class="stepper">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <li class="step active" id="horizontal-stepper">
+                <div class="step-title waves-effect waves-dark">معلومات المسابقة الاساسية</div>
+                <div class="step-new-content">
+                    <div class="form-group">
+                        @Resources.UserWork.Name
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        مدة المسابقة
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.duration, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        الهدف
+                        <div class="col-md-10">
+                            <div class="input-group">
+                                @Html.DropDownList("Goal", new List<SelectListItem>
+                                            { new SelectListItem { Text="أسرع مفسر", Value="Fastest"},
+                                              new SelectListItem{Text="أعلى مفسر تقييم", Value="Highest_Rating"},
+                                              new SelectListItem{Text="أعلى معدل طلب", Value="AVG_Request"},
+                                              new SelectListItem{Text="أعلى خدمات مفسرة", Value="Most_Done_Services"}
+                                            }, "Select Goal")
+                                @Html.ValidationMessageFor(model => model.Goal)
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        تخصص المسابقة
+                        <div class="col-md-10">
+                            <div class="input-group">
+                                @Html.DropDownListFor(model => model.UserWorkId, null, htmlAttributes: new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.UserWorkId, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        إعادة المسابقة
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.repeat, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    @*<button class="waves-effect waves-dark btn btn-sm btn-primary next-step" data-feedback="someFunction21">CONTINUE</button>*@
+                </div>
+
+
+
+            </li>
+            <!--First 20 Ranks-->
+            <li class="step">
+                <div class="step-title waves-effect waves-dark">جوائز المسابقة أول 20 مركز </div>
+                <div class="step-new-content">
+                    <div class="row">
+
+                        <div class="col-md-6"> المركز 1 @Html.EditorFor(model => model.rank1, new { htmlAttributes = new { @class = "form-control" } }) </div>
+                        <div class="col-md-6"> المركز 2 @Html.EditorFor(model => model.rank2, new { htmlAttributes = new { @class = "form-control" } }) </div>
+                        <div class="col-md-6"> المركز 3 @Html.EditorFor(model => model.rank3, new { htmlAttributes = new { @class = "form-control" } }) </div>
+                        <div class="col-md-6"> المركز 4 @Html.EditorFor(model => model.rank4, new { htmlAttributes = new { @class = "form-control" } }) </div>
+                        <div class="col-md-6"> المركز 5 @Html.EditorFor(model => model.rank5, new { htmlAttributes = new { @class = "form-control" } }) </div>
+                        <div class="col-md-6"> المركز 6 @Html.EditorFor(model => model.rank6, new { htmlAttributes = new { @class = "form-control" } }) </div>
+                        <div class="col-md-6"> المركز 7 @Html.EditorFor(model => model.rank7, new { htmlAttributes = new { @class = "form-control" } }) </div>
+                        <div class="col-md-6"> المركز 8 @Html.EditorFor(model => model.rank8, new { htmlAttributes = new { @class = "form-control" } }) </div>
+                        <div class="col-md-6"> المركز 9 @Html.EditorFor(model => model.rank9, new { htmlAttributes = new { @class = "form-control" } }) </div>
+                        <div class="col-md-6"> المركز 10 @Html.EditorFor(model => model.rank10, new { htmlAttributes = new { @class = "form-control" } }) </div>
+                        <div class="col-md-6"> المركز 11 @Html.EditorFor(model => model.rank11, new { htmlAttributes = new { @class = "form-control" } }) </div>
+                        <div class="col-md-6"> المركز 12 @Html.EditorFor(model => model.rank12, new { htmlAttributes = new { @class = "form-control" } }) </div>
+                        <div class="col-md-6"> المركز 13 @Html.EditorFor(model => model.rank13, new { htmlAttributes = new { @class = "form-control" } }) </div>
+                        <div class="col-md-6"> المركز 14 @Html.EditorFor(model => model.rank14, new { htmlAttributes = new { @class = "form-control" } }) </div>
+                        <div class="col-md-6"> المركز 15 @Html.EditorFor(model => model.rank15, new { htmlAttributes = new { @class = "form-control" } }) </div>
+                        <div class="col-md-6"> المركز 16 @Html.EditorFor(model => model.rank16, new { htmlAttributes = new { @class = "form-control" } }) </div>
+                        <div class="col-md-6"> المركز 17 @Html.EditorFor(model => model.rank17, new { htmlAttributes = new { @class = "form-control" } }) </div>
+                        <div class="col-md-6"> المركز 18 @Html.EditorFor(model => model.rank18, new { htmlAttributes = new { @class = "form-control" } }) </div>
+                        <div class="col-md-6"> المركز 19 @Html.EditorFor(model => model.rank19, new { htmlAttributes = new { @class = "form-control" } }) </div>
+                        <div class="col-md-6"> المركز 20 @Html.EditorFor(model => model.rank20, new { htmlAttributes = new { @class = "form-control" } }) </div>
+                    </div>
+
+                </div>
+
+            </li>
+
+            <!--First 40 Ranks-->
+            <li class="step">
+                <div class="step-title waves-effect waves-dark">جوائز المسابقة من المركز 21 إلى 40 </div>
+                <div class="step-new-content">
+                    <div class="row">
+
+                        <div class="col-md-6"> المركز 21 @Html.EditorFor(model => model.rank21, new { htmlAttributes = new { @class = "form-control" } }) </div>
+                        <div class="col-md-6"> المركز 22 @Html.EditorFor(model => model.rank22, new { htmlAttributes = new { @class = "form-control" } }) </div>
+                        <div class="col-md-6"> المركز 23 @Html.EditorFor(model => model.rank23, new { htmlAttributes = new { @class = "form-control" } }) </div>
+                        <div class="col-md-6"> المركز 24 @Html.EditorFor(model => model.rank24, new { htmlAttributes = new { @class = "form-control" } }) </div>
+                        <div class="col-md-6"> المركز 25 @Html.EditorFor(model => model.rank25, new { htmlAttributes = new { @class = "form-control" } }) </div>
+                        <div class="col-md-6"> المركز 26 @Html.EditorFor(model => model.rank26, new { htmlAttributes = new { @class = "form-control" } }) </div>
+                        <div class="col-md-6"> المركز 27 @Html.EditorFor(model => model.rank27, new { htmlAttributes = new { @class = "form-control" } }) </div>
+                        <div class="col-md-6"> المركز 28 @Html.EditorFor(model => model.rank28, new { htmlAttributes = new { @class = "form-control" } }) </div>
+                        <div class="col-md-6"> المركز 29 @Html.EditorFor(model => model.rank29, new { htmlAttributes = new { @class = "form-control" } }) </div>
+                        <div class="col-md-6"> المركز 30 @Html.EditorFor(model => model.rank30, new { htmlAttributes = new { @class = "form-control" } }) </div>
+                        <div class="col-md-6"> المركز 31 @Html.EditorFor(model => model.rank31, new { htmlAttributes = new { @class = "form-control" } }) </div>
+                        <div class="col-md-6"> المركز 32 @Html.EditorFor(model => model.rank32, new { htmlAttributes = new { @class = "form-control" } }) </div>
+                        <div class="col-md-6"> المركز 33 @Html.EditorFor(model => model.rank33, new { htmlAttributes = new { @class = "form-control" } }) </div>
+                        <div class="col-md-6"> المركز 34 @Html.EditorFor(model => model.rank34, new { htmlAttributes = new { @class = "form-control" } }) </div>
+                        <div class="col-md-6"> المركز 35 @Html.EditorFor(model => model.rank35, new { htmlAttributes = new { @class = "form-control" } }) </div>
+                        <div class="col-md-6"> المركز 36 @Html.EditorFor(model => model.rank36, new { htmlAttributes = new { @class = "form-control" } }) </div>
+                        <div class="col-md-6"> المركز 37 @Html.EditorFor(model => model.rank37, new { htmlAttributes = new { @class = "form-control" } }) </div>
+                        <div class="col-md-6"> المركز 38 @Html.EditorFor(model => model.rank38, new { htmlAttributes = new { @class = "form-control" } }) </div>
+                        <div class="col-md-6"> المركز 39 @Html.EditorFor(model => model.rank39, new { htmlAttributes = new { @class = "form-control" } }) </div>
+                        <div class="col-md-6"> المركز 40 @Html.EditorFor(model => model.rank40, new { htmlAttributes = new { @class = "form-control" } }) </div>
+                    </div>
+
+                </div>
+
+            </li>
+
+            <!-- 41 to 60 Ranks-->
+            <li class="step">
+                <div class="step-title waves-effect waves-dark">جوائز المسابقة من المركز 41 إلى 60 </div>
+                <div class="step-new-content">
+                    <div class="row">
+
+                        <div class="col-md-6"> المركز 41 @Html.EditorFor(model => model.rank41, new { htmlAttributes = new { @class = "form-control" } }) </div>
+                        <div class="col-md-6"> المركز 42 @Html.EditorFor(model => model.rank42, new { htmlAttributes = new { @class = "form-control" } }) </div>
+                        <div class="col-md-6"> المركز 43 @Html.EditorFor(model => model.rank43, new { htmlAttributes = new { @class = "form-control" } }) </div>
+                        <div class="col-md-6"> المركز 44 @Html.EditorFor(model => model.rank44, new { htmlAttributes = new { @class = "form-control" } }) </div>
+                        <div class="col-md-6"> المركز 45 @Html.EditorFor(model => model.rank45, new { htmlAttributes = new { @class = "form-control" } }) </div>
+                        <div class="col-md-6"> المركز 46 @Html.EditorFor(model => model.rank46, new { htmlAttributes = new { @class = "form-control" } }) </div>
+                        <div class="col-md-6"> المركز 47 @Html.EditorFor(model => model.rank47, new { htmlAttributes = new { @class = "form-control" } }) </div>
+                        <div class="col-md-6"> المركز 48 @Html.EditorFor(model => model.rank48, new { htmlAttributes = new { @class = "form-control" } }) </div>
+                        <div class="col-md-6"> المركز 49 @Html.EditorFor(model => model.rank49, new { htmlAttributes = new { @class = "form-control" } }) </div>
+                        <div class="col-md-6"> المركز 50 @Html.EditorFor(model => model.rank50, new { htmlAttributes = new { @class = "form-control" } }) </div>
+                        <div class="col-md-6"> المركز 51 @Html.EditorFor(model => model.rank51, new { htmlAttributes = new { @class = "form-control" } }) </div>
+                        <div class="col-md-6"> المركز 52 @Html.EditorFor(model => model.rank52, new { htmlAttributes = new { @class = "form-control" } }) </div>
+                        <div class="col-md-6"> المركز 53 @Html.EditorFor(model => model.rank53, new { htmlAttributes = new { @class = "form-control" } }) </div>
+                        <div class="col-md-6"> المركز 54 @Html.EditorFor(model => model.rank54, new { htmlAttributes = new { @class = "form-control" } }) </div>
+                        <div class="col-md-6"> المركز 55 @Html.EditorFor(model => model.rank55, new { htmlAttributes = new { @class = "form-control" } }) </div>
+                        <div class="col-md-6"> المركز 56 @Html.EditorFor(model => model.rank56, new { htmlAttributes = new { @class = "form-control" } }) </div>
+                        <div class="col-md-6"> المركز 57 @Html.EditorFor(model => model.rank57, new { htmlAttributes = new { @class = "form-control" } }) </div>
+                        <div class="col-md-6"> المركز 58 @Html.EditorFor(model => model.rank58, new { htmlAttributes = new { @class = "form-control" } }) </div>
+                        <div class="col-md-6"> المركز 59 @Html.EditorFor(model => model.rank59, new { htmlAttributes = new { @class = "form-control" } }) </div>
+                        <div class="col-md-6"> المركز 60 @Html.EditorFor(model => model.rank60, new { htmlAttributes = new { @class = "form-control" } }) </div>
+                    </div>
+
+                </div>
+
+            </li>
+
+
+            <!-- 61 to 70 Ranks-->
+            <li class="step">
+                <div class="step-title waves-effect waves-dark">جوائز المسابقة من المركز 61 إلى 80 </div>
+                <div class="step-new-content">
+                    <div class="row">
+
+                        <div class="col-md-6"> 61 المركز @Html.EditorFor(model => model.rank61, new { htmlAttributes = new { @class = "form-control" } }) </div>
+                        <div class="col-md-6"> المركز 62 @Html.EditorFor(model => model.rank62, new { htmlAttributes = new { @class = "form-control" } }) </div>
+                        <div class="col-md-6"> المركز 63 @Html.EditorFor(model => model.rank63, new { htmlAttributes = new { @class = "form-control" } }) </div>
+                        <div class="col-md-6"> المركز 64 @Html.EditorFor(model => model.rank64, new { htmlAttributes = new { @class = "form-control" } }) </div>
+                        <div class="col-md-6"> المركز 65 @Html.EditorFor(model => model.rank65, new { htmlAttributes = new { @class = "form-control" } }) </div>
+                        <div class="col-md-6"> المركز 66 @Html.EditorFor(model => model.rank66, new { htmlAttributes = new { @class = "form-control" } }) </div>
+                        <div class="col-md-6"> المركز 67 @Html.EditorFor(model => model.rank67, new { htmlAttributes = new { @class = "form-control" } }) </div>
+                        <div class="col-md-6"> المركز 68 @Html.EditorFor(model => model.rank68, new { htmlAttributes = new { @class = "form-control" } }) </div>
+                        <div class="col-md-6"> المركز 69 @Html.EditorFor(model => model.rank69, new { htmlAttributes = new { @class = "form-control" } }) </div>
+                        <div class="col-md-6"> المركز 70 @Html.EditorFor(model => model.rank70, new { htmlAttributes = new { @class = "form-control" } }) </div>
+                        <div class="col-md-6"> المركز 71 @Html.EditorFor(model => model.rank71, new { htmlAttributes = new { @class = "form-control" } }) </div>
+                        <div class="col-md-6"> المركز 72 @Html.EditorFor(model => model.rank72, new { htmlAttributes = new { @class = "form-control" } }) </div>
+                        <div class="col-md-6"> المركز 73 @Html.EditorFor(model => model.rank73, new { htmlAttributes = new { @class = "form-control" } }) </div>
+                        <div class="col-md-6"> المركز 74 @Html.EditorFor(model => model.rank74, new { htmlAttributes = new { @class = "form-control" } }) </div>
+                        <div class="col-md-6"> المركز 75 @Html.EditorFor(model => model.rank75, new { htmlAttributes = new { @class = "form-control" } }) </div>
+                        <div class="col-md-6"> المركز 76 @Html.EditorFor(model => model.rank76, new { htmlAttributes = new { @class = "form-control" } }) </div>
+                        <div class="col-md-6"> المركز 77 @Html.EditorFor(model => model.rank77, new { htmlAttributes = new { @class = "form-control" } }) </div>
+                        <div class="col-md-6"> المركز 78 @Html.EditorFor(model => model.rank78, new { htmlAttributes = new { @class = "form-control" } }) </div>
+                        <div class="col-md-6"> المركز 79 @Html.EditorFor(model => model.rank79, new { htmlAttributes = new { @class = "form-control" } }) </div>
+                        <div class="col-md-6"> المركز 80 @Html.EditorFor(model => model.rank80, new { htmlAttributes = new { @class = "form-control" } }) </div>
+                    </div>
+
+                </div>
+
+            </li>
+
+            <!-- 81 to 100 Ranks-->
+            <li class="step">
+                <div class="step-title waves-effect waves-dark">جوائز المسابقة من المركز 81 إلى 100 </div>
+                <div class="step-new-content">
+                    <div class="row">
+
+                        <div class="col-md-6"> 81 المركز @Html.EditorFor(model => model.rank81, new { htmlAttributes = new { @class = "form-control" } }) </div>
+                        <div class="col-md-6"> المركز 82 @Html.EditorFor(model => model.rank82, new { htmlAttributes = new { @class = "form-control" } }) </div>
+                        <div class="col-md-6"> المركز 83 @Html.EditorFor(model => model.rank83, new { htmlAttributes = new { @class = "form-control" } }) </div>
+                        <div class="col-md-6"> المركز 84 @Html.EditorFor(model => model.rank84, new { htmlAttributes = new { @class = "form-control" } }) </div>
+                        <div class="col-md-6"> المركز 85 @Html.EditorFor(model => model.rank85, new { htmlAttributes = new { @class = "form-control" } }) </div>
+                        <div class="col-md-6"> المركز 86 @Html.EditorFor(model => model.rank86, new { htmlAttributes = new { @class = "form-control" } }) </div>
+                        <div class="col-md-6"> المركز 87 @Html.EditorFor(model => model.rank87, new { htmlAttributes = new { @class = "form-control" } }) </div>
+                        <div class="col-md-6"> المركز 88 @Html.EditorFor(model => model.rank88, new { htmlAttributes = new { @class = "form-control" } }) </div>
+                        <div class="col-md-6"> المركز 89 @Html.EditorFor(model => model.rank89, new { htmlAttributes = new { @class = "form-control" } }) </div>
+                        <div class="col-md-6"> المركز 90 @Html.EditorFor(model => model.rank90, new { htmlAttributes = new { @class = "form-control" } }) </div>
+                        <div class="col-md-6"> المركز 91 @Html.EditorFor(model => model.rank91, new { htmlAttributes = new { @class = "form-control" } }) </div>
+                        <div class="col-md-6"> المركز 92 @Html.EditorFor(model => model.rank92, new { htmlAttributes = new { @class = "form-control" } }) </div>
+                        <div class="col-md-6"> المركز 93 @Html.EditorFor(model => model.rank93, new { htmlAttributes = new { @class = "form-control" } }) </div>
+                        <div class="col-md-6"> المركز 94 @Html.EditorFor(model => model.rank94, new { htmlAttributes = new { @class = "form-control" } }) </div>
+                        <div class="col-md-6"> المركز 95 @Html.EditorFor(model => model.rank95, new { htmlAttributes = new { @class = "form-control" } }) </div>
+                        <div class="col-md-6"> المركز 96 @Html.EditorFor(model => model.rank96, new { htmlAttributes = new { @class = "form-control" } }) </div>
+                        <div class="col-md-6"> المركز 97 @Html.EditorFor(model => model.rank97, new { htmlAttributes = new { @class = "form-control" } }) </div>
+                        <div class="col-md-6"> المركز 98 @Html.EditorFor(model => model.rank98, new { htmlAttributes = new { @class = "form-control" } }) </div>
+                        <div class="col-md-6"> المركز 99 @Html.EditorFor(model => model.rank99, new { htmlAttributes = new { @class = "form-control" } }) </div>
+                        <div class="col-md-6"> المركز 100 @Html.EditorFor(model => model.rank100, new { htmlAttributes = new { @class = "form-control" } }) </div>
+                    </div>1
+
+                </div>
+
+            </li>
+            <li class="step">
+                <div class="step-title waves-effect waves-dark">حفظ </div>
+                <div class="step-new-content">
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="حفظ " class="btn btn-default" />
+                        </div>
+                    </div>
+                </div>
+
+            </li>
+
+        </ul>
+    </div>
+}
+
+<div>
+    @Html.ActionLink(@Resources.Global.BackToList, "Index")
+</div>
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    @*<script src="jquery.min.js"></script>
+        <script src="jquery-ui.min.js"></script>*@
+    <!-- JQuery -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- Bootstrap tooltips -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
+    <!-- Bootstrap core JavaScript -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <!-- MDB core JavaScript -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/js/mdb.min.js"></script>
+    <script src="~/Scripts/MDB/js/addons-pro/steppers.min.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function () {
+        $('.stepper').mdbStepper();
+    });
+
+    function someFunction21() {
+        setTimeout(function () {
+            $('horizontal-stepper').nextStep();
+        }, 2000);
+    }
+
+    $("button").click(function (event) {
+        event.preventDefault();
+        // do something
+    });
+    </script>
+}
+

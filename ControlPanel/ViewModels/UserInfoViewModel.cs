@@ -77,6 +77,10 @@ namespace ControlPanel.ViewModels
 
         public double AvailableBalance { get; set; }
 
+        public double CompetitionBalance { get; set; }
+
+        public long ServiceProviderPoints { get; set; }
+
     }
 
 }

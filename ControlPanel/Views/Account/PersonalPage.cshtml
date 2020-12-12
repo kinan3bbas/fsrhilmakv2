@@ -1,4 +1,4 @@
-﻿@model  ControlPanel.ViewModels.UserInfoViewModel 
+﻿@model  ControlPanel.ViewModels.UserInfoViewModel
 @{
     ViewBag.Title = "Personal Info Page";
     Layout = "~/Views/Shared/_PLayout.cshtml";
@@ -9,6 +9,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js"
             integrity="sha384-NaWTHo/8YCBYJ59830LTz/P4aQZK1sS0SneOgAvhsIl3zBu8r9RevNg5lHCHAuQ/"
             crossorigin="anonymous"></script>*@
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/8.11.8/sweetalert2.css">
 
 <h2 class="text-center" style="color: #071689 !important;">@Resources.Register.PersonalInformation @Model.Name </h2>
 <br />
@@ -59,7 +61,7 @@
                     <div class="card-header" id="headingOne">
                         <h2 class="mb-0">
                             <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                @Html.ActionLink("الخدمات المفسرة","InterpreterServices", "Services",  new { userId = Id }, null)
+                                @Html.ActionLink("الخدمات المفسرة", "InterpreterServices", "Services", new { userId = Id }, null)
 
 
                             </button>
@@ -73,7 +75,7 @@
                     <div class="card-header" id="headingOne">
                         <h2 class="mb-0">
                             <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                @Html.ActionLink("الخدمات قيد التنفيذ", "ServicesUnderInterpretation", "Services", new { userId = Id },null)
+                                @Html.ActionLink("الخدمات قيد التنفيذ", "ServicesUnderInterpretation", "Services", new { userId = Id }, null)
                             </button>
                         </h2>
                     </div>
@@ -117,274 +119,359 @@
                 </div>
             </div>
 
-
-                    @*<ul class="nav flex-column nav-fill">
-        <li id="PersonalInfo" class="nav-item nav-link active " style="border:solid;border-color:#071689;font-weight:600; font-size: larger">
-            @Html.ActionLink(Resources.Register.PersonalInformation, "PersonalPage", new { Employeeid = Id })
-        </li>
-        <li id="PersonalInfo" class="nav-item nav-link active " style="border:solid;border-color:#071689;font-weight:600; font-size: larger">
-            @Html.ActionLink(Resources.Global.service_Paths, "PersonalPage", new { Employeeid = Id })
-        </li>
-        <li id="PersonalInfo" class="nav-item nav-link active " style="border:solid;border-color:#071689;font-weight:600; font-size: larger">
-            @Html.ActionLink(Resources.Global.Payments, "PersonalPage", new { Employeeid = Id })
-        </li>
-        <li id="PersonalInfo" class="nav-item nav-link active " style="border:solid;border-color:#071689;font-weight:600; font-size: larger">
-            @Html.ActionLink(Resources.Global.InterpretedServices, "PersonalPage", new { Employeeid = Id })
-        </li>
-        <li id="PersonalInfo" class="nav-item nav-link active " style="border:solid;border-color:#071689;font-weight:600; font-size: larger">
-            @Html.ActionLink(Resources.Global.ServicesUderInterpretation, "PersonalPage", new { Employeeid = Id })
-        </li>
-        <li id="PersonalInfo" class="nav-item nav-link active " style="border:solid;border-color:#071689;font-weight:600; font-size: larger">
-            @Html.ActionLink(Resources.Global.Ratings, "PersonalPage", new { Employeeid = Id })
-        </li>
-        <li id="PersonalInfo" class="nav-item nav-link active " style="border:solid;border-color:#071689;font-weight:600; font-size: larger">
-            @Html.ActionLink(Resources.Global.TransferOperations, "PersonalPage", new { Employeeid = Id })
-        </li>
-    </ul>*@
-                </div>
-
-                <div class="col-md-9" id="PersonalInfoDV">
-
-                    <table class="table table-responsive" style="margin-top:3%">
-                        <tr>
-                            <th>
-                                ID:
-                            </th>
-                            <td>
-                                @Html.DisplayFor(model => model.Id)
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>
-                                @Resources.Register.Name :
-                            </th>
-                            <td>
-                                @Html.DisplayFor(model => model.Name)
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <th>
-                                @Resources.Register.UserName:
-                            </th>
-                            <td>
-                                @Html.DisplayFor(model => model.UserName)
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <th>
-                                البريد الالكتروني:
-                            </th>
-                            <td>
-                                @Html.DisplayFor(model => model.Email)
-                            </td>
-                        </tr>
-
-
-                        <tr>
-                            <th>
-                                @Resources.Register.Age :
-                            </th>
-                            <td>
-                                @Html.DisplayFor(model => model.Age)
-                            </td>
-                        </tr>
-                        <tr>
-
-                            <th>
-                                @Resources.Register.Country :
-                            </th>
-                            <td>
-                                @Html.DisplayFor(model => model.Country)
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <th>
-                                @Resources.Register.Status :
-                            </th>
-                            <td>
-                                @Html.DisplayFor(model => model.Status)
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <th>
-                                @Resources.Register.PhoneNumber:
-                            </th>
-                            <td>
-                                @Html.DisplayFor(model => model.phoneNumber)
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <th>
-                                @Resources.Register.Type:
-                            </th>
-                            <td>
-                                @Html.DisplayFor(model => model.Type)
-                            </td>
-                        </tr>
-
-                        @if (Model.Type.ToString() == "Service_Provider")
-                        {
-                            <tr>
-                                <th>
-                                    @Resources.Register.Sex :
-                                </th>
-                                <td>
-                                    @Html.DisplayFor(model => model.Sex)
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>
-                                    @Resources.Global.Email :
-                                </th>
-                                <td>
-                                    @Html.DisplayFor(model => model.Email)
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <th>
-                                    @Resources.Register.MartialStatus:
-                                </th>
-                                <td>
-                                    @Html.DisplayFor(model => model.MartialStatus)
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>
-                                    @Resources.Global.UserWorks:
-                                </th>
-                                <td>
-                                    @foreach (var item in Model.UserWorks)
-                                    {
-                                        <span>@item.Name</span><br />
-                                    }
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>
-                                    الوصف العملي
-                                </th>
-                                <td>
-                                    @Html.DisplayFor(model => model.JobDescription)
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <th>
-                                    تاريخ الانضمام
-                                </th>
-                                <td>
-                                    @Html.DisplayFor(model => model.JoiningDate)
-                                </td>
-                            </tr>
-
-
-
-                            <tr>
-                                <th>
-                                    الوصف الشخصي
-                                </th>
-                                <td>
-                                    @Html.DisplayFor(model => model.PersonalDescription)
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <th>
-                                    السرعة:
-                                </th>
-                                <td>
-                                    @Html.DisplayFor(model => model.Speed)
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <th>
-                                    :الرصيد المحول
-                                </th>
-                                <td>
-                                    @Html.DisplayFor(model => model.TotalBalance)
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <th>
-                                    :الرصيد المعلق
-                                </th>
-                                <td>
-                                    @Html.DisplayFor(model => model.SuspendedBalance)
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <th>
-                                    :الرصيد القابل للسحب
-                                </th>
-                                <td>
-                                    @Html.DisplayFor(model => model.AvailableBalance)
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>
-                                    : معدل الاحلام اليومي
-                                </th>
-                                <td>
-                                    @Html.DisplayFor(model => model.AvgServicesInOneDay)
-                                </td>
-                            </tr>
-
-
-
-
-
-                        }
-                    </table>
-
+            <div class="accordion" id="accordionExample">
+                <div class="card">
+                    <div class="card-header" id="headingOne">
+                        <h2 class="mb-0">
+                            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                @Html.ActionLink("رصيد المسابقات", "CompetitionBalance", new { userId = Id })
+                            </button>
+                        </h2>
+                    </div>
                 </div>
             </div>
+            @*<ul class="nav flex-column nav-fill">
+                    <li id="PersonalInfo" class="nav-item nav-link active " style="border:solid;border-color:#071689;font-weight:600; font-size: larger">
+                        @Html.ActionLink(Resources.Register.PersonalInformation, "PersonalPage", new { Employeeid = Id })
+                    </li>
+                    <li id="PersonalInfo" class="nav-item nav-link active " style="border:solid;border-color:#071689;font-weight:600; font-size: larger">
+                        @Html.ActionLink(Resources.Global.service_Paths, "PersonalPage", new { Employeeid = Id })
+                    </li>
+                    <li id="PersonalInfo" class="nav-item nav-link active " style="border:solid;border-color:#071689;font-weight:600; font-size: larger">
+                        @Html.ActionLink(Resources.Global.Payments, "PersonalPage", new { Employeeid = Id })
+                    </li>
+                    <li id="PersonalInfo" class="nav-item nav-link active " style="border:solid;border-color:#071689;font-weight:600; font-size: larger">
+                        @Html.ActionLink(Resources.Global.InterpretedServices, "PersonalPage", new { Employeeid = Id })
+                    </li>
+                    <li id="PersonalInfo" class="nav-item nav-link active " style="border:solid;border-color:#071689;font-weight:600; font-size: larger">
+                        @Html.ActionLink(Resources.Global.ServicesUderInterpretation, "PersonalPage", new { Employeeid = Id })
+                    </li>
+                    <li id="PersonalInfo" class="nav-item nav-link active " style="border:solid;border-color:#071689;font-weight:600; font-size: larger">
+                        @Html.ActionLink(Resources.Global.Ratings, "PersonalPage", new { Employeeid = Id })
+                    </li>
+                    <li id="PersonalInfo" class="nav-item nav-link active " style="border:solid;border-color:#071689;font-weight:600; font-size: larger">
+                        @Html.ActionLink(Resources.Global.TransferOperations, "PersonalPage", new { Employeeid = Id })
+                    </li>
+                </ul>*@
+        </div>
+
+        <div class="col-md-9" id="PersonalInfoDV">
+
+            <table class="table table-responsive" style="margin-top:3%">
+
+                <tr>
+                    <th>
+                        <div class="center">المفسر مفعل</div>
+                    </th>
+                    <td>
+                        @if (Model.VerifiedUser == true)
+                        {
+                            <div class="alert alert-success" role="alert">
+                                حساب مفعل
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="alert alert-danger" role="alert">
+                                حساب غير مفعل
+                            </div>
+                        }
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        ID:
+                    </th>
+                    <td>
+                        @Html.DisplayFor(model => model.Id)
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        @Resources.Register.Name :
+                    </th>
+                    <td>
+                        @Html.DisplayFor(model => model.Name)
+                    </td>
+                </tr>
+
+                <tr>
+                    <th>
+                        @Resources.Register.UserName:
+                    </th>
+                    <td>
+                        @Html.DisplayFor(model => model.UserName)
+                    </td>
+                </tr>
+
+                <tr>
+                    <th>
+                        البريد الالكتروني:
+                    </th>
+                    <td>
+                        @Html.DisplayFor(model => model.Email)
+                    </td>
+                </tr>
+
+
+                <tr>
+                    <th>
+                        @Resources.Register.Age :
+                    </th>
+                    <td>
+                        @Html.DisplayFor(model => model.Age)
+                    </td>
+                </tr>
+                <tr>
+
+                    <th>
+                        @Resources.Register.Country :
+                    </th>
+                    <td>
+                        @Html.DisplayFor(model => model.Country)
+                    </td>
+                </tr>
+
+                <tr>
+                    <th>
+                        @Resources.Register.Status :
+                    </th>
+                    <td>
+                        @Html.DisplayFor(model => model.Status)
+                    </td>
+                </tr>
+
+                <tr>
+                    <th>
+                        @Resources.Register.PhoneNumber:
+                    </th>
+                    <td>
+                        @Html.DisplayFor(model => model.phoneNumber)
+                    </td>
+                </tr>
+
+                <tr>
+                    <th>
+                        @Resources.Register.Type:
+                    </th>
+                    <td>
+                        @Html.DisplayFor(model => model.Type)
+                    </td>
+                </tr>
+
+                @if (Model.Type.ToString() == "Service_Provider")
+                {
+                    <tr>
+                        <th>
+                            @Resources.Register.Sex :
+                        </th>
+                        <td>
+                            @Html.DisplayFor(model => model.Sex)
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            @Resources.Global.Email :
+                        </th>
+                        <td>
+                            @Html.DisplayFor(model => model.Email)
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <th>
+                            @Resources.Register.MartialStatus:
+                        </th>
+                        <td>
+                            @Html.DisplayFor(model => model.MartialStatus)
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            @Resources.Global.UserWorks:
+                        </th>
+                        <td>
+                            @foreach (var item in Model.UserWorks)
+                            {
+                                <span>@item.Name</span><br />
+                            }
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            الوصف العملي
+                        </th>
+                        <td>
+                            @Html.DisplayFor(model => model.JobDescription)
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <th>
+                            تاريخ الانضمام
+                        </th>
+                        <td>
+                            @Html.DisplayFor(model => model.JoiningDate)
+                        </td>
+                    </tr>
+
+
+
+                    <tr>
+                        <th>
+                            الوصف الشخصي
+                        </th>
+                        <td>
+                            @Html.DisplayFor(model => model.PersonalDescription)
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <th>
+                            السرعة:
+                        </th>
+                        <td>
+                            @Html.DisplayFor(model => model.Speed)
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <th>
+                            :الرصيد المحول
+                        </th>
+                        <td>
+                            @Html.DisplayFor(model => model.TotalBalance)
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <th>
+                            :الرصيد المعلق
+                        </th>
+                        <td>
+                            @Html.DisplayFor(model => model.SuspendedBalance)
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <th>
+                            :رصيد المسابقات
+                        </th>
+                        <td>
+                            @Html.DisplayFor(model => model.CompetitionBalance)
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <th>
+                            :الرصيد القابل للسحب
+                        </th>
+                        <td>
+                            @Html.DisplayFor(model => model.AvailableBalance)
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            : معدل الاحلام اليومي
+                        </th>
+                        <td>
+                            @Html.DisplayFor(model => model.AvgServicesInOneDay)
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <th>
+                            : نقاط مقدم الخدمة
+                        </th>
+                        <td>
+                            @Html.DisplayFor(model => model.ServiceProviderPoints)
+                        </td>
+                    </tr>
+
+
+
+
+                }
+            </table>
+
+        </div>
+    </div>
     <div class="row ">
         <div class="col-md-3"></div>
         <div class="col-md-9">
             <hr />
 
             <div class="row">
-                <div class="col-md-5">
+                <div class="col-md-3">
                     <input type="button"
                            class="btn btn-primary" value="@Resources.UserWork.Edit"
                            onclick="location.href='@Url.Action("EditPersonalPage", "Account", new { id = Model.Id })'" />
                 </div>
                 @if (Model.Status == "Active")
                 {
-                    <div class="col-md-5">
+                    <div class="col-md-3">
                         <input type="button"
                                class="btn btn-danger" value="حذف المستخدم"
                                onclick="location.href='@Url.Action("Delete", "Account", new { id = Model.Id })'" />
                     </div>
                 }
+                @if (Model.VerifiedUser == false && Model.Type == "Service_Provider")
+                {
+                    <div class="col-md-3">
+                        <input type="button"
+                               class="btn btn-danger" value="تفعيل المفسر"
+                               onclick="EnableUser()" />
+                    </div>
+                }
+
+                @if (Model.VerifiedUser == true && Model.Type == "Service_Provider")
+                {
+                    <div class="col-md-4">
+                        <input type="button"
+                               class="btn btn-danger" value="إلغاء تفعيل المفسر"
+                               onclick="EnableUser()" />
+                    </div>
+                }
+
 
             </div>
 
- <br />
+            <br />
 
 
         </div>
 
-        
+
     </div>
 
 
-        </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/8.11.8/sweetalert2.all.js"></script>
+
 @section Scripts
 {
     <script type="text/javascript">
-    
 
-        function deleteUser() {
+
+        function warn(message){
+        Swal.fire({
+            title: 'Error!',
+            text: message,
+            type: 'error',
+            confirmButtonText: 'OK'
+        });
+    }
+    function successMessage(){
+        Swal.fire({
+            position: 'top-end',
+            type: 'success',
+            title: 'Your work has been saved',
+            showConfirmButton: false,
+            timer: 2000
+        })
+    }
+        @*function deleteUser() {
 
         $.ajax({
             type: 'GET',
@@ -406,6 +493,89 @@
             }
             });
             return false;
+        }*@
+
+
+        function EnableUser() {
+            if (confirm("هل تريد تعديل معلومات هذا المستخدم فعلا!")) {
+                $.ajax({
+            type: 'GET',
+            url: "/Account/EnableUser?PhoneNumber="+String(@Model.phoneNumber),
+            dataType: 'json',
+            data: { },
+            success: function (data) {
+
+                location.reload();
+
+
+            },
+            error: function (ex) {
+            var r = jQuery.parseJSON(response.responseText);
+            alert("Message: " + r.Message);
+            alert("StackTrace: " + r.StackTrace);
+            alert("ExceptionType: " + r.ExceptionType);
+            }
+            });
+            return false;
+            }
+            
         }
+
+        @*function EnableUser() {
+            const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: 'btn btn-success',
+                cancelButton: 'btn btn-danger'
+            },
+            buttonsStyling: false
+        })
+
+        swalWithBootstrapButtons.fire({
+            title: 'هل أنت متأكد؟',
+            text: "سيتم تغيير حالة مقدم الخدمة وسيؤثر ذلك على ظهور مقدم الخدمة لدى المستخدمين! ",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'نعم!',
+            cancelButtonText: 'لا، تراجع',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.value) {
+            swalWithBootstrapButtons.fire(
+              '!تم التعديل',
+              'لقد تم تعديل حالة المفسر!',
+              'success'
+            );
+        $.ajax({
+            type: 'GET',
+            url: "/Account/EnableUser?PhoneNumber="+String(@Model.phoneNumber),
+            dataType: 'json',
+            data: { },
+            success: function (data) {
+
+                location.reload();
+
+
+            },
+            error: function (ex) {
+            var r = jQuery.parseJSON(response.responseText);
+            alert("Message: " + r.Message);
+            alert("StackTrace: " + r.StackTrace);
+            alert("ExceptionType: " + r.ExceptionType);
+            }
+            });
+            return false;
+
+    } else if (
+      /* Read more about handling dismissals below */
+      result.dismiss === Swal.DismissReason.cancel
+    ) {
+        swalWithBootstrapButtons.fire(
+          'Cancelled',
+          'Your data is safe :)',
+          'error'
+        );
+    }
+    });
+        }*@
     </script>
 }

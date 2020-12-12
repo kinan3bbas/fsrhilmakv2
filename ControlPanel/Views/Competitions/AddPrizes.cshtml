@@ -1,0 +1,66 @@
+﻿@model List<ControlPanel.Models.CompetitionPrize>
+@{
+    ViewBag.Title = "AddPrizes";
+    Layout = "~/Views/Shared/_PLayout.cshtml";
+    var rank = 1;
+    List<ControlPanel.Models.CompetitionPrize> prizes = new List<ControlPanel.Models.CompetitionPrize>();
+}
+
+
+<h2>AddPrizes</h2>
+
+@using (Html.BeginForm(FormMethod.Post))
+{
+
+<div class="well clearfix">
+    <div id="czContainer">
+        <div id="first">
+            <div class="recordset">
+                <div class="row clearfix">
+                    <div class="col-md-3">
+                        <div id="div_id_stock_1_service" class="form-group">
+                            <label for="id_stock_1_product" class="control-label  requiredField">
+                                الترتيب<span class="asteriskField">*</span>
+                            </label><div class="controls ">
+                                @Html.EditorFor(m => m.ToList()[0].rank, new { htmlAttributes = new { @class = "form-control" } })
+                                @*@Html.Editor("@Model.ToList()[0].rank", new { htmlAttributes = new { @class = "form-control" } })*@
+                                @*<input type="text" name="prizes[0].rank" value="prizes[0].rank" id="id_stock_1_product" class="textinput form-control" />*@
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div id="div_id_stock_1_quantity" class="form-group">
+                            <label for="id_stock_1_prize" class="control-label  requiredField">
+                                الجائزة<span class="asteriskField">*</span>
+                            </label><div class="controls ">
+                                @Html.EditorFor(m=>m.ToList()[0].price, new { htmlAttributes = new { @class = "form-control" } })
+                                @*@Html.Editor("@Model.ToList()[0].price", new { htmlAttributes = new { @class = "form-control" } })*@
+                                @*<input type="text" name="prizes[0].price" value="prizes[0].price" id="id_stock_1_prize" class="textinput form-control" />*@
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="save" class="btn btn-default" />
+        </div>
+    </div>
+</div>
+}
+@section scripts{
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+        crossorigin="anonymous"></script>
+<script src="~/Scripts/js/jquery.czMore-latest.js"></script>
+    <script type="text/javascript">
+        
+        $("#czContainer").czMore({
+            max: 5
+        });
+</script>
+}

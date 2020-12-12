@@ -44,9 +44,12 @@ namespace fsrhilmakv2
                 builder.EntitySet<Transaction>("Transactions");
                 builder.EntitySet<Payment>("Payments");
                 builder.EntitySet<IdentityUserClaim>("Claims");
+                builder.EntitySet<Competition>("Competitions");
 
             config.Routes.MapODataServiceRoute("odata", "odata", builder.GetEdmModel());
             config.Formatters.JsonFormatter.SerializerSettings.ReferenceLoopHandling= Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+            //config.Formatters.JsonFormatter.SerializerSettings.PreserveReferencesHandling =
+            //                Newtonsoft.Json.PreserveReferencesHandling.All;
         }
     }
 }

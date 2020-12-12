@@ -40,6 +40,17 @@ namespace fsrhilmakv2.Extra
             return days == 0 ? totalDreams : Math.Round(totalDreams / (Double)days);
         }
 
+        public static double ServiceProviderAvgServices(int totalDreams, DateTime startDate)
+        {
+            //TimeSpan difference = DateTime.Now - user.CreationDate;
+            TimeSpan span1 = new TimeSpan(DateTime.Now.Ticks);
+            //TimeSpan span2 = new TimeSpan(user.CreationDate.Ticks);
+            LocalDateTime d1 = new LocalDateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
+            LocalDateTime d2 = new LocalDateTime(startDate.Year, startDate.Month, startDate.Day, startDate.Hour, startDate.Minute, startDate.Second);
+            long days = Period.Between(d2, d1, PeriodUnits.Days).Days;
+
+            return days == 0 ? totalDreams : Math.Round(totalDreams / (Double)days);
+        }
         public static string getWaitingTimeMessage(double x, double y)
         {
             if (x != null && x != 0)
@@ -77,6 +88,18 @@ namespace fsrhilmakv2.Extra
             return days == 0 ? 0 : totalDoneServices / days;
         }
 
+        public static double ServiceProviderSpeed(int totalDreams, DateTime startDate)
+        {
+            //TimeSpan difference = DateTime.Now - user.CreationDate;
+            TimeSpan span1 = new TimeSpan(DateTime.Now.Ticks);
+            //TimeSpan span2 = new TimeSpan(user.CreationDate.Ticks);
+            LocalDateTime d1 = new LocalDateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
+            LocalDateTime d2 = new LocalDateTime(startDate.Year, startDate.Month, startDate.Day, startDate.Hour, startDate.Minute, startDate.Second);
+            long days = Period.Between(d2, d1, PeriodUnits.Days).Days;
+
+            return days == 0 ? totalDreams : Math.Round(totalDreams / (Double)days);
+        }
+
         public List<Service> getUserServices(String status,string id)
         {
             return db.Services.Where(a => a.Status.Equals(status) && a.ServiceProviderId.Equals(id)).ToList();
@@ -86,7 +109,11 @@ namespace fsrhilmakv2.Extra
         {
             return db.Services.Where(a=> a.ServiceProviderId.Equals(id)).ToList();
         }
-
+        public List<Service> getUserServices(string id, DateTime startdate)
+        {
+            return db.Services.Where(a => a.ServiceProviderId.Equals(id) &&
+                a.CreationDate.CompareTo(startdate) >= 0).ToList();
+        }
         public List<Service> getServicesFiltered(List<Service> services,string status) {
 
             return services.Where(a => a.Status.Equals(status)).ToList();
@@ -96,7 +123,7 @@ namespace fsrhilmakv2.Extra
         {
             List<UserWorkBinding> bindings = db.UserWorkBindings.Where(a => a.UserWork.Code.Equals(code)
             && a.User.Status.Equals(CoreController.UserStatus.Active.ToString()) && a.User.Type == "Service_Provider"
-            ).Include("User").ToList();
+            &&a.User.verifiedInterpreter).Include("User").ToList();
             return bindings.Select(a => a.User).ToList();
         }
 
@@ -139,6 +166,20 @@ namespace fsrhilmakv2.Extra
         public ApplicationUser findUser(string id)
         {
             return db.Users.Find(id);
+        }
+
+        public double getUserRating(List<Service> DoneServices)
+        {
+            double rating = 0;
+            int count = 1;
+            foreach (var item in DoneServices)
+            {
+                if (item.UserRating == 0)
+                    continue;
+                rating += item.UserRating;
+                count++;
+            }
+            return (rating / count);
         }
 
     }

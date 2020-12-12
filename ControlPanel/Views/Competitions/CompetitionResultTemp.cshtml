@@ -1,0 +1,201 @@
+﻿@model List<ControlPanel.Models.CompetitionResult>
+
+@{
+    ViewBag.Title = "ServiceProvider";
+    Layout = "~/Views/Shared/_PLayout_login.cshtml";
+    var Id = Request.QueryString["CompetitionId"];
+
+}
+
+<div class="text-center">
+    <h1>نتائج المسابقة المرحلية</h1>
+
+</div>
+
+<input type="button" style="float:right"
+       class="btn btn-info" value="العودة إلى صفحة المسابقة الرئيسية"
+       onclick="location.href='@Url.Action("Details","Competitions", new { CompetitionId = Id })'" />
+<br />
+<link href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css" />
+<link href="https://cdn.datatables.net/buttons/1.6.1/css/buttons.dataTables.min.css" rel="stylesheet" type="text/css" />
+@*<p style="float:right;text-decoration-color:white;">
+
+    <button class="btn btn-primary btn-default" onclick="location.href='@Url.Action("Create", "UserWorks")'">
+        <i class="fa  pull-right" style="font-size:large"></i> Create New userWork
+    </button>
+
+</p>*@
+
+<div class="container">
+    <div class="row">
+
+        @*<div class="col-md-3">
+
+            <div class="accordion" id="accordionExample">
+                <div class="card">
+                    <div class="card-header" id="headingOne">
+                        <h2 class="mb-0">
+                            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                @Html.ActionLink("معلومات المسابقة", "Details", new { CompetitionId = Id })
+                            </button>
+                        </h2>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="accordion" id="accordionExample">
+                <div class="card">
+                    <div class="card-header" id="headingOne">
+                        <h2 class="mb-0">
+                            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                @Html.ActionLink("الجوائز", "prizes", new { CompetitionId = Id })
+                            </button>
+                        </h2>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion" id="accordionExample">
+                <div class="card">
+                    <div class="card-header" id="headingOne">
+                        <h2 class="mb-0">
+                            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                @Html.ActionLink("المشاركون في المسابقة", "ServiceProvider", new { CompetitionId = Id })
+                            </button>
+                        </h2>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion" id="accordionExample">
+                <div class="card">
+                    <div class="card-header" id="headingOne">
+                        <h2 class="mb-0">
+                            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                @Html.ActionLink("النتائج", "CompetitionResultTemp", new { CompetitionId = Id })
+
+
+                            </button>
+                        </h2>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+        </div>*@
+        <div class="col-md-12">
+            @*<div class="row" style="direction:rtl">
+                <div class="col-md-4">
+                    <span style="direction:rtl;float:right;font-size:large"> عدد المشاركين:<br /></span>
+                    <span style="direction:rtl;float:right;font-size:large"> &nbsp; &nbsp; @numberOfrecords</span>
+                </div>
+
+            </div>*@
+            <div class="row row-bottom-margin " style="margin-top:3%">
+                <div class="text-center">
+                    <span class="alert-danger" role="alert" style="font-size:x-large">
+                        @Html.Raw(TempData["errMessage"])
+                    </span>
+                </div>
+            </div>
+           
+            <table id="myTable" class="cell-border hover stripe" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>
+                            الترتيب
+                        </th>
+                        <th>
+                            @Resources.Global.Name
+                        </th>
+                        <th>
+                            @Resources.Global.PhoneNumber
+                        </th>
+                        <th>
+                            @Resources.Global.Email
+                        </th>
+                        <th>
+                            @Resources.Global.Country
+                        </th>
+                        <th>تاريخ الانضمام</th>
+                        <th>السرعة</th>
+                        <th>معدل الطلب</th>
+                        <th>عدد الأحلام المفسرة</th>
+                        <th>عدد الاحلام قيد التفسير </th>
+                        <th>التقييم</th>
+                        <th>عدد النقاط</th>
+
+
+
+                        @*<th></th>*@
+                    </tr>
+                <tbody>
+                    @foreach (var item in Model)
+            {
+                        <tr>
+                            <td>@item.rank</td>
+                            <td>
+                                @*@Html.ActionLink(item.Name, "PersonalPage","Account", new { userId = item.ServiceProviderId }, null)*@
+                                @item.ServiceProvider.Name
+                            </td>
+                            <td>@item.ServiceProvider.PhoneNumber</td>
+                            <td>@item.ServiceProvider.Email</td>
+                            <td>@item.ServiceProvider.Country</td>
+                            <td>@item.ServiceProvider.CreationDate</td>
+                            <td>@item.Speed</td>
+                            <td>@item.AvgServicesInOneDay</td>
+                            <td>@item.NumberOfDoneServices</td>
+                            <td>@item.NumberOfActiveServices</td>
+                            <td>@item.Rating</td>
+                            <td>@item.pointsBalance</td>
+
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+
+@section scripts{
+    <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.6.1/js/dataTables.buttons.min.js"></script>
+    <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.colVis.min.js"></script>
+    <script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.html5.min.js"></script>
+    <script type="text/javascript">
+
+        $('#myTable').DataTable(
+            {
+                dom: 'Bfrtip',
+                columnDefs: [
+                    {
+                        targets: 1,
+                        className: 'noVis'
+                    }
+                ],
+                buttons: [
+                    {
+                        extend: 'colvis',
+                        columns: ':not(.noVis)'
+                    },
+                    'copyHtml5',
+                    'excelHtml5',
+                    'pdfHtml5'
+                ]
+
+            }
+
+            
+
+
+        );
+    </script>
+}

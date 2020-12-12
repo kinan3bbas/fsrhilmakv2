@@ -9,10 +9,10 @@
 
 <h3>@Resources.Global.Areyousureyouwanttodeletethis</h3>
 <div>
-    
+
     <hr />
     <dl class="dl-horizontal">
-       
+
 
         <dt>
             @Resources.UserWork.Name
@@ -38,7 +38,7 @@
             @Html.DisplayFor(model => model.Enabled)
         </dd>
 
-        
+
         <dt>
             @Resources.UserWork.CreationDate
         </dt>
@@ -47,11 +47,12 @@
             @Html.DisplayFor(model => model.CreationDate)
         </dd>
 
-    
+
 
     </dl>
 
-    @using (Html.BeginForm()) {
+    @using (Html.BeginForm())
+    {
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">

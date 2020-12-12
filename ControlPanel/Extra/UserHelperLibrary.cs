@@ -28,6 +28,18 @@ namespace fsrhilmakv2.Extra
             return days == 0 ? totalDreams : Math.Round(totalDreams / (Double)days);
         }
 
+        public static double ServiceProviderSpeed( int totalDreams,DateTime startDate)
+        {
+            //TimeSpan difference = DateTime.Now - user.CreationDate;
+            TimeSpan span1 = new TimeSpan(DateTime.Now.Ticks);
+            //TimeSpan span2 = new TimeSpan(user.CreationDate.Ticks);
+            LocalDateTime d1 = new LocalDateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
+            LocalDateTime d2 = new LocalDateTime(startDate.Year, startDate.Month, startDate.Day, startDate.Hour, startDate.Minute, startDate.Second);
+            long days = Period.Between(d2, d1, PeriodUnits.Days).Days;
+
+            return days == 0 ? totalDreams : Math.Round(totalDreams / (Double)days);
+        }
+
         public static double ServiceProviderAvgServices(ApplicationUser user, int totalDreams)
         {
             //TimeSpan difference = DateTime.Now - user.CreationDate;
@@ -35,6 +47,18 @@ namespace fsrhilmakv2.Extra
             //TimeSpan span2 = new TimeSpan(user.CreationDate.Ticks);
             LocalDateTime d1 = new LocalDateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
             LocalDateTime d2 = new LocalDateTime(user.CreationDate.Year, user.CreationDate.Month, user.CreationDate.Day, user.CreationDate.Hour, user.CreationDate.Minute, user.CreationDate.Second);
+            long days = Period.Between(d2, d1, PeriodUnits.Days).Days;
+
+            return days == 0 ? totalDreams : Math.Round(totalDreams / (Double)days);
+        }
+
+        public static double ServiceProviderAvgServices( int totalDreams, DateTime startDate)
+        {
+            //TimeSpan difference = DateTime.Now - user.CreationDate;
+            TimeSpan span1 = new TimeSpan(DateTime.Now.Ticks);
+            //TimeSpan span2 = new TimeSpan(user.CreationDate.Ticks);
+            LocalDateTime d1 = new LocalDateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
+            LocalDateTime d2 = new LocalDateTime(startDate.Year, startDate.Month, startDate.Day, startDate.Hour, startDate.Minute, startDate.Second);
             long days = Period.Between(d2, d1, PeriodUnits.Days).Days;
 
             return days == 0 ? totalDreams : Math.Round(totalDreams / (Double)days);
@@ -87,6 +111,12 @@ namespace fsrhilmakv2.Extra
             return db.Services.Where(a=> a.ServiceProviderId.Equals(id)).ToList();
         }
 
+        public List<Service> getUserServices(string id,DateTime startdate)
+        {
+            return db.Services.Where(a => a.ServiceProviderId.Equals(id)&&
+                a.CreationDate.CompareTo(startdate)>=0).ToList();
+        }
+
         public List<Service> getServicesFiltered(List<Service> services,string status) {
 
             return services.Where(a => a.Status.Equals(status)).ToList();
@@ -116,6 +146,8 @@ namespace fsrhilmakv2.Extra
                 .ToList();
             double doneBalance = 0.0;
             double ActiveBalance = 0.0;
+            List<CompetitionBalance> CompetitionBalances = db.CompetitionBalances.Where(a => a.ServiceProviderId.Equals(user.Id)
+                && a.Status == "Active").ToList();
             //foreach (var item in services)
             //{
             //   ActiveBalance += item.ServicePath.Cost * item.ServicePath.Ratio;
@@ -131,10 +163,26 @@ namespace fsrhilmakv2.Extra
             balance.DoneBalance = doneBalance - balance.TransferedBalance;
             balance.SuspendedBalance = ActiveBalance>=0?ActiveBalance:0.0;
 
+            balance.CompetitionBalance = CompetitionBalances.Count > 0 ? CompetitionBalances.Sum(a => a.Amount) : 0.0;
+            balance.DoneBalance += balance.CompetitionBalance;
             return balance;
 
             
 
+        }
+
+        public double getUserRating(List<Service> DoneServices)
+        {
+            double rating = 0;
+            int count = 1;
+            foreach (var item in DoneServices)
+            {
+                if (item.UserRating == 0)
+                    continue;
+                rating += item.UserRating;
+                count++;
+            }
+            return (rating / count);
         }
         public ApplicationUser findUser(string id)
         {

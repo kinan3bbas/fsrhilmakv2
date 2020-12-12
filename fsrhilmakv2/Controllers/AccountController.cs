@@ -741,9 +741,11 @@ namespace fsrhilmakv2.Controllers
                 SocialStatus = user.SocialState,
                 ImageUrl = user.imageUrl,
                 SocialToken = user.SocialToken,
-                TotalBalance = balance.TransferedBalance,
-                AvailableBalance = balance.DoneBalance,
-                SuspendedBalance = balance.SuspendedBalance
+                TotalBalance = Math.Round(balance.TransferedBalance,2),
+                AvailableBalance = Math.Round(balance.DoneBalance,2),
+                SuspendedBalance = Math.Round(balance.SuspendedBalance,2),
+                VerifiedUser=user.verifiedInterpreter,
+                ServiceProviderPoints=user.ServiceProviderPoints
                 
                 
 
@@ -815,10 +817,10 @@ namespace fsrhilmakv2.Controllers
             //return Ok(genericResutl);
             skip = skip == null ? 0 : skip;
             top = top == null ? 5 : top;
-            int count = db.UserWorkBindings.Where(a => a.UserWorkId.Equals(id) && a.User.Status.Equals("Active")
+            int count = db.UserWorkBindings.Where(a => a.UserWorkId.Equals(id) && a.User.Status.Equals("Active")&&a.User.verifiedInterpreter
             ).Count();
             List<UserWorkBinding> bindings = db.UserWorkBindings.Where(a => a.UserWorkId.Equals(id) && a.User.Status.Equals("Active")
-            && a.User.Type.Equals(CoreController.UserType.Service_Provider.ToString())
+            && a.User.Type.Equals(CoreController.UserType.Service_Provider.ToString())&& a.User.verifiedInterpreter
             ).OrderByDescending(a => a.CreationDate).Include("User").ToList();
             List<UserInfoViewModel> users = new List<UserInfoViewModel>();
             foreach (var item in bindings)
@@ -834,7 +836,7 @@ namespace fsrhilmakv2.Controllers
         public List<UserInfoViewModel> GetServiceProvidersWithoutFilter()
         {
             List<ApplicationUser> result = db.Users.Where(a => a.Type.Equals(CoreController.UserType.Service_Provider.ToString())
-              && !a.Status.Equals(CoreController.UserStatus.Deleted.ToString())).ToList();
+              && !a.Status.Equals(CoreController.UserStatus.Deleted.ToString())&& a.verifiedInterpreter).ToList();
             List<UserInfoViewModel> users = new List<UserInfoViewModel>();
             foreach (var item in result)
             {

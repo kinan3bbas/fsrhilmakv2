@@ -9,6 +9,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
+using System.Web.Http.Results;
 
 namespace fsrhilmakv2.Controllers
 {
@@ -20,6 +21,7 @@ namespace fsrhilmakv2.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
         private CoreController core = new CoreController();
         private UserHelperLibrary helper = new UserHelperLibrary();
+        private CompetitionLibrary libComp = new CompetitionLibrary();
 
 
 
@@ -43,6 +45,11 @@ namespace fsrhilmakv2.Controllers
             service.Explanation = temp.Explanation;
             service.ExplanationDate = DateTime.Now;
             service.Status = CoreController.ServiceStatus.Done.ToString();
+            PublicService publicService = db.PublicServices.Where(a => a.ServiceId.Equals(temp.id)).FirstOrDefault();
+            if (publicService != null)
+            {
+                db.Entry(publicService).State = EntityState.Deleted;
+            }
             //if (temp.ServiceProviderId != null)
             //{
             //    DreamHistory history = new DreamHistory();
@@ -110,6 +117,12 @@ namespace fsrhilmakv2.Controllers
             //        db.Entry(item).State = EntityState.Deleted;
             //    }
             //}
+
+            PublicService publicService = db.PublicServices.Where(a => a.ServiceId.Equals(temp.id)).FirstOrDefault();
+            if (publicService != null)
+            {
+                db.Entry(publicService).State = EntityState.Deleted;
+            }
             SaveService(service);
             return service;
         }
@@ -198,7 +211,7 @@ namespace fsrhilmakv2.Controllers
         {
             List<ApplicationUser> users = db.Users.Where(a => a.Status.Equals(CoreController.UserStatus.Active.ToString())).ToList();
             List<ApplicationUser> Clients = users.Where(a => a.Type.Equals(CoreController.UserType.Client.ToString())).ToList();
-            List<ApplicationUser> ServiceProviders = users.Where(a => a.Type.Equals(CoreController.UserType.Service_Provider.ToString())).ToList();
+            List<ApplicationUser> ServiceProviders = users.Where(a => a.Type.Equals(CoreController.UserType.Service_Provider.ToString())&& a.verifiedInterpreter).ToList();
             List<Service> AllServices = db.Services.ToList();
 
 
@@ -292,42 +305,115 @@ namespace fsrhilmakv2.Controllers
         }
 
         //****************************** Get Public Services **************************
-        [Route("GetPublicServices")]
-        [HttpGet]
-        [AllowAnonymous]
-        public List<Service> GetPublicServices([FromUri] int? UserWorkId)
-        {
-            //Hours to public Serive
-            String _hoursToPublicService = ParameterRepository.findByCode("hours_To_Public_Service");
-            int hoursToPublicService = (int)Int32.Parse(_hoursToPublicService);
-            DateTime dateToCompare = DateTime.Now.AddHours(-1 * hoursToPublicService);
+        //[Route("GetPublicServices")]
+        //[HttpGet]
+        //[AllowAnonymous]
+        //public List<Service> GetPublicServices([FromUri] int? UserWorkId)
+        //{
+        //    //Hours to public Serive
+        //    String _hoursToPublicService = ParameterRepository.findByCode("hours_To_Public_Service");
+        //    int hoursToPublicService = (int)Int32.Parse(_hoursToPublicService);
+        //    DateTime dateToCompare = DateTime.Now.AddHours(-1 * hoursToPublicService);
 
-            //Service Provider Speed
-            String _PublicServiceUserSpeed = ParameterRepository.findByCode("Public_Service_User_Speed");
-            double PublicServiceUserSpeed = Double.Parse(_PublicServiceUserSpeed);
-            //Avg Service In a day
-            String _PublicServiceUserAvg = ParameterRepository.findByCode("Public_Service_User_Avg_Services");
-            double PublicServiceUserAvg = Double.Parse(_PublicServiceUserAvg);
+        //    //Service Provider Speed
+        //    String _PublicServiceUserSpeed = ParameterRepository.findByCode("Public_Service_User_Speed");
+        //    double PublicServiceUserSpeed = Double.Parse(_PublicServiceUserSpeed);
+        //    //Avg Service In a day
+        //    String _PublicServiceUserAvg = ParameterRepository.findByCode("Public_Service_User_Avg_Services");
+        //    double PublicServiceUserAvg = Double.Parse(_PublicServiceUserAvg);
 
-            List<Service> services = db.Services.Where(a => a.Status.Equals("Active") &&
-                a.ServiceProviderNewDate.CompareTo(dateToCompare) <= 0)
-                .Include("Comments")
-                .Include("UserWork")
-                .Include("ServiceProvider")
-                .Include("Creator")
-                .OrderByDescending(a => a.CreationDate)
-                .ToList();
-            if (UserWorkId != null)
-            {
-                services = services.Where(a => a.UserWorkId.Equals(UserWorkId)).ToList();
-            }
-            return services;
+        //    List<Service> services = db.Services.Where(a => a.Status.Equals("Active") &&
+        //        a.ServiceProviderNewDate.CompareTo(dateToCompare) <= 0)
+        //        .Include("Comments")
+        //        .Include("UserWork")
+        //        .Include("ServiceProvider")
+        //        .Include("Creator")
+        //        .OrderByDescending(a => a.CreationDate)
+        //        .ToList();
+        //    if (UserWorkId != null)
+        //    {
+        //        services = services.Where(a => a.UserWorkId.Equals(UserWorkId)).ToList();
+        //    }
+        //    return services;
 
-        }
+        //}
+
+        //[Route("GetPublicServicesWithoutFilter")]
+        //[HttpGet]
+        //public List<ServiceViewModel> GetPublicServicesWithoutFilter()
+        //{
+
+        //    String _hoursToPublicService = ParameterRepository.findByCode("hours_To_Public_Service");
+        //    int hoursToPublicService = _hoursToPublicService == null ? 24 : (int)Int32.Parse(_hoursToPublicService);
+        //    DateTime dateToCompare = DateTime.Now.AddHours(-1 * hoursToPublicService);
+        //    //Service Provider Speed
+        //    String _PublicServiceUserSpeed = ParameterRepository.findByCode("Public_Service_User_Speed");
+        //    double PublicServiceUserSpeed = _PublicServiceUserSpeed == null ? 1.0 : Double.Parse(_PublicServiceUserSpeed);
+        //    //Avg Service In a day
+        //    String _PublicServiceUserAvg = ParameterRepository.findByCode("Public_Service_User_Avg_Services");
+        //    double PublicServiceUserAvg = _PublicServiceUserAvg == null ? 1.0 : Double.Parse(_PublicServiceUserAvg);
+
+        //    String userId = core.getCurrentUser().Id;
+        //    if (!core.getCurrentUser().verifiedInterpreter)
+        //        return new List<ServiceViewModel>();
+        //    ApplicationUser user = db.Users.Where(a => a.Id.Equals(userId)).Include(a=>a.userWorkBinding).FirstOrDefault();
+        //    List<int> userWorkIds = new List<int>();
+        //    List<Service> services = db.Services.Where(a => a.Status.Equals("Active") &&
+        //        a.ServiceProviderNewDate.CompareTo(dateToCompare) <= 0 && a.PublicServiceAction)
+        //        .Include("Comments")
+        //        .Include("UserWork")
+        //        .Include("ServiceProvider")
+        //        .Include("Creator")
+        //        .OrderByDescending(a => a.CreationDate)
+        //        .ToList();
+        //    int bindingcount = db.UserWorkBindings.Where(a => a.UserId.Equals(userId)).ToList().Count();
+
+        //    foreach (var item in user.userWorkBinding)
+        //    {
+        //        userWorkIds.Add(item.UserWorkId);
+        //    }
+        //    services = services.Where(a => userWorkIds.Contains(a.UserWorkId)).ToList();
+
+
+        //    List<ServiceViewModel> result = new List<ServiceViewModel>();
+        //    foreach (var item in services)
+        //    {
+        //        result.Add(getMapping(item));
+        //    }
+
+
+        //    return result.Where(a => a.ServiceProviderAvgServices <= PublicServiceUserAvg && a.ServiceProviderSpeed <= PublicServiceUserSpeed).ToList();
+
+
+        //}
 
         [Route("GetPublicServicesWithoutFilter")]
         [HttpGet]
-        public List<ServiceViewModel> GetPublicServicesWithoutFilter()
+        public List<PublicService> GetPublicServicesWithoutFilter()
+        {
+
+            String userId = core.getCurrentUser().Id;
+            if (!core.getCurrentUser().verifiedInterpreter)
+                return new List<PublicService>();
+            ApplicationUser user = db.Users.Where(a => a.Id.Equals(userId)).Include(a => a.userWorkBinding).FirstOrDefault();
+            List<int> userWorkIds = new List<int>();
+            foreach (var item in user.userWorkBinding)
+            {
+                userWorkIds.Add(item.UserWorkId);
+            }
+            List<PublicService> publicServices = db.PublicServices.Where(a => userWorkIds.Contains(a.UserWorkId)).ToList();
+            foreach (var item in publicServices)
+            {
+                item.id = item.ServiceId;
+            }
+            return publicServices;
+
+        }
+
+        [Route("GeneratePublicServicesJob")]
+        [AllowAnonymous]
+        [HttpGet]
+        public IHttpActionResult GeneratePublicServicesJob()
         {
 
             String _hoursToPublicService = ParameterRepository.findByCode("hours_To_Public_Service");
@@ -340,8 +426,7 @@ namespace fsrhilmakv2.Controllers
             String _PublicServiceUserAvg = ParameterRepository.findByCode("Public_Service_User_Avg_Services");
             double PublicServiceUserAvg = _PublicServiceUserAvg == null ? 1.0 : Double.Parse(_PublicServiceUserAvg);
 
-            String userId = core.getCurrentUser().Id;
-            ApplicationUser user = db.Users.Where(a => a.Id.Equals(userId)).Include(a=>a.userWorkBinding).FirstOrDefault();
+
             List<int> userWorkIds = new List<int>();
             List<Service> services = db.Services.Where(a => a.Status.Equals("Active") &&
                 a.ServiceProviderNewDate.CompareTo(dateToCompare) <= 0 && a.PublicServiceAction)
@@ -351,26 +436,29 @@ namespace fsrhilmakv2.Controllers
                 .Include("Creator")
                 .OrderByDescending(a => a.CreationDate)
                 .ToList();
-            int bindingcount = db.UserWorkBindings.Where(a => a.UserId.Equals(userId)).ToList().Count();
-
-            foreach (var item in user.userWorkBinding)
-            {
-                userWorkIds.Add(item.UserWorkId);
-            }
-            services = services.Where(a => userWorkIds.Contains(a.UserWorkId)).ToList();
 
 
-            List<ServiceViewModel> result = new List<ServiceViewModel>();
+            List<PublicService> result = new List<PublicService>();
             foreach (var item in services)
             {
-                result.Add(getMapping(item));
+                result.Add(getMappingPublicService(item));
             }
 
 
-            return result.Where(a => a.ServiceProviderAvgServices <= PublicServiceUserAvg && a.ServiceProviderSpeed <= PublicServiceUserSpeed).ToList();
-
-
+            result= result.Where(a => a.ServiceProviderAvgServices <= PublicServiceUserAvg && a.ServiceProviderSpeed <= PublicServiceUserSpeed).ToList();
+            List<PublicService> publicServices = db.PublicServices.ToList();
+            List<int> ids = publicServices.Select(a => a.ServiceId).ToList();
+            foreach (var item in result)
+            {
+                if (ids.Contains(item.ServiceId))
+                    continue;
+                db.PublicServices.Add(item);
+            }
+            db.SaveChanges();
+            return Ok();
         }
+
+    
 
         //****************************** Get Payments **************************
         [Route("GetPayments")]
@@ -482,6 +570,81 @@ namespace fsrhilmakv2.Controllers
             SaveService(service);
             return Ok(service);
         }
+
+        //*************************** Competition List********************
+        [Route("GetCompetitions")]
+        public IHttpActionResult GetCompetitions(String status="Active", int skip = 0, int top = 10)
+        {
+            List<CompetitionViewModel> result = new List<CompetitionViewModel>();
+            String userId = core.getCurrentUser().Id;
+            if (!core.getCurrentUser().verifiedInterpreter)
+                return Ok(result);
+            ApplicationUser user = db.Users.Where(a => a.Id.Equals(userId)).Include(a => a.userWorkBinding).FirstOrDefault();
+            List<int> userWorkIds = new List<int>();
+            foreach (var item in user.userWorkBinding)
+            {
+                userWorkIds.Add(item.UserWorkId);
+            }
+            skip = skip == null ? 0 : skip;
+            top = top == null ? 5 : top;
+            
+            List<Competition> competitions= db.Competitions.Where(a => a.Status.Equals(status)
+            && userWorkIds.Contains(a.UserWorkId))
+            .Include(a=>a.UserWork)
+            .Include(a=>a.prize)
+            .ToList();
+            int count = competitions.Count();
+            foreach (var item in competitions)
+            {
+                result.Add(GetCompetitionMapping(item));
+            }
+            var genericResutl = new { Competitions = result.OrderBy(a => a.EndDate).Skip(skip).Take(top), Count = count };
+            return Ok(genericResutl);
+        }
+
+        //*************************** Get Competition Results********************
+        [AllowAnonymous]
+        [Route("GetCompetitionResult")]
+        public IHttpActionResult GetCompetitionResult(int CompetitionId)
+        {
+
+            List<CompetitionResult> resutl = new List<CompetitionResult>();
+            Competition Competition = db.Competitions.Find(CompetitionId);
+            if (Competition.Status.Equals(CoreController.CompetitionStatus.Active.ToString()))
+            {
+                //temp results here
+                List<UserWorkBinding> bindings = db.UserWorkBindings.Where(a => a.UserWorkId == Competition.UserWorkId && a.User.Status != "Deleted"
+                     && a.User.Type == "Service_Provider"
+                    && a.User.verifiedInterpreter).Include("User").ToList();
+                List<ApplicationUser> users = bindings.Select(a => a.User).ToList();
+                //FinishCompetitionJob();
+                return Ok(libComp.getFinalList(Competition, users, Competition.StartDate.Value, true));
+            }
+            else if (Competition.Status.Equals(CoreController.CompetitionStatus.Finished.ToString())) {
+                //Final Results here 
+                return Ok(db.CompetitionResults.Where(a => a.competitionId.Equals(CompetitionId)).OrderByDescending(a => a.NumberOfActiveServices).Include(a => a.ServiceProvider).ToList());
+            }
+
+            
+            return Ok(resutl);
+        }
+
+        public void FinishCompetitionJob()
+        {
+            DateTime now = DateTime.Now.ToUniversalTime().AddHours(3);
+            List<Competition> Competitions = db.Competitions.Where(a => a.Status.Equals("Active") && a.EndDate.Value.CompareTo(DateTime.Now) <= 0)
+                .Include(a => a.prize)
+                .Include(a => a.UserWork).ToList();
+            foreach (var Competition in Competitions)
+            {
+                List<UserWorkBinding> bindings = db.UserWorkBindings.Where(a => a.UserWorkId == Competition.UserWorkId && a.User.Status != "Deleted"
+                     && a.User.Type == "Service_Provider"
+                    && a.User.verifiedInterpreter).Include("User").ToList();
+                List<ApplicationUser> users = bindings.Select(a => a.User).ToList();
+                libComp.finishCompetition(Competition, libComp.getFinalList(Competition, users, Competition.StartDate.Value, false));
+
+            }
+        }
         public void SaveService(Service Service)
         {
             Service.LastModificationDate = DateTime.Now;
@@ -490,7 +653,23 @@ namespace fsrhilmakv2.Controllers
             db.SaveChanges();
         }
 
+        public CompetitionViewModel GetCompetitionMapping(Competition comp)
+        {
+            CompetitionViewModel temp = new CompetitionViewModel();
+            temp.duration = comp.duration;
+            temp.EndDate = comp.EndDate;
+            temp.StartDate = comp.StartDate;
+            temp.FirstPlacePrice = comp.prize.rank1;
+            temp.Goal = comp.Goal;
+            temp.repeat = comp.repeat;
+            temp.Status = comp.Status;
+            temp.UserWork = comp.UserWork;
+            temp.Name = comp.Name;
+            temp.id = comp.id;
+            return temp;
 
+
+        }
 
         public ServiceViewModel getMapping(Service service)
         {
@@ -506,7 +685,6 @@ namespace fsrhilmakv2.Controllers
             double avg = UserHelperLibrary.ServiceProviderAvgServices(helper.findUser(service.ServiceProviderId), services.Count);
             List<UsersDeviceTokens> Clienttokens = db.UsersDeviceTokens.Where(a => a.UserId.Equals(service.CreatorId)).ToList();
             List<UsersDeviceTokens> ServiceProvidertokens = db.UsersDeviceTokens.Where(a => a.UserId.Equals(service.ServiceProviderId)).ToList();
-
             AccountController accountCont = new AccountController();
             ServiceViewModel result = new ServiceViewModel();
             result.Comments = service.Comments;
@@ -552,6 +730,68 @@ namespace fsrhilmakv2.Controllers
             result.ServiceProviderSpeed = speed;
             result.ServiceProviderAvgServices = avg == 0 ? 1 : avg;
 
+            return result;
+        }
+
+        public PublicService getMappingPublicService(Service service)
+        {
+            List<Service> allService = db.Services.Where(a => a.ServiceProviderId.Equals(service.ServiceProviderId)
+                && a.ServicePathId.Equals(service.ServicePathId)
+                && a.Status.Equals(CoreController.ServiceStatus.Active.ToString())).ToList();
+
+            List<Service> services = helper.getUserServices(service.ServiceProviderId);
+            List<Service> activeSerives = helper.getServicesFiltered(services, CoreController.ServiceStatus.Active.ToString());
+            List<Service> doneServices = helper.getServicesFiltered(services, CoreController.ServiceStatus.Done.ToString());
+            double speed = UserHelperLibrary.ServiceProviderSpeed(helper.findUser(service.ServiceProviderId), doneServices.Count);
+            speed = speed < 1 ? 1 : speed;
+            double avg = UserHelperLibrary.ServiceProviderAvgServices(helper.findUser(service.ServiceProviderId), services.Count);
+            List<UsersDeviceTokens> Clienttokens = db.UsersDeviceTokens.Where(a => a.UserId.Equals(service.CreatorId)).ToList();
+            List<UsersDeviceTokens> ServiceProvidertokens = db.UsersDeviceTokens.Where(a => a.UserId.Equals(service.ServiceProviderId)).ToList();
+            AccountController accountCont = new AccountController();
+            PublicService result = new PublicService();
+            //result.Comments = service.Comments;
+            result.Country = service.Country;
+            result.CreationDate = service.CreationDate;
+            result.Creator = service.Creator;
+            result.Description = service.Description;
+            result.CreatorId = service.CreatorId;
+            result.DidYouExorcism = service.DidYouExorcism;
+            result.DreamDate = service.DreamDate;
+            result.Explanation = service.Explanation;
+            result.ExplanationDate = service.ExplanationDate;
+            result.HaveYouPrayedBeforeTheDream = service.HaveYouPrayedBeforeTheDream;
+            result.ServiceId = service.id;
+            result.IsThereWakefulness = service.IsThereWakefulness;
+            result.JobStatus = service.JobStatus;
+            result.KidsStatus = service.KidsStatus;
+            result.LastModificationDate = service.LastModificationDate;
+            result.Modifier = service.Modifier;
+            result.ModifierId = service.ModifierId;
+            result.Name = service.Name;
+            result.numberOfLikes = service.numberOfLikes;
+            result.numberOfViews = service.numberOfViews;
+            result.PrivateService = service.PrivateService;
+            result.PrivateServicePrice = service.PrivateServicePrice;
+            result.PublicServiceAction = service.PublicServiceAction;
+            result.RegligionStatus = service.RegligionStatus;
+            result.ServicePathId = service.ServicePathId;
+            result.ServiceProvider = service.ServiceProvider;
+            result.ServiceProviderId = service.ServiceProviderId;
+            result.Sex = service.Sex;
+            result.SocialStatus = service.SocialStatus;
+            result.Status = service.Status;
+            result.UserWork = service.UserWork;
+            result.UserWorkId = service.UserWorkId;
+            result.ServicePath = service.ServicePath;
+            result.NumberOfAllPeopleWaiting = allService.Count > 0 ? allService.Count : 0;
+            result.NumberOfRemainingPeople = allService.Count > 0 ? allService.Where(a => a.CreationDate.CompareTo(service.CreationDate) < 0).Count() : 0;
+            result.AvgWaitingTime = UserHelperLibrary.getWaitingTimeMessage(Double.Parse(speed.ToString()),
+                Double.Parse(result.NumberOfRemainingPeople.ToString())).Replace("Your average waiting time is ", "");
+            result.ClientToken = Clienttokens.Count > 0 ? Clienttokens[0].token : "";
+            result.ServiceProviderToken = ServiceProvidertokens.Count > 0 ? ServiceProvidertokens[0].token : "";
+            result.ServiceProviderSpeed = speed;
+            result.ServiceProviderAvgServices = avg == 0 ? 1 : avg;
+            result.id = service.id;
             return result;
         }
     }

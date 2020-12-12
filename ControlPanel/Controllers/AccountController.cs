@@ -16,10 +16,11 @@ using System.Data.Entity;
 using System.Net;
 using System.Net.Http;
 using fsrhilmakv2.Extra;
+using PagedList;
 
 namespace ControlPanel.Controllers
 {
-    [Authorize (Roles ="Admin")]
+    [Authorize(Roles = "Admin")]
     public class AccountController : Controller
     {
         private ApplicationSignInManager _signInManager;
@@ -407,7 +408,7 @@ namespace ControlPanel.Controllers
 
 
         // GET: /Account/ServiceProvider
-        public ActionResult ServiceProvider(int? UserWorkId, String fromDate = "", String toDate = "")
+        public ActionResult ServiceProvider(int? UserWorkId, bool? verified, String fromDate = "", String toDate = "")
         {
 
             DateTime from = new DateTime(2000, 1, 1);
@@ -420,13 +421,13 @@ namespace ControlPanel.Controllers
             {
                 DateTime.TryParse(toDate, out to);
             }
-            List<ApplicationUser> users = db.Users.Where(a => a.Type== "Service_Provider"
-                    && a.Status!="Deleted").ToList();
+            List<ApplicationUser> users = db.Users.Where(a => a.Type == "Service_Provider"
+                    && a.Status != "Deleted" && a.verifiedInterpreter == (verified == null ? true:verified)).ToList();
             if (UserWorkId != null)
             {
                 List<UserWorkBinding> bindings = db.UserWorkBindings.Where(a => a.UserWorkId == UserWorkId && a.User.Status != "Deleted"
               && a.User.Type== "Service_Provider"
-                        ).Include("User").ToList();
+                        && a.User.verifiedInterpreter == (verified == null ? true : verified)).Include("User").ToList();
                 users = bindings.Select(a => a.User).ToList();
                 users = users.Where(a => a.CreationDate.CompareTo(from) >= 0 && a.CreationDate.CompareTo(to) <= 0).ToList();
 
@@ -441,10 +442,10 @@ namespace ControlPanel.Controllers
         }
 
         //// GET: /Account/Clients
-        [HttpGet]
-        public ActionResult Clients(int? UserWorkId, String fromDate = "", String toDate = "")
+        public ActionResult Clients(int? UserWorkId, int? page, int? size,String fromDate = "", String toDate = "")
         {
-
+            int pageSize = (size ?? 100);
+            int pageNumber = (page ?? 1);
             DateTime from = new DateTime(2000, 1, 1);
             DateTime to = new DateTime(3000, 1, 1);
             if (!fromDate.Equals("") && fromDate != null)
@@ -456,17 +457,70 @@ namespace ControlPanel.Controllers
                 DateTime.TryParse(toDate, out to);
             }
 
-            List<ApplicationUser> users = db.Users.Where(a => a.Type.Equals(CoreController.UserType.Client.ToString())
-            && !a.Status.Equals(CoreController.UserStatus.Deleted.ToString())).ToList();
-            users = users.Where(a => a.CreationDate.CompareTo(from) >= 0&& a.CreationDate.CompareTo(to) <= 0).ToList();
-            List<UserInfoViewModel> result = new List<UserInfoViewModel>();
-            foreach (var item in users)
-            {
-                result.Add(getInfoMapping(item));
-            }
-            ViewBag.UserWorkId = new SelectList(db.UserWorks.Where(a => a.Enabled), "id", "Name");
+             List < ApplicationUser > users = db.Users.Where(a => a.Type.Equals(CoreController.UserType.Client.ToString())
+            && !a.Status.Equals(CoreController.UserStatus.Deleted.ToString()) && a.CreationDate.CompareTo(from) >= 0
+            && a.CreationDate.CompareTo(to) <= 0).OrderByDescending(a => a.CreationDate).ToList();
 
-            return View(result);
+            ViewBag.UserWorkId = new SelectList(db.UserWorks.Where(a => a.Enabled), "id", "Name");
+            ViewBag.totalbalance= users.Sum(p=>p.PointsBalance);
+
+            return View(users.ToPagedList(pageNumber, pageSize));
+        }
+
+
+        [HttpGet]
+        public ActionResult ClientsV2(int? UserWorkId, int? page, String fromDate = "", String toDate = "")
+        {
+            //int pageSize = 10;
+            //int pageNumber = (page ?? 1);
+            //DateTime from = new DateTime(2000, 1, 1);
+            //DateTime to = new DateTime(3000, 1, 1);
+            //if (!fromDate.Equals("") && fromDate != null)
+            //{
+            //    DateTime.TryParse(fromDate, out from);
+            //}
+            //if (!toDate.Equals("") && toDate != null)
+            //{
+            //    DateTime.TryParse(toDate, out to);
+            //}
+
+            //List<ApplicationUser> users = db.Users.Where(a => a.Type.Equals(CoreController.UserType.Client.ToString())
+            // && !a.Status.Equals(CoreController.UserStatus.Deleted.ToString()) && a.CreationDate.CompareTo(from) >= 0
+            // && a.CreationDate.CompareTo(to) <= 0).ToList();
+            ////users = users.Where(a => a.CreationDate.CompareTo(from) >= 0&& a.CreationDate.CompareTo(to) <= 0).ToList();
+            //List<UserInfoViewModel> result = new List<UserInfoViewModel>();
+            ////foreach (var item in users)
+            ////{
+            ////    result.Add(getInfoMapping(item));
+            ////}
+            //ViewBag.UserWorkId = new SelectList(db.UserWorks.Where(a => a.Enabled), "id", "Name");
+            //ViewBag.totalbalance = users.Sum(p => p.PointsBalance);
+
+            //return View(db.Users.Where(a => a.Type.Equals(CoreController.UserType.Client.ToString())
+            //&& !a.Status.Equals(CoreController.UserStatus.Deleted.ToString()) && a.CreationDate.CompareTo(from) >= 0
+            //&& a.CreationDate.CompareTo(to) <= 0).OrderByDescending(a => a.PointsBalance).ToPagedList(pageNumber, pageSize));
+            return View();
+        }
+
+        [HttpPost]
+        public JsonResult ClientList()
+        {
+            try
+            {
+                //Get data from database
+
+                int studentCount = db.Users.Where(a => a.Type.Equals(CoreController.UserType.Client.ToString())
+                 && !a.Status.Equals(CoreController.UserStatus.Deleted.ToString())).Count();
+                List<ApplicationUser> students = db.Users.Where(a => a.Type.Equals(CoreController.UserType.Client.ToString())
+                      && !a.Status.Equals(CoreController.UserStatus.Deleted.ToString())).OrderByDescending(a=>a.PointsBalance).ToList();
+
+                //Return result to jTable
+                return Json(new { Result = "OK", Records = students, TotalRecordCount = studentCount });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { Result = "ERROR", Message = ex.Message });
+            }
         }
 
         // GET: /Account/DeletdUsers
@@ -524,9 +578,12 @@ namespace ControlPanel.Controllers
                 TotalBalance = balance.TransferedBalance,
                 AvailableBalance = balance.DoneBalance,
                 SuspendedBalance = balance.SuspendedBalance,
+                CompetitionBalance = balance.CompetitionBalance,
                 PointsBalance = user.PointsBalance,
                 UserSpecialCode=user.UserSpecialCode,
-                UserName=user.UserName
+                UserName=user.UserName,
+                VerifiedUser=user.verifiedInterpreter,
+                ServiceProviderPoints=user.ServiceProviderPoints
                 
 
 
@@ -574,6 +631,7 @@ namespace ControlPanel.Controllers
         }
 
 
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult EditPersonalPage(ApplicationUser user)
@@ -604,6 +662,49 @@ namespace ControlPanel.Controllers
 
             }
             return View(user)
+;
+        }
+
+
+        public ActionResult EditCompetitionBalance(int id)
+        {
+            CompetitionBalance temp = db
+                .CompetitionBalances
+                .Where(e => e.id.Equals(id))
+                .FirstOrDefault();
+            if (temp == null)
+            {
+                return HttpNotFound();
+            }
+            //var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
+            //var user = userManager.FindById(User.Identity.GetUserId());
+            //ViewBag.CurrentUser = user;
+
+            ViewBag.userId = id;
+            return View(temp);
+        }
+
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditCompetitionBalance(CompetitionBalance balance)
+        {
+            if (balance == null)
+            {
+                return HttpNotFound();
+            }
+            if (ModelState.IsValid)
+            {
+                CompetitionBalance temp = db.CompetitionBalances.Where(a => a.id.Equals(balance.id)).FirstOrDefault();
+                temp.Amount = balance.Amount;
+                temp.LastModificationDate = DateTime.Now;
+                db.Entry(temp).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("PersonalPage", new { userId = temp.ServiceProviderId });
+
+            }
+            return View(balance)
 ;
         }
 
@@ -668,6 +769,16 @@ namespace ControlPanel.Controllers
             }
             ViewBag.userId = userId;
             return View(payments);
+        }
+        public ActionResult CompetitionBalance(String userId)
+        {
+            List<CompetitionBalance> CompetitionBalance = db.CompetitionBalances.Where(a => a.ServiceProviderId.Equals(userId))
+                .Include("ServiceProvider")
+                .ToList();
+
+            
+            ViewBag.userId = userId;
+            return View(CompetitionBalance);
         }
 
         public ActionResult ServicePath(String userId)
@@ -815,6 +926,19 @@ namespace ControlPanel.Controllers
 
 
             return RedirectToAction("ServiceProvider");
+        }
+
+       
+        public JsonResult EnableUser(String PhoneNumber)
+        {
+            ApplicationUser user = db.Users.Where(a => a.PhoneNumber.Equals(PhoneNumber)).FirstOrDefault() ;
+
+            user.verifiedInterpreter = !user.verifiedInterpreter;
+            db.Entry(user).State = EntityState.Modified;
+            db.SaveChangesAsync();
+
+
+            return Json("200", JsonRequestBehavior.AllowGet);
         }
 
         protected override void Dispose(bool disposing)
