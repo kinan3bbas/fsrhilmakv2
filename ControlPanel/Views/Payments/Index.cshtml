@@ -43,7 +43,7 @@
 <link href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css" />
 <link href="https://cdn.datatables.net/buttons/1.6.1/css/buttons.dataTables.min.css" rel="stylesheet" type="text/css" />
 
-<div class="container">
+<div class="container  text-center">
         @using (Html.BeginForm())
         {
 
@@ -178,11 +178,11 @@
                     @Html.DisplayFor(modelItem => item.Service.ServicePath.Ratio)
                 </td>
 
-                @*<td>
-                        @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
-                        @Html.ActionLink("Details", "Details", new { id=item.id }) |
+                <td>
+                        @*@Html.ActionLink("Edit", "Edit", new { id=item.id }) |
+                        @Html.ActionLink("Details", "Details", new { id=item.id }) |*@
                         @Html.ActionLink("Delete", "Delete", new { id=item.id })
-                    </td>*@
+                    </td>
             </tr>
         }
 

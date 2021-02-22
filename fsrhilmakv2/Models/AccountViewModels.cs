@@ -94,6 +94,8 @@ namespace fsrhilmakv2.Models
         public double AvailableBalance { get; set; }
 
         public long ServiceProviderPoints { get; set; }
+
+        public long numberOfFreeServices { get; set; }
     }
 
     public class UserLoginInfoViewModel

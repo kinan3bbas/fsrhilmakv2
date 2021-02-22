@@ -1033,6 +1033,7 @@
     <Content Include="Views\Account\CompetitionBalance.cshtml" />
     <Content Include="Views\Services\Index2.cshtml" />
     <Content Include="Views\Account\EditCompetitionBalance.cshtml" />
+    <Content Include="Views\Payments\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

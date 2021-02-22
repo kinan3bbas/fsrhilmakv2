@@ -272,8 +272,33 @@ namespace ControlPanel.Controllers
             }
         }
 
-        // GET: Payments/Edit/5
-      
+
+
+        // GET: UserWorks/Delete/5
+        public ActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Payment payment = db.Payments.Find(id);
+            if (payment == null)
+            {
+                return HttpNotFound();
+            }
+            return View(payment);
+        }
+
+        // POST: UserWorks/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            Payment payment = db.Payments.Find(id);
+            db.Payments.Remove(payment);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
 
     }
 }

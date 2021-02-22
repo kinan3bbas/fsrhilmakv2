@@ -2,10 +2,12 @@
 using fsrhilmakv2.Extra;
 using fsrhilmakv2.Models;
 using fsrhilmakv2.ViewModels;
+using NodaTime;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
@@ -22,6 +24,7 @@ namespace fsrhilmakv2.Controllers
         private CoreController core = new CoreController();
         private UserHelperLibrary helper = new UserHelperLibrary();
         private CompetitionLibrary libComp = new CompetitionLibrary();
+        private JobLibrary jobLibrary = new JobLibrary();
 
 
 
@@ -207,15 +210,51 @@ namespace fsrhilmakv2.Controllers
         [Route("getUsersStatistics")]
         [HttpGet]
         [AllowAnonymous]
-        public StatisticsViewModel getUsersStatistics()
+        public Statistics getUsersStatistics()
         {
+            //List<ApplicationUser> users = db.Users.Where(a => a.Status.Equals(CoreController.UserStatus.Active.ToString())).ToList();
+            //List<ApplicationUser> Clients = users.Where(a => a.Type.Equals(CoreController.UserType.Client.ToString())).ToList();
+            //List<ApplicationUser> ServiceProviders = users.Where(a => a.Type.Equals(CoreController.UserType.Service_Provider.ToString())&& a.verifiedInterpreter).ToList();
+            //List<Service> AllServices = db.Services.ToList();
+
+
+            //StatisticsViewModel result = new StatisticsViewModel();
+            //result.AllClients = Clients.Count();
+
+            //result.AllUsers = users.Count();
+            //result.AllServiceProviders = ServiceProviders.Count();
+            //result.AllActiveClients = result.AllClients - (int)(result.AllClients * 0.8);
+            //result.AllActiveServices = AllServices.Where(a => a.Status.Equals(CoreController.ServiceStatus.Active.ToString())).Count();
+            //result.AllDoneServices = AllServices.Where(a => a.Status.Equals(CoreController.ServiceStatus.Done.ToString())).Count();
+            //result.AllServices = AllServices.Count();
+            //Random random = new Random();
+            //result.AllActiveClientsInThePastThreeDays = result.AllClients + (int)(result.AllClients * 0.7);
+
+            //result.AllDreamUsers = helper.getServiceProviders(CoreController.UserWorkCode.Dream.ToString(), CoreController.UserStatus.Active.ToString()).Count();
+            //result.AllRouqiaUsers = helper.getServiceProviders(CoreController.UserWorkCode.Rouqia.ToString(), CoreController.UserStatus.Active.ToString()).Count();
+            //result.AllIftaaUsers = helper.getServiceProviders(CoreController.UserWorkCode.Iftaa.ToString(), CoreController.UserStatus.Active.ToString()).Count();
+            //result.AllIstasharaUsers = helper.getServiceProviders(CoreController.UserWorkCode.Istishara.ToString(), CoreController.UserStatus.Active.ToString()).Count();
+            //result.AllMedicalUsers = helper.getServiceProviders(CoreController.UserWorkCode.Medical.ToString(), CoreController.UserStatus.Active.ToString()).Count();
+            //result.AllLawUsers = helper.getServiceProviders(CoreController.UserWorkCode.Law.ToString(), CoreController.UserStatus.Active.ToString()).Count();
+            //return result;
+            return db.Statistics.OrderByDescending(a => a.CreationDate).FirstOrDefault();
+
+
+        }
+
+        //[Route("GenerateUserStatisticsJob")]
+        //[AllowAnonymous]
+        //[HttpGet]
+        public void GenerateUserStatisticsJob()
+        {
+
             List<ApplicationUser> users = db.Users.Where(a => a.Status.Equals(CoreController.UserStatus.Active.ToString())).ToList();
             List<ApplicationUser> Clients = users.Where(a => a.Type.Equals(CoreController.UserType.Client.ToString())).ToList();
-            List<ApplicationUser> ServiceProviders = users.Where(a => a.Type.Equals(CoreController.UserType.Service_Provider.ToString())&& a.verifiedInterpreter).ToList();
+            List<ApplicationUser> ServiceProviders = users.Where(a => a.Type.Equals(CoreController.UserType.Service_Provider.ToString()) && a.verifiedInterpreter).ToList();
             List<Service> AllServices = db.Services.ToList();
 
-
-            StatisticsViewModel result = new StatisticsViewModel();
+            List<Service> services = db.Services.Where(a => a.Status.Equals("Done")).ToList();
+            Statistics result = new Statistics();
             result.AllClients = Clients.Count();
 
             result.AllUsers = users.Count();
@@ -233,8 +272,17 @@ namespace fsrhilmakv2.Controllers
             result.AllIstasharaUsers = helper.getServiceProviders(CoreController.UserWorkCode.Istishara.ToString(), CoreController.UserStatus.Active.ToString()).Count();
             result.AllMedicalUsers = helper.getServiceProviders(CoreController.UserWorkCode.Medical.ToString(), CoreController.UserStatus.Active.ToString()).Count();
             result.AllLawUsers = helper.getServiceProviders(CoreController.UserWorkCode.Law.ToString(), CoreController.UserStatus.Active.ToString()).Count();
-            return result;
-
+            result.CreationDate = DateTime.Now;
+            result.LastModificationDate = DateTime.Now;
+            result.AllDreams = services.Where(a => a.UserWorkId.Equals(26)).Count();
+            result.AllRouqat = services.Where(a => a.UserWorkId.Equals(27)).Count();
+            result.AllIftaa = services.Where(a => a.UserWorkId.Equals(28)).Count();
+            result.AllIstashara = services.Where(a => a.UserWorkId.Equals(29)).Count();
+            result.AllMedical = services.Where(a => a.UserWorkId.Equals(36)).Count();
+            result.AllLaw = services.Where(a => a.UserWorkId.Equals(37)).Count();
+            db.Statistics.Add(result);
+            db.SaveChanges();
+            //return Ok(result);
         }
 
         //****************************** Change Plan *************************************
@@ -303,89 +351,7 @@ namespace fsrhilmakv2.Controllers
             payment.LastModificationDate = DateTime.Now;
             db.Payments.Add(payment);
         }
-
-        //****************************** Get Public Services **************************
-        //[Route("GetPublicServices")]
-        //[HttpGet]
-        //[AllowAnonymous]
-        //public List<Service> GetPublicServices([FromUri] int? UserWorkId)
-        //{
-        //    //Hours to public Serive
-        //    String _hoursToPublicService = ParameterRepository.findByCode("hours_To_Public_Service");
-        //    int hoursToPublicService = (int)Int32.Parse(_hoursToPublicService);
-        //    DateTime dateToCompare = DateTime.Now.AddHours(-1 * hoursToPublicService);
-
-        //    //Service Provider Speed
-        //    String _PublicServiceUserSpeed = ParameterRepository.findByCode("Public_Service_User_Speed");
-        //    double PublicServiceUserSpeed = Double.Parse(_PublicServiceUserSpeed);
-        //    //Avg Service In a day
-        //    String _PublicServiceUserAvg = ParameterRepository.findByCode("Public_Service_User_Avg_Services");
-        //    double PublicServiceUserAvg = Double.Parse(_PublicServiceUserAvg);
-
-        //    List<Service> services = db.Services.Where(a => a.Status.Equals("Active") &&
-        //        a.ServiceProviderNewDate.CompareTo(dateToCompare) <= 0)
-        //        .Include("Comments")
-        //        .Include("UserWork")
-        //        .Include("ServiceProvider")
-        //        .Include("Creator")
-        //        .OrderByDescending(a => a.CreationDate)
-        //        .ToList();
-        //    if (UserWorkId != null)
-        //    {
-        //        services = services.Where(a => a.UserWorkId.Equals(UserWorkId)).ToList();
-        //    }
-        //    return services;
-
-        //}
-
-        //[Route("GetPublicServicesWithoutFilter")]
-        //[HttpGet]
-        //public List<ServiceViewModel> GetPublicServicesWithoutFilter()
-        //{
-
-        //    String _hoursToPublicService = ParameterRepository.findByCode("hours_To_Public_Service");
-        //    int hoursToPublicService = _hoursToPublicService == null ? 24 : (int)Int32.Parse(_hoursToPublicService);
-        //    DateTime dateToCompare = DateTime.Now.AddHours(-1 * hoursToPublicService);
-        //    //Service Provider Speed
-        //    String _PublicServiceUserSpeed = ParameterRepository.findByCode("Public_Service_User_Speed");
-        //    double PublicServiceUserSpeed = _PublicServiceUserSpeed == null ? 1.0 : Double.Parse(_PublicServiceUserSpeed);
-        //    //Avg Service In a day
-        //    String _PublicServiceUserAvg = ParameterRepository.findByCode("Public_Service_User_Avg_Services");
-        //    double PublicServiceUserAvg = _PublicServiceUserAvg == null ? 1.0 : Double.Parse(_PublicServiceUserAvg);
-
-        //    String userId = core.getCurrentUser().Id;
-        //    if (!core.getCurrentUser().verifiedInterpreter)
-        //        return new List<ServiceViewModel>();
-        //    ApplicationUser user = db.Users.Where(a => a.Id.Equals(userId)).Include(a=>a.userWorkBinding).FirstOrDefault();
-        //    List<int> userWorkIds = new List<int>();
-        //    List<Service> services = db.Services.Where(a => a.Status.Equals("Active") &&
-        //        a.ServiceProviderNewDate.CompareTo(dateToCompare) <= 0 && a.PublicServiceAction)
-        //        .Include("Comments")
-        //        .Include("UserWork")
-        //        .Include("ServiceProvider")
-        //        .Include("Creator")
-        //        .OrderByDescending(a => a.CreationDate)
-        //        .ToList();
-        //    int bindingcount = db.UserWorkBindings.Where(a => a.UserId.Equals(userId)).ToList().Count();
-
-        //    foreach (var item in user.userWorkBinding)
-        //    {
-        //        userWorkIds.Add(item.UserWorkId);
-        //    }
-        //    services = services.Where(a => userWorkIds.Contains(a.UserWorkId)).ToList();
-
-
-        //    List<ServiceViewModel> result = new List<ServiceViewModel>();
-        //    foreach (var item in services)
-        //    {
-        //        result.Add(getMapping(item));
-        //    }
-
-
-        //    return result.Where(a => a.ServiceProviderAvgServices <= PublicServiceUserAvg && a.ServiceProviderSpeed <= PublicServiceUserSpeed).ToList();
-
-
-        //}
+        
 
         [Route("GetPublicServicesWithoutFilter")]
         [HttpGet]
@@ -527,34 +493,63 @@ namespace fsrhilmakv2.Controllers
         public List<UserWorkViewModel> GetUserWorks()
         {
 
-
-            StatisticsViewModel temp = new StatisticsViewModel();
-            temp.AllDreamUsers = helper.getServiceProviders(CoreController.UserWorkCode.Dream.ToString(), CoreController.UserStatus.Active.ToString()).Count();
-            temp.AllRouqiaUsers = helper.getServiceProviders(CoreController.UserWorkCode.Rouqia.ToString(), CoreController.UserStatus.Active.ToString()).Count();
-            temp.AllIftaaUsers = helper.getServiceProviders(CoreController.UserWorkCode.Iftaa.ToString(), CoreController.UserStatus.Active.ToString()).Count();
-            temp.AllIstasharaUsers = helper.getServiceProviders(CoreController.UserWorkCode.Istishara.ToString(), CoreController.UserStatus.Active.ToString()).Count();
-            temp.AllMedicalUsers = helper.getServiceProviders(CoreController.UserWorkCode.Medical.ToString(), CoreController.UserStatus.Active.ToString()).Count();
-            temp.AllLawUsers = helper.getServiceProviders(CoreController.UserWorkCode.Law.ToString(), CoreController.UserStatus.Active.ToString()).Count();
+            //List<Service> services = db.Services.Where(a => a.Status.Equals("Done")).ToList();
+            Statistics temp = db.Statistics.OrderByDescending(a => a.CreationDate).FirstOrDefault();
+            //temp.AllDreamUsers = helper.getServiceProviders(CoreController.UserWorkCode.Dream.ToString(), CoreController.UserStatus.Active.ToString()).Count();
+            //temp.AllRouqiaUsers = helper.getServiceProviders(CoreController.UserWorkCode.Rouqia.ToString(), CoreController.UserStatus.Active.ToString()).Count();
+            //temp.AllIftaaUsers = helper.getServiceProviders(CoreController.UserWorkCode.Iftaa.ToString(), CoreController.UserStatus.Active.ToString()).Count();
+            //temp.AllIstasharaUsers = helper.getServiceProviders(CoreController.UserWorkCode.Istishara.ToString(), CoreController.UserStatus.Active.ToString()).Count();
+            //temp.AllMedicalUsers = helper.getServiceProviders(CoreController.UserWorkCode.Medical.ToString(), CoreController.UserStatus.Active.ToString()).Count();
+            //temp.AllLawUsers = helper.getServiceProviders(CoreController.UserWorkCode.Law.ToString(), CoreController.UserStatus.Active.ToString()).Count();
             List<UserWork> UserWorks = db.UserWorks.Where(a => a.Enabled).ToList();
+            //temp.AllDreams = services.Where(a => a.UserWorkId.Equals(26)).Count();
+            //temp.AllRouqat = services.Where(a => a.UserWorkId.Equals(27)).Count();
+            //temp.AllIftaa = services.Where(a => a.UserWorkId.Equals(28)).Count();
+            //temp.AllIstashara = services.Where(a => a.UserWorkId.Equals(29)).Count();
+            //temp.AllMedical = services.Where(a => a.UserWorkId.Equals(36)).Count();
+            //temp.AllLaw = services.Where(a => a.UserWorkId.Equals(37)).Count();
             List<UserWorkViewModel> result = new List<UserWorkViewModel>();
             foreach (var item in UserWorks)
             {
                 UserWorkViewModel u = new UserWorkViewModel();
                 u.UserWork = item;
 
-                if (item.Code.Equals(CoreController.UserWorkCode.Dream.ToString()))
+                if (item.Code.Equals(CoreController.UserWorkCode.Dream.ToString())) {
                     u.UserCount = temp.AllDreamUsers;
+                    u.DoneServices = temp.AllDreams;
+                }
+
 
                 else if (item.Code.Equals(CoreController.UserWorkCode.Rouqia.ToString()))
+                {
                     u.UserCount = temp.AllRouqiaUsers;
+                    u.DoneServices = temp.AllRouqat;
+                }
+
                 else if (item.Code.Equals(CoreController.UserWorkCode.Iftaa.ToString()))
+                {
                     u.UserCount = temp.AllIftaaUsers;
+                    u.DoneServices = temp.AllIftaa;
+                }
+
                 else if (item.Code.Equals(CoreController.UserWorkCode.Istishara.ToString()))
+                {
                     u.UserCount = temp.AllIstasharaUsers;
+                    u.DoneServices = temp.AllIstashara;
+                }
+
                 else if (item.Code.Equals(CoreController.UserWorkCode.Medical.ToString()))
+                {
                     u.UserCount = temp.AllMedicalUsers;
+                    u.DoneServices = temp.AllMedical;
+                }
+
                 else if (item.Code.Equals(CoreController.UserWorkCode.Law.ToString()))
+                {
                     u.UserCount = temp.AllLawUsers;
+                    u.DoneServices = temp.AllLaw;
+                }
+                    
                 result.Add(u);
 
             }
@@ -573,7 +568,7 @@ namespace fsrhilmakv2.Controllers
 
         //*************************** Competition List********************
         [Route("GetCompetitions")]
-        public IHttpActionResult GetCompetitions(String status="Active", int skip = 0, int top = 10)
+        public IHttpActionResult GetCompetitions([FromUri]String status, [FromUri] int skip, [FromUri] int top)
         {
             List<CompetitionViewModel> result = new List<CompetitionViewModel>();
             String userId = core.getCurrentUser().Id;
@@ -609,7 +604,10 @@ namespace fsrhilmakv2.Controllers
         {
 
             List<CompetitionResult> resutl = new List<CompetitionResult>();
-            Competition Competition = db.Competitions.Find(CompetitionId);
+            Competition Competition = db.Competitions.Where(a=>a.id.Equals(CompetitionId))
+                .Include(a=>a.prize)
+                .Include(a => a.UserWork)
+                .FirstOrDefault();
             if (Competition.Status.Equals(CoreController.CompetitionStatus.Active.ToString()))
             {
                 //temp results here
@@ -618,17 +616,20 @@ namespace fsrhilmakv2.Controllers
                     && a.User.verifiedInterpreter).Include("User").ToList();
                 List<ApplicationUser> users = bindings.Select(a => a.User).ToList();
                 //FinishCompetitionJob();
-                return Ok(libComp.getFinalList(Competition, users, Competition.StartDate.Value, true));
+                return Ok(libComp.getFinalList(Competition, users, Competition.StartDate.Value, true).OrderBy(a=>a.rank));
             }
             else if (Competition.Status.Equals(CoreController.CompetitionStatus.Finished.ToString())) {
                 //Final Results here 
-                return Ok(db.CompetitionResults.Where(a => a.competitionId.Equals(CompetitionId)).OrderByDescending(a => a.NumberOfActiveServices).Include(a => a.ServiceProvider).ToList());
+                return Ok(db.CompetitionResults.Where(a => a.competitionId.Equals(CompetitionId)).OrderBy(a => a.rank).Include(a => a.ServiceProvider).ToList());
             }
 
             
             return Ok(resutl);
         }
 
+        //[AllowAnonymous]
+        //[HttpGet]
+        //[Route("FinishCompetitionJob")]
         public void FinishCompetitionJob()
         {
             DateTime now = DateTime.Now.ToUniversalTime().AddHours(3);
@@ -644,6 +645,8 @@ namespace fsrhilmakv2.Controllers
                 libComp.finishCompetition(Competition, libComp.getFinalList(Competition, users, Competition.StartDate.Value, false));
 
             }
+
+            //return Ok();
         }
         public void SaveService(Service Service)
         {
@@ -793,6 +796,108 @@ namespace fsrhilmakv2.Controllers
             result.ServiceProviderAvgServices = avg == 0 ? 1 : avg;
             result.id = service.id;
             return result;
+        }
+
+        [AllowAnonymous]
+        [HttpGet]
+        [Route("JobRunner")]
+        public IHttpActionResult JobRunner()
+        {
+            List<ScheduledJob> jobs = db.ScheduledJobs.Where(a => a.Status.Equals("Active")).ToList();
+            DateTime dateForLogs = DateTime.Now.AddDays(-2);
+            List<ScheduledJobLog> logs = db.ScheduledJobLogs.Where(a => a.CreationDate.CompareTo(dateForLogs) >= 0).ToList();
+            foreach (var item in jobs)
+            {
+                ScheduledJobLog log = logs.Where(a => a.scheduledJobId == item.id)
+                    .OrderByDescending(a => a.CreationDate)
+                    .FirstOrDefault();
+                if (log ==null ||checkIfJobShouldRun(item, log))
+                {
+
+                        try
+                        {
+                            //call the required function
+                            jobRunner(item);
+                            //add new log
+                            db.ScheduledJobLogs.Add(addNewLog(item));
+                            sendEmail(item.Code + DateTime.Now.ToString() +" The job is running","gerranzuv@gmail.com" );
+                        }
+                        catch (Exception e)
+                        {
+                            sendEmail(item.Code+ DateTime.Now.ToString() +  e.StackTrace, "gerranzuv@gmail.com");
+
+                            //add new log
+                            db.ScheduledJobLogs.Add(addNewLog(item, e.Message));
+                            db.SaveChanges();
+                        }
+     
+                   
+                    
+                }
+                else
+                {
+                    continue;
+                }
+
+            }
+            
+            db.SaveChanges();
+            return Ok();
+        }
+
+        private bool checkIfJobShouldRun(ScheduledJob job,ScheduledJobLog lastLog)
+        {
+            LocalDateTime d1 = new LocalDateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
+            LocalDateTime d2 = new LocalDateTime(lastLog.CreationDate.Year, lastLog.CreationDate.Month, lastLog.CreationDate.Day, lastLog.CreationDate.Hour, lastLog.CreationDate.Minute, lastLog.CreationDate.Second);
+            long minutes = Period.Between(d2, d1, PeriodUnits.Minutes).Minutes;
+
+            if (job.interval <= minutes)
+                return true;
+            return false;
+        }
+
+        private ScheduledJobLog addNewLog(ScheduledJob job)
+        {
+            ScheduledJobLog log = new ScheduledJobLog();
+            log.CreationDate = DateTime.Now;
+            log.LastModificationDate = DateTime.Now;
+            log.scheduledJobId = job.id;
+            return log;
+        }
+        private ScheduledJobLog addNewLog(ScheduledJob job,string error)
+        {
+            ScheduledJobLog log = new ScheduledJobLog();
+            log.CreationDate = DateTime.Now;
+            log.LastModificationDate = DateTime.Now;
+            log.error = error;
+            log.scheduledJobId = job.id;
+            return log;
+        }
+
+        private void jobRunner(ScheduledJob job)
+        {
+            if(job.Code.Equals("UserInfoCashJob"))
+                jobLibrary.GenenrateUserInfoCashJob();
+            else if (job.Code.Equals("FinishCompetition"))
+                FinishCompetitionJob();
+            else if (job.Code.Equals("GenerateUserStatistics"))
+                GenerateUserStatisticsJob();
+            //else if (job.Code.Equals("GeneratePublicServices"))
+            //    GeneratePublicServicesJob();
+
+        }
+
+        private bool sendEmail(String code, String email)
+        {
+
+            
+                String subject = "Error";
+                String body = code;
+                List<string> receivers = new List<string>();
+                receivers.Add(email);
+                EmailHelper.sendEmail(receivers, subject, body);
+                return true;
+            
         }
     }
 }

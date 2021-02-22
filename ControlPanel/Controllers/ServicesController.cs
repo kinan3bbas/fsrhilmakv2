@@ -55,7 +55,7 @@ namespace ControlPanel.Controllers
             //else
             //    services = services.Where(a => a.Status.Equals("Active")).ToList();
 
-            if (UserWorkId != null)
+            if (UserWorkId != null&&UserWorkId!=0)
             {
 
                 services = services.Where(a => a.UserWorkId .Equals( UserWorkId)).ToList();
@@ -170,7 +170,7 @@ namespace ControlPanel.Controllers
             if (status != null && !status.Equals(""))
                 publicServices = publicServices.Where(a => a.Status.Equals(status)).OrderByDescending(r => r.CreationDate).ToList();
 
-            if (UserWorkId != null)
+            if (UserWorkId != null && UserWorkId != 0)
             {
 
                 publicServices = publicServices.Where(a => a.UserWorkId.Equals(UserWorkId)).OrderByDescending(r => r.CreationDate).ToList();
@@ -473,9 +473,33 @@ namespace ControlPanel.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Service services = db.Services.Find(id);
+            PublicService publicService = db.PublicServices.Where(a => a.ServiceId.Equals(id)).FirstOrDefault();
+            if (publicService != null)
+            {
+                db.Entry(publicService).State = EntityState.Deleted;
+            }
             db.Services.Remove(services);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+
+        [HttpGet]
+        [AllowAnonymous]
+        public ActionResult FixPublicServices()
+        {
+            DateTime dateToCompare =  DateTime.Now;
+            dateToCompare = dateToCompare.AddMonths(-2);
+            List<int> services = db.Services.Where(a=>a.Status.Equals("Active")&&a.CreationDate.CompareTo(dateToCompare)>0).Select(a=>a.id).ToList();
+
+            List<PublicService> publicServicesToDelet = db.PublicServices.Where(a => !services.Contains(a.ServiceId)).ToList();
+            foreach (var item in publicServicesToDelet)
+            {
+                db.Entry(item).State = EntityState.Deleted;
+            }
+            db.SaveChanges();
+            return Json(new { publicServicesToDelet, JsonRequestBehavior.AllowGet });
+
         }
 
         protected override void Dispose(bool disposing)

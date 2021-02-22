@@ -170,6 +170,13 @@ namespace fsrhilmakv2.Models
         public System.Data.Entity.DbSet<CompetitionResult> CompetitionResults { get; set; }
 
         public System.Data.Entity.DbSet<CompetitionBalance> CompetitionBalances { get; set; }
+
+        public System.Data.Entity.DbSet<Statistics> Statistics { get; set; }
+
+        public System.Data.Entity.DbSet<UserInfoCash> UserInfoCashs { get; set; }
+        public System.Data.Entity.DbSet<ScheduledJob> ScheduledJobs { get; set; }
+
+        public System.Data.Entity.DbSet<ScheduledJobLog> ScheduledJobLogs { get; set; }
     }
 
 }

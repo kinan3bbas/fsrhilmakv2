@@ -16,6 +16,7 @@ namespace fsrhilmakv2.Providers
     public class ApplicationOAuthProvider : OAuthAuthorizationServerProvider
     {
         private readonly string _publicClientId;
+        private ApplicationDbContext db = new ApplicationDbContext();
 
         public ApplicationOAuthProvider(string publicClientId)
         {
@@ -30,9 +31,17 @@ namespace fsrhilmakv2.Providers
         public override async Task GrantResourceOwnerCredentials(OAuthGrantResourceOwnerCredentialsContext context)
         {
             var userManager = context.OwinContext.GetUserManager<ApplicationUserManager>();
+            //ApplicationUser temp = db.Users.Where(a => a.UserName == context.UserName).FirstOrDefault();
+            //ApplicationUser temp = await userManager.FindByNameAsync(context.UserName);
+            //bool social = false;
+            //if ( temp != null)
+            //{
+            //    if (!temp.SocialState.Equals("Normal"))
+            //        social = true;
+            //}
+            //ApplicationUser user = await userManager.FindAsync(context.UserName, social ? temp.SocialToken : context.Password);
 
-            ApplicationUser user = await userManager.FindAsync(context.UserName, context.Password);
-
+            ApplicationUser user = await userManager.FindAsync(context.UserName,context.Password);
             if (user == null)
             {
                 context.SetError("invalid_grant", "The user name or password is incorrect.");

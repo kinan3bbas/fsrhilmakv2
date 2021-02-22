@@ -20,7 +20,7 @@ using PagedList;
 
 namespace ControlPanel.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    //[Authorize(Roles = "Admin")]
     public class AccountController : Controller
     {
         private ApplicationSignInManager _signInManager;
@@ -656,6 +656,7 @@ namespace ControlPanel.Controllers
                      temp.Type = user.Type;
 
                 temp.Email = user.Email;
+                temp.CreationDate = user.CreationDate;
                 db.Entry(temp).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("PersonalPage", new { userId = user.Id });

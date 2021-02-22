@@ -266,6 +266,7 @@
     <Compile Include="Extra\BasicRepository.cs" />
     <Compile Include="Extra\CompetitionLibrary.cs" />
     <Compile Include="Extra\EmailHelper.cs" />
+    <Compile Include="Extra\JobLibrary.cs" />
     <Compile Include="Extra\Message.cs" />
     <Compile Include="Extra\Notification.cs" />
     <Compile Include="Extra\ParameterRepository.cs" />
@@ -488,6 +489,26 @@
     <Compile Include="Migrations\202011302010117_serviceProviderPoints.Designer.cs">
       <DependentUpon>202011302010117_serviceProviderPoints.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202012160604288_statistics.cs" />
+    <Compile Include="Migrations\202012160604288_statistics.Designer.cs">
+      <DependentUpon>202012160604288_statistics.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202102171642446_statistics2.cs" />
+    <Compile Include="Migrations\202102171642446_statistics2.Designer.cs">
+      <DependentUpon>202102171642446_statistics2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202102171740035_userInfoCash.cs" />
+    <Compile Include="Migrations\202102171740035_userInfoCash.Designer.cs">
+      <DependentUpon>202102171740035_userInfoCash.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202102171949227_ScheduledJObs.cs" />
+    <Compile Include="Migrations\202102171949227_ScheduledJObs.Designer.cs">
+      <DependentUpon>202102171949227_ScheduledJObs.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202102172018360_ScheduledJObs2.cs" />
+    <Compile Include="Migrations\202102172018360_ScheduledJObs2.Designer.cs">
+      <DependentUpon>202102172018360_ScheduledJObs2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -496,11 +517,15 @@
     <Compile Include="Models\Compitition\CompetitionPrize.cs" />
     <Compile Include="Models\Compitition\Competition.cs" />
     <Compile Include="Models\Compitition\CompetitionResult.cs" />
+    <Compile Include="Models\ScheduledJobLog.cs" />
+    <Compile Include="Models\ScheduledJob.cs" />
+    <Compile Include="Models\UserInfoCash.cs" />
     <Compile Include="Models\EmailLog.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\PublicService.cs" />
     <Compile Include="Models\Service.cs" />
     <Compile Include="Models\ServiceComment.cs" />
+    <Compile Include="Models\Statistics.cs" />
     <Compile Include="Models\SystemParameter.cs" />
     <Compile Include="Models\ServicePath.cs" />
     <Compile Include="Models\UsersDeviceTokens.cs" />
@@ -527,14 +552,35 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="css\MainPageStyles.css" />
+    <Content Include="css\ServiceProviderStyle.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Images\app-store.png" />
     <Content Include="Images\book.png" />
+    <Content Include="Images\done.png" />
+    <Content Include="Images\Dream.jpg" />
     <Content Include="Images\dream.png" />
+    <Content Include="Images\Dream2.png" />
+    <Content Include="Images\Family.jpg" />
+    <Content Include="Images\Family.png" />
+    <Content Include="Images\fatwa.jpg" />
     <Content Include="Images\FB.png" />
     <Content Include="Images\google-play.png" />
+    <Content Include="Images\Iftaa.png" />
+    <Content Include="Images\law.jpg" />
+    <Content Include="Images\Law.png" />
+    <Content Include="Images\Logo.png" />
+    <Content Include="Images\medical.jpg" />
+    <Content Include="Images\Medical.png" />
+    <Content Include="Images\rouqia.jpg" />
+    <Content Include="Images\Rouqia.png" />
+    <Content Include="Images\Services\Dream2.png" />
+    <Content Include="Images\Services\Family.png" />
+    <Content Include="Images\Services\Iftaa.png" />
+    <Content Include="Images\Services\Law.png" />
+    <Content Include="Images\Services\Medical.png" />
+    <Content Include="Images\Services\Rouqia.png" />
     <Content Include="Images\Snap.png" />
     <Content Include="MainPageStyle\css\all.css" />
     <Content Include="MainPageStyle\css\all.min.css" />
@@ -637,6 +683,7 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Main.cshtml" />
     <Content Include="Views\Shared\_Layout_main.cshtml" />
+    <Content Include="Views\Home\ServiceProvider.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -815,6 +862,21 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202011302010117_serviceProviderPoints.resx">
       <DependentUpon>202011302010117_serviceProviderPoints.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012160604288_statistics.resx">
+      <DependentUpon>202012160604288_statistics.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102171642446_statistics2.resx">
+      <DependentUpon>202102171642446_statistics2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102171740035_userInfoCash.resx">
+      <DependentUpon>202102171740035_userInfoCash.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102171949227_ScheduledJObs.resx">
+      <DependentUpon>202102171949227_ScheduledJObs.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102172018360_ScheduledJObs2.resx">
+      <DependentUpon>202102172018360_ScheduledJObs2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

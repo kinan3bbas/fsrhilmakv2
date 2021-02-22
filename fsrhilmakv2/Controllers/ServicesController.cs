@@ -134,14 +134,26 @@ namespace fsrhilmakv2.Controllers
             Service.ModifierId = core.getCurrentUser().Id;
             //Service.Creator = core.getCurrentUser();
             //Service.Modifier = core.getCurrentUser();
-            
-            db.Services.Add(Service);
-            addComment(Service.id, Service.ServiceProviderId, Service.ServicePathId);
-            db.SaveChanges();
+            if (!preventRepetation(Service)) {
+                db.Services.Add(Service);
+                addComment(Service.id, Service.ServiceProviderId, Service.ServicePathId);
+                db.SaveChanges();
+            }
+                
 
             return Created(Service);
         }
 
+        public bool preventRepetation(Service temp)
+        {
+            Service service = db.Services.Where(a => a.CreatorId.Equals(temp.CreatorId)
+              && a.ServiceProviderId.Equals(temp.ServiceProviderId)
+              && a.Description.Equals(temp.Description)).FirstOrDefault();
+            if (service == null)
+                return false;
+            return true;
+
+        }
         private void addComment(int serviceId,string serviceProviderId, int servicePathId)
         {
             ServiceComment comment = new ServiceComment();
@@ -236,19 +248,20 @@ namespace fsrhilmakv2.Controllers
         // DELETE: odata/Services(5)
         public IHttpActionResult Delete([FromODataUri] int key)
         {
-            Service Service = db.Services.Find(key);
-            if (Service == null)
-            {
-                return NotFound();
-            }
-            PublicService publicService = db.PublicServices.Where(a => a.ServiceId.Equals(key)).FirstOrDefault();
-            if (publicService != null)
-            {
-                db.Entry(publicService).State = EntityState.Deleted;
-            }
-            db.Services.Remove(Service);
-            db.SaveChanges();
+            //Service Service = db.Services.Find(key);
+            //if (Service == null)
+            //{
+            //    return NotFound();
+            //}
+            //PublicService publicService = db.PublicServices.Where(a => a.ServiceId.Equals(key)).FirstOrDefault();
+            //if (publicService != null)
+            //{
+            //    db.Entry(publicService).State = EntityState.Deleted;
+            //}
+            //db.Services.Remove(Service);
+            //db.SaveChanges();
 
+            // تم تعطيل الحذف بناء على طلب الأخ محمد المنصوري بتاريخ 12/12/2020
             return StatusCode(HttpStatusCode.NoContent);
         }
 

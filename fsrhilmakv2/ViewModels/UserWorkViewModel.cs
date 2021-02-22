@@ -11,6 +11,8 @@ namespace fsrhilmakv2.ViewModels
         public UserWork UserWork { get; set; }
 
         public long UserCount { get; set; }
+
+        public long DoneServices { get; set; }
     }
 
 }

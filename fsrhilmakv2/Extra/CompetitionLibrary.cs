@@ -14,7 +14,7 @@ namespace fsrhilmakv2.Extra
         private ApplicationDbContext db = new ApplicationDbContext();
         private CoreController core = new CoreController();
         private UserHelperLibrary helper = new UserHelperLibrary();
-        public List<CompetitionResult> getFastest(List<ApplicationUser> users,DateTime startDate,bool tempResult)
+        public List<CompetitionResult> getFastest(Competition comp, List<ApplicationUser> users,DateTime startDate,bool tempResult)
         {
             List<CompetitionResult> result = new List<CompetitionResult>();
             foreach (var user in users)
@@ -55,11 +55,11 @@ namespace fsrhilmakv2.Extra
                 item.rank = j;
                 j++;
             }
-            return result;
+            return CalculateBalance(comp, result, false);
             //return InsertionSortNew(result);
         }
 
-        public List<CompetitionResult> getAvg(List<ApplicationUser> users, DateTime startDate, bool tempResult)
+        public List<CompetitionResult> getAvg(Competition comp, List<ApplicationUser> users, DateTime startDate, bool tempResult)
         {
             List<CompetitionResult> result = new List<CompetitionResult>();
             foreach (var user in users)
@@ -94,10 +94,10 @@ namespace fsrhilmakv2.Extra
                 item.rank = j;
                 j++;
             }
-            return result;
+            return CalculateBalance(comp, result, false);
         }
 
-        public List<CompetitionResult> getRating(List<ApplicationUser> users, DateTime startDate, bool tempResult)
+        public List<CompetitionResult> getRating(Competition comp, List<ApplicationUser> users, DateTime startDate, bool tempResult)
         {
             List<CompetitionResult> result = new List<CompetitionResult>();
             foreach (var user in users)
@@ -132,9 +132,9 @@ namespace fsrhilmakv2.Extra
                 item.rank = j;
                 j++;
             }
-            return result;
+            return CalculateBalance(comp, result, false);
         }
-        public List<CompetitionResult> getMostDoneServices(List<ApplicationUser> users, DateTime startDate, bool tempResult)
+        public List<CompetitionResult> getMostDoneServices(Competition comp, List<ApplicationUser> users, DateTime startDate, bool tempResult)
         {
             List<CompetitionResult> result = new List<CompetitionResult>();
             foreach (var user in users)
@@ -169,8 +169,8 @@ namespace fsrhilmakv2.Extra
                 item.rank = j;
                 j++;
             }
-
-            return result;
+            
+            return CalculateBalance(comp, result, false);
         }
 
 
@@ -178,26 +178,26 @@ namespace fsrhilmakv2.Extra
         {
             if (Competition.Goal.Equals(CoreController.CompetitionGoal.Fastest.ToString()))
             {
-                return getFastest(users, Competition.StartDate.Value, tempResult);
+                return getFastest(Competition,users, Competition.StartDate.Value, tempResult);
             }
             if (Competition.Goal.Equals(CoreController.CompetitionGoal.AVG_Request.ToString()))
             {
-                return getAvg(users, Competition.StartDate.Value, tempResult);
+                return getAvg(Competition, users, Competition.StartDate.Value, tempResult);
             }
             if (Competition.Goal.Equals(CoreController.CompetitionGoal.Highest_Rating.ToString()))
             {
-                return getRating(users, Competition.StartDate.Value, tempResult);
+                return getRating(Competition, users, Competition.StartDate.Value, tempResult);
             }
             if (Competition.Goal.Equals(CoreController.CompetitionGoal.Most_Done_Services.ToString()))
             {
-                return getMostDoneServices(users, Competition.StartDate.Value, tempResult);
+                return getMostDoneServices(Competition, users, Competition.StartDate.Value, tempResult);
             }
             return new List<CompetitionResult>();
         }
 
         public List<CompetitionResult> finishCompetition(Competition comp, List<CompetitionResult> Result) {
             //Calculate Balance and link competition to the result
-            Result =CalculateBalance(comp, Result);
+            Result = CalculateBalance(comp, Result, true);
             //Finish the current competition
             endCompetition(comp);
 
@@ -242,16 +242,19 @@ namespace fsrhilmakv2.Extra
 
         }
 
-        private List<CompetitionResult> CalculateBalance(Competition comp, List<CompetitionResult> Result) {
+        private List<CompetitionResult> CalculateBalance(Competition comp, List<CompetitionResult> Result,bool final) {
 
             for (int i = 0; i < Result.Count(); i++)
             {
                 Result[i].TotalBalance = getPrize(i+1,comp.prize);
                 Result[i].competitionId = comp.id;
-                if (Result[i].TotalBalance > 0)
-                    pushPayment(Result[i]);
-                addPoints(Result[i], comp.duration,i+1);
-                db.CompetitionResults.Add(Result[i]);
+                if (final)
+                {
+                    if (Result[i].TotalBalance > 0)
+                        pushPayment(Result[i]);
+                    addPoints(Result[i], comp.duration, i + 1);
+                    db.CompetitionResults.Add(Result[i]);
+                }
             }
             return Result;
         }

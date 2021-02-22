@@ -341,7 +341,7 @@
         }
         var countDownDate;
         if(@Model.Status=="Active")
-             countDownDate = new Date("@Model.EndDate.Value.ToUniversalTime().AddHours(3)").getTime();
+             countDownDate = new Date("@Model.EndDate.Value.ToUniversalTime().AddHours(4)").getTime();
 
         // Update the count down every 1 second
         var x = setInterval(function () {

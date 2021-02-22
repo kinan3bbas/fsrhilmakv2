@@ -92,6 +92,7 @@ a {
 .counter-count {
     font-size: 14px;
     background-color: #0984a8;
+    
     border-radius: 50%;
     position: relative;
     color: #ffffff;
@@ -184,3 +185,103 @@ a {
 .dropdown:hover .dropbtn {
     background-color: #3c4bff;
 }
+
+.card {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    max-width: 270px;
+    margin: auto;
+    text-align: center;
+    font-family: arial;
+}
+
+.price {
+    color: grey;
+    font-size: 22px;
+}
+
+.card button {
+    border: none;
+    outline: 0;
+    padding: 12px;
+    color: white;
+    /*background-color: #908b8b;*/ 
+    background-color: #0984a8;
+    cursor: pointer;
+    width: 100%;
+    font-size: 18px;
+}
+
+    .card button:hover {
+        opacity: 0.7;
+    }
+
+/*FOOTER START///////////////////*/
+
+.footer {
+    padding: 50px 0 20px 0;
+    background-color: #3c4bff;
+    color: #878c94;
+}
+
+    .footer .title {
+        text-align: left;
+        color: #fff;
+        font-size: 25px;
+    }
+
+
+    .footer .social-icon {
+        padding: 0px;
+        margin: 0px;
+    }
+
+        .footer .social-icon a {
+            display: inline-block;
+            color: #fff;
+            font-size: 25px;
+            padding: 5px;
+        }
+
+    .footer .acount-icon a {
+        display: block;
+        color: #fff;
+        font-size: 18px;
+        padding: 5px;
+        text-decoration: none;
+    }
+
+    .footer .acount-icon .fa {
+        margin-right: 25px;
+    }
+
+
+    .footer .category a {
+        text-decoration: none;
+        color: #fff;
+        display: inline-block;
+        padding: 5px 20px;
+        margin: 1px;
+        border-radius: 4px;
+        margin-top: 6px;
+        background-color: black;
+        border: solid 1px #fff;
+    }
+
+    .footer .payment {
+        margin: 0px;
+        padding: 0px;
+        list-style-type: none
+    }
+
+        .footer .payment li {
+            list-style-type: none
+        }
+
+            .footer .payment li a {
+                text-decoration: none;
+                display: inline-block;
+                color: #fff;
+                float: left;
+                font-size: 25px;
+                padding: 10px 10px;
+            }
