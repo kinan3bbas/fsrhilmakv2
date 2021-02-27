@@ -1,0 +1,240 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <title>أهل الذكر</title>
+    <meta charset="utf-8">
+    @*<meta name="viewport" content="width=device-width, initial-scale=1">*@
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <link rel="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        .fakeimg {
+            height: 200px;
+            background: #aaa;
+        }
+
+        nav {
+            direction: rtl;
+        }
+
+        .nav-item {
+            margin-right: 40px !important;
+        }
+
+        .nav-link {
+            color: white !important;
+            /*font-weight: bolder !important;*/
+            font-size: large !important;
+            margin-top: 10px !important;
+        }
+
+        .footer {
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-sm  navbar-dark" style="background-color:#3F51B5">
+
+        <div class="collapse navbar-collapse" id="collapsibleNavbar">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="">
+                        الصفحة الرئيسية
+                    </a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#"
+                       style="">
+                        الخدمات
+                        @*<span class="caret"></span>*@
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a class="dropdown-item" href="@Url.Action("ServicesPage", "Services", new { page = "wireLine" })">تفسير الأحلام</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="@Url.Action("ServicesPage", "Services", new { page = "wireLine" })">فتوى</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="@Url.Action("ServicesPage", "Services", new { page = "wireLine" })">استشارة أسرية</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="@Url.Action("استشارة طبية", "Services", new { page = "wireLine" })">استشارة طبية</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="@Url.Action("استشارة قانونية", "Services", new { page = "wireLine" })">استشارة قانونية</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="@Url.Action("استشارة قانونية", "Services", new { page = "wireLine" })">رقية</a>
+                        </li>
+
+                    </ul>
+
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">
+                        مقدموا الخدمات
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a class="dropdown-item" href="@Url.Action("ServicesPage", "Services", new { page = "wireLine" })">مفسر أحلام</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="@Url.Action("ServicesPage", "Services", new { page = "wireLine" })">مفتي شرعي</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="@Url.Action("ServicesPage", "Services", new { page = "wireLine" })">مستشار أسري</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="@Url.Action("استشارة طبية", "Services", new { page = "wireLine" })">مستشار طبي</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="@Url.Action("استشارة قانونية", "Services", new { page = "wireLine" })">مستشار قانوني</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="@Url.Action("استشارة قانونية", "Services", new { page = "wireLine" })">راقي شرعي</a>
+                        </li>
+
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link  dropdown-toggle" data-toggle="dropdown" href="#">
+                        اطلب خدمة
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a class="dropdown-item" href="https://play.google.com/store/apps/details?id=com.faserholmak.alzeker.faserholmak&hl=ar&gl=US">
+                                Googel Play
+                                <img src="~/Images/google-play.png" style="height:25px;width:25px;float:left;font-size:larger" />
+                            </a>
+                        </li>
+                        <li>
+                            <a data-target="#myModal" data-toggle="modal" class="dropdown-item" id="MainNavHelp"
+                               href="#myModal">
+                                <img src="~/Images/app-store.png" style="height:25px;width:25px;float:left;font-size:larger" />
+                                Apple Store
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="nav-item">
+
+                    <a class="nav-link" href="#myModal2" data-target="#myModal2" data-toggle="modal">
+                        هل أنت مقدم خدمة؟
+                    </a>
+                </li>
+
+                <li class="nav-item">
+
+                    <a class="nav-link" href="https://play.google.com/store/apps/details?id=com.faserholmak.alzeker.faserholmak&hl=ar&gl=US" data-toggle="modal">
+                        تواصل معنا
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container-fluid">
+        @RenderBody()
+    </div>
+
+    <div class="footer" style="background-color:#323545;padding: 50px 0 20px 0;">
+        <div class="row" style="direction:rtl">
+            <div class="col-md" style="direction:rtl;color:white;font-size:large">
+                <div style="margin-right:30px">
+                    <span style="direction:rtl;float:right"> يوفر تطبيق اهل الذكر الخدمات التالية:</span>
+                    @*<span style="direction:rtl;float:right"> الفتاوى الشرعية وفق الكتاب والسنة النبوية يمكن التواصل المباشر مع المفتين</span>
+                    <span style="direction:rtl;float:right"> تفسير الأحلام وتعبير الرؤى يمكن التواصل المباشر مع المختصين لتفسير حلمك وفك الرموز</span>
+                    <span style="direction:rtl;float:right"> رقية شرعية وفق الكتاب والسنة النبوية يمكن التواصل المباشر مع الرقاة الشرعيين</span>*@
+                </div>
+
+            </div>
+            <div class="col-md;">
+                <div><img src="~/Images/Services/Logo_white.png" style="width:200px;height:200px;" /></div>
+                <hr style="color: #3F51B5;font-size: x-large;border-top: inset; " />
+
+                <div class="text-center" style="direction:rtl;color:white;font-size:large">  جميع الحقوق محفوظة ©2021</div>
+            </div>
+            <div class="col-md">
+
+
+                <div style="float:left;margin-left:30px;">
+                    <span style="color:white;font-size:large"> تواصل معنا</span>
+                    <div>
+                        <a href="https://www.facebook.com/mks5661133" target="_blank" style="color:white;font-size:xx-large"><i class="fa fa-facebook-official"></i></a>
+
+                    </div>
+
+                    <div>
+                        <a href="https://twitter.com/almansoore" target="_blank" style="color:white;font-size:xx-large"><i class="fa fa-twitter"></i></a>
+
+                    </div>
+                    <div>
+                        <a href="https://www.instagram.com/fsrhilmak/" style="color:white;font-size:xx-large" target="_blank"><i class="fa fa-instagram"></i></a>
+
+                    </div>
+                    <div>
+                        <a href="https://www.snapchat.com/add/mks00000" style="color:white;font-size:xx-large" " target="_blank"><i class="fa fa-snapchat"></i></a>
+
+                    </div>
+                    <div>
+                        <a href="https://www.youtube.com/channel/UCFfTD_e3repCeodf7loi8FA/featured?view_as=subscriber" target="_blank" style="color:white;font-size:xx-large"><i class="fa fa-youtube"></i></a>
+
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+</html>
+
+
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+
+            <div class="modal-body text-center">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <p style="font-size:xx-large">Comming Soon</p>
+                <img src="~/Images/app-store.png" style="height:50px;width:50px;" />
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="myModal2" role="dialog">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+
+            <div class="modal-body text-center">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <p style="font-size:xx-large">هل تجيد إحدى خدماتنا وترغب في المشاركة؟</p>
+                <a href="https://play.google.com/store/apps/details?id=com.faserholmak.alzeker.faserholmak&hl=ar&gl=US"
+                   class="btn btn-primary btn-default"
+                   style="background-color:#0984a8;font-size:x-large">
+                    حمل التطبيق وانضم الآن!
+                </a>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+

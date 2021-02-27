@@ -305,6 +305,12 @@ namespace fsrhilmakv2.Controllers
             if (!temp.UseUserPoints)
             {
                 AddPayment(temp, service);
+                sendEmail2("New Payment was added, Client Name " + core.getCurrentUser().Name
+                    + ", Service Id : " + service.id + ", Payment amount :" + temp.Amount + ", Payment Method: " + temp.Method,
+                    "gerranzuv@gmail.com");
+                sendEmail2("New Payment was added, Client Name " + core.getCurrentUser().Name
+                    + ", Service Id : " + service.id + ", Payment amount :" + temp.Amount + ", Payment Method: " + temp.Method,
+                    "hassan.hallak4@gmail.com");
             }
             else
             {
@@ -633,7 +639,7 @@ namespace fsrhilmakv2.Controllers
         public void FinishCompetitionJob()
         {
             DateTime now = DateTime.Now.ToUniversalTime().AddHours(3);
-            List<Competition> Competitions = db.Competitions.Where(a => a.Status.Equals("Active") && a.EndDate.Value.CompareTo(DateTime.Now) <= 0)
+            List<Competition> Competitions = db.Competitions.Where(a => a.Status.Equals("Active") && a.EndDate.CompareTo(DateTime.Now) <= 0)
                 .Include(a => a.prize)
                 .Include(a => a.UserWork).ToList();
             foreach (var Competition in Competitions)
@@ -820,7 +826,7 @@ namespace fsrhilmakv2.Controllers
                             jobRunner(item);
                             //add new log
                             db.ScheduledJobLogs.Add(addNewLog(item));
-                            sendEmail(item.Code + DateTime.Now.ToString() +" The job is running","gerranzuv@gmail.com" );
+                            //sendEmail(item.Code + DateTime.Now.ToString() +" The job is running","gerranzuv@gmail.com" );
                         }
                         catch (Exception e)
                         {
@@ -878,8 +884,8 @@ namespace fsrhilmakv2.Controllers
         {
             if(job.Code.Equals("UserInfoCashJob"))
                 jobLibrary.GenenrateUserInfoCashJob();
-            else if (job.Code.Equals("FinishCompetition"))
-                FinishCompetitionJob();
+            //else if (job.Code.Equals("FinishCompetition"))
+            //    FinishCompetitionJob();
             else if (job.Code.Equals("GenerateUserStatistics"))
                 GenerateUserStatisticsJob();
             //else if (job.Code.Equals("GeneratePublicServices"))
@@ -898,6 +904,19 @@ namespace fsrhilmakv2.Controllers
                 EmailHelper.sendEmail(receivers, subject, body);
                 return true;
             
+        }
+
+        private bool sendEmail2(String code, String email)
+        {
+
+
+            String subject = "Payment Notice";
+            String body = code;
+            List<string> receivers = new List<string>();
+            receivers.Add(email);
+            EmailHelper.sendEmail(receivers, subject, body);
+            return true;
+
         }
     }
 }

@@ -28,6 +28,13 @@ namespace fsrhilmakv2.Controllers
             return View(result);
         }
 
+        public ActionResult NewDesign()
+        {
+            Statistics result = db.Statistics.Where(a => a.status.Equals("Active")).FirstOrDefault();
+
+            return View(result);
+        }
+
         [HttpGet]
         public JsonResult generateStatisics()
         {

@@ -25,7 +25,7 @@ namespace fsrhilmakv2.Models
 
         [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}")]
         [Display(Name = "End Date")]
-        public DateTime? EndDate { get; set; }
+        public DateTime EndDate { get; set; }
 
         public int UserWorkId { get; set; }
         public UserWork UserWork { get; set; }

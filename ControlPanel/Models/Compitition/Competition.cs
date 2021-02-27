@@ -25,7 +25,7 @@ namespace ControlPanel.Models
 
         
         [Display(Name = "End Date")]
-        public DateTime? EndDate { get; set; }
+        public DateTime EndDate { get; set; }
 
         public int UserWorkId { get; set; }
         public UserWork UserWork { get; set; }

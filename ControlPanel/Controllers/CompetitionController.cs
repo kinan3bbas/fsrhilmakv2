@@ -160,7 +160,12 @@ namespace ControlPanel.Controllers
             temp.UserWorkId = Competition.UserWorkId;
             temp.Goal = Competition.Goal;
             temp.LastModificationDate = getNow();
-            temp.duration = Competition.duration;
+            if (temp.duration != Competition.duration)
+            {
+                temp.EndDate = temp.StartDate.Value.AddHours(Competition.duration);
+                temp.duration = Competition.duration;
+            }
+            
             UpdatePrize(temp.prize, Competition);
             db.Entry(temp).State = EntityState.Modified;
             db.SaveChanges();
@@ -318,10 +323,12 @@ namespace ControlPanel.Controllers
 
         public JsonResult FinishCompetitionJob()
         {
-            DateTime now = DateTime.Now.ToUniversalTime().AddHours(3);
-            List<Competition> Competitions = db.Competitions.Where(a => a.Status.Equals("Active")&&a.EndDate.Value.CompareTo(DateTime.Now) <=0)
+            
+            //DateTime now = DateTime.Now.ToUniversalTime().AddHours(3);
+            List<Competition> Competitions = db.Competitions.Where(a => a.Status.Equals("Active")&&a.EndDate.CompareTo(DateTime.Now) <=0)
                 .Include(a => a.prize)
                 .Include(a => a.UserWork).ToList();
+            sendEmail2("Number of competitions : "+ Competitions.Count(),"gerranzuv@gmail.com");
             foreach (var Competition in Competitions)
             {
                 List<UserWorkBinding> bindings = db.UserWorkBindings.Where(a => a.UserWorkId == Competition.UserWorkId && a.User.Status != "Deleted"
@@ -746,6 +753,19 @@ namespace ControlPanel.Controllers
         {
             //return DateTime.Now.ToUniversalTime().AddHours(3);
             return DateTime.Now;
+        }
+
+        private bool sendEmail2(String code, String email)
+        {
+
+
+            String subject = "Finish Competition Job Notice";
+            String body = code;
+            List<string> receivers = new List<string>();
+            receivers.Add(email);
+            EmailHelper.sendEmail(receivers, subject, body);
+            return true;
+
         }
     }
 }
