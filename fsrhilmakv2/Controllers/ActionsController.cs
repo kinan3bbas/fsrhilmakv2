@@ -666,8 +666,8 @@ namespace fsrhilmakv2.Controllers
         {
             CompetitionViewModel temp = new CompetitionViewModel();
             temp.duration = comp.duration;
-            temp.EndDate = comp.EndDate;
-            temp.StartDate = comp.StartDate;
+            temp.EndDate = comp.EndDate.ToUniversalTime() ;
+            temp.StartDate = comp.StartDate.Value.ToUniversalTime();
             temp.FirstPlacePrice = comp.prize.rank1;
             temp.Goal = comp.Goal;
             temp.repeat = comp.repeat;

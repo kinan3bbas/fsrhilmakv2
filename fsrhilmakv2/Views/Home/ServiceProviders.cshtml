@@ -1,0 +1,206 @@
+﻿@model IEnumerable < fsrhilmakv2.Models.UserInfoCash>
+@{
+    Layout = "~/Views/Shared/_Layout_main_New.cshtml";
+    ViewBag.Title = "مقدمو الخدمات";
+    int Id = Int32.Parse(Request.QueryString["idd"]);
+
+}
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <title>مقدمو الخدمات</title>
+    
+    <style>
+        .Image_style {
+            margin-top: 10%;
+            height: 80px;
+        }
+
+        .Image_style_icon {
+            margin-top: 5%;
+            height: 70px;
+        }
+        .Card_Border {
+            border-style: groove;
+            border-color: #DEE0F2;
+        }
+        .checked {
+            color: orange;
+        }
+        span{
+            float:right;
+            font-weight:600!important;
+
+        }
+        
+    </style>
+</head>
+<body style="direction:rtl;text-align:right!important">
+
+    <div class="row" style="margin-top:25px">
+        <div class="col-md"></div>
+        @if (Id == 26)
+        { 
+            <div class="col-md text-center"><h1> مفسرين الاحلام</h1> </div>
+            <div class="col-md">
+                <img src="~/Images/NewDesign/خدمة تفسير أحلام.jpg" style="height:80px;width:80px;float:right;" />
+            </div>
+        }
+        else if (Id == 27)
+        {
+            <div class="col-md text-center"><h1> الرقات الشرعيين</h1> </div>
+            <div class="col-md">
+                <img src="~/Images/NewDesign/خدمة رقية شرعية.jpg" style="height:80px;width:80px;float:right;" />
+            </div>
+        }
+        else if (Id == 28)
+        {
+            <div class="col-md text-center"><h1> المفتين الشرعيين</h1> </div>
+            <div class="col-md">
+                <img src="~/Images/NewDesign/خدمة فتوى شرعية.jpg" style="height:80px;width:80px;float:right;" />
+            </div>
+        }
+        else if (Id == 29)
+        {
+            <div class="col-md text-center"><h1> المستشارين الأسريين</h1> </div>
+            <div class="col-md">
+                <img src="~/Images/NewDesign/خدمة استشارة أسرية.jpg" style="height:80px;width:80px;float:right;" />
+            </div>
+        }
+        else if (Id == 36)
+        {
+            <div class="col-md text-center"><h1> المستشارين الطبيين</h1> </div>
+            <div class="col-md">
+                <img src="~/Images/NewDesign/خدمة استشارة طبية.jpg" style="height:80px;width:80px;float:right;" />
+            </div>
+        }
+        else if (Id == 37)
+        {
+            <div class="col-md text-center"><h1> المستشارين القانونيين</h1> </div>
+            <div class="col-md">
+                <img src="~/Images/Services/Law.png" style="height:80px;width:80px;float:right;" />
+            </div>
+        }
+        
+       
+    </div>
+
+        
+
+        <div class="row" style="margin-top:30px;">
+            <div class="col-md"></div>
+            <div class="col-md-10">
+                    <div class="row">
+                    @foreach (var item in Model)
+                    {
+
+                        <div class="col-md-12" style="margin-top:4px">
+                            <div class="row Card_Border" style="background-color:#ECEEF8">
+                                <div class="col-md-2">
+
+                                    @{
+                                        if (item.PictureId == "null")
+                                        {
+                                            <img class="rounded-circle" src="~/Images/Logo.png" style="height:80px;width:80px;float:right;margin-top:20%" />
+                                        }
+                                        else
+                                        {
+                                            <img class="rounded-circle" src="http://api2.fsrhilmak.com/api/Core/Download?id=@item.PictureId" style="height:80px;width:80px;float:right;margin-top:20%" />
+                                        }
+                                    }
+                                   
+
+                                </div>
+                                <div class="col-md" style="float:right">
+                                    <div  style="float:right; display:block;direction:rtl;width:100%;font-weight:bolder;font-size:x-large"> @Html.DisplayFor(modelItem => item.Name)</div>
+                                    <div  style="float:right;display:block;direction:rtl;width:100%;font-weight:600">
+                                        @item.PersonalDescription
+                                    </div>
+
+                                    <dl class="dl-horizontal" style="margin-top:10px;float:right;direction:rtl">
+                                        
+
+                                       
+                                        <dt>
+                                            <span >
+                                                السرعة:  &nbsp;
+                                            </span>
+                                            <span>
+                                                @Html.DisplayFor(modelItem => item.Speed) خدمة في اليوم
+                                            </span>
+                                        </dt>
+
+                                        <dt>
+                                            <span>
+                                                الخدمات المنفذة: &nbsp;
+                                            </span>
+                                            <span>
+                                                @Html.DisplayFor(modelItem => item.NumberOfDoneServices) خدمة
+                                            </span>
+                                        </dt>
+
+                                        <dt>
+                                            <span>
+                                                الخدمات قيد التنفيذ: &nbsp;
+                                            </span>
+                                            <span>
+                                                @Html.DisplayFor(modelItem => item.NumberOfActiveServices) خدمة
+                                            </span>
+                                        </dt>
+
+                                    </dl>
+
+                                </div>
+                                <div class="col-md-3 text-center">
+                                    <div style="margin-top:10%">
+                                        التقييم
+                                    </div>
+                                    <div>
+                                        <i class="fa fa-star checked"></i>
+                                        <i class="fa fa-star checked"></i>
+                                        <i class="fa fa-star checked"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                    </div>
+
+                                    <button style="margin:10px;background-color:#3F51B5" type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal3">تواصل</button>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    }
+                </div>
+            </div>
+            <div class="col-md"></div>
+        </div>
+
+        <br />
+        <br />
+
+
+
+</body>
+</html>
+
+<div class="modal fade" id="myModal3" role="dialog">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+
+            <div class="modal-body text-center">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <p style="font-size:xx-large">الخدمة قيد التطوير على الموقع حالياً</p>
+                <a href="https://play.google.com/store/apps/details?id=com.faserholmak.alzeker.faserholmak&hl=ar&gl=US"
+                   class="btn btn-primary btn-default"
+                   style="background-color:#0984a8;font-size:x-large">
+حمل التطبيق وتواصل مع مقدم الخدمة!
+                </a>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+

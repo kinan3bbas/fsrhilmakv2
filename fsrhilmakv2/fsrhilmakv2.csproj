@@ -64,6 +64,12 @@
     <Reference Include="NodaTime, Version=3.0.0.0, Culture=neutral, PublicKeyToken=4226afe0d9b296d1, processorArchitecture=MSIL">
       <HintPath>..\packages\NodaTime.3.0.0\lib\netstandard2.0\NodaTime.dll</HintPath>
     </Reference>
+    <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+    </Reference>
+    <Reference Include="PagedList.Mvc, Version=4.5.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -274,6 +280,8 @@
     <Compile Include="Extra\ParameterRepository.cs" />
     <Compile Include="Extra\PushNotificationLogic.cs" />
     <Compile Include="Extra\ResponseEntity.cs" />
+    <Compile Include="Extra\SitemapNode.cs" />
+    <Compile Include="Extra\UrlHelperExtensions.cs" />
     <Compile Include="Extra\UserHelperLibrary.cs" />
     <Compile Include="Extra\UserVerificationHelper.cs" />
     <Compile Include="Global.asax.cs">
@@ -515,6 +523,10 @@
     <Compile Include="Migrations\202102221008341_competition_Update_pkg1.Designer.cs">
       <DependentUpon>202102221008341_competition_Update_pkg1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202103031152482_userpicture.cs" />
+    <Compile Include="Migrations\202103031152482_userpicture.Designer.cs">
+      <DependentUpon>202103031152482_userpicture.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -546,8 +558,10 @@
     <Compile Include="Results\ChallengeResult.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\CompetitionViewModel.cs" />
+    <Compile Include="ViewModels\ServiceResult.cs" />
     <Compile Include="ViewModels\ServiceViewModel.cs" />
     <Compile Include="ViewModels\ServicePathViewModel.cs" />
+    <Compile Include="ViewModels\StatisticsMainPage.cs" />
     <Compile Include="ViewModels\StatisticsViewModel.cs" />
     <Compile Include="ViewModels\UserBalance.cs" />
     <Compile Include="ViewModels\UserWorkViewModel.cs" />
@@ -569,6 +583,7 @@
     <Content Include="Content\fontawesome-all.min.css" />
     <Content Include="Content\fontawesome.css" />
     <Content Include="Content\fontawesome.min.css" />
+    <Content Include="Content\PagedList.css" />
     <Content Include="Content\regular.css" />
     <Content Include="Content\regular.min.css" />
     <Content Include="Content\solid.css" />
@@ -841,13 +856,12 @@
     <Content Include="Content\Site.css" />
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Main.cshtml" />
     <Content Include="Views\Shared\_Layout_main.cshtml" />
     <Content Include="Views\Home\ServiceProvider.cshtml" />
-    <Content Include="Views\Home\NewDesign.cshtml" />
+    <Content Include="Views\Home\index.cshtml" />
     <Content Include="Scripts\umd\popper.min.js.map" />
     <Content Include="Scripts\umd\popper.js.map" />
     <Content Include="Scripts\umd\popper.js.flow" />
@@ -874,6 +888,11 @@
     <Content Include="webfonts\fa-brands-400.ttf" />
     <Content Include="webfonts\fa-brands-400.eot" />
     <Content Include="Views\Shared\_Layout_main_New.cshtml" />
+    <Content Include="Views\Home\ServiceProviders.cshtml" />
+    <Content Include="Views\Home\Service.cshtml" />
+    <Content Include="Views\Home\Services.cshtml" />
+    <Content Include="Views\Home\ServicePartial.cshtml" />
+    <Content Include="Views\Home\AboutUs.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1060,6 +1079,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202102221008341_competition_Update_pkg1.resx">
       <DependentUpon>202102221008341_competition_Update_pkg1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202103031152482_userpicture.resx">
+      <DependentUpon>202103031152482_userpicture.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

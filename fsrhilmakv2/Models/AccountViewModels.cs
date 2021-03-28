@@ -52,6 +52,8 @@ namespace fsrhilmakv2.Models
 
         public string PictureId { get; set; }
 
+        public string PictureFileName { get; set; }
+
         public double AvgServicesInOneDay { get; set; }
 
         public int Age { get; set; }

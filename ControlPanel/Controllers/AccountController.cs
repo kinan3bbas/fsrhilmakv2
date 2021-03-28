@@ -547,6 +547,7 @@ namespace ControlPanel.Controllers
             double speed = UserHelperLibrary.ServiceProviderSpeed(helper.findUser(user.Id), doneServices.Count);
             double avg = UserHelperLibrary.ServiceProviderAvgServices(helper.findUser(user.Id), services.Count);
             UserBalance balance = helper.getUserBalance(user);
+            DateTime dateOfTheLastService =doneServices.Count>0? doneServices.OrderBy(a => a.LastModificationDate).FirstOrDefault().LastModificationDate:user.CreationDate;
             return new UserInfoViewModel
             {
                 Email = user.Email,
@@ -583,8 +584,9 @@ namespace ControlPanel.Controllers
                 UserSpecialCode=user.UserSpecialCode,
                 UserName=user.UserName,
                 VerifiedUser=user.verifiedInterpreter,
-                ServiceProviderPoints=user.ServiceProviderPoints
-                
+                ServiceProviderPoints=user.ServiceProviderPoints,
+                dateOfLastService=dateOfTheLastService
+
 
 
             };

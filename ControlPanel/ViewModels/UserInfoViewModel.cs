@@ -81,6 +81,8 @@ namespace ControlPanel.ViewModels
 
         public long ServiceProviderPoints { get; set; }
 
+        public DateTime dateOfLastService { get; set; }
+
     }
 
 }

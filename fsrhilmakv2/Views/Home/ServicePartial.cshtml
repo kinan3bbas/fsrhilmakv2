@@ -1,0 +1,57 @@
+﻿@model PagedList.IPagedList<fsrhilmakv2.Models.Service>
+@using PagedList.Mvc;
+
+<div class="row" style="direction:rtl">
+    @foreach (var item in Model)
+    {
+        <div class="col-md-4" style="margin-top:10px;">
+            <div class="card " style="height:100%!important">
+                <div class="card-header">
+                    <div style="margin-right:10px">
+                        <span>الخدمة رقم @item.id</span>
+                        @{
+                            if (item.ServicePath.Cost > 0)
+                            {
+                                <span style="float:left"> &nbsp; <i class="fa fa-money" style="font-size: x-large"> خدمة مدفوعة </i></span>
+                            }
+                            else
+                            {
+                                <span style="float:left"> &nbsp; <i class="fa fa-money" style="font-size: x-large"> خدمة مجانية </i></span>
+                            }
+                        }
+                    </div>
+                </div>
+                <div class="card-body">
+
+                    <div class="card-text">
+                        @{
+                            if (item.Description.Count() > 100)
+                            {
+                                <span>@item.Description.ToString().Substring(0, 100) </span>
+                                    <span>
+                                        <a href='@Url.Action("Service","Home",new { idd=item.id})'>أقرأ المزيد</a>
+                                    </span>
+                            }
+                            else
+                            {
+                                <span>@item.Description</span>
+                            }
+
+                        }
+
+                    </div>
+
+
+                </div>
+                <div class="card-footer">
+                    <span style="float:left"> &nbsp; &nbsp; <i class="fa fa-eye">  </i>&nbsp; @item.numberOfViews</span>
+                    <span style="float:left"><i class="fa fa-heart"> </i>&nbsp;@item.numberOfLikes</span>
+                </div>
+            </div>
+        </div>
+                            }
+
+
+</div>
+
+

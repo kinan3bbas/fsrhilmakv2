@@ -404,7 +404,8 @@ namespace fsrhilmakv2.Controllers
                         CreationDate = DateTime.Now,
                         LastModificationDate = DateTime.Now,
                         SocialState = model.SocialState,
-                        PictureId = model.PictureId
+                        PictureId = model.PictureId,
+
                     };
 
                     if (model.UserRegistrationCode != null && !model.UserRegistrationCode.Equals(""))
@@ -715,6 +716,7 @@ namespace fsrhilmakv2.Controllers
             double speed = UserHelperLibrary.ServiceProviderSpeed(helper.findUser(user.Id), doneServices.Count);
             double avg= UserHelperLibrary.ServiceProviderAvgServices(helper.findUser(user.Id), services.Count);
             UserBalance balance = helper.getUserBalance(user);
+            //Attachment picture = db.Attachments.Where(a => a.id.Equals(user.PictureId)).FirstOrDefault() ;
             return new UserInfoViewModel
             {
                 Email = User.Identity.GetUserName(),
@@ -736,17 +738,18 @@ namespace fsrhilmakv2.Controllers
                 UserWorks = userWork,
                 NumberOfActiveServices = activeSerives.Count(),
                 NumberOfDoneServices = doneServices.Count(),
-                Speed = speed<1?1:speed,
+                Speed = speed < 1 ? 1 : speed,
                 AvgServicesInOneDay = avg == 0 ? 1 : avg,
                 UserRoles = userManager.GetRoles(user.Id).ToList(),
                 SocialStatus = user.SocialState,
                 ImageUrl = user.imageUrl,
                 SocialToken = user.SocialToken,
-                TotalBalance = Math.Round(balance.TransferedBalance,2),
-                AvailableBalance = Math.Round(balance.DoneBalance,2),
-                SuspendedBalance = Math.Round(balance.SuspendedBalance,2),
-                VerifiedUser=user.verifiedInterpreter,
-                ServiceProviderPoints=user.ServiceProviderPoints
+                TotalBalance = Math.Round(balance.TransferedBalance, 2),
+                AvailableBalance = Math.Round(balance.DoneBalance, 2),
+                SuspendedBalance = Math.Round(balance.SuspendedBalance, 2),
+                VerifiedUser = user.verifiedInterpreter,
+                ServiceProviderPoints = user.ServiceProviderPoints
+                //PictureFileName = picture != null ? picture.FileName : "Logo"
                 
                 
 
@@ -762,7 +765,13 @@ namespace fsrhilmakv2.Controllers
             //List<UserWorkBinding> userWork = db.UserWorkBindings.Where(a => a.UserId.Equals(user.Id)).Include("UserWork").ToList();
             double speed = UserHelperLibrary.ServiceProviderSpeed(helper.findUser(user.Id), doneServices.Count);
             double avg = UserHelperLibrary.ServiceProviderAvgServices(helper.findUser(user.Id), services.Count);
-            UserBalance balance = helper.getUserBalance(user);
+            //UserBalance balance = helper.getUserBalance(user);
+            //Attachment picture=null;
+            //if (user.PictureId != "null" &&user.PictureId!=null&& user.PictureId!="")
+            //{
+            //    picture = db.Attachments.Where(a => a.id.Equals(Int32.Parse(user.PictureId))).FirstOrDefault();
+            //}
+             
             return new UserInfoCash
             {
                 Email = User.Identity.GetUserName(),
@@ -792,9 +801,10 @@ namespace fsrhilmakv2.Controllers
                 SocialToken = user.SocialToken,
                 CreationDate = DateTime.Now,
                 LastModificationDate=DateTime.Now,
-                TotalBalance = balance.TransferedBalance,
-                AvailableBalance = balance.DoneBalance,
-                SuspendedBalance = balance.SuspendedBalance
+                //TotalBalance = balance.TransferedBalance,
+                //AvailableBalance = balance.DoneBalance,
+                //SuspendedBalance = balance.SuspendedBalance,
+                //PictureFileName = picture != null ? picture.FileName : "Logo"
 
 
 

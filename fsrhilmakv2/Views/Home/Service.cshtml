@@ -1,0 +1,241 @@
+﻿@model fsrhilmakv2.ViewModels.ServiceResult
+@{
+    ViewBag.Title = "Service";
+    Layout = "~/Views/Shared/_Layout_main_New.cshtml";
+    var Id = Model.service.UserWorkId;
+}
+
+<head>
+    <link href="~/css/MainPageStyles2.css" rel="stylesheet" />
+    <style>
+
+
+
+        .card-header {
+            background-color: #3F51B5;
+            color: white;
+        }
+
+        .card-footer {
+            background-color: #3F51B5;
+            color: white;
+        }
+
+        .card-title {
+            font-size: large;
+            font-weight: bold;
+        }
+
+        .card {
+            direction: rtl;
+            text-align: right;
+            border: solid;
+        }
+
+
+        .content {
+            margin-left: 75px;
+            font-size: 30px;
+        }
+    </style>
+</head>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+
+</nav>
+<body>
+    <div id="fb-root"></div>
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/ar_AR/sdk.js#xfbml=1&version=v10.0&appId=290513985490845&autoLogAppEvents=1" nonce="8NNJiprF"></script>
+
+    <div class="row" style="margin-top:25px;direction:rtl">
+        <div class="col-md"></div>
+        @if (Id == 26)
+        {
+            <div class="col-md text-center"><h1> خدمة تفسير أحلام</h1> </div>
+            <div class="col-md">
+                <img src="~/Images/NewDesign/خدمة تفسير أحلام.jpg" style="height:80px;width:80px;float:right;" />
+            </div>
+        }
+        else if (Id == 27)
+        {
+            <div class="col-md text-center"><h1> خدمة رقية شرعية</h1> </div>
+            <div class="col-md">
+                <img src="~/Images/NewDesign/خدمة رقية شرعية.jpg" style="height:80px;width:80px;float:right;" />
+            </div>
+        }
+        else if (Id == 28)
+        {
+            <div class="col-md text-center"><h1> خدمة إفتاء شرعي</h1> </div>
+            <div class="col-md">
+                <img src="~/Images/NewDesign/خدمة فتوى شرعية.jpg" style="height:80px;width:80px;float:right;" />
+            </div>
+        }
+        else if (Id == 29)
+        {
+            <div class="col-md text-center"><h1> خدمة استشارة أسرية</h1> </div>
+            <div class="col-md">
+                <img src="~/Images/NewDesign/خدمة استشارة أسرية.jpg" style="height:80px;width:80px;float:right;" />
+            </div>
+        }
+        else if (Id == 36)
+        {
+            <div class="col-md text-center"><h1> خدمة استشارة طبية</h1> </div>
+            <div class="col-md">
+                <img src="~/Images/NewDesign/خدمة استشارة طبية.jpg" style="height:80px;width:80px;float:right;" />
+            </div>
+        }
+        else if (Id == 37)
+        {
+            <div class="col-md text-center"><h1> خدمة استشارة قانونية</h1> </div>
+            <div class="col-md">
+                <img src="~/Images/Services/Law.png" style="height:80px;width:80px;float:right;" />
+            </div>
+        }
+
+
+    </div>
+
+    <br />
+
+    <div class="row" style="margin-bottom:10px;">
+        <div class="col-md">
+            <div class="card ">
+                <div class="card-header">
+                    <div style="margin-right:10px">
+                        <span>الخدمة رقم @Model.service.id</span>
+                        @{
+                            if (Model.service.ServicePath.Cost > 0)
+                            {
+                                <span style = "float:left" > &nbsp; <i class="fa fa-money" style="font-size: x-large"> خدمة مدفوعة </i></span>
+                            }
+                            else
+                            {
+                                <span style="float:left"> &nbsp; <i class="fa fa-money" style="font-size: x-large"> خدمة مجانية </i></span>
+                            }
+                        }
+                    </div>
+                    <div style="margin-right:10px">تاريخ الانشاء  @Model.service.CreationDate.ToShortDateString()</div>
+                </div>
+                <div class="card-body">
+                    <div class="card-title">
+                        نص الخدمة
+                        <img src="~/Images/dream.png" style="height:30px;width:30px;margin-top:-10px" />
+                    </div>
+                    <div class="card-text">
+
+                        @Model.service.Description
+                    </div>
+                    <hr />
+                    <div class="card-title">
+                        <span>
+                            التفسير
+
+                            <img src="~/Images/book.png" style="height:30px;width:30px;margin-top:-10px" />
+                        </span>
+                        <span style="float:left">مقدم الخدمة  @Model.service.ServiceProvider.Name </span>
+                    </div>
+                    <div class="card-text">
+                        <div> التفسير</div>
+                        @{ 
+                            if (Model.service.Status == "Active")
+                            {
+                                <p> لم يتم تفسير الخدمة بعد</p>
+                            }
+                            else
+                            {
+                                <p>@Model.service.Explanation</p>
+                                <div style="float:left">تاريخ تقديم الخدمة @Model.service.LastModificationDate.ToShortDateString()</div>
+
+                            }
+                        }
+                    </div>
+
+                </div>
+                <div class="card-footer">
+                    <span style="float:left"> &nbsp; &nbsp; <i class="fa fa-eye">  </i>&nbsp; @Model.service.numberOfViews</span>
+                    <span style="float:left"><i class="fa fa-heart"> </i>&nbsp;@Model.service.numberOfLikes</span>
+                </div>
+            </div>
+        </div>
+        @*<div class="col-md-6"></div>*@
+    </div>
+
+    <br />
+    <div class="row">
+        <div class="col-md"></div>
+        <div class="col-md" >
+            <div style="margin-left:20%;margin-right:20%" class="fb-share-button" data-href="https://ahalzekr.com/Home/Service?idd=@Model.service.id" data-layout="button" data-size="large"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fahalzekr.com%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Share</a></div>
+        </div>
+        <div class="col-md"></div>
+    </div>
+    
+    <br />
+    <div class="row" dir="rtl" style="width:100%">
+       <h3 style="float:right">خدمات أخرى مقدمة من المفسر @Model.service.ServiceProvider.Name</h3>
+    </div>
+    <hr />
+    <div class="row" style="direction:rtl">
+        @foreach (var item in Model.services)
+        {
+            <div class="col-md-4">
+                <div class="card " style="height:100%!important">
+                    <div class="card-header">
+                        <div style="margin-right:10px">
+                            <a style="color:white" href="@Url.Action("Service","Home",new { idd=item.id})"> الخدمة رقم @item.id</a>
+                            @{
+                                if (item.ServicePath.Cost > 0)
+                                {
+                                    <span style="float:left"> &nbsp; <i class="fa fa-money" style="font-size: large"> خدمة مدفوعة </i></span>
+                                }
+                                else
+                                {
+                                    <span style="float:left"> &nbsp; <i class="fa fa-money" style="font-size: large"> خدمة مجانية </i></span>
+                                }
+                            }
+                        </div>
+                    </div>
+                    <div class="card-body">
+
+                        <a href="@Url.Action("Service","Home",new { idd=item.id})" style="text-decoration:none;color:black;font-size:large">
+                            <div class="card-text">
+                                @{
+                                    if (item.Description.Count() > 100)
+                                    {
+                                        <span>@item.Description.ToString().Substring(0, 100) </span>
+                                            <span>
+                                                <a href='@Url.Action("Service","Home",new { idd=item.id})'>أقرأ المزيد</a>
+                                            </span>
+                                    }
+                                    else
+                                    {
+                                        <span>@item.Description</span>
+                                    }
+
+                                }
+
+                            </div>
+                        </a>
+
+
+
+
+
+                    </div>
+                    <div class="card-footer">
+                        <span style="float:left"> &nbsp; &nbsp; <i class="fa fa-eye">  </i>&nbsp; @item.numberOfViews</span>
+                        <span style="float:left"><i class="fa fa-heart"> </i>&nbsp;@item.numberOfLikes</span>
+                    </div>
+                </div>
+            </div>
+                                }
+      
+        
+    </div>
+
+    <br />
+
+
+</body>
+
+
+

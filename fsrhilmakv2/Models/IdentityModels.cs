@@ -53,6 +53,9 @@ namespace fsrhilmakv2.Models
         [Display(Name = "Picture Id")]
         public string PictureId { get; set; }
 
+     
+
+
         public int numbOfDreamsInOneDay { get; set; }
 
         //public ICollection<Dream> Dreams { get; set; }

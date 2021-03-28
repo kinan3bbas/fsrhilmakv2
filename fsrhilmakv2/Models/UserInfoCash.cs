@@ -47,6 +47,7 @@ namespace fsrhilmakv2.Models
         public DateTime? JoiningDate { get; set; }
 
         public string PictureId { get; set; }
+        public string PictureFileName { get; set; }
 
         public double AvgServicesInOneDay { get; set; }
 

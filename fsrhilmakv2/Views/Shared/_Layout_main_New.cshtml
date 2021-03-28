@@ -14,6 +14,15 @@
 
     <link rel="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y5JG617MVG"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-Y5JG617MVG');
+    </script>
     <style>
         .fakeimg {
             height: 200px;
@@ -50,7 +59,7 @@
         <div class="collapse navbar-collapse" id="collapsibleNavbar">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" href="">
+                    <a class="nav-link" href="@Url.Action("NewDesign","Home")">
                         الصفحة الرئيسية
                     </a>
                 </li>
@@ -62,22 +71,22 @@
                     </a>
                     <ul class="dropdown-menu">
                         <li>
-                            <a class="dropdown-item" href="@Url.Action("ServicesPage", "Services", new { page = "wireLine" })">تفسير الأحلام</a>
+                            <a class="dropdown-item" href="@Url.Action("Services", "Home", new { idd = "26" })">تفسير الأحلام</a>
                         </li>
                         <li>
-                            <a class="dropdown-item" href="@Url.Action("ServicesPage", "Services", new { page = "wireLine" })">فتوى</a>
+                            <a class="dropdown-item" href="@Url.Action("Services", "Home", new { idd = "28" })">فتوى</a>
                         </li>
                         <li>
-                            <a class="dropdown-item" href="@Url.Action("ServicesPage", "Services", new { page = "wireLine" })">استشارة أسرية</a>
+                            <a class="dropdown-item" href="@Url.Action("Services", "Home", new { idd = "29" })">استشارة أسرية</a>
                         </li>
                         <li>
-                            <a class="dropdown-item" href="@Url.Action("استشارة طبية", "Services", new { page = "wireLine" })">استشارة طبية</a>
+                            <a class="dropdown-item" href="@Url.Action("Services", "Home", new { idd = "36" })">استشارة طبية</a>
                         </li>
                         <li>
-                            <a class="dropdown-item" href="@Url.Action("استشارة قانونية", "Services", new { page = "wireLine" })">استشارة قانونية</a>
+                            <a class="dropdown-item" href="@Url.Action("Services", "Home", new { idd = "37" })">استشارة قانونية</a>
                         </li>
                         <li>
-                            <a class="dropdown-item" href="@Url.Action("استشارة قانونية", "Services", new { page = "wireLine" })">رقية</a>
+                            <a class="dropdown-item" href="@Url.Action("Services", "Home", new { idd = "27" })">رقية</a>
                         </li>
 
                     </ul>
@@ -90,22 +99,22 @@
                     </a>
                     <ul class="dropdown-menu">
                         <li>
-                            <a class="dropdown-item" href="@Url.Action("ServicesPage", "Services", new { page = "wireLine" })">مفسر أحلام</a>
+                            <a class="dropdown-item" href="@Url.Action("ServiceProviders", "Home", new { idd = "26" })">مفسر أحلام</a>
                         </li>
                         <li>
-                            <a class="dropdown-item" href="@Url.Action("ServicesPage", "Services", new { page = "wireLine" })">مفتي شرعي</a>
+                            <a class="dropdown-item" href="@Url.Action("ServiceProviders", "Home", new { idd = "28" })">مفتي شرعي</a>
                         </li>
                         <li>
-                            <a class="dropdown-item" href="@Url.Action("ServicesPage", "Services", new { page = "wireLine" })">مستشار أسري</a>
+                            <a class="dropdown-item" href="@Url.Action("ServiceProviders", "Home", new { idd = "29" })">مستشار أسري</a>
                         </li>
                         <li>
-                            <a class="dropdown-item" href="@Url.Action("استشارة طبية", "Services", new { page = "wireLine" })">مستشار طبي</a>
+                            <a class="dropdown-item" href="@Url.Action("ServiceProviders", "Home", new { idd = "36" })">مستشار طبي</a>
                         </li>
                         <li>
-                            <a class="dropdown-item" href="@Url.Action("استشارة قانونية", "Services", new { page = "wireLine" })">مستشار قانوني</a>
+                            <a class="dropdown-item" href="@Url.Action("ServiceProviders", "Home", new { idd = "37" })">مستشار قانوني</a>
                         </li>
                         <li>
-                            <a class="dropdown-item" href="@Url.Action("استشارة قانونية", "Services", new { page = "wireLine" })">راقي شرعي</a>
+                            <a class="dropdown-item" href="@Url.Action("ServiceProviders", "Home", new { idd = "27" })">راقي شرعي</a>
                         </li>
 
                     </ul>
@@ -141,7 +150,7 @@
 
                 <li class="nav-item">
 
-                    <a class="nav-link" href="https://play.google.com/store/apps/details?id=com.faserholmak.alzeker.faserholmak&hl=ar&gl=US" data-toggle="modal">
+                    <a class="nav-link" href="@Url.Action("AboutUs","Home")" >
                         تواصل معنا
                     </a>
                 </li>
@@ -154,13 +163,13 @@
     </div>
 
     <div class="footer" style="background-color:#323545;padding: 50px 0 20px 0;">
-        <div class="row" style="direction:rtl">
+        <div class="row" style="direction:rtl;text-align:right">
             <div class="col-md" style="direction:rtl;color:white;font-size:large">
                 <div style="margin-right:30px">
-                    <span style="direction:rtl;float:right"> يوفر تطبيق اهل الذكر الخدمات التالية:</span>
-                    @*<span style="direction:rtl;float:right"> الفتاوى الشرعية وفق الكتاب والسنة النبوية يمكن التواصل المباشر مع المفتين</span>
-                    <span style="direction:rtl;float:right"> تفسير الأحلام وتعبير الرؤى يمكن التواصل المباشر مع المختصين لتفسير حلمك وفك الرموز</span>
-                    <span style="direction:rtl;float:right"> رقية شرعية وفق الكتاب والسنة النبوية يمكن التواصل المباشر مع الرقاة الشرعيين</span>*@
+                    <p>يوفر تطبيق اهل الذكر الخدمات التالية :</p>
+                    <p style="font-size:small">1- تفسير الأحلام وتعبير الرؤى يمكن التواصل المباشر مع المختصين لتفسير حلمك وفك الرموز</p>
+                    <p style="font-size:small">2- الفتاوى الشرعية وفق الكتاب والسنة النبوية يمكن التواصل المباشر مع المفتين</p>
+                    <p style="font-size:small">3- رقية شرعية وفق الكتاب والسنة النبوية يمكن التواصل المباشر مع الرقاة الشرعيين</p>
                 </div>
 
             </div>
@@ -202,7 +211,7 @@
 
         </div>
     </div>
-
+    @RenderSection("scripts", required: false)
 </body>
 </html>
 
@@ -220,7 +229,7 @@
     </div>
 </div>
 <div class="modal fade" id="myModal2" role="dialog">
-    <div class="modal-dialog modal-sm">
+    <div class="modal-dialog modal-md">
         <div class="modal-content">
 
             <div class="modal-body text-center">
