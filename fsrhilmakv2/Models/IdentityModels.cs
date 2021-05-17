@@ -180,6 +180,8 @@ namespace fsrhilmakv2.Models
         public System.Data.Entity.DbSet<ScheduledJob> ScheduledJobs { get; set; }
 
         public System.Data.Entity.DbSet<ScheduledJobLog> ScheduledJobLogs { get; set; }
+
+        public System.Data.Entity.DbSet<Quran> Qurans { get; set; }
     }
 
 }

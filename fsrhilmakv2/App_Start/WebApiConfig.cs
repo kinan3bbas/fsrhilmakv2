@@ -45,6 +45,7 @@ namespace fsrhilmakv2
                 builder.EntitySet<Payment>("Payments");
                 builder.EntitySet<IdentityUserClaim>("Claims");
                 builder.EntitySet<Competition>("Competitions");
+                builder.EntitySet<Quran>("Qurans");
 
             config.Routes.MapODataServiceRoute("odata", "odata", builder.GetEdmModel());
             config.Formatters.JsonFormatter.SerializerSettings.ReferenceLoopHandling= Newtonsoft.Json.ReferenceLoopHandling.Ignore;

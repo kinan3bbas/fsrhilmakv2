@@ -2,11 +2,14 @@
 using fsrhilmakv2.Extra;
 using fsrhilmakv2.Models;
 using fsrhilmakv2.ViewModels;
+using Newtonsoft.Json.Linq;
 using NodaTime;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
@@ -38,7 +41,8 @@ namespace fsrhilmakv2.Controllers
             {
                 core.throwExcetpion("Id is null");
             }
-            Service service = db.Services.Where(a => a.id.Equals(temp.id))
+            Service service = db.Services.Where(a => a.id.Equals(temp.id)).Include(a=>a.ServiceProvider)
+                .Include(a=>a.UserWork)
                 .FirstOrDefault();
             if (temp.Explanation.Equals("") || temp.Explanation == null)
             {
@@ -68,9 +72,64 @@ namespace fsrhilmakv2.Controllers
             //}
 
             SaveService(service);
+            if (!service.PrivateService) {
+                PostToFacebook(service);
+            }
+
             return service;
         }
 
+        public void PostToFacebook(Service sr)
+        {
+            Facebookk fb = new Facebookk();
+            String _hashtag = sr.UserWork.AdjectiveName;
+            String hashtag = _hashtag.Replace(" ", "_");
+            fb.PublishSimplePost("نص الخدمة: " + "\n" + sr.Description + "\n"
+                + "التفسير:" + "\n" + sr.Explanation + "\n"
+                + "المفسر: " + "  " + sr.ServiceProvider.Name + "\n"
+                + "https://ahalzekr.com/Home/Service?idd=" + sr.id + "\n" +
+                "يوفر موقع أهل الذكر الخدمات التالية: \n 1- تفسير الأحلام وتعبير الرؤى يمكن التواصل المباشر مع المختصين لتفسير حلمك وفك الرموز\n 2- الفتاوى الشرعية وفق الكتاب والسنة النبوية يمكن التواصل المباشر مع المفتين\n 3- رقية شرعية وفق الكتاب والسنة النبوية يمكن التواصل المباشر مع الرقاة الشرعيين\n قم بزيارة موقع أهل الذكر"
+                + "\n https://ahalzekr.com/"
+                +"\n" + getRandomAyayAsync().Result+
+                "\n #"+hashtag);
+        }
+
+        //[Route("GetRandom")]
+        //[HttpGet]
+        //[AllowAnonymous]
+        public async Task<string> getRandomAyayAsync()
+        {
+            Random r = new Random();
+            int x = r.Next(1, 6236);
+            string result = "";
+
+            String URL = "http://api.alquran.cloud/ayah/" + x;
+            HttpClient client = new HttpClient();
+            client.BaseAddress = new Uri(URL);
+
+            // Add an Accept header for JSON format.
+            client.DefaultRequestHeaders.Accept.Add(
+            new MediaTypeWithQualityHeaderValue("application/json"));
+            var responseTask = client.GetAsync("");
+            responseTask.Wait();
+
+            var response = responseTask.Result; // Blocking call! Program will wait here until a response is received or a timeout occurs.
+            if (response.IsSuccessStatusCode)
+            {
+                string responseBody =await response.Content.ReadAsStringAsync();
+                JObject json =  JObject.Parse(responseBody);
+                JObject json2= JObject.Parse(json["data"].ToString());
+                result = json2["text"].ToString();
+
+            }
+
+
+            // Make any other calls using HttpClient here.
+
+            // Dispose once all HttpClient calls are complete. This is not necessary if the containing object will be disposed of; for example in this case the HttpClient instance will be disposed automatically when the application terminates so the following call is superfluous.
+            client.Dispose();
+            return result;
+        }
         //****************************** Service Receive *************************************
         // POST api/ActionsController/ReceiveService
         [Route("ReceiveService")]
@@ -664,11 +723,31 @@ namespace fsrhilmakv2.Controllers
 
         public CompetitionViewModel GetCompetitionMapping(Competition comp)
         {
+            List<double> prizes = new List<double> { comp.prize.rank1, comp.prize.rank2, comp.prize.rank3, comp.prize.rank4, comp.prize.rank5, comp.prize.rank6, comp.prize.rank7,
+            comp.prize.rank8,comp.prize.rank9,comp.prize.rank10,comp.prize.rank11,comp.prize.rank12,comp.prize.rank13,comp.prize.rank14,comp.prize.rank15,comp.prize.rank16,comp.prize.rank17,
+            comp.prize.rank18,comp.prize.rank19,comp.prize.rank20,comp.prize.rank21,comp.prize.rank22,comp.prize.rank23,comp.prize.rank24,comp.prize.rank25,
+            comp.prize.rank26,comp.prize.rank27,comp.prize.rank28,comp.prize.rank29,comp.prize.rank30,comp.prize.rank31,
+            comp.prize.rank32,comp.prize.rank33,comp.prize.rank34,comp.prize.rank35,comp.prize.rank36,comp.prize.rank37,comp.prize.rank38,comp.prize.rank39,comp.prize.rank40,comp.prize.rank41,comp.prize.rank42,comp.prize.rank43,
+            comp.prize.rank44,comp.prize.rank45,comp.prize.rank46,comp.prize.rank47,comp.prize.rank48,comp.prize.rank49,comp.prize.rank50,
+            comp.prize.rank51, comp.prize.rank52, comp.prize.rank53, comp.prize.rank54, comp.prize.rank55, comp.prize.rank56, comp.prize.rank57,comp.prize.rank58,comp.prize.rank59,comp.prize.rank60
+            ,comp.prize.rank61, comp.prize.rank62, comp.prize.rank63, comp.prize.rank64, comp.prize.rank65, comp.prize.rank66, comp.prize.rank67,
+            comp.prize.rank68,comp.prize.rank69,comp.prize.rank70,
+
+            comp.prize.rank71, comp.prize.rank72, comp.prize.rank73, comp.prize.rank74, comp.prize.rank75, comp.prize.rank76, comp.prize.rank77,
+            comp.prize.rank78,comp.prize.rank79,comp.prize.rank80,
+
+            comp.prize.rank81, comp.prize.rank82, comp.prize.rank83, comp.prize.rank84, comp.prize.rank85, comp.prize.rank86, comp.prize.rank87,
+            comp.prize.rank88,comp.prize.rank89,comp.prize.rank90,
+
+            comp.prize.rank91, comp.prize.rank92, comp.prize.rank93, comp.prize.rank94, comp.prize.rank95, comp.prize.rank96, comp.prize.rank97,
+            comp.prize.rank98,comp.prize.rank99,comp.prize.rank100 }
+
+            ;
             CompetitionViewModel temp = new CompetitionViewModel();
             temp.duration = comp.duration;
             temp.EndDate = comp.EndDate.ToUniversalTime() ;
             temp.StartDate = comp.StartDate.Value.ToUniversalTime();
-            temp.FirstPlacePrice = comp.prize.rank1;
+            temp.prizes = prizes;
             temp.Goal = comp.Goal;
             temp.repeat = comp.repeat;
             temp.Status = comp.Status;
@@ -916,6 +995,16 @@ namespace fsrhilmakv2.Controllers
             receivers.Add(email);
             EmailHelper.sendEmail(receivers, subject, body);
             return true;
+
+        }
+
+
+        [Route("GetQuran")]
+        [HttpGet]
+        [AllowAnonymous]
+        public List<Quran> GetQuran()
+        {
+            return (db.Qurans.ToList()); 
 
         }
     }

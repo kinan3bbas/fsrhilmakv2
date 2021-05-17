@@ -28,10 +28,16 @@ namespace fsrhilmakv2.ViewModels
 
         public UserWork UserWork { get; set; }
 
-        public double FirstPlacePrice { get; set; }
+        //public double FirstPlacePrice { get; set; }
+
+        //public double SecondPlacePrice { get; set; }
+
+        //public double ThirdPlacePrice { get; set; }
+
+            public List<double> prizes { get; set; }
 
 
-        
+
 
         public int duration { get; set; }
 

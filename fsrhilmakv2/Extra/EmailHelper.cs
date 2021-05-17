@@ -14,22 +14,22 @@ namespace fsrhilmakv2.Extra
         {
             MailMessage m = new MailMessage();
             SmtpClient sc = new SmtpClient();
-            m.From = new MailAddress("info@fsrhilmak.com");
+            m.From = new MailAddress("info@ahalzekr.com");
             foreach (var item in to)
             {
                 m.To.Add(item);
             }
             m.Subject = subject;
             m.Body = body;
-            sc.Host = "mail.fsrhilmak.com";
+            sc.Host = "mail5018.site4now.net";
             string str1 = "gmail.com";
-            string str2 = "info@fsrhilmak.com";
+            string str2 = "info@ahalzekr.com";
             if (str2.Contains(str1))
             {
                 try
                 {
                     sc.Port = 587;
-                    sc.Credentials = new System.Net.NetworkCredential("info@fsrhilmak.com", "822357kenan$");
+                    sc.Credentials = new System.Net.NetworkCredential("info@ahalzekr.com", "822357kenan$");
                     sc.EnableSsl = true;
                     sc.Send(m);
                 }
@@ -44,7 +44,7 @@ namespace fsrhilmakv2.Extra
                 try
                 {
                     sc.Port = 25;
-                    sc.Credentials = new System.Net.NetworkCredential("info@fsrhilmak.com", "822357kenan$");
+                    sc.Credentials = new System.Net.NetworkCredential("info@ahalzekr.com", "822357kenan$");
                     sc.EnableSsl = false;
                     sc.Send(m);
                 }
@@ -59,7 +59,7 @@ namespace fsrhilmakv2.Extra
             log.LastModificationDate = DateTime.Now;
             log.Subject = subject;
             log.Body = body;
-            log.Sender = "info@fsrhilmak.com";
+            log.Sender = "info@ahalzekr.com";
             log.Receiver = string.Join(";", to.ToArray());
             db.EmailLogs.Add(log);
             db.SaveChanges();

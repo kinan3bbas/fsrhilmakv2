@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Net.Mime;
 using System.Text;
@@ -70,6 +71,8 @@ namespace fsrhilmakv2.Controllers
         public ActionResult Main()
         {
             Statistics result = db.Statistics.Where(a => a.status.Equals("Active")).FirstOrDefault();
+            
+            
 
             return View(result);
         }
