@@ -43,12 +43,12 @@ namespace ControlPanel.Controllers
             else
                 competitions = competitions.Where(a => !a.Status.Equals("Finished")).OrderByDescending(r => r.CreationDate).ToList();
 
-            if (goal != null && !goal.Equals(""))
+            if (goal != null && !goal.Equals("")&& !goal.Equals("All"))
                 competitions = competitions.Where(a => a.Goal.Equals(goal)).OrderByDescending(r => r.CreationDate).ToList();
 
 
 
-            if (UserWorkId != null)
+            if (UserWorkId != null&& UserWorkId != 0)
             {
 
                 competitions = competitions.Where(a => a.UserWorkId.Equals(UserWorkId)).OrderByDescending(r => r.CreationDate).ToList();
@@ -323,12 +323,12 @@ namespace ControlPanel.Controllers
 
         public JsonResult FinishCompetitionJob()
         {
-            
+            sendEmail2("The Job is Running now", "gerranzuv@gmail.com");
             //DateTime now = DateTime.Now.ToUniversalTime().AddHours(3);
             List<Competition> Competitions = db.Competitions.Where(a => a.Status.Equals("Active")&&a.EndDate.CompareTo(DateTime.Now) <=0)
                 .Include(a => a.prize)
                 .Include(a => a.UserWork).ToList();
-            sendEmail2("Number of competitions : "+ Competitions.Count(),"gerranzuv@gmail.com");
+            //sendEmail2("Number of competitions : "+ Competitions.Count(),"gerranzuv@gmail.com");
             foreach (var Competition in Competitions)
             {
                 List<UserWorkBinding> bindings = db.UserWorkBindings.Where(a => a.UserWorkId == Competition.UserWorkId && a.User.Status != "Deleted"

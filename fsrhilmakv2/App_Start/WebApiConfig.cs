@@ -10,6 +10,7 @@ using System.Web.Http.OData.Extensions;
 using fsrhilmakv2.Models;
 using System.Security.Claims;
 using Microsoft.AspNet.Identity.EntityFramework;
+using System.Web.Http.Cors;
 
 namespace fsrhilmakv2
 {
@@ -22,6 +23,8 @@ namespace fsrhilmakv2
             config.SuppressDefaultHostAuthentication();
             config.Filters.Add(new HostAuthenticationFilter(OAuthDefaults.AuthenticationType));
 
+            var cors = new EnableCorsAttribute("*", "*", "*");
+            config.EnableCors(cors);
             // Web API routes
             config.MapHttpAttributeRoutes();
 

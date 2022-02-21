@@ -91,6 +91,8 @@ namespace fsrhilmakv2.Models
         public long ServiceProviderPoints { get; set; }
 
         public long numberOfFreeServices { get; set; }
+
+        public int rank { get; set; }
     }
 
 

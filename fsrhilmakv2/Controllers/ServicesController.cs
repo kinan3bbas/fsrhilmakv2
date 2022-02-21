@@ -134,6 +134,7 @@ namespace fsrhilmakv2.Controllers
             Service.ModifierId = core.getCurrentUser().Id;
             //Service.Creator = core.getCurrentUser();
             //Service.Modifier = core.getCurrentUser();
+            Service.PublicServiceAction = true;
             if (!preventRepetation(Service)) {
                 db.Services.Add(Service);
                 addComment(Service.id, Service.ServiceProviderId, Service.ServicePathId);

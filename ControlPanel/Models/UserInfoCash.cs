@@ -1,13 +1,28 @@
-﻿using ControlPanel.Models;
+﻿using ControlPanel.Extras;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
-namespace ControlPanel.ViewModels
+namespace ControlPanel.Models
 {
-    public class UserInfoViewModel
+    public class UserInfoCash
     {
+
+        [Key]
+        public int idd
+        {
+            get; set;
+        }
+
+        [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}")]
+        [Display(Name = "Creation Date")]
+        public DateTime CreationDate { get; set; }
+
+        [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}")]
+        [Display(Name = "Last Modification Date")]
+        public DateTime LastModificationDate { get; set; }
         public string Email { get; set; }
 
         public string PersonalDescription { get; set; }
@@ -31,10 +46,8 @@ namespace ControlPanel.ViewModels
 
         public DateTime? JoiningDate { get; set; }
 
-        public DateTime? CreationDate { get; set; }
-
-
         public string PictureId { get; set; }
+        public string PictureFileName { get; set; }
 
         public double AvgServicesInOneDay { get; set; }
 
@@ -56,8 +69,6 @@ namespace ControlPanel.ViewModels
 
         public Boolean VerifiedUser { get; set; }
 
-        public List<UserWork> UserWorks { get; set; }
-        public List<string> UserRoles { get; set; }
 
         public double Speed { get; set; }
 
@@ -77,14 +88,12 @@ namespace ControlPanel.ViewModels
 
         public double AvailableBalance { get; set; }
 
-        public double CompetitionBalance { get; set; }
-
         public long ServiceProviderPoints { get; set; }
 
-        public DateTime dateOfLastService { get; set; }
+        public long numberOfFreeServices { get; set; }
 
         public int rank { get; set; }
-
     }
+
 
 }

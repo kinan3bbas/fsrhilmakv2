@@ -255,6 +255,8 @@ namespace ControlPanel.Controllers
                 temp.JobStatus = service.JobStatus;
                 temp.ServiceProviderId = service.ServiceProviderId;
                 temp.Country = service.Country;
+                temp.Description = service.Description;
+                temp.PublicServiceAction = service.PublicServiceAction;
                 db.Entry(temp).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

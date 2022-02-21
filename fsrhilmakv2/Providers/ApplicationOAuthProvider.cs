@@ -40,7 +40,7 @@ namespace fsrhilmakv2.Providers
             //        social = true;
             //}
             //ApplicationUser user = await userManager.FindAsync(context.UserName, social ? temp.SocialToken : context.Password);
-
+            context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { "*" });
             ApplicationUser user = await userManager.FindAsync(context.UserName,context.Password);
             if (user == null)
             {

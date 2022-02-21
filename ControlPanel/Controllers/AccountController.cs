@@ -441,6 +441,27 @@ namespace ControlPanel.Controllers
             return View(result);
         }
 
+
+        public ActionResult ServiceProviderV2(int? UserWorkId, bool? verified, String fromDate = "", String toDate = "")
+        {
+
+            DateTime from = new DateTime(2000, 1, 1);
+            DateTime to = new DateTime(3000, 1, 1);
+            if (!fromDate.Equals("") && fromDate != null)
+            {
+                DateTime.TryParse(fromDate, out from);
+            }
+            if (!toDate.Equals("") && toDate != null)
+            {
+                DateTime.TryParse(toDate, out to);
+            }
+            List<UserInfoCash> users = db.UserInfoCashs.ToList();
+           
+           
+            ViewBag.UserWorkId = new SelectList(db.UserWorks.Where(a => a.Enabled), "id", "Name");
+            return View(users);
+        }
+
         //// GET: /Account/Clients
         public ActionResult Clients(int? UserWorkId, int? page, int? size,String fromDate = "", String toDate = "")
         {
@@ -585,7 +606,8 @@ namespace ControlPanel.Controllers
                 UserName=user.UserName,
                 VerifiedUser=user.verifiedInterpreter,
                 ServiceProviderPoints=user.ServiceProviderPoints,
-                dateOfLastService=dateOfTheLastService
+                dateOfLastService=dateOfTheLastService,
+                rank=user.rank
 
 
 
@@ -659,6 +681,7 @@ namespace ControlPanel.Controllers
 
                 temp.Email = user.Email;
                 temp.CreationDate = user.CreationDate;
+                temp.rank = user.rank;
                 db.Entry(temp).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("PersonalPage", new { userId = user.Id });

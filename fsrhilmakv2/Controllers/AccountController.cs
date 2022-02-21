@@ -801,6 +801,7 @@ namespace fsrhilmakv2.Controllers
                 SocialToken = user.SocialToken,
                 CreationDate = DateTime.Now,
                 LastModificationDate=DateTime.Now,
+                rank=user.rank
                 //TotalBalance = balance.TransferedBalance,
                 //AvailableBalance = balance.DoneBalance,
                 //SuspendedBalance = balance.SuspendedBalance,
@@ -850,7 +851,7 @@ namespace fsrhilmakv2.Controllers
             && a.User.Type.Equals(CoreController.UserType.Service_Provider.ToString()) && a.User.verifiedInterpreter
             ).OrderByDescending(a => a.CreationDate).Include(a=>a.User).Select(a => a.User.Id).ToList(); ;
             List<UserInfoCash> users = db.UserInfoCashs.ToList();
-            var genericResutl = new { Users = users.Where(a=>bindings.Contains(a.Id)).OrderByDescending(a => a.Speed).Skip(skip).Take(top), Count = count };
+            var genericResutl = new { Users = users.Where(a=>bindings.Contains(a.Id)).OrderBy(a=>a.rank).ThenByDescending(a=>a.Speed).Skip(skip).Take(top), Count = count };
             return Ok(genericResutl);
         }
 

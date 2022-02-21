@@ -88,6 +88,9 @@ namespace fsrhilmakv2.Models
 
         ////public List<Service> Services { get; set; }
 
+
+        public int rank { get; set; }
+
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager, string authenticationType)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType

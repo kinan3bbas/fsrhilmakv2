@@ -1,4 +1,4 @@
-﻿@model List<ControlPanel.ViewModels.UserInfoViewModel>
+﻿@model List<ControlPanel.Models.UserInfoCash>
 
 @{
     ViewBag.Title = "ServiceProvider";
@@ -41,10 +41,7 @@
                 @Html.TextBox("toDate", null, new { type = "date", @class = "form-control m-input m-input--air" })
 
             </div>
-            <div class="col-md-4">
-                @Html.Label("مهنة المستخدم")
-                @Html.DropDownList("UserWorkId", null, htmlAttributes: new { @class = "form-control m-input m-input--air" })
-            </div>
+            
         </div>
         <div class="row" style="margin-top:10px">
             <div class="col-md-4">
@@ -57,6 +54,11 @@
                 
             </div>
             <div class="col-md-4">
+                
+                
+
+                <a class="btn btn-success" href="https://ahalzekr.com/api/actions/RunUserCashJob" target="_blank">Refresh the values</a>
+
             </div>
 
         </div>
@@ -141,9 +143,6 @@
             </th>
 
             <th>
-                تاريخ آخر خدمة مقدمة
-            </th>
-            <th>
                ترتيب المفسر
             </th>
 
@@ -170,7 +169,6 @@
             <th>@item.SuspendedBalance</th>
             <th>@item.TotalBalance</th>
             <th>@item.AvailableBalance</th>
-            <th>@item.dateOfLastService.ToShortDateString()</th>
             <th>@item.rank</th>
         </tr>
         }

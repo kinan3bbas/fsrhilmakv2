@@ -90,6 +90,7 @@ namespace fsrhilmakv2.Controllers
                 + "https://ahalzekr.com/Home/Service?idd=" + sr.id + "\n" +
                 "يوفر موقع أهل الذكر الخدمات التالية: \n 1- تفسير الأحلام وتعبير الرؤى يمكن التواصل المباشر مع المختصين لتفسير حلمك وفك الرموز\n 2- الفتاوى الشرعية وفق الكتاب والسنة النبوية يمكن التواصل المباشر مع المفتين\n 3- رقية شرعية وفق الكتاب والسنة النبوية يمكن التواصل المباشر مع الرقاة الشرعيين\n قم بزيارة موقع أهل الذكر"
                 + "\n https://ahalzekr.com/"
+                 + "\n" + "بلغوا عني ولو بآية" 
                 +"\n" + getRandomAyayAsync().Result+
                 "\n #"+hashtag);
         }
@@ -998,6 +999,18 @@ namespace fsrhilmakv2.Controllers
 
         }
 
+
+        [AllowAnonymous]
+        [HttpGet]
+        [Route("RunUserCashJob")]
+        public IHttpActionResult RunUserCashJob()
+        {
+
+
+            jobLibrary.GenenrateUserInfoCashJob();
+            db.SaveChanges();
+            return Ok();
+        }
 
         [Route("GetQuran")]
         [HttpGet]

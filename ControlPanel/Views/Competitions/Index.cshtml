@@ -27,7 +27,7 @@
 
             @Html.DropDownList("Status", new List<SelectListItem>
                            { new SelectListItem { Text="Active", Value="Active"},
-                            new SelectListItem{Text="Done", Value="Done"}
+                            new SelectListItem{Text="Done", Value="Finished"}
                       }, new { @class = "form-control m-input m-input--air" })
         </div>
 
@@ -36,7 +36,9 @@
             <b>الهدف</b>
 
             @Html.DropDownList("Goal", new List<SelectListItem>
-                                            { new SelectListItem { Text="أسرع مفسر", Value="Fastest"},
+                                            {
+                                              new SelectListItem { Text="الكل", Value="All"},
+                                              new SelectListItem { Text="أسرع مفسر", Value="Fastest"},
                                               new SelectListItem{Text="أعلى مفسر تقييم", Value="Highest_Rating"},
                                               new SelectListItem{Text="أعلى معدل طلب", Value="AVG_Request"},
                                               new SelectListItem{Text="أعلى خدمات مفسرة", Value="Most_Done_Services"}
@@ -46,10 +48,21 @@
         <div class="col-md-4">
             <b>التخصص</b>
 
-           @Html.DropDownList("UserWorkId", null, htmlAttributes: new { @class = "form-control m-input m-input--air" })
+           @*@Html.DropDownList("UserWorkId", null, htmlAttributes: new { @class = "form-control m-input m-input--air" })*@
+
+            @Html.DropDownList("UserWorkId", new List<SelectListItem>{
+               new SelectListItem { Text="الكل", Value="0"},
+               new SelectListItem { Text="تفسير أحلام", Value="26"},
+               new SelectListItem { Text="رقية", Value="27"},
+               new SelectListItem { Text="فتوى", Value="28"},
+               new SelectListItem { Text="استشارة أسرية", Value="29"},
+               new SelectListItem { Text="استشارة أسرية", Value="36"},
+               new SelectListItem { Text="استشارة قانونية", Value="37"}
+           }, new { @class = "form-control m-input m-input--air" })
+
+            
+
             </div>
-
-
         <div class="col-md-4">
             
             <b>من تاريخ</b>
